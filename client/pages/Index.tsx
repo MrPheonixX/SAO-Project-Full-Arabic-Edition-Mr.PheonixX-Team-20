@@ -103,7 +103,7 @@ export default function Index() {
             <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-6">
               النسخة العربية الحصرية والكاملة من سيف آرت أونلاين وساو بروجرسيف
               <br />
-              مترجمة ومراجعة بواسطة فريق MrPheonixX ب��ستخدام DeepL Premium
+              مترجمة ومراجعة بواسطة فريق MrPheonixX باستخدام DeepL Premium
             </p>
             <Badge variant="outline" className="text-blue-400 border-blue-400">
               🔥 حصري - Exclusive Content
@@ -167,7 +167,10 @@ export default function Index() {
                 <Badge variant="secondary">أسونا</Badge>
                 <Badge variant="secondary">مستمر</Badge>
               </div>
-              <Button className="w-full bg-gradient-to-r from-violet-600 to-pink-600 hover:from-violet-500 hover:to-pink-500 group-hover:scale-105 transition-all">
+              <Button
+                className="w-full bg-gradient-to-r from-violet-600 to-pink-600 hover:from-violet-500 hover:to-pink-500 group-hover:scale-105 transition-all"
+                onClick={() => navigate("/progressive")}
+              >
                 <BookOpen className="w-4 h-4 mr-2" />
                 ابدأ القراءة - Start Reading
               </Button>
