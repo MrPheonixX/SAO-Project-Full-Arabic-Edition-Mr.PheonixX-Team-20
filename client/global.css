@@ -99,9 +99,153 @@
 @layer base {
   * {
     @apply border-border;
+    font-family: 'Noto Sans Arabic', system-ui, sans-serif;
   }
 
   body {
     @apply bg-background text-foreground;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
   }
+
+  /* Security: Disable right-click and text selection */
+  * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Allow text selection for input fields */
+  input, textarea, [contenteditable] {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+  }
+
+  /* Print protection */
+  @media print {
+    * {
+      display: none !important;
+    }
+  }
+}
+
+/* SAO Theme Variants */
+.light {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 217.2 91.2% 59.8%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 217.2 91.2% 59.8%;
+  --radius: 0.5rem;
+}
+
+.sepia {
+  --background: 43 45% 94%;
+  --foreground: 30 10% 20%;
+  --card: 43 45% 96%;
+  --card-foreground: 30 10% 20%;
+  --popover: 43 45% 96%;
+  --popover-foreground: 30 10% 20%;
+  --primary: 38 92% 50%;
+  --primary-foreground: 43 45% 96%;
+  --secondary: 43 45% 90%;
+  --secondary-foreground: 30 10% 20%;
+  --muted: 43 45% 90%;
+  --muted-foreground: 30 10% 50%;
+  --accent: 43 45% 90%;
+  --accent-foreground: 30 10% 20%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 43 45% 96%;
+  --border: 43 20% 85%;
+  --input: 43 20% 85%;
+  --ring: 38 92% 50%;
+  --radius: 0.5rem;
+}
+
+/* SAO Animation Effects */
+@keyframes sao-glow {
+  0% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8); }
+  100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+}
+
+.sao-glow {
+  animation: sao-glow 2s ease-in-out infinite;
+}
+
+/* Security overlays */
+.security-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+}
+
+/* Page flip animation styles */
+.page-flip-container {
+  perspective: 1000px;
+}
+
+.page-flip {
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.page-flip.flipped {
+  transform: rotateY(-180deg);
+}
+
+/* Scroll reading mode */
+.scroll-reader {
+  max-height: 80vh;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.scroll-reader::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll-reader::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.scroll-reader::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.6);
+  border-radius: 4px;
+}
+
+.scroll-reader::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.8);
 }
