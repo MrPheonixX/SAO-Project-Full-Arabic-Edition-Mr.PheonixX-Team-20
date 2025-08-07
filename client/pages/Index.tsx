@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Sword, BookOpen, Users, Star, Shield, Play, ExternalLink } from "lucide-react";
 
 export default function Index() {
+  const navigate = useNavigate();
   const [currentTheme, setCurrentTheme] = useState("dark");
   const [showWelcome, setShowWelcome] = useState(true);
 
