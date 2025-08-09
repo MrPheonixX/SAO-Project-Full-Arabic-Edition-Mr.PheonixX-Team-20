@@ -37,7 +37,9 @@ export const SecurityProvider: React.FC<SecurityProviderProps> = ({
       if (savedSetting !== null) {
         return savedSetting === 'true';
       }
-      return enableSecurity;
+      // Default to disabled for development comfort
+      localStorage.setItem('admin-security-enabled', 'false');
+      return false;
     } catch {
       return enableSecurity;
     }
