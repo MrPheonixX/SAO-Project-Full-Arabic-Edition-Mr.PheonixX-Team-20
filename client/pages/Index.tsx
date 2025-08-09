@@ -225,7 +225,7 @@ export default function Index() {
             </div>
 
             <h2 className="text-4xl font-bold mb-6 text-white">
-              الطبعة العربية الكاملة
+              ال��بعة العربية الكاملة
             </h2>
 
             <p className="text-xl text-gray-300 max-w-4xl mx-auto mb-8 leading-relaxed">
@@ -460,6 +460,172 @@ export default function Index() {
                   <BookOpen className="w-4 h-4 mr-2" />
                   استكشف
                 </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* Advanced Features Section */}
+        <section className="mb-20 max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h3 className="text-5xl font-bold mb-6 relative">
+              <span
+                className="bg-gradient-to-r from-blue-400 via-purple-400 to-violet-400 bg-clip-text text-transparent"
+                style={{
+                  backgroundSize: '200% 200%',
+                  animation: 'gradientShift 4s ease-in-out infinite'
+                }}
+              >
+                ✨ خصائص المنصة المتقدمة ✨
+              </span>
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 text-yellow-400 animate-bounce">⭐</div>
+              <div className="absolute -top-6 right-1/4 text-blue-400 animate-ping">💫</div>
+              <div className="absolute -top-3 left-1/4 text-purple-400 animate-pulse">✨</div>
+            </h3>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              تجربة فريدة في عالم ساو أونلاين مع أحدث التقنيات وأفضل الخدمات
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Reading Modes */}
+            <Card className="group relative overflow-hidden bg-gradient-to-br from-green-900/20 to-emerald-600/20 border-green-500/30 hover:border-green-400/50 transition-all duration-500 hover:scale-105">
+              <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <CardHeader className="relative z-10 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center animate-pulse">
+                  <BookOpen className="w-8 h-8 text-white" />
+                </div>
+                <CardTitle className="text-green-400 text-xl">تحويل لغة فوري</CardTitle>
+                <CardDescription className="text-gray-300">
+                  أسرع الخوارزميات للترجمة الفورية
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            {/* Security Protection */}
+            <Card className="group relative overflow-hidden bg-gradient-to-br from-purple-900/20 to-violet-600/20 border-purple-500/30 hover:border-purple-400/50 transition-all duration-500 hover:scale-105">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <CardHeader className="relative z-10 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-violet-500 rounded-full flex items-center justify-center animate-pulse">
+                  <Shield className="w-8 h-8 text-white" />
+                </div>
+                <CardTitle className="text-purple-400 text-xl">حماية مطلقة</CardTitle>
+                <CardDescription className="text-gray-300">
+                  منع النسخ و القراءة الآمنة 100%
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            {/* 3D Flipbook */}
+            <Card className="group relative overflow-hidden bg-gradient-to-br from-blue-900/20 to-cyan-600/20 border-blue-500/30 hover:border-blue-400/50 transition-all duration-500 hover:scale-105">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <CardHeader className="relative z-10 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center animate-pulse">
+                  <Sparkles className="w-8 h-8 text-white" />
+                </div>
+                <CardTitle className="text-blue-400 text-xl">قراءة ثلاثية الأبعاد</CardTitle>
+                <CardDescription className="text-gray-300">
+                  3D Flipbook، Slide، و Scroll
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            {/* Arabic TTS */}
+            <Card className="group relative overflow-hidden bg-gradient-to-br from-orange-900/20 to-amber-600/20 border-orange-500/30 hover:border-orange-400/50 transition-all duration-500 hover:scale-105">
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <CardHeader className="relative z-10 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-orange-500 to-amber-500 rounded-full flex items-center justify-center animate-pulse">
+                  <Play className="w-8 h-8 text-white" />
+                </div>
+                <CardTitle className="text-orange-400 text-xl">مجموع نطقي</CardTitle>
+                <CardDescription className="text-gray-300">
+                  قراءة الأصوات العربية بتقنيات متطورة
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            {/* Premium Translation */}
+            <Card className="group relative overflow-hidden bg-gradient-to-br from-red-900/20 to-rose-600/20 border-red-500/30 hover:border-red-400/50 transition-all duration-500 hover:scale-105">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <CardHeader className="relative z-10 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-red-500 to-rose-500 rounded-full flex items-center justify-center animate-pulse">
+                  <Crown className="w-8 h-8 text-white" />
+                </div>
+                <CardTitle className="text-red-400 text-xl">ترجمة مصرية</CardTitle>
+                <CardDescription className="text-gray-300">
+                  MrPheonixX Team × DeepL Premium
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            {/* PWA Support */}
+            <Card className="group relative overflow-hidden bg-gradient-to-br from-teal-900/20 to-cyan-600/20 border-teal-500/30 hover:border-teal-400/50 transition-all duration-500 hover:scale-105">
+              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <CardHeader className="relative z-10 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-full flex items-center justify-center animate-pulse">
+                  <Globe className="w-8 h-8 text-white" />
+                </div>
+                <CardTitle className="text-teal-400 text-xl">تطبيق كامل</CardTitle>
+                <CardDescription className="text-gray-300">
+                  PWA + قراءة بدون إنترنت
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+
+          {/* Feature Series Section */}
+          <div className="mt-16 grid md:grid-cols-2 gap-12">
+            {/* Available Series */}
+            <Card className="bg-gradient-to-br from-blue-900/30 to-purple-900/30 border-blue-500/40 backdrop-blur-xl">
+              <CardHeader>
+                <CardTitle className="text-2xl text-blue-400 text-center flex items-center justify-center gap-3">
+                  <BookOpen className="w-6 h-6 animate-bounce" />
+                  السلاسل المتاحة
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between p-3 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                  <span className="text-blue-300">Sword Art Online</span>
+                  <Badge className="bg-blue-500 text-white">26 مجلد</Badge>
+                </div>
+                <div className="flex items-center justify-between p-3 bg-purple-500/10 rounded-lg border border-purple-500/20">
+                  <span className="text-purple-300">SAO Progressive</span>
+                  <Badge className="bg-purple-500 text-white">8 مجلدات</Badge>
+                </div>
+                <div className="flex items-center justify-between p-3 bg-gray-500/10 rounded-lg border border-gray-500/20">
+                  <span className="text-gray-300">No Longer Human</span>
+                  <Badge className="bg-gray-500 text-white">مجلد واحد</Badge>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Statistics */}
+            <Card className="bg-gradient-to-br from-purple-900/30 to-pink-900/30 border-purple-500/40 backdrop-blur-xl">
+              <CardHeader>
+                <CardTitle className="text-2xl text-purple-400 text-center flex items-center justify-center gap-3">
+                  <TrendingUp className="w-6 h-6 animate-bounce" />
+                  إحصائيات في الوقت الفعلي
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-purple-400 mb-2 animate-pulse">
+                    {stats.readers.toLocaleString()}+
+                  </div>
+                  <p className="text-gray-300">قارئ نشط</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-blue-400 mb-2 animate-pulse">
+                    100,000+
+                  </div>
+                  <p className="text-gray-300">صفحة مترجمة</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-green-400 mb-2 animate-pulse">
+                    99.9%
+                  </div>
+                  <p className="text-gray-300">دقة الترجمة</p>
+                </div>
               </CardContent>
             </Card>
           </div>
