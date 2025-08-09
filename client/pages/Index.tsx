@@ -91,16 +91,40 @@ export default function Index() {
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-violet-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
 
-        {/* Floating particles */}
-        {Array.from({ length: 20 }, (_, i) => (
+        {/* Enhanced Quantum Particle Field */}
+        {Array.from({ length: 30 }, (_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-blue-400 rounded-full animate-ping"
+            className="absolute rounded-full"
             style={{
+              width: `${2 + Math.random() * 4}px`,
+              height: `${2 + Math.random() * 4}px`,
+              background: ['#3b82f6', '#8b5cf6', '#06b6d4', '#f59e0b', '#10b981'][i % 5],
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
+              boxShadow: `0 0 ${10 + Math.random() * 20}px currentColor`,
+              animation: `
+                quantumFloat ${3 + Math.random() * 4}s ease-in-out infinite,
+                quantumGlow ${2 + Math.random() * 2}s ease-in-out infinite alternate
+              `,
               animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`,
+            }}
+          ></div>
+        ))}
+
+        {/* Interconnected Quantum Lines */}
+        {Array.from({ length: 8 }, (_, i) => (
+          <div
+            key={`line-${i}`}
+            className="absolute bg-gradient-to-r from-transparent via-blue-400/20 to-transparent"
+            style={{
+              width: `${100 + Math.random() * 200}px`,
+              height: '1px',
+              top: `${20 + Math.random() * 60}%`,
+              left: `${Math.random() * 70}%`,
+              transform: `rotate(${Math.random() * 45}deg)`,
+              animation: `quantumPulse ${4 + Math.random() * 2}s ease-in-out infinite`,
+              animationDelay: `${Math.random() * 2}s`,
             }}
           ></div>
         ))}
@@ -560,7 +584,7 @@ export default function Index() {
 
             <CardContent className="relative z-10">
               <p className="text-gray-300 mb-6 leading-relaxed">
-                نفس أحداث ساو ولكن من منظور أسونا مع تفاصيل أعمق وقصص إضافية لم
+                نفس أحداث ساو ولكن من منظور أسونا مع تفاصيل أعمق وقصص إضافية ��م
                 تُروى من قبل. كل طابق يُحكى بتفاصيل مذهلة.
               </p>
 
@@ -592,7 +616,7 @@ export default function Index() {
                 onClick={() => navigate("/progressive")}
               >
                 <Play className="w-5 h-5 mr-2" />
-                ابدأ القراءة الآن
+                ابدأ ا��قراءة الآن
               </Button>
             </CardContent>
           </Card>
