@@ -249,7 +249,68 @@ export default function Login() {
             </CardHeader>
 
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Password Recovery Form */}
+              {isRecoveryMode ? (
+                <form onSubmit={handlePasswordRecovery} className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      البريد الإلكتروني
+                    </label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                      <input
+                        type="email"
+                        value={recoveryEmail}
+                        onChange={(e) => setRecoveryEmail(e.target.value)}
+                        className="w-full pl-10 pr-4 py-2 bg-black/40 border border-gray-500/30 rounded-md text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none"
+                        placeholder="أدخل بريدك الإلكتروني"
+                        dir="ltr"
+                      />
+                    </div>
+                  </div>
+
+                  {recoveryMessage && (
+                    <div className={`p-3 rounded-md text-sm ${
+                      recoveryMessage.includes('تم')
+                        ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+                        : 'bg-red-500/20 text-red-400 border border-red-500/30'
+                    }`}>
+                      {recoveryMessage}
+                    </div>
+                  )}
+
+                  <Button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 py-3 text-lg font-semibold"
+                  >
+                    {isLoading ? (
+                      <div className="flex items-center space-x-2">
+                        <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>
+                        <span>جاري الإرسال...</span>
+                      </div>
+                    ) : (
+                      "إرسال رابط الاستعادة"
+                    )}
+                  </Button>
+
+                  <div className="text-center">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsRecoveryMode(false);
+                        setRecoveryMessage("");
+                        setRecoveryEmail("");
+                      }}
+                      className="text-blue-400 hover:text-blue-300 text-sm"
+                    >
+                      العودة لتسجيل الدخول
+                    </button>
+                  </div>
+                </form>
+              ) : (
+                /* Normal Login/Register Form */
+                <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Username */}
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
@@ -384,16 +445,26 @@ export default function Login() {
                 </Button>
 
                 {/* Switch between Login/Register */}
-                <div className="text-center">
+                <div className="text-center space-y-2">
                   <button
                     type="button"
                     onClick={() => setIsLogin(!isLogin)}
-                    className="text-blue-400 hover:text-blue-300 text-sm"
+                    className="text-blue-400 hover:text-blue-300 text-sm block w-full"
                   >
                     {isLogin
                       ? "ليس لديك حساب؟ أنشئ حساباً جديداً"
                       : "لديك حساب بالفعل؟ سجل دخولك"}
                   </button>
+
+                  {isLogin && (
+                    <button
+                      type="button"
+                      onClick={() => setIsRecoveryMode(true)}
+                      className="text-gray-400 hover:text-gray-300 text-xs"
+                    >
+                      نسيت كلمة المرور؟
+                    </button>
+                  )}
                 </div>
 
                 {/* Guest Login */}
@@ -409,6 +480,7 @@ export default function Login() {
                   </Button>
                 </div>
               </form>
+              )}
             </CardContent>
           </Card>
 
