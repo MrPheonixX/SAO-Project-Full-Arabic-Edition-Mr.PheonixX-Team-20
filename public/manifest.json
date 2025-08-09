@@ -1,186 +1,126 @@
 {
-  "name": "Sword Art Online & SAO Progressive - Full Arabic Edition | MrPheonixX Team",
-  "short_name": "SAO Arabic - MrPheonixX",
-  "description": "منصة القراءة الحصرية للترجمة العربية الكاملة لسيف آرت أونلاين وساو بروجرسيف بواسطة فريق MrPheonixX",
-  "theme_color": "#3B82F6",
-  "background_color": "#0F172A",
-  "display": "standalone",
-  "orientation": "portrait-primary",
-  "scope": "/",
-  "start_url": "/",
+  "name": "Sword Art Online & SAO Progressive – Full Arabic Edition",
+  "short_name": "SAO Arabic Reader",
+  "description": "قراءة مجانية لجميع مجلدات سورد آرت أونلاين مترجمة للعربية - MrPheonixX Team",
   "lang": "ar",
   "dir": "rtl",
+  "theme_color": "#3b82f6",
+  "background_color": "#1e293b",
+  "display": "standalone",
+  "orientation": "any",
+  "scope": "/",
+  "start_url": "/",
+  "id": "sao-arabic-reader",
   "categories": ["books", "entertainment", "education"],
   "icons": [
     {
-      "src": "/icons/icon-72x72.png",
+      "src": "/placeholder.svg",
+      "sizes": "48x48",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/placeholder.svg",
       "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "maskable any"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     },
     {
-      "src": "/icons/icon-96x96.png",
+      "src": "/placeholder.svg",
       "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "maskable any"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     },
     {
-      "src": "/icons/icon-128x128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "/icons/icon-144x144.png",
+      "src": "/placeholder.svg",
       "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "maskable any"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     },
     {
-      "src": "/icons/icon-152x152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "/icons/icon-192x192.png",
+      "src": "/placeholder.svg",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable any"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     },
     {
-      "src": "/icons/icon-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "/icons/icon-512x512.png",
+      "src": "/placeholder.svg",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable any"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/screenshots/desktop-home.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "الصفحة الرئيسية - Desktop"
-    },
-    {
-      "src": "/screenshots/mobile-library.png",
-      "sizes": "375x812",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "مكتبة المجلدات - Mobile"
-    },
-    {
-      "src": "/screenshots/mobile-reader.png",
-      "sizes": "375x812",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "واجهة القراءة - Mobile"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     }
   ],
   "shortcuts": [
     {
-      "name": "مكتبة ساو",
-      "short_name": "SAO Library",
-      "description": "استكشف مجلدات سيف آرت أونلاين",
+      "name": "مكتبة ساو الأساسية",
+      "short_name": "ساو",
+      "description": "الوصول السريع لمكتبة SAO الأساسية",
       "url": "/sao",
-      "icons": [
-        {
-          "src": "/icons/sao-shortcut.png",
-          "sizes": "96x96"
-        }
-      ]
+      "icons": [{ "src": "/placeholder.svg", "sizes": "96x96" }]
     },
     {
-      "name": "مكتبة ساو بروجرسيف",
-      "short_name": "Progressive",
-      "description": "استكشف مجلدات ساو بروجرسيف",
+      "name": "ساو بروجريسف",
+      "short_name": "بروجريسف",
+      "description": "الوصول السريع لمكتبة SAO Progressive",
       "url": "/progressive",
-      "icons": [
-        {
-          "src": "/icons/progressive-shortcut.png",
-          "sizes": "96x96"
-        }
-      ]
+      "icons": [{ "src": "/placeholder.svg", "sizes": "96x96" }]
     },
     {
       "name": "الأعمال الإضافية",
-      "short_name": "Side Works",
-      "description": "الأعمال الأدبية الإضافية",
+      "short_name": "إضافية",
+      "description": "الوصول السريع للأعمال الإضافية",
       "url": "/sideworks",
-      "icons": [
-        {
-          "src": "/icons/sideworks-shortcut.png",
-          "sizes": "96x96"
-        }
-      ]
+      "icons": [{ "src": "/placeholder.svg", "sizes": "96x96" }]
     },
     {
       "name": "الملف الشخصي",
-      "short_name": "Profile",
-      "description": "عرض ملفك الشخصي وإحصائيات القراءة",
+      "short_name": "ملفي",
+      "description": "عرض الملف الشخصي وتقدم القراءة",
       "url": "/profile",
-      "icons": [
-        {
-          "src": "/icons/profile-shortcut.png",
-          "sizes": "96x96"
-        }
-      ]
+      "icons": [{ "src": "/placeholder.svg", "sizes": "96x96" }]
     }
   ],
-  "related_applications": [
-    {
-      "platform": "web",
-      "url": "https://mrpheonix-sao-arabic.github.io/"
-    }
-  ],
-  "prefer_related_applications": false,
-  "edge_side_panel": {
-    "preferred_width": 480
-  },
-  "launch_handler": {
-    "client_mode": ["focus-existing", "auto"]
-  },
-  "handle_links": "preferred",
   "file_handlers": [
     {
       "action": "/reader",
       "accept": {
-        "application/pdf": [".pdf"],
         "text/plain": [".txt"],
+        "application/pdf": [".pdf"],
         "application/epub+zip": [".epub"]
       }
     }
   ],
   "protocol_handlers": [
     {
-      "protocol": "web+sao",
-      "url": "/reader/%s"
+      "protocol": "sao-reader",
+      "url": "/reader?url=%s"
     }
   ],
-  "share_target": {
-    "action": "/share",
-    "method": "POST",
-    "enctype": "multipart/form-data",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url",
-      "files": [
-        {
-          "name": "documents",
-          "accept": ["application/pdf", "text/plain"]
-        }
-      ]
-    }
+  "edge_side_panel": {
+    "preferred_width": 400
   },
-  "display_override": ["window-controls-overlay", "minimal-ui"],
-  "version": "1.0.0",
-  "iarc_rating_id": "e58c174a-81d2-5c3c-32cc-34b8de4a52e9"
+  "prefer_related_applications": false,
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.mrpheonixteam.saoreader",
+      "id": "com.mrpheonixteam.saoreader"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/placeholder.svg",
+      "sizes": "1280x720",
+      "type": "image/svg+xml",
+      "platform": "wide",
+      "label": "واجهة القراءة الرئيسية مع الثيم المظلم"
+    },
+    {
+      "src": "/placeholder.svg",
+      "sizes": "750x1334",
+      "type": "image/svg+xml",
+      "platform": "narrow",
+      "label": "تطبيق القراءة على الهاتف المحمول"
+    }
+  ]
 }
