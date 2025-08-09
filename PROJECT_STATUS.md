@@ -91,11 +91,11 @@ public/
 
 1. **Visual Effects** - ✅ SPECTACULAR
    - ✅ Holographic title animations
-   - ✅ Matrix rain effects
-   - ✅ Quantum particle fields
+   - ✅ Quantum particle fields (Matrix rain removed per user request)
    - ✅ Glitch effects
    - ✅ Energy orbs and scanning lines
    - ✅ SAO-themed gradients
+   - ✅ Appropriate anime emoji notifications
 
 2. **Security Features** - ✅ FULLY IMPLEMENTED
    - ✅ Anti-copy protection
