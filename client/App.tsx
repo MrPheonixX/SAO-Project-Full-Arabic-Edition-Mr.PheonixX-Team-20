@@ -29,7 +29,7 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <ErrorBoundary>
-    <SecurityProvider enableSecurity={true}>
+    <SecurityProvider enableSecurity={false}>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
