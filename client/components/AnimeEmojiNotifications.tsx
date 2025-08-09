@@ -415,19 +415,67 @@ export const AnimeEmojiNotifications: React.FC = () => {
         @keyframes bounce {
           0%, 20%, 53%, 80%, 100% {
             animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-            transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0) scale(1);
           }
           40%, 43% {
             animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-            transform: translate3d(0, -8px, 0);
+            transform: translate3d(0, -8px, 0) scale(1.05);
           }
           70% {
             animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-            transform: translate3d(0, -4px, 0);
+            transform: translate3d(0, -4px, 0) scale(1.02);
           }
           90% {
-            transform: translate3d(0, -2px, 0);
+            transform: translate3d(0, -2px, 0) scale(1.01);
           }
+        }
+
+        @keyframes saoGlow {
+          0%, 100% {
+            box-shadow: 0 0 5px rgba(59, 130, 246, 0.4), 0 0 10px rgba(99, 102, 241, 0.3);
+          }
+          50% {
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.6), 0 0 20px rgba(99, 102, 241, 0.5), 0 0 30px rgba(139, 92, 246, 0.3);
+          }
+        }
+
+        @keyframes holographicShimmer {
+          0% {
+            background-position: -200% 0;
+          }
+          100% {
+            background-position: 200% 0;
+          }
+        }
+
+        .sao-holographic {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .sao-holographic::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(59, 130, 246, 0.2),
+            rgba(99, 102, 241, 0.4),
+            rgba(139, 92, 246, 0.2),
+            transparent
+          );
+          background-size: 200% 100%;
+          animation: holographicShimmer 3s ease-in-out infinite;
+          z-index: 1;
+        }
+
+        .sao-holographic img {
+          position: relative;
+          z-index: 2;
         }
       `}</style>
     </>
