@@ -426,6 +426,47 @@
   }
 }
 
+@keyframes quantumFloat {
+  0%, 100% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px) scale(1.2);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-40px) translateX(-5px) scale(0.8);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateY(-20px) translateX(-15px) scale(1.1);
+    opacity: 0.9;
+  }
+}
+
+@keyframes quantumGlow {
+  0% {
+    filter: brightness(1) saturate(1);
+    opacity: 0.6;
+  }
+  100% {
+    filter: brightness(1.5) saturate(1.5);
+    opacity: 1;
+  }
+}
+
+@keyframes quantumPulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scaleX(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scaleX(1.5);
+  }
+}
+
 .sao-glow {
   animation: sao-glow 2s ease-in-out infinite;
 }
