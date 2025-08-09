@@ -380,6 +380,8 @@ export const resumeTTS = () => ttsManager.resume();
 export const stopTTS = () => ttsManager.stop();
 export const toggleTTS = () => ttsManager.toggle();
 
+import React from "react";
+
 // React hook for TTS state
 export const useTTS = () => {
   const [state, setState] = React.useState<TTSState>(ttsManager.getState());
