@@ -162,7 +162,7 @@ export default function Index() {
                 className="border-blue-500 text-blue-400 hover:bg-blue-500/10"
                 onClick={() => navigate("/login")}
               >
-                تسجيل د��ول
+                تسجيل دخول
               </Button>
 
               {/* Theme Switcher */}
@@ -239,10 +239,16 @@ export default function Index() {
               </div>
             </h2>
 
-            <p className="text-xl text-gray-300 max-w-4xl mx-auto mb-8 leading-relaxed">
+            <p className="text-xl text-gray-300 max-w-4xl mx-auto mb-8 leading-relaxed animate-pulse">
               أول منصة رسمية لقراءة Sword Art Online بالعربية
               <br />
-              <span className="text-blue-400 font-semibold">
+              <span
+                className="font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
+                style={{
+                  backgroundSize: '200% 200%',
+                  animation: 'gradientShift 4s ease-in-out infinite'
+                }}
+              >
                 ترجمة Mr.PheonixX Team × DeepL Premium
               </span>
             </p>
@@ -522,7 +528,7 @@ export default function Index() {
                 </div>
                 <CardTitle className="text-purple-400 text-xl">حماية مطلقة</CardTitle>
                 <CardDescription className="text-gray-300">
-                  منع النسخ و القراءة الآمنة 100%
+                  منع ال��سخ و القراءة الآمنة 100%
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -548,7 +554,7 @@ export default function Index() {
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-orange-500 to-amber-500 rounded-full flex items-center justify-center animate-pulse">
                   <Play className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-orange-400 text-xl">مجموع نط��ي</CardTitle>
+                <CardTitle className="text-orange-400 text-xl">مجموع نطقي</CardTitle>
                 <CardDescription className="text-gray-300">
                   قراءة الأصوات العربية بتقنيات متطورة
                 </CardDescription>
