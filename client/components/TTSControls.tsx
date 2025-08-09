@@ -44,7 +44,7 @@ export default function TTSControls({
   text = "",
   elementId,
   className = "",
-  size = "md",
+  size = "default",
   showSettings = false,
 }: TTSControlsProps) {
   const [ttsState, setTtsState] = useState<TTSState>({
@@ -174,7 +174,7 @@ export default function TTSControls({
                   size={getButtonSize()}
                   onClick={handlePause}
                   className="text-yellow-400 hover:text-yellow-300 hover:bg-yellow-500/10"
-                  title="إيقاف مؤقت"
+                  title="إيقاف مؤق��"
                 >
                   <Pause
                     className={`${size === "sm" ? "w-3 h-3" : size === "lg" ? "w-6 h-6" : "w-4 h-4"}`}
@@ -417,7 +417,7 @@ export function QuickTTSButton({
 }: {
   text: string;
   className?: string;
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "default" | "lg";
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
 
