@@ -6,7 +6,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SecurityProvider from "./components/SecurityProvider";
+// Security provider will be added later
+// import SecurityProvider from "./components/SecurityProvider";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import SAOLibrary from "./pages/SAOLibrary";
