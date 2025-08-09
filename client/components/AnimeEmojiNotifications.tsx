@@ -60,7 +60,7 @@ const RANDOM_MESSAGES = [
 
 const ADBLOCK_MESSAGES = [
   "😭 مانع الإعلانات يمنع دعم المنصة",
-  "🥺 ساعدنا بإلغاء مانع الإعلانات",
+  "🥺 ساعدنا بإلغاء ما��ع الإعلانات",
   "😢 الإعلانات تساعدنا في الاستمرار",
   "🙏 نحتاج دعمك لتقديم المحتوى",
   "💔 مانع الإعلانات يؤثر على عملنا"
@@ -155,60 +155,8 @@ export const AnimeEmojiNotifications: React.FC = () => {
     }, floatingEmoji.duration);
   };
 
-  // كشف مانع الإعلانات
-  useEffect(() => {
-    const detectAdBlock = () => {
-      const testAd = document.createElement("div");
-      testAd.innerHTML = "&nbsp;";
-      testAd.className = "adsbox ads ad adsbygoogle";
-      testAd.style.position = "absolute";
-      testAd.style.left = "-999px";
-      testAd.style.top = "-999px";
-      testAd.style.width = "1px";
-      testAd.style.height = "1px";
-      
-      document.body.appendChild(testAd);
-      
-      setTimeout(() => {
-        if (testAd.offsetHeight === 0 || getComputedStyle(testAd).display === "none") {
-          addNotification("adblock", undefined, 0); // دائم
-          addFloatingEmoji(); // ايموجي طائر
-        }
-        document.body.removeChild(testAd);
-      }, 100);
-    };
-
-    // فحص مبدئي
-    detectAdBlock();
-    
-    // فحص دوري كل 30 ثانية
-    const interval = setInterval(detectAdBlock, 30000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // كشف أدوات المطور
-  useEffect(() => {
-    let devtools = false;
-    const threshold = 160;
-
-    const checkDevTools = () => {
-      const heightDifference = window.outerHeight - window.innerHeight;
-      const widthDifference = window.outerWidth - window.innerWidth;
-
-      if (heightDifference > threshold || widthDifference > threshold) {
-        if (!devtools) {
-          devtools = true;
-          addNotification("devtools", undefined, 4000);
-          addFloatingEmoji(); // ايموجي طائر
-        }
-      } else {
-        devtools = false;
-      }
-    };
-
-    const interval = setInterval(checkDevTools, 1000);
-    return () => clearInterval(interval);
-  }, []);
+  // ملاحظة: تم إزالة كشف مانع الإعلانات وأدوات المطور لتجنب التكرار
+  // نظام الحماية الرئيسي يتولى هذه المهام ويرسل الأحداث لهذا المكون
 
   // إشعارات ترحيبية وعشوائية (مقللة جداً)
   useEffect(() => {
