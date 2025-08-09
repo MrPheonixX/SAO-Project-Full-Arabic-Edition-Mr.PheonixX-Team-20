@@ -137,6 +137,29 @@ export default function Login() {
     navigate("/profile");
   };
 
+  const handlePasswordRecovery = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!recoveryEmail.trim() || !/\S+@\S+\.\S+/.test(recoveryEmail)) {
+      setRecoveryMessage("يرجى إدخال بريد إلكتروني صحيح");
+      return;
+    }
+
+    setIsLoading(true);
+
+    // Simulate API call for password recovery
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    setRecoveryMessage("تم إرسال رابط استعادة كلمة المرور إل�� بريدك الإلكتروني");
+    setIsLoading(false);
+
+    // Reset recovery mode after 3 seconds
+    setTimeout(() => {
+      setIsRecoveryMode(false);
+      setRecoveryMessage("");
+      setRecoveryEmail("");
+    }, 3000);
+  };
+
   const handleGuestLogin = () => {
     const guestUser = {
       ...mockUser,
@@ -278,7 +301,7 @@ export default function Login() {
                 {/* Password */}
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
-                    ��لمة المرور
+                    كلمة المرور
                   </label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
