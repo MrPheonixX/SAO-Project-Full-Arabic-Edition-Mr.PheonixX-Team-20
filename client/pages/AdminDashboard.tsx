@@ -146,13 +146,8 @@ export default function AdminDashboard() {
   };
 
   const toggleSecurity = () => {
-    if (securityEnabled) {
-      // disableSecurity("MrPheonixX-Admin-2024");
-      setSecurityEnabled(false);
-    } else {
-      // enableSecurity();
-      setSecurityEnabled(true);
-    }
+    // Toggle the actual security system
+    security.toggleSecurity(!security.isSecurityActive);
   };
 
   const handleVolumeStatusChange = (
