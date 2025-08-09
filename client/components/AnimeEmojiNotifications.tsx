@@ -37,7 +37,7 @@ const ANIME_EMOJIS = [
   "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F95b72a03ed1942358d90d9b9489e6fa8?alt=media&token=13fbadb1-e5c8-4c57-a4b1-001804767275&apiKey=15999d2412c04cefb5e665795b57bb74",
   "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F72fdf9fb5a8143debfbd467b32f3e489?alt=media&token=542553ae-0f3b-4b85-8555-01ccf31dda98&apiKey=15999d2412c04cefb5e665795b57bb74",
   "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F7a2a5611036844d8a9972fa247a7134a?alt=media&token=a400c3a2-ddee-48f0-be0c-90c023a7f4a6&apiKey=15999d2412c04cefb5e665795b57bb74",
-  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2Fc8012493594c4d4e98cfc54489b5f380?alt=media&token=eac7edf0-359e-4b22-b97c-7e4618e424ee&apiKey=15999d2412c04cefb5e665795b57bb74"
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2Fc8012493594c4d4e98cfc54489b5f380?alt=media&token=eac7edf0-359e-4b22-b97c-7e4618e424ee&apiKey=15999d2412c04cefb5e665795b57bb74",
 ];
 
 // رسائل عشوائية تناسب الشخصيات الأنمي
@@ -51,7 +51,7 @@ const RANDOM_MESSAGES = [
   "🎯 مغامرة جديدة تنتظرك",
   "💖 شخصياتك المفضلة هنا",
   "🔮 عالم الخيال في انتظارك",
-  "🌈 اكتشف قصص جديدة ومثيرة"
+  "🌈 اكتشف قصص جديدة ومثيرة",
 ];
 
 const ADBLOCK_MESSAGES = [
@@ -59,7 +59,7 @@ const ADBLOCK_MESSAGES = [
   "🥺 ساعدنا بإلغاء مانع الإعلانات",
   "😢 الإعلانات تساعدنا في الاستمرار",
   "🙏 نحتاج دعمك لتقديم المحتوى",
-  "💔 مانع الإعلانات يؤثر على عملنا"
+  "💔 مانع الإعلانات يؤثر على عملنا",
 ];
 
 const DEVTOOLS_MESSAGES = [
@@ -67,12 +67,14 @@ const DEVTOOLS_MESSAGES = [
   "🔐 المحتوى محمي من النسخ",
   "🛡️ نظام الحماية نشط",
   "⚠️ تصرف مشبوه مكتشف",
-  "🚫 الوصول غير المصرح محظور"
+  "🚫 الوصول غير المصرح محظور",
 ];
 
 export const AnimeEmojiNotifications: React.FC = () => {
   const [notifications, setNotifications] = useState<AnimeEmojiProps[]>([]);
-  const [floatingEmojis, setFloatingEmojis] = useState<FloatingEmojiProps[]>([]);
+  const [floatingEmojis, setFloatingEmojis] = useState<FloatingEmojiProps[]>(
+    [],
+  );
 
   // الحصول على صورة عشوائية
   const getRandomEmoji = () => {
@@ -83,16 +85,26 @@ export const AnimeEmojiNotifications: React.FC = () => {
   const getRandomMessage = (type: string) => {
     switch (type) {
       case "adblock":
-        return ADBLOCK_MESSAGES[Math.floor(Math.random() * ADBLOCK_MESSAGES.length)];
+        return ADBLOCK_MESSAGES[
+          Math.floor(Math.random() * ADBLOCK_MESSAGES.length)
+        ];
       case "devtools":
-        return DEVTOOLS_MESSAGES[Math.floor(Math.random() * DEVTOOLS_MESSAGES.length)];
+        return DEVTOOLS_MESSAGES[
+          Math.floor(Math.random() * DEVTOOLS_MESSAGES.length)
+        ];
       default:
-        return RANDOM_MESSAGES[Math.floor(Math.random() * RANDOM_MESSAGES.length)];
+        return RANDOM_MESSAGES[
+          Math.floor(Math.random() * RANDOM_MESSAGES.length)
+        ];
     }
   };
 
   // إضافة إشعار جديد
-  const addNotification = (type: AnimeEmojiProps["type"], message?: string, duration = 5000) => {
+  const addNotification = (
+    type: AnimeEmojiProps["type"],
+    message?: string,
+    duration = 5000,
+  ) => {
     const id = Date.now().toString();
     const imageUrl = getRandomEmoji();
     const finalMessage = message || getRandomMessage(type);
@@ -103,10 +115,10 @@ export const AnimeEmojiNotifications: React.FC = () => {
       type,
       message: finalMessage,
       duration,
-      persistent: type === "adblock"
+      persistent: type === "adblock",
     };
 
-    setNotifications(prev => [...prev, notification]);
+    setNotifications((prev) => [...prev, notification]);
 
     // إزالة تلقائية إذا لم يكن دائماً
     if (!notification.persistent && duration > 0) {
@@ -118,14 +130,14 @@ export const AnimeEmojiNotifications: React.FC = () => {
 
   // إزالة إشعار
   const removeNotification = (id: string) => {
-    setNotifications(prev => prev.filter(n => n.id !== id));
+    setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
 
   // إضافة ايموجي طائر
   const addFloatingEmoji = (imageUrl?: string) => {
     const id = Date.now().toString();
     const finalImageUrl = imageUrl || getRandomEmoji();
-    
+
     const floatingEmoji: FloatingEmojiProps = {
       id,
       imageUrl: finalImageUrl,
@@ -133,13 +145,15 @@ export const AnimeEmojiNotifications: React.FC = () => {
       y: window.innerHeight,
       scale: 0.8 + Math.random() * 0.4,
       rotation: -15 + Math.random() * 30,
-      duration: 4000 + Math.random() * 2000
+      duration: 4000 + Math.random() * 2000,
     };
 
-    setFloatingEmojis(prev => [...prev, floatingEmoji]);
+    setFloatingEmojis((prev) => [...prev, floatingEmoji]);
 
     setTimeout(() => {
-      setFloatingEmojis(prev => prev.filter(e => e.id !== floatingEmoji.id));
+      setFloatingEmojis((prev) =>
+        prev.filter((e) => e.id !== floatingEmoji.id),
+      );
     }, floatingEmoji.duration);
   };
 
@@ -154,11 +168,14 @@ export const AnimeEmojiNotifications: React.FC = () => {
       testAd.style.top = "-999px";
       testAd.style.width = "1px";
       testAd.style.height = "1px";
-      
+
       document.body.appendChild(testAd);
-      
+
       setTimeout(() => {
-        if (testAd.offsetHeight === 0 || getComputedStyle(testAd).display === "none") {
+        if (
+          testAd.offsetHeight === 0 ||
+          getComputedStyle(testAd).display === "none"
+        ) {
           addNotification("adblock", undefined, 0); // دائم
           addFloatingEmoji(); // ايموجي طائر
         }
@@ -168,7 +185,7 @@ export const AnimeEmojiNotifications: React.FC = () => {
 
     // فحص مبدئي
     detectAdBlock();
-    
+
     // فحص دوري كل 30 ثانية
     const interval = setInterval(detectAdBlock, 30000);
     return () => clearInterval(interval);
@@ -207,7 +224,8 @@ export const AnimeEmojiNotifications: React.FC = () => {
 
     // إشعارات عشوائية كل دقيقتين
     const randomTimer = setInterval(() => {
-      if (Math.random() < 0.3) { // 30% احتمال
+      if (Math.random() < 0.3) {
+        // 30% احتمال
         addNotification("random");
 
         // ايموجي طائر عشوائي أحياناً
@@ -227,19 +245,20 @@ export const AnimeEmojiNotifications: React.FC = () => {
   useEffect(() => {
     const handleTriggerEmoji = () => addFloatingEmoji();
     const handleAdBlockAnime = () => addNotification("adblock", undefined, 0);
-    const handleDevToolsAnime = () => addNotification("devtools", undefined, 4000);
+    const handleDevToolsAnime = () =>
+      addNotification("devtools", undefined, 4000);
     const handleRandomAnime = () => addNotification("random");
 
-    window.addEventListener('trigger-anime-emoji', handleTriggerEmoji);
-    window.addEventListener('trigger-adblock-anime', handleAdBlockAnime);
-    window.addEventListener('trigger-devtools-anime', handleDevToolsAnime);
-    window.addEventListener('trigger-random-anime', handleRandomAnime);
+    window.addEventListener("trigger-anime-emoji", handleTriggerEmoji);
+    window.addEventListener("trigger-adblock-anime", handleAdBlockAnime);
+    window.addEventListener("trigger-devtools-anime", handleDevToolsAnime);
+    window.addEventListener("trigger-random-anime", handleRandomAnime);
 
     return () => {
-      window.removeEventListener('trigger-anime-emoji', handleTriggerEmoji);
-      window.removeEventListener('trigger-adblock-anime', handleAdBlockAnime);
-      window.removeEventListener('trigger-devtools-anime', handleDevToolsAnime);
-      window.removeEventListener('trigger-random-anime', handleRandomAnime);
+      window.removeEventListener("trigger-anime-emoji", handleTriggerEmoji);
+      window.removeEventListener("trigger-adblock-anime", handleAdBlockAnime);
+      window.removeEventListener("trigger-devtools-anime", handleDevToolsAnime);
+      window.removeEventListener("trigger-random-anime", handleRandomAnime);
     };
   }, []);
 
@@ -250,25 +269,25 @@ export const AnimeEmojiNotifications: React.FC = () => {
         return {
           background: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
           border: "border-red-400/50",
-          glow: "shadow-red-500/25"
+          glow: "shadow-red-500/25",
         };
       case "devtools":
         return {
           background: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
           border: "border-yellow-400/50",
-          glow: "shadow-yellow-500/25"
+          glow: "shadow-yellow-500/25",
         };
       case "greeting":
         return {
           background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
           border: "border-green-400/50",
-          glow: "shadow-green-500/25"
+          glow: "shadow-green-500/25",
         };
       default:
         return {
           background: "linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)",
           border: "border-blue-400/50",
-          glow: "shadow-blue-500/25"
+          glow: "shadow-blue-500/25",
         };
     }
   };
@@ -289,15 +308,21 @@ export const AnimeEmojiNotifications: React.FC = () => {
               <CardContent className="p-4">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-3 flex-1">
-                    <div className="sao-holographic relative w-12 h-12 rounded-full overflow-hidden border-2 border-white/30 shadow-lg animate-bounce"
-                         style={{ animation: 'bounce 2s infinite, saoGlow 2s ease-in-out infinite alternate' }}>
+                    <div
+                      className="sao-holographic relative w-12 h-12 rounded-full overflow-hidden border-2 border-white/30 shadow-lg animate-bounce"
+                      style={{
+                        animation:
+                          "bounce 2s infinite, saoGlow 2s ease-in-out infinite alternate",
+                      }}
+                    >
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 via-purple-400/20 to-violet-400/20 animate-pulse"></div>
                       <img
                         src={notification.imageUrl}
                         alt="Anime Character"
                         className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300 relative z-10"
                         style={{
-                          filter: 'drop-shadow(0 0 8px rgba(59, 130, 246, 0.4)) brightness(1.1)'
+                          filter:
+                            "drop-shadow(0 0 8px rgba(59, 130, 246, 0.4)) brightness(1.1)",
                         }}
                       />
                     </div>
@@ -359,18 +384,21 @@ export const AnimeEmojiNotifications: React.FC = () => {
             left: emoji.x,
             top: emoji.y,
             transform: `scale(${emoji.scale}) rotate(${emoji.rotation}deg)`,
-            animation: `floatUpAnime ${emoji.duration}ms ease-out forwards`
+            animation: `floatUpAnime ${emoji.duration}ms ease-out forwards`,
           }}
         >
-          <div className="sao-holographic relative w-16 h-16 rounded-full overflow-hidden border-2 border-blue-400/50 shadow-xl backdrop-blur-sm"
-               style={{ animation: 'saoGlow 1.5s ease-in-out infinite alternate' }}>
+          <div
+            className="sao-holographic relative w-16 h-16 rounded-full overflow-hidden border-2 border-blue-400/50 shadow-xl backdrop-blur-sm"
+            style={{ animation: "saoGlow 1.5s ease-in-out infinite alternate" }}
+          >
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-violet-500/30 animate-pulse"></div>
             <img
               src={emoji.imageUrl}
               alt="Floating Anime"
               className="w-full h-full object-cover relative z-10"
               style={{
-                filter: 'drop-shadow(0 0 12px rgba(99, 102, 241, 0.6)) brightness(1.1) contrast(1.1) saturate(1.2)'
+                filter:
+                  "drop-shadow(0 0 12px rgba(99, 102, 241, 0.6)) brightness(1.1) contrast(1.1) saturate(1.2)",
               }}
             />
             <div className="absolute inset-0 rounded-full border border-blue-300/40 animate-ping"></div>
@@ -494,17 +522,17 @@ export const useAnimeNotifications = () => {
   }, []);
 
   const triggerRandomEmoji = () => {
-    const event = new CustomEvent('trigger-anime-emoji');
+    const event = new CustomEvent("trigger-anime-emoji");
     window.dispatchEvent(event);
   };
 
   const triggerAdBlockWarning = () => {
-    const event = new CustomEvent('trigger-adblock-anime');
+    const event = new CustomEvent("trigger-adblock-anime");
     window.dispatchEvent(event);
   };
 
   const triggerDevToolsWarning = () => {
-    const event = new CustomEvent('trigger-devtools-anime');
+    const event = new CustomEvent("trigger-devtools-anime");
     window.dispatchEvent(event);
   };
 
@@ -512,7 +540,7 @@ export const useAnimeNotifications = () => {
     component,
     triggerRandomEmoji,
     triggerAdBlockWarning,
-    triggerDevToolsWarning
+    triggerDevToolsWarning,
   };
 };
 

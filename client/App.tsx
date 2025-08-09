@@ -42,7 +42,10 @@ const App = () => (
               <Route path="/sao" element={<SAOLibrary />} />
               <Route path="/progressive" element={<SAOProgressiveLibrary />} />
               <Route path="/sideworks" element={<SideWorksLibrary />} />
-              <Route path="/reader/:series/:volumeId" element={<BookReader />} />
+              <Route
+                path="/reader/:series/:volumeId"
+                element={<BookReader />}
+              />
               <Route path="/login" element={<Login />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/admin-panel" element={<AdminDashboard />} />
@@ -94,7 +97,6 @@ function initializeApp() {
         console.log("👋 Loading screen hidden");
       }
     }, 1000);
-
   } catch (error) {
     console.error("❌ Failed to initialize app:", error);
 

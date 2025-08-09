@@ -25,8 +25,12 @@ interface AnimatedNotificationsProps {
   notifications: NotificationProps[];
 }
 
-export function AnimatedNotifications({ notifications: propNotifications }: AnimatedNotificationsProps) {
-  const [notifications, setNotifications] = useState<NotificationProps[]>(propNotifications || []);
+export function AnimatedNotifications({
+  notifications: propNotifications,
+}: AnimatedNotificationsProps) {
+  const [notifications, setNotifications] = useState<NotificationProps[]>(
+    propNotifications || [],
+  );
   const [floatingEmojis, setFloatingEmojis] = useState<FloatingEmojiProps[]>(
     [],
   );

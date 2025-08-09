@@ -11,7 +11,9 @@ interface SecurityContextType {
   toggleSecurity: (enabled: boolean) => void;
 }
 
-const SecurityContext = createContext<SecurityContextType | undefined>(undefined);
+const SecurityContext = createContext<SecurityContextType | undefined>(
+  undefined,
+);
 
 export const useSecurityContext = () => {
   const context = useContext(SecurityContext);
@@ -33,19 +35,20 @@ export const SecurityProvider: React.FC<SecurityProviderProps> = ({
   // Check localStorage for admin security settings
   const getSecuritySetting = () => {
     try {
-      const savedSetting = localStorage.getItem('admin-security-enabled');
+      const savedSetting = localStorage.getItem("admin-security-enabled");
       if (savedSetting !== null) {
-        return savedSetting === 'true';
+        return savedSetting === "true";
       }
       // Default to disabled for development comfort
-      localStorage.setItem('admin-security-enabled', 'false');
+      localStorage.setItem("admin-security-enabled", "false");
       return false;
     } catch {
       return enableSecurity;
     }
   };
 
-  const [isSecurityActive, setIsSecurityActive] = useState(getSecuritySetting());
+  const [isSecurityActive, setIsSecurityActive] =
+    useState(getSecuritySetting());
   const [adBlockDetected, setAdBlockDetected] = useState(false);
   const [devToolsDetected, setDevToolsDetected] = useState(false);
   const [copyAttempts, setCopyAttempts] = useState(0);
@@ -60,22 +63,22 @@ export const SecurityProvider: React.FC<SecurityProviderProps> = ({
       message,
       timestamp: new Date(),
     };
-    setNotifications(prev => [...prev, notification]);
+    setNotifications((prev) => [...prev, notification]);
 
     // تشغيل الأنمي ايموجي للأحداث الأمنية
     if (type === "adblock") {
-      window.dispatchEvent(new CustomEvent('trigger-adblock-anime'));
+      window.dispatchEvent(new CustomEvent("trigger-adblock-anime"));
     } else if (type === "security") {
-      window.dispatchEvent(new CustomEvent('trigger-devtools-anime'));
+      window.dispatchEvent(new CustomEvent("trigger-devtools-anime"));
     } else {
-      window.dispatchEvent(new CustomEvent('trigger-anime-emoji'));
+      window.dispatchEvent(new CustomEvent("trigger-anime-emoji"));
     }
   };
 
   // Toggle security function for admin control
   const toggleSecurity = (enabled: boolean) => {
     setIsSecurityActive(enabled);
-    localStorage.setItem('admin-security-enabled', enabled.toString());
+    localStorage.setItem("admin-security-enabled", enabled.toString());
 
     if (enabled) {
       triggerSecurityAlert("success", "تم تفعيل نظام الحماية بنجاح");
@@ -95,13 +98,16 @@ export const SecurityProvider: React.FC<SecurityProviderProps> = ({
       testAd.style.position = "absolute";
       testAd.style.left = "-999px";
       testAd.style.top = "-999px";
-      
+
       document.body.appendChild(testAd);
-      
+
       setTimeout(() => {
         if (testAd.offsetHeight === 0) {
           setAdBlockDetected(true);
-          triggerSecurityAlert("adblock", "تم اكتشاف مانع الإعلانات. يرجى إلغاء تفعيله لدعم المنصة.");
+          triggerSecurityAlert(
+            "adblock",
+            "تم اكتشاف مانع الإعلانات. يرجى إلغاء تفعيله لدعم المنصة.",
+          );
         }
         document.body.removeChild(testAd);
       }, 100);
@@ -125,9 +131,12 @@ export const SecurityProvider: React.FC<SecurityProviderProps> = ({
         if (!devtools) {
           devtools = true;
           setDevToolsDetected(true);
-          triggerSecurityAlert("security", "تم اكتشاف أدوات المطور. المحتوى محمي من النسخ.");
+          triggerSecurityAlert(
+            "security",
+            "تم اكتشاف أدوات المطور. المحتوى محمي من النسخ.",
+          );
           document.body.style.filter = "blur(5px)";
-          
+
           setTimeout(() => {
             document.body.style.filter = "none";
             devtools = false;
@@ -147,29 +156,41 @@ export const SecurityProvider: React.FC<SecurityProviderProps> = ({
 
     const handleContextMenu = (e: Event) => {
       e.preventDefault();
-      setCopyAttempts(prev => prev + 1);
-      triggerSecurityAlert("security", "النقر بالزر الأيمن غير مسموح لحماية المحتوى.");
+      setCopyAttempts((prev) => prev + 1);
+      triggerSecurityAlert(
+        "security",
+        "النقر بالزر الأيمن غير مسموح لحماية المحتوى.",
+      );
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
       // Disable common copy/save shortcuts
       if (
-        (e.ctrlKey && (e.key === "c" || e.key === "a" || e.key === "s" || e.key === "p")) ||
-        (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C")) ||
+        (e.ctrlKey &&
+          (e.key === "c" || e.key === "a" || e.key === "s" || e.key === "p")) ||
+        (e.ctrlKey &&
+          e.shiftKey &&
+          (e.key === "I" || e.key === "J" || e.key === "C")) ||
         e.key === "F12"
       ) {
         e.preventDefault();
-        setCopyAttempts(prev => prev + 1);
-        triggerSecurityAlert("security", "هذا الاختصار غير مسموح لحماية المحتوى.");
+        setCopyAttempts((prev) => prev + 1);
+        triggerSecurityAlert(
+          "security",
+          "هذا الاختصار غير مسموح لحماية المحتوى.",
+        );
       }
     };
 
     const handlePrintScreen = (e: KeyboardEvent) => {
       if (e.key === "PrintScreen") {
         e.preventDefault();
-        setScreenshotAttempts(prev => prev + 1);
-        triggerSecurityAlert("security", "لقطات الشاشة غير مسموحة لحماية المحتوى.");
-        
+        setScreenshotAttempts((prev) => prev + 1);
+        triggerSecurityAlert(
+          "security",
+          "لقطات الشاشة غير مسموحة لحماية المحتوى.",
+        );
+
         // Temporarily hide content
         document.body.style.visibility = "hidden";
         setTimeout(() => {
@@ -238,15 +259,15 @@ export const SecurityProvider: React.FC<SecurityProviderProps> = ({
     console.clear();
     console.log(
       "%c🛡️ MrPheonixX Team - حماية المحتوى نشطة",
-      "color: #3b82f6; font-size: 24px; font-weight: bold;"
+      "color: #3b82f6; font-size: 24px; font-weight: bold;",
     );
     console.log(
       "%c⚠️ تحذير: هذا الموقع محم�� من النسخ والتحميل",
-      "color: #ef4444; font-size: 16px; font-weight: bold;"
+      "color: #ef4444; font-size: 16px; font-weight: bold;",
     );
     console.log(
       "%c📚 للاستمتاع بالمحتوى، يرجى استخدام واجهة الموقع",
-      "color: #10b981; font-size: 14px;"
+      "color: #10b981; font-size: 14px;",
     );
   }, [isSecurityActive]);
 
