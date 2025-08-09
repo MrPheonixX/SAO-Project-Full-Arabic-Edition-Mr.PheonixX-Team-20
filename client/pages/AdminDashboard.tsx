@@ -69,10 +69,10 @@ interface UserStat {
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
+  const security = useSecurityContext();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [adminPassword, setAdminPassword] = useState("");
   const [activeTab, setActiveTab] = useState("overview");
-  const [securityEnabled, setSecurityEnabled] = useState(true);
   const [selectedVolume, setSelectedVolume] = useState<string | null>(null);
 
   // Mock data
@@ -406,7 +406,7 @@ export default function AdminDashboard() {
                   <div className="flex items-center space-x-3 p-3 bg-green-500/10 rounded-lg">
                     <CheckCircle className="w-5 h-5 text-green-400" />
                     <div>
-                      <p className="text-white">تم نشر مجلد ساو بروجرسيف 2</p>
+                      <p className="text-white">تم نشر مجلد ساو بروجرسي�� 2</p>
                       <p className="text-sm text-gray-400">منذ ساعتين</p>
                     </div>
                   </div>
