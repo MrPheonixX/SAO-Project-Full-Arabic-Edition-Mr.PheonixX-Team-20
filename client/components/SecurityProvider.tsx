@@ -61,6 +61,15 @@ export const SecurityProvider: React.FC<SecurityProviderProps> = ({
       timestamp: new Date(),
     };
     setNotifications(prev => [...prev, notification]);
+
+    // تشغيل الأنمي ايموجي للأحداث الأمنية
+    if (type === "adblock") {
+      window.dispatchEvent(new CustomEvent('trigger-adblock-anime'));
+    } else if (type === "security") {
+      window.dispatchEvent(new CustomEvent('trigger-devtools-anime'));
+    } else {
+      window.dispatchEvent(new CustomEvent('trigger-anime-emoji'));
+    }
   };
 
   // Toggle security function for admin control
