@@ -33,7 +33,8 @@ import {
   UserX,
   ArrowLeft
 } from "lucide-react";
-import { disableSecurity, enableSecurity } from "@/lib/security";
+// Security functions will be added later
+// import { disableSecurity, enableSecurity } from "@/lib/security";
 
 interface VolumeData {
   id: string;
@@ -254,7 +255,7 @@ export default function AdminDashboard() {
                 className={securityEnabled ? "border-red-500 text-red-400" : "border-green-500 text-green-400"}
               >
                 {securityEnabled ? <Lock className="w-4 h-4 mr-2" /> : <Unlock className="w-4 h-4 mr-2" />}
-                {securityEnabled ? "تعطي�� الحماية" : "تفعيل الحماية"}
+                {securityEnabled ? "تعطيل الحماية" : "تفعيل الحماية"}
               </Button>
               
               <Button
@@ -276,7 +277,7 @@ export default function AdminDashboard() {
         <div className="mb-8">
           <div className="flex space-x-2 bg-black/30 p-2 rounded-lg">
             {[
-              { id: "overview", label: "نظرة عامة", icon: BarChart3 },
+              { id: "overview", label: "��ظرة عامة", icon: BarChart3 },
               { id: "volumes", label: "إدارة المجلدات", icon: BookOpen },
               { id: "users", label: "إدارة المستخدمين", icon: Users },
               { id: "analytics", label: "التحليلات", icon: Activity },
@@ -459,7 +460,7 @@ export default function AdminDashboard() {
                           <h3 className="text-lg font-bold text-white">{user.username}</h3>
                           <Badge className={getStatusColor(user.status)}>
                             {user.status === "active" ? "نشط" : 
-                             user.status === "inactive" ? "غير نشط" : "محظور"}
+                             user.status === "inactive" ? "غير نشط" : "مح��ور"}
                           </Badge>
                         </div>
                         
