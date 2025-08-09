@@ -29,7 +29,7 @@ interface TTSControlsProps {
   text?: string;
   elementId?: string;
   className?: string;
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "default" | "lg";
   showSettings?: boolean;
 }
 
