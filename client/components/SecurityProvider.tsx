@@ -8,6 +8,7 @@ interface SecurityContextType {
   copyAttempts: number;
   screenshotAttempts: number;
   triggerSecurityAlert: (type: string, message: string) => void;
+  toggleSecurity: (enabled: boolean) => void;
 }
 
 const SecurityContext = createContext<SecurityContextType | undefined>(undefined);
