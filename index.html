@@ -14,7 +14,7 @@
     />
     <meta
       name="description"
-      content="منصة القراءة الحصرية للترجمة العربية الكاملة لسيف آرت أونلاين وساو بروجرسيف بواسطة فريق MrPheonixX. ترجمة احترافية باستخدام DeepL Premium مع المراجعة اليدوية."
+      content="منصة القراءة الحصرية للترجمة العربية الكاملة لسيف آرت أونلاين وساو بروجرسيف بواسطة فريق MrPheonixX. ترجمة احتراف��ة باستخدام DeepL Premium مع المراجعة اليدوية."
     />
     <meta
       name="keywords"
@@ -33,7 +33,7 @@
     />
     <meta
       property="og:description"
-      content="النسخة العربية الحصرية والكاملة من سيف آرت أونلاين وساو بروجرسيف م��رجمة ومراجعة بواسطة فريق MrPheonixX"
+      content="النسخة العربية الحصرية والكاملة من سيف آرت أونلاين وساو بروجرسيف مترجمة ومراجعة بواسطة فريق MrPheonixX"
     />
     <meta property="og:image" content="/og-image.png" />
     <meta property="og:locale" content="ar_SA" />
@@ -433,37 +433,30 @@
 
     <!-- Critical CSS -->
     <style>
-      /* Optimized animations for all devices */
-      @keyframes cuttingBar {
+      /* Simple and optimized animations */
+      @keyframes sweepingBar {
         0% {
-          width: 0%;
+          transform: translateX(-100px);
+          opacity: 0;
         }
-        60% {
-          width: 100%;
+        50% {
+          opacity: 1;
         }
         100% {
-          width: 100%;
+          transform: translateX(calc(100vw - 50px));
+          opacity: 0;
         }
       }
 
-      @keyframes revealText {
-        0% {
-          width: 0%;
-        }
-        60% {
-          width: 100%;
-        }
-        100% {
-          width: 100%;
-        }
-      }
-
-      @keyframes scanningBar {
+      @keyframes progressBar {
         0% {
           transform: translateX(-100%);
         }
+        50% {
+          transform: translateX(0%);
+        }
         100% {
-          transform: translateX(100%);
+          transform: translateX(300%);
         }
       }
 
