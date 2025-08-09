@@ -375,9 +375,13 @@ export default function Index() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-400 mb-4">رواية نفسية عميقة عن الانطوائية والمجتمع الياباني</p>
-                <Button variant="outline" className="w-full border-gray-500 text-gray-300 hover:bg-gray-500/10">
+                <Button
+                  variant="outline"
+                  className="w-full border-gray-500 text-gray-300 hover:bg-gray-500/10"
+                  onClick={() => navigate("/sideworks")}
+                >
                   <BookOpen className="w-4 h-4 mr-2" />
-                  قريباً
+                  استكشف
                 </Button>
               </CardContent>
             </Card>
