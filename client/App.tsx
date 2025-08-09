@@ -43,16 +43,36 @@ const App = () => (
   </QueryClientProvider>
 );
 
-// Ensure we only create root once
-const container = document.getElementById("root")!;
-let root: Root;
+// Robust root management for both dev and production
+function initializeApp() {
+  const container = document.getElementById("root");
+  if (!container) {
+    throw new Error("Root container not found");
+  }
 
-// Check if root already exists to prevent multiple createRoot calls
-if (!(container as any)._reactRoot) {
-  root = createRoot(container);
-  (container as any)._reactRoot = root;
-} else {
-  root = (container as any)._reactRoot;
+  // Check if we already have a root instance
+  if (!(window as any).__SAO_REACT_ROOT__) {
+    // Create new root and store globally
+    const root = createRoot(container);
+    (window as any).__SAO_REACT_ROOT__ = root;
+    console.log("🛡️ SAO Arabic Reader - React root created");
+  }
+
+  // Always render with the existing root
+  const root = (window as any).__SAO_REACT_ROOT__;
+  root.render(<App />);
 }
 
-root.render(<App />);
+// Initialize the app
+initializeApp();
+
+// Handle hot module replacement in development
+if (import.meta.hot) {
+  import.meta.hot.accept(() => {
+    // On hot reload, just re-render with existing root
+    const root = (window as any).__SAO_REACT_ROOT__;
+    if (root) {
+      root.render(<App />);
+    }
+  });
+}
