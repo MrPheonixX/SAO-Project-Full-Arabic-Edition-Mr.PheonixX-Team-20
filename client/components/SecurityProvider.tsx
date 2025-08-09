@@ -29,7 +29,20 @@ export const SecurityProvider: React.FC<SecurityProviderProps> = ({
   children,
   enableSecurity = true,
 }) => {
-  const [isSecurityActive, setIsSecurityActive] = useState(enableSecurity);
+  // Check localStorage for admin security settings
+  const getSecuritySetting = () => {
+    try {
+      const savedSetting = localStorage.getItem('admin-security-enabled');
+      if (savedSetting !== null) {
+        return savedSetting === 'true';
+      }
+      return enableSecurity;
+    } catch {
+      return enableSecurity;
+    }
+  };
+
+  const [isSecurityActive, setIsSecurityActive] = useState(getSecuritySetting());
   const [adBlockDetected, setAdBlockDetected] = useState(false);
   const [devToolsDetected, setDevToolsDetected] = useState(false);
   const [copyAttempts, setCopyAttempts] = useState(0);
