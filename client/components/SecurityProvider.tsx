@@ -246,6 +246,7 @@ export const SecurityProvider: React.FC<SecurityProviderProps> = ({
     copyAttempts,
     screenshotAttempts,
     triggerSecurityAlert,
+    toggleSecurity,
   };
 
   return (
