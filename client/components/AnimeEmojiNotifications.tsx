@@ -1,0 +1,440 @@
+import React, { useState, useEffect } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { X, Heart, Sparkles } from "lucide-react";
+
+interface AnimeEmojiProps {
+  id: string;
+  imageUrl: string;
+  type: "adblock" | "devtools" | "random" | "greeting";
+  message: string;
+  duration?: number;
+  persistent?: boolean;
+}
+
+interface FloatingEmojiProps {
+  id: string;
+  imageUrl: string;
+  x: number;
+  y: number;
+  scale: number;
+  rotation: number;
+  duration: number;
+}
+
+// الصور المرفوعة من ال��ستخدم
+const ANIME_EMOJIS = [
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F50086dbb9ccf4873b677aa240e6a8f89?alt=media&token=e4e0855b-b210-47d5-9e29-e604b4716067&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2Fc95924a0fc444e14b84a3e4e4aaa1835?alt=media&token=876fb3a0-4450-41fe-857b-f2b8c2c81f14&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F83f88278eed0424baad8ae192a6b861e?alt=media&token=390a794f-1fb7-4894-8160-c835e8d09ab4&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F485b50c978ba4e509f4fb8cfe6c27152?alt=media&token=2546bab0-ac0d-4182-9ada-90d33ad2ead9&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F4a600db401354a84b3ce0b5f8673ca8f?alt=media&token=7184e77a-ed5d-461b-a5e9-9627372fa6f5&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2Fda92ce7343c84b18912f7334aef4b8c7?alt=media&token=35cdc573-edff-45a6-bfe8-ffc448e0d3c8&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F2164c66ff25448a29a8d4fddaf392980?alt=media&token=b8f09a5d-2b44-490d-ad09-7445c5a90646&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F540ff8cfcf334d8d86b85dcf26e3d363?alt=media&token=b2a1eab5-129a-4980-8814-9e303a425856&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F9a0dcc61fc8941db9af92f2bedec7bfc?alt=media&token=6b55c62b-ea51-4e77-b1ae-706d7b1f3143&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F326ce025c773434a9059094ed71bcfd4?alt=media&token=d7dd83b6-2b8e-4879-b30f-de9d05f5bf49&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F95b72a03ed1942358d90d9b9489e6fa8?alt=media&token=13fbadb1-e5c8-4c57-a4b1-001804767275&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F72fdf9fb5a8143debfbd467b32f3e489?alt=media&token=542553ae-0f3b-4b85-8555-01ccf31dda98&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F7a2a5611036844d8a9972fa247a7134a?alt=media&token=a400c3a2-ddee-48f0-be0c-90c023a7f4a6&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2Fc8012493594c4d4e98cfc54489b5f380?alt=media&token=eac7edf0-359e-4b22-b97c-7e4618e424ee&apiKey=15999d2412c04cefb5e665795b57bb74"
+];
+
+// رسائل عشوائية تناسب الشخصيات الأنمي
+const RANDOM_MESSAGES = [
+  "✨ أهلاً بك في عالم SAO الرقمي!",
+  "🎮 استمتع بالقراءة والمغامرة!",
+  "💫 الشخصيات تحييك بحماس!",
+  "🌸 وقت ممتع في عالم الأنمي",
+  "⭐ كيريتو يرحب بك!",
+  "🌟 أسونا تتمنى لك قراءة ممتعة",
+  "🎯 مغامرة جديدة تنتظرك",
+  "💖 شخصياتك المفضلة هنا",
+  "🔮 عالم الخيال في انتظارك",
+  "🌈 اكتشف قصص جديدة ومثيرة"
+];
+
+const ADBLOCK_MESSAGES = [
+  "😭 مانع الإعلانات يمنع دعم المنصة",
+  "🥺 ساعدنا بإلغاء مانع الإعلانات",
+  "😢 الإعلانات تساعدنا في الاستمرار",
+  "🙏 نحتاج دعمك لتقديم المحتوى",
+  "💔 مانع الإعلانات يؤثر على عملنا"
+];
+
+const DEVTOOLS_MESSAGES = [
+  "😱 أدوات المطور مكتشفة!",
+  "🔐 المحتوى محمي من النسخ",
+  "🛡️ نظام الحماية نشط",
+  "⚠️ تصرف مشبوه مكتشف",
+  "🚫 الوصول غير المصرح محظور"
+];
+
+export const AnimeEmojiNotifications: React.FC = () => {
+  const [notifications, setNotifications] = useState<AnimeEmojiProps[]>([]);
+  const [floatingEmojis, setFloatingEmojis] = useState<FloatingEmojiProps[]>([]);
+
+  // الحصول على صورة عشوائية
+  const getRandomEmoji = () => {
+    return ANIME_EMOJIS[Math.floor(Math.random() * ANIME_EMOJIS.length)];
+  };
+
+  // الحصول على رسالة عشوائية
+  const getRandomMessage = (type: string) => {
+    switch (type) {
+      case "adblock":
+        return ADBLOCK_MESSAGES[Math.floor(Math.random() * ADBLOCK_MESSAGES.length)];
+      case "devtools":
+        return DEVTOOLS_MESSAGES[Math.floor(Math.random() * DEVTOOLS_MESSAGES.length)];
+      default:
+        return RANDOM_MESSAGES[Math.floor(Math.random() * RANDOM_MESSAGES.length)];
+    }
+  };
+
+  // إضافة إشعار جديد
+  const addNotification = (type: AnimeEmojiProps["type"], message?: string, duration = 5000) => {
+    const id = Date.now().toString();
+    const imageUrl = getRandomEmoji();
+    const finalMessage = message || getRandomMessage(type);
+
+    const notification: AnimeEmojiProps = {
+      id,
+      imageUrl,
+      type,
+      message: finalMessage,
+      duration,
+      persistent: type === "adblock"
+    };
+
+    setNotifications(prev => [...prev, notification]);
+
+    // إزالة تلقائية إذا لم يكن دائماً
+    if (!notification.persistent && duration > 0) {
+      setTimeout(() => {
+        removeNotification(id);
+      }, duration);
+    }
+  };
+
+  // إزالة إشعار
+  const removeNotification = (id: string) => {
+    setNotifications(prev => prev.filter(n => n.id !== id));
+  };
+
+  // إضافة ايموجي طائر
+  const addFloatingEmoji = (imageUrl?: string) => {
+    const id = Date.now().toString();
+    const finalImageUrl = imageUrl || getRandomEmoji();
+    
+    const floatingEmoji: FloatingEmojiProps = {
+      id,
+      imageUrl: finalImageUrl,
+      x: Math.random() * (window.innerWidth - 100),
+      y: window.innerHeight,
+      scale: 0.8 + Math.random() * 0.4,
+      rotation: -15 + Math.random() * 30,
+      duration: 4000 + Math.random() * 2000
+    };
+
+    setFloatingEmojis(prev => [...prev, floatingEmoji]);
+
+    setTimeout(() => {
+      setFloatingEmojis(prev => prev.filter(e => e.id !== floatingEmoji.id));
+    }, floatingEmoji.duration);
+  };
+
+  // كشف مانع الإعلانات
+  useEffect(() => {
+    const detectAdBlock = () => {
+      const testAd = document.createElement("div");
+      testAd.innerHTML = "&nbsp;";
+      testAd.className = "adsbox ads ad adsbygoogle";
+      testAd.style.position = "absolute";
+      testAd.style.left = "-999px";
+      testAd.style.top = "-999px";
+      testAd.style.width = "1px";
+      testAd.style.height = "1px";
+      
+      document.body.appendChild(testAd);
+      
+      setTimeout(() => {
+        if (testAd.offsetHeight === 0 || getComputedStyle(testAd).display === "none") {
+          addNotification("adblock", undefined, 0); // دائم
+          addFloatingEmoji(); // ايموجي طائر
+        }
+        document.body.removeChild(testAd);
+      }, 100);
+    };
+
+    // فحص مبدئي
+    detectAdBlock();
+    
+    // فحص دوري كل 30 ثانية
+    const interval = setInterval(detectAdBlock, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // كشف أدوات المطور
+  useEffect(() => {
+    let devtools = false;
+    const threshold = 160;
+
+    const checkDevTools = () => {
+      const heightDifference = window.outerHeight - window.innerHeight;
+      const widthDifference = window.outerWidth - window.innerWidth;
+
+      if (heightDifference > threshold || widthDifference > threshold) {
+        if (!devtools) {
+          devtools = true;
+          addNotification("devtools", undefined, 4000);
+          addFloatingEmoji(); // ايموجي طائر
+        }
+      } else {
+        devtools = false;
+      }
+    };
+
+    const interval = setInterval(checkDevTools, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // إشعارات عشوائية ترحيبية
+  useEffect(() => {
+    // إشعار ترحيبي بعد 3 ثوان
+    const welcomeTimer = setTimeout(() => {
+      addNotification("greeting", "🎌 مرحباً بك في مكتبة SAO العربية!", 6000);
+    }, 3000);
+
+    // إشعارات عشوائية كل دقيقتين
+    const randomTimer = setInterval(() => {
+      if (Math.random() < 0.3) { // 30% احتمال
+        addNotification("random");
+        
+        // ايموجي طائر عشوائي أحياناً
+        if (Math.random() < 0.5) {
+          setTimeout(() => addFloatingEmoji(), 500);
+        }
+      }
+    }, 120000); // كل دقيقتين
+
+    return () => {
+      clearTimeout(welcomeTimer);
+      clearInterval(randomTimer);
+    };
+  }, []);
+
+  // تحديد ألوان ونمط الإشعار
+  const getNotificationStyle = (type: string) => {
+    switch (type) {
+      case "adblock":
+        return {
+          background: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
+          border: "border-red-400/50",
+          glow: "shadow-red-500/25"
+        };
+      case "devtools":
+        return {
+          background: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
+          border: "border-yellow-400/50",
+          glow: "shadow-yellow-500/25"
+        };
+      case "greeting":
+        return {
+          background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+          border: "border-green-400/50",
+          glow: "shadow-green-500/25"
+        };
+      default:
+        return {
+          background: "linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)",
+          border: "border-blue-400/50",
+          glow: "shadow-blue-500/25"
+        };
+    }
+  };
+
+  return (
+    <>
+      {/* حاوي الإشعارات */}
+      <div className="fixed top-4 left-4 z-[9999] space-y-3 max-w-sm">
+        {notifications.map((notification) => {
+          const style = getNotificationStyle(notification.type);
+
+          return (
+            <Card
+              key={notification.id}
+              className={`${style.border} ${style.glow} backdrop-blur-xl transform transition-all duration-500 animate-slideInLeft shadow-xl`}
+              style={{ background: style.background }}
+            >
+              <CardContent className="p-4">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-start space-x-3 flex-1">
+                    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white/30 shadow-lg animate-bounce">
+                      <img
+                        src={notification.imageUrl}
+                        alt="Anime Character"
+                        className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-white text-sm leading-relaxed font-medium">
+                        {notification.message}
+                      </p>
+                      <div className="flex items-center space-x-1 mt-2">
+                        <Sparkles className="w-3 h-3 text-white/70" />
+                        <span className="text-white/70 text-xs">SAO Team</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {!notification.persistent && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => removeNotification(notification.id)}
+                      className="text-white/70 hover:text-white hover:bg-white/20 p-1 h-auto"
+                    >
+                      <X className="w-4 h-4" />
+                    </Button>
+                  )}
+                </div>
+
+                {notification.persistent && (
+                  <div className="mt-3 flex space-x-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => window.location.reload()}
+                      className="bg-white/20 text-white border-white/30 hover:bg-white/30 text-xs"
+                    >
+                      🔄 تحديث
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => removeNotification(notification.id)}
+                      className="bg-white/20 text-white border-white/30 hover:bg-white/30 text-xs"
+                    >
+                      ❌ إخفاء
+                    </Button>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
+
+      {/* الإيموجيات الطائرة */}
+      {floatingEmojis.map((emoji) => (
+        <div
+          key={emoji.id}
+          className="fixed pointer-events-none z-[10000]"
+          style={{
+            left: emoji.x,
+            top: emoji.y,
+            transform: `scale(${emoji.scale}) rotate(${emoji.rotation}deg)`,
+            animation: `floatUpAnime ${emoji.duration}ms ease-out forwards`
+          }}
+        >
+          <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-blue-400/50 shadow-lg backdrop-blur-sm">
+            <img
+              src={emoji.imageUrl}
+              alt="Floating Anime"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      ))}
+
+      {/* إضافة الأنماط المطلوبة */}
+      <style>{`
+        @keyframes slideInLeft {
+          from {
+            transform: translateX(-100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+
+        @keyframes floatUpAnime {
+          0% {
+            transform: translateY(0) scale(var(--scale, 1)) rotate(var(--rotation, 0deg));
+            opacity: 1;
+          }
+          25% {
+            transform: translateY(-100px) scale(calc(var(--scale, 1) * 1.1)) rotate(calc(var(--rotation, 0deg) + 5deg));
+            opacity: 0.9;
+          }
+          50% {
+            transform: translateY(-200px) scale(calc(var(--scale, 1) * 1.2)) rotate(calc(var(--rotation, 0deg) + 10deg));
+            opacity: 0.8;
+          }
+          75% {
+            transform: translateY(-300px) scale(calc(var(--scale, 1) * 1.1)) rotate(calc(var(--rotation, 0deg) + 15deg));
+            opacity: 0.5;
+          }
+          100% {
+            transform: translateY(-400px) scale(var(--scale, 1)) rotate(calc(var(--rotation, 0deg) + 20deg));
+            opacity: 0;
+          }
+        }
+
+        @keyframes bounce {
+          0%, 20%, 53%, 80%, 100% {
+            animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+            transform: translate3d(0, 0, 0);
+          }
+          40%, 43% {
+            animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+            transform: translate3d(0, -8px, 0);
+          }
+          70% {
+            animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+            transform: translate3d(0, -4px, 0);
+          }
+          90% {
+            transform: translate3d(0, -2px, 0);
+          }
+        }
+      `}</style>
+    </>
+  );
+};
+
+// Hook للتحكم في الإشعارات من مكونات أخرى
+export const useAnimeNotifications = () => {
+  const [component, setComponent] = useState<any>(null);
+
+  useEffect(() => {
+    // يمكن استخدام هذا للتحكم في الإشعارات من الخارج
+    setComponent(AnimeEmojiNotifications);
+  }, []);
+
+  const triggerRandomEmoji = () => {
+    const event = new CustomEvent('trigger-anime-emoji');
+    window.dispatchEvent(event);
+  };
+
+  const triggerAdBlockWarning = () => {
+    const event = new CustomEvent('trigger-adblock-anime');
+    window.dispatchEvent(event);
+  };
+
+  const triggerDevToolsWarning = () => {
+    const event = new CustomEvent('trigger-devtools-anime');
+    window.dispatchEvent(event);
+  };
+
+  return {
+    component,
+    triggerRandomEmoji,
+    triggerAdBlockWarning,
+    triggerDevToolsWarning
+  };
+};
+
+export default AnimeEmojiNotifications;
