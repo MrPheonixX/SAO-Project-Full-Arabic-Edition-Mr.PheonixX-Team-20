@@ -18,6 +18,13 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import AdminDashboard from "./pages/AdminDashboard";
 
+// TypeScript declarations for global variables
+declare global {
+  interface Window {
+    __SAO_REACT_ROOT__?: Root;
+  }
+}
+
 const queryClient = new QueryClient();
 
 const App = () => (
