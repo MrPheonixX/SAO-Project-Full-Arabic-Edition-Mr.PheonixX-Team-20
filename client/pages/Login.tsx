@@ -149,7 +149,7 @@ export default function Login() {
     // Simulate API call for password recovery
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    setRecoveryMessage("تم إرسال رابط استعادة كلمة المرور إل�� بريدك الإلكتروني");
+    setRecoveryMessage("تم إرسال رابط استعادة كلمة المرور إلى بريدك الإلكتروني");
     setIsLoading(false);
 
     // Reset recovery mode after 3 seconds
@@ -235,12 +235,16 @@ export default function Login() {
               </div>
 
               <CardTitle className="text-2xl text-blue-400">
-                {isLogin ? "تسجيل الدخول" : "إنشاء حساب جديد"}
+                {isRecoveryMode
+                  ? "استعادة كلمة المرور"
+                  : isLogin ? "تسجيل الدخول" : "إنشاء حساب جديد"}
               </CardTitle>
               <CardDescription className="text-gray-300">
-                {isLogin
-                  ? "ادخل إلى مكتبة ساو العربية الحصرية"
-                  : "انضم إلى مجتمع قراء ساو العربي"}
+                {isRecoveryMode
+                  ? "أدخل بريدك الإلكتروني لاستعادة كلمة المرور"
+                  : isLogin
+                    ? "ادخل إلى مكتبة ساو العربية الحصرية"
+                    : "انضم إلى مجتمع قراء ساو العربي"}
               </CardDescription>
             </CardHeader>
 
