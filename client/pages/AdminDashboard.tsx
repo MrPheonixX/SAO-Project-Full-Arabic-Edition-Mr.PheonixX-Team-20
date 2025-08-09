@@ -216,7 +216,8 @@ export default function AdminDashboard() {
               لوحة تحكم المدير
             </CardTitle>
             <CardDescription className="text-gray-300">
-              🔐 منطقة محظورة - Admin Only
+              🔐 منطقة محظورة - Admin Only<br/>
+              <span className="text-sm text-blue-400">Username: AhmedRehab3324@gmail.com</span>
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -409,7 +410,7 @@ export default function AdminDashboard() {
                   <div className="flex items-center space-x-3 p-3 bg-blue-500/10 rounded-lg">
                     <Users className="w-5 h-5 text-blue-400" />
                     <div>
-                      <p className="text-white">انضم 5 م��تخدمين جدد</p>
+                      <p className="text-white">انضم 5 مستخدمين جدد</p>
                       <p className="text-sm text-gray-400">اليوم</p>
                     </div>
                   </div>
@@ -436,7 +437,7 @@ export default function AdminDashboard() {
               </h2>
               <Button className="bg-gradient-to-r from-green-600 to-blue-600">
                 <Plus className="w-4 h-4 mr-2" />
-                رفع مجلد جديد
+                رفع ��جلد جديد
               </Button>
             </div>
 
@@ -629,7 +630,7 @@ export default function AdminDashboard() {
               <Card className="bg-black/40 border-purple-500/30 backdrop-blur-xl">
                 <CardHeader>
                   <CardTitle className="text-purple-400">
-                    إحصائي��ت شهرية
+                    إحصائيات شهرية
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
