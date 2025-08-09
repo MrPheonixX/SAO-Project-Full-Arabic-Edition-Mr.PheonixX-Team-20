@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSecurityContext } from "@/components/SecurityProvider";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -297,7 +298,7 @@ export default function AdminDashboard() {
                 ) : (
                   <Unlock className="w-4 h-4 mr-2" />
                 )}
-                {securityEnabled ? "تعطيل الحماية" : "تفعيل الحماية"}
+                {securityEnabled ? "تعطيل الحماية" : "��فعيل الحماية"}
               </Button>
 
               <Button
