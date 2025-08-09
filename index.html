@@ -33,7 +33,7 @@
     />
     <meta
       property="og:description"
-      content="النسخة العربية الحصرية والكاملة من سيف آرت أونلاين وساو بروجرسيف م��رجمة ومراجعة بواسطة فريق MrPheonixX"
+      content="النسخة العربية الحصري�� والكاملة من سيف آرت أونلاين وساو بروجرسيف مترجمة ومراجعة بواسطة فريق MrPheonixX"
     />
     <meta property="og:image" content="/og-image.png" />
     <meta property="og:locale" content="ar_SA" />
@@ -397,7 +397,32 @@
 
     <!-- Critical CSS -->
     <style>
-      @keyframes loading {
+      /* Optimized animations for all devices */
+      @keyframes cuttingBar {
+        0% {
+          width: 0%;
+        }
+        60% {
+          width: 100%;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+
+      @keyframes revealText {
+        0% {
+          width: 0%;
+        }
+        60% {
+          width: 100%;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+
+      @keyframes scanningBar {
         0% {
           transform: translateX(-100%);
         }
@@ -406,11 +431,80 @@
         }
       }
 
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0px) scale(1);
+          opacity: 0.6;
+        }
+        50% {
+          transform: translateY(-20px) scale(1.2);
+          opacity: 1;
+        }
+      }
+
+      @keyframes pulse {
+        0%, 100% {
+          transform: scale(1);
+          filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.4));
+        }
+        50% {
+          transform: scale(1.05);
+          filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.6));
+        }
+      }
+
+      @keyframes fadeInOut {
+        0%, 100% {
+          opacity: 0.7;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      /* Performance optimizations */
+      #loading-screen * {
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+        transform-style: preserve-3d;
+      }
+
       /* Hide loading screen after app loads */
       .app-loaded #loading-screen {
         opacity: 0;
         pointer-events: none;
-        transition: opacity 0.5s ease-out;
+        transition: opacity 0.8s ease-out;
+      }
+
+      /* Reduce motion for accessibility */
+      @media (prefers-reduced-motion: reduce) {
+        #loading-screen * {
+          animation-duration: 0.01s !important;
+          animation-iteration-count: 1 !important;
+        }
+      }
+
+      /* Mobile optimizations */
+      @media (max-width: 768px) {
+        #loading-screen h1 {
+          font-size: 2rem !important;
+        }
+        #loading-screen > div > div:last-child > div {
+          width: 250px !important;
+        }
+      }
+
+      /* Low-end device optimizations */
+      @media (max-width: 480px) {
+        #loading-screen {
+          background: linear-gradient(135deg, #1e293b, #334155) !important;
+        }
+        #loading-screen h1 {
+          font-size: 1.8rem !important;
+        }
+        #loading-screen > div > div:first-child {
+          font-size: 3rem !important;
+        }
       }
     </style>
 
@@ -492,7 +586,7 @@
 
       // Show update notification
       function showUpdateNotification() {
-        if (confirm("���� يتوفر تحديث جديد للتطبيق. هل تريد تحديثه الآن؟")) {
+        if (confirm("🔄 يتوفر تحديث جديد للتطبيق. هل تريد تحديثه الآن؟")) {
           window.location.reload();
         }
       }
