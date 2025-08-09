@@ -297,7 +297,7 @@ export function useNotifications() {
   const [notificationComponent, setNotificationComponent] = useState<any>(null);
 
   useEffect(() => {
-    setNotificationComponent(<AnimatedNotifications />);
+    setNotificationComponent(<AnimatedNotifications notifications={[]} />);
   }, []);
 
   const showAdBlockWarning = () => {
@@ -306,7 +306,7 @@ export function useNotifications() {
         type: "adblock",
         title: "مانع الإعلانات مُفعل",
         message:
-          "الإعلانات تساعدنا في تقديم المحتوى مجاناً. يرجى ��عطيل مانع الإعلانات للمتابعة.",
+          "الإعلانات تساعدنا ف�� تقديم المحتوى مجاناً. يرجى ��عطيل مانع الإعلانات للمتابعة.",
         emoji: "😢",
         persistent: true,
         actions: [
@@ -348,7 +348,7 @@ export function useNotifications() {
             action: () => window.location.reload(),
           },
           {
-            label: "لاحقاً",
+            label: "لاح��اً",
             action: () => {},
           },
         ],
