@@ -31,6 +31,8 @@ const App = () => (
           <Route path="/progressive" element={<SAOProgressiveLibrary />} />
           <Route path="/sideworks" element={<SideWorksLibrary />} />
           <Route path="/reader/:series/:volumeId" element={<BookReader />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
