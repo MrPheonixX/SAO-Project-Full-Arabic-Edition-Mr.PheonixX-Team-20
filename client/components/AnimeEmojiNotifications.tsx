@@ -210,7 +210,7 @@ export const AnimeEmojiNotifications: React.FC = () => {
       if (Math.random() < 0.3) { // 30% احتمال
         addNotification("random");
 
-        // ايموجي طائر عشوائي أحياناً
+        // ايموجي طائر عش��ائي أحياناً
         if (Math.random() < 0.5) {
           setTimeout(() => addFloatingEmoji(), 500);
         }
@@ -289,14 +289,15 @@ export const AnimeEmojiNotifications: React.FC = () => {
               <CardContent className="p-4">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-3 flex-1">
-                    <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-white/30 shadow-lg animate-bounce">
+                    <div className="sao-holographic relative w-12 h-12 rounded-full overflow-hidden border-2 border-white/30 shadow-lg animate-bounce"
+                         style={{ animation: 'bounce 2s infinite, saoGlow 2s ease-in-out infinite alternate' }}>
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 via-purple-400/20 to-violet-400/20 animate-pulse"></div>
                       <img
                         src={notification.imageUrl}
                         alt="Anime Character"
                         className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300 relative z-10"
                         style={{
-                          filter: 'drop-shadow(0 0 8px rgba(59, 130, 246, 0.4))'
+                          filter: 'drop-shadow(0 0 8px rgba(59, 130, 246, 0.4)) brightness(1.1)'
                         }}
                       />
                     </div>
