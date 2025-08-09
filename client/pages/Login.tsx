@@ -48,6 +48,9 @@ export default function Login() {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const [isRecoveryMode, setIsRecoveryMode] = useState(false);
+  const [recoveryEmail, setRecoveryEmail] = useState("");
+  const [recoveryMessage, setRecoveryMessage] = useState("");
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -275,7 +278,7 @@ export default function Login() {
                 {/* Password */}
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
-                    كلمة المرور
+                    ��لمة المرور
                   </label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
