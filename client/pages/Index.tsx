@@ -80,6 +80,8 @@ export default function Index() {
     return () => {
       clearTimeout(timer);
       window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener('click', handlePageInteraction);
+      document.removeEventListener('scroll', handlePageInteraction);
       cleanup();
     };
   }, []);
