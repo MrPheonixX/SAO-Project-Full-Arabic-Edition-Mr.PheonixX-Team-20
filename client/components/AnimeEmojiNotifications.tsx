@@ -42,6 +42,15 @@ const WARNING_EMOJIS = [
 const FLOATING_EMOJIS = [
   "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2Fc95924a0fc444e14b84a3e4e4aaa1835?alt=media&token=876fb3a0-4450-41fe-857b-f2b8c2c81f14&apiKey=15999d2412c04cefb5e665795b57bb74",
   "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F540ff8cfcf334d8d86b85dcf26e3d363?alt=media&token=b2a1eab5-129a-4980-8814-9e303a425856&apiKey=15999d2412c04cefb5e665795b57bb74",
+<<<<<<< HEAD
+=======
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F9a0dcc61fc8941db9af92f2bedec7bfc?alt=media&token=6b55c62b-ea51-4e77-b1ae-706d7b1f3143&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F326ce025c773434a9059094ed71bcfd4?alt=media&token=d7dd83b6-2b8e-4879-b30f-de9d05f5bf49&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F95b72a03ed1942358d90d9b9489e6fa8?alt=media&token=13fbadb1-e5c8-4c57-a4b1-001804767275&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F72fdf9fb5a8143debfbd467b32f3e489?alt=media&token=542553ae-0f3b-4b85-8555-01ccf31dda98&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F7a2a5611036844d8a9972fa247a7134a?alt=media&token=a400c3a2-ddee-48f0-be0c-90c023a7f4a6&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2Fc8012493594c4d4e98cfc54489b5f380?alt=media&token=eac7edf0-359e-4b22-b97c-7e4618e424ee&apiKey=15999d2412c04cefb5e665795b57bb74",
+>>>>>>> 6dc0f4b1695060720f405d6c336c81f1ad56c7b3
 ];
 
 // رسائل عشوائية تناسب الشخصيات الأنمي
@@ -151,7 +160,11 @@ export const AnimeEmojiNotifications: React.FC = () => {
   // إضافة ايموجي طائر (فقط للشخصيات اللطيفة)
   const addFloatingEmoji = (imageUrl?: string) => {
     const id = Date.now().toString();
+<<<<<<< HEAD
     const finalImageUrl = imageUrl || getRandomEmoji("floating");
+=======
+    const finalImageUrl = imageUrl || getRandomEmoji();
+>>>>>>> 6dc0f4b1695060720f405d6c336c81f1ad56c7b3
 
     const floatingEmoji: FloatingEmojiProps = {
       id,
@@ -177,15 +190,82 @@ export const AnimeEmojiNotifications: React.FC = () => {
 
   // إشعارات ترحيبية وعشوائية (مقللة جداً)
   useEffect(() => {
+<<<<<<< HEAD
     // إشعار ترحيبي بعد 5 ثوان
+=======
+    const detectAdBlock = () => {
+      const testAd = document.createElement("div");
+      testAd.innerHTML = "&nbsp;";
+      testAd.className = "adsbox ads ad adsbygoogle";
+      testAd.style.position = "absolute";
+      testAd.style.left = "-999px";
+      testAd.style.top = "-999px";
+      testAd.style.width = "1px";
+      testAd.style.height = "1px";
+
+      document.body.appendChild(testAd);
+
+      setTimeout(() => {
+        if (
+          testAd.offsetHeight === 0 ||
+          getComputedStyle(testAd).display === "none"
+        ) {
+          addNotification("adblock", undefined, 0); // دائم
+          addFloatingEmoji(); // ايموجي طائر
+        }
+        document.body.removeChild(testAd);
+      }, 100);
+    };
+
+    // فحص مبدئي
+    detectAdBlock();
+
+    // فحص دوري كل 30 ثانية
+    const interval = setInterval(detectAdBlock, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // كشف أدوات المطور
+  useEffect(() => {
+    let devtools = false;
+    const threshold = 160;
+
+    const checkDevTools = () => {
+      const heightDifference = window.outerHeight - window.innerHeight;
+      const widthDifference = window.outerWidth - window.innerWidth;
+
+      if (heightDifference > threshold || widthDifference > threshold) {
+        if (!devtools) {
+          devtools = true;
+          addNotification("devtools", undefined, 4000);
+          addFloatingEmoji(); // ايموجي طائر
+        }
+      } else {
+        devtools = false;
+      }
+    };
+
+    const interval = setInterval(checkDevTools, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // إشعارات عشوائية ترحيبية
+  useEffect(() => {
+    // إشعار ترحيبي بعد 3 ثوان
+>>>>>>> 6dc0f4b1695060720f405d6c336c81f1ad56c7b3
     const welcomeTimer = setTimeout(() => {
       addNotification("greeting", "🎌 مرحباً بك في مكتبة SAO العربية!", 6000);
     }, 5000);
 
     // إشعارات عشوائية نادرة جداً (كل 10 دقائق وباحتمال 10% فقط)
     const randomTimer = setInterval(() => {
+<<<<<<< HEAD
       if (Math.random() < 0.1) {
         // 10% احتمال فقط
+=======
+      if (Math.random() < 0.3) {
+        // 30% احتمال
+>>>>>>> 6dc0f4b1695060720f405d6c336c81f1ad56c7b3
         addNotification("random");
 
         // ايموجي طائر نادر جداً (2% احتمال فقط)

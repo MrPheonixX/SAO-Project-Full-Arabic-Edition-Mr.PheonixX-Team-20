@@ -8,7 +8,11 @@
 
 - ✅ تم إيقاف كشف أدوات المطور (DevTools Detection)
 - ✅ تم إيقاف منع النسخ (Copy Protection)
+<<<<<<< HEAD
 - ✅ تم إيقاف منع لقطات الش��شة (Screenshot Prevention)
+=======
+- ✅ تم إيقاف منع لقطات الشاشة (Screenshot Prevention)
+>>>>>>> 6dc0f4b1695060720f405d6c336c81f1ad56c7b3
 - ✅ تم إيقاف منع الزر الأيمن (Right-click Protection)
 - ✅ يمكنك الآن العمل بحرية تامة!
 

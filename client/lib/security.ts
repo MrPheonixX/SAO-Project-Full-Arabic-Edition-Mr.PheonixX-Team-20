@@ -11,7 +11,7 @@ export interface SecurityConfig {
 }
 
 export interface SecurityEvent {
-  type: 'copy' | 'devtools' | 'screenshot' | 'adblock' | 'suspicious';
+  type: "copy" | "devtools" | "screenshot" | "adblock" | "suspicious";
   timestamp: Date;
   details: string;
   userAgent: string;
@@ -40,9 +40,9 @@ class SecurityManager {
   // Initialize security system
   initialize(): void {
     if (this.isActive) return;
-    
+
     this.isActive = true;
-    console.log('🛡️ MrPheonixX Security System - Initializing...');
+    console.log("🛡️ MrPheonixX Security System - Initializing...");
 
     if (this.config.enableAntiCopy) {
       this.setupAntiCopy();
@@ -65,13 +65,13 @@ class SecurityManager {
     }
 
     this.setupConsoleWarning();
-    console.log('✅ Security system activated');
+    console.log("✅ Security system activated");
   }
 
   // Disable security (for debugging only)
   disable(): void {
     this.isActive = false;
-    console.log('🔓 Security system disabled');
+    console.log("🔓 Security system disabled");
   }
 
   // Add event observer
@@ -80,7 +80,7 @@ class SecurityManager {
   }
 
   // Log security event
-  private logEvent(type: SecurityEvent['type'], details: string): void {
+  private logEvent(type: SecurityEvent["type"], details: string): void {
     const event: SecurityEvent = {
       type,
       timestamp: new Date(),
@@ -92,7 +92,7 @@ class SecurityManager {
     this.violations++;
 
     // Notify observers
-    this.observers.forEach(observer => observer(event));
+    this.observers.forEach((observer) => observer(event));
 
     // Log to console
     console.warn(`🚨 Security Event: ${type} - ${details}`);
@@ -104,46 +104,49 @@ class SecurityManager {
   // Store event in localStorage
   private storeEvent(event: SecurityEvent): void {
     try {
-      const stored = localStorage.getItem('sao-security-events');
+      const stored = localStorage.getItem("sao-security-events");
       const events = stored ? JSON.parse(stored) : [];
       events.push(event);
-      
+
       // Keep only last 100 events
       if (events.length > 100) {
         events.splice(0, events.length - 100);
       }
-      
-      localStorage.setItem('sao-security-events', JSON.stringify(events));
+
+      localStorage.setItem("sao-security-events", JSON.stringify(events));
     } catch (error) {
-      console.error('Failed to store security event:', error);
+      console.error("Failed to store security event:", error);
     }
   }
 
   // Anti-copy protection
   private setupAntiCopy(): void {
     // Disable right-click context menu
-    document.addEventListener('contextmenu', (e) => {
+    document.addEventListener("contextmenu", (e) => {
       e.preventDefault();
-      this.logEvent('copy', 'Right-click attempted');
-      this.showSecurityAlert('النقر بالزر الأيمن غير مسموح لحماية المحتوى');
+      this.logEvent("copy", "Right-click attempted");
+      this.showSecurityAlert("النقر بالزر الأيمن غير مسموح لحماية المحتوى");
     });
 
     // Disable keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-      const isCopyShortcut = 
-        (e.ctrlKey && (e.key === 'c' || e.key === 'a' || e.key === 's' || e.key === 'p')) ||
-        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
-        e.key === 'F12';
+    document.addEventListener("keydown", (e) => {
+      const isCopyShortcut =
+        (e.ctrlKey &&
+          (e.key === "c" || e.key === "a" || e.key === "s" || e.key === "p")) ||
+        (e.ctrlKey &&
+          e.shiftKey &&
+          (e.key === "I" || e.key === "J" || e.key === "C")) ||
+        e.key === "F12";
 
       if (isCopyShortcut) {
         e.preventDefault();
-        this.logEvent('copy', `Keyboard shortcut attempted: ${e.key}`);
-        this.showSecurityAlert('هذا الاختصار غير مسموح لحماية المحتوى');
+        this.logEvent("copy", `Keyboard shortcut attempted: ${e.key}`);
+        this.showSecurityAlert("هذا الاختصار غير مسموح لحماية المحتوى");
       }
     });
 
     // Disable text selection
-    const style = document.createElement('style');
+    const style = document.createElement("style");
     style.textContent = `
       * {
         -webkit-user-select: none !important;
@@ -164,10 +167,10 @@ class SecurityManager {
     document.head.appendChild(style);
 
     // Disable drag and drop
-    document.addEventListener('dragstart', (e) => {
+    document.addEventListener("dragstart", (e) => {
       e.preventDefault();
-      this.logEvent('copy', 'Drag and drop attempted');
-      this.showSecurityAlert('سحب المحتوى غير مسموح');
+      this.logEvent("copy", "Drag and drop attempted");
+      this.showSecurityAlert("سحب المحتوى غير مسموح");
     });
   }
 
@@ -183,7 +186,7 @@ class SecurityManager {
       if (heightDifference > threshold || widthDifference > threshold) {
         if (!devtools) {
           devtools = true;
-          this.logEvent('devtools', 'Developer tools opened');
+          this.logEvent("devtools", "Developer tools opened");
           this.handleDevToolsDetection();
         }
       } else {
@@ -199,9 +202,9 @@ class SecurityManager {
       const start = performance.now();
       debugger; // This will pause if devtools are open
       const end = performance.now();
-      
+
       if (end - start > 100) {
-        this.logEvent('devtools', 'Debugger pause detected');
+        this.logEvent("devtools", "Debugger pause detected");
         this.handleDevToolsDetection();
       }
     };
@@ -213,14 +216,14 @@ class SecurityManager {
   private handleDevToolsDetection(): void {
     if (this.config.strictMode) {
       // Redirect away from site
-      window.location.href = 'about:blank';
+      window.location.href = "about:blank";
     } else {
       // Blur content temporarily
-      document.body.style.filter = 'blur(10px)';
-      this.showSecurityAlert('تم اكتشاف أدوات المطور. المحتوى محمي من النسخ');
-      
+      document.body.style.filter = "blur(10px)";
+      this.showSecurityAlert("تم اكتشاف أدوات المطور. المحتوى محمي من النسخ");
+
       setTimeout(() => {
-        document.body.style.filter = 'none';
+        document.body.style.filter = "none";
       }, 3000);
     }
   }
@@ -228,20 +231,23 @@ class SecurityManager {
   // AdBlock detection
   private setupAdBlockDetection(): void {
     const detectAdBlock = () => {
-      const testAd = document.createElement('div');
-      testAd.innerHTML = '&nbsp;';
-      testAd.className = 'adsbox ads ad adsbygoogle';
-      testAd.style.position = 'absolute';
-      testAd.style.left = '-999px';
-      testAd.style.top = '-999px';
-      testAd.style.width = '1px';
-      testAd.style.height = '1px';
-      
+      const testAd = document.createElement("div");
+      testAd.innerHTML = "&nbsp;";
+      testAd.className = "adsbox ads ad adsbygoogle";
+      testAd.style.position = "absolute";
+      testAd.style.left = "-999px";
+      testAd.style.top = "-999px";
+      testAd.style.width = "1px";
+      testAd.style.height = "1px";
+
       document.body.appendChild(testAd);
-      
+
       setTimeout(() => {
-        if (testAd.offsetHeight === 0 || getComputedStyle(testAd).display === 'none') {
-          this.logEvent('adblock', 'AdBlock detected');
+        if (
+          testAd.offsetHeight === 0 ||
+          getComputedStyle(testAd).display === "none"
+        ) {
+          this.logEvent("adblock", "AdBlock detected");
           this.showAdBlockWarning();
         }
         document.body.removeChild(testAd);
@@ -255,8 +261,8 @@ class SecurityManager {
 
   // Show AdBlock warning
   private showAdBlockWarning(): void {
-    const warning = document.createElement('div');
-    warning.id = 'adblock-warning';
+    const warning = document.createElement("div");
+    warning.id = "adblock-warning";
     warning.innerHTML = `
       <div style="
         position: fixed;
@@ -295,35 +301,35 @@ class SecurityManager {
         </div>
       </div>
     `;
-    
+
     document.body.appendChild(warning);
   }
 
   // Screenshot protection
   private setupScreenshotProtection(): void {
     // Detect PrintScreen key
-    document.addEventListener('keyup', (e) => {
-      if (e.key === 'PrintScreen') {
-        this.logEvent('screenshot', 'PrintScreen key pressed');
+    document.addEventListener("keyup", (e) => {
+      if (e.key === "PrintScreen") {
+        this.logEvent("screenshot", "PrintScreen key pressed");
         this.handleScreenshotAttempt();
       }
     });
 
     // Detect window focus/blur (potential screenshot tools)
     let blurCount = 0;
-    window.addEventListener('blur', () => {
+    window.addEventListener("blur", () => {
       blurCount++;
       if (blurCount > 3) {
-        this.logEvent('screenshot', 'Multiple window blur events (suspicious)');
+        this.logEvent("screenshot", "Multiple window blur events (suspicious)");
       }
     });
 
     // Detect visibility change
-    document.addEventListener('visibilitychange', () => {
+    document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
         setTimeout(() => {
           if (!document.hidden) {
-            this.logEvent('suspicious', 'Quick visibility change detected');
+            this.logEvent("suspicious", "Quick visibility change detected");
           }
         }, 100);
       }
@@ -333,19 +339,19 @@ class SecurityManager {
   // Handle screenshot attempt
   private handleScreenshotAttempt(): void {
     // Temporarily hide content
-    document.body.style.visibility = 'hidden';
-    this.showSecurityAlert('لقطات الشاشة غير مسموحة لحماية المحتوى');
-    
+    document.body.style.visibility = "hidden";
+    this.showSecurityAlert("لقطات الشاشة غير مسموحة لحماية المحتوى");
+
     setTimeout(() => {
-      document.body.style.visibility = 'visible';
+      document.body.style.visibility = "visible";
     }, 2000);
   }
 
   // Setup watermark
   private setupWatermark(): void {
-    const watermark = document.createElement('div');
-    watermark.id = 'security-watermark';
-    watermark.innerHTML = 'MrPheonixX Team - Protected Content';
+    const watermark = document.createElement("div");
+    watermark.id = "security-watermark";
+    watermark.innerHTML = "MrPheonixX Team - Protected Content";
     watermark.style.cssText = `
       position: fixed;
       bottom: 10px;
@@ -357,7 +363,7 @@ class SecurityManager {
       pointer-events: none;
       user-select: none;
     `;
-    
+
     document.body.appendChild(watermark);
   }
 
@@ -365,27 +371,27 @@ class SecurityManager {
   private setupConsoleWarning(): void {
     console.clear();
     console.log(
-      '%c🛡️ MrPheonixX Team - حماية المحتوى نشطة',
-      'color: #3b82f6; font-size: 24px; font-weight: bold;'
+      "%c🛡️ MrPheonixX Team - حماية المحتوى نشطة",
+      "color: #3b82f6; font-size: 24px; font-weight: bold;",
     );
     console.log(
-      '%c⚠️ تحذير: هذا الموقع محمي من النسخ والتحميل',
-      'color: #ef4444; font-size: 16px; font-weight: bold;'
+      "%c⚠️ تحذير: هذا الموقع محمي من النسخ والتحميل",
+      "color: #ef4444; font-size: 16px; font-weight: bold;",
     );
     console.log(
-      '%c📚 للاستمتاع بالمحتوى، يرجى استخدام واجهة الموقع',
-      'color: #10b981; font-size: 14px;'
+      "%c📚 للاستمتاع بالمحتوى، يرجى استخدام واجهة الموقع",
+      "color: #10b981; font-size: 14px;",
     );
     console.log(
-      '%c💰 إذا كنت تحب المحتوى، ادعمنا عبر Patreon أو YouTube',
-      'color: #f59e0b; font-size: 14px;'
+      "%c💰 إذا كنت تحب المحتوى، ادعمنا عبر Patreon أو YouTube",
+      "color: #f59e0b; font-size: 14px;",
     );
   }
 
   // Show security alert
   private showSecurityAlert(message: string): void {
     // Create floating alert
-    const alert = document.createElement('div');
+    const alert = document.createElement("div");
     alert.innerHTML = `
       <div style="
         position: fixed;
@@ -417,9 +423,9 @@ class SecurityManager {
         }
       </style>
     `;
-    
+
     document.body.appendChild(alert);
-    
+
     // Auto remove after 5 seconds
     setTimeout(() => {
       if (alert.parentNode) {
@@ -445,7 +451,7 @@ class SecurityManager {
   clearEvents(): void {
     this.events = [];
     this.violations = 0;
-    localStorage.removeItem('sao-security-events');
+    localStorage.removeItem("sao-security-events");
   }
 }
 
@@ -453,8 +459,8 @@ class SecurityManager {
 export const securityManager = new SecurityManager();
 
 // Auto-initialize in production
-if (process.env.NODE_ENV === 'production') {
-  document.addEventListener('DOMContentLoaded', () => {
+if (process.env.NODE_ENV === "production") {
+  document.addEventListener("DOMContentLoaded", () => {
     securityManager.initialize();
   });
 }
