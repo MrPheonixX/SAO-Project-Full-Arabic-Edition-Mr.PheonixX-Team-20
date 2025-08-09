@@ -60,6 +60,18 @@ export const SecurityProvider: React.FC<SecurityProviderProps> = ({
     setNotifications(prev => [...prev, notification]);
   };
 
+  // Toggle security function for admin control
+  const toggleSecurity = (enabled: boolean) => {
+    setIsSecurityActive(enabled);
+    localStorage.setItem('admin-security-enabled', enabled.toString());
+
+    if (enabled) {
+      triggerSecurityAlert("success", "تم تفعيل نظام الحماية بنجاح");
+    } else {
+      triggerSecurityAlert("warning", "تم إيقاف نظام الحماية مؤقتاً");
+    }
+  };
+
   // AdBlock Detection
   useEffect(() => {
     if (!isSecurityActive) return;
