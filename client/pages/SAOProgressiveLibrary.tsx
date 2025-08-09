@@ -201,12 +201,12 @@ export default function SAOProgressiveLibrary() {
                   {/* Special Features */}
                   <div className="flex flex-wrap gap-1">
                     {volume.asunaFocus && (
-                      <Badge variant="outline" size="sm" className="border-pink-400 text-pink-400 text-xs">
+                      <Badge variant="outline" className="border-pink-400 text-pink-400 text-xs px-2 py-1">
                         أسونا
                       </Badge>
                     )}
                     {volume.newContent && (
-                      <Badge variant="outline" size="sm" className="border-yellow-400 text-yellow-400 text-xs">
+                      <Badge variant="outline" className="border-yellow-400 text-yellow-400 text-xs px-2 py-1">
                         قصص جديدة
                       </Badge>
                     )}

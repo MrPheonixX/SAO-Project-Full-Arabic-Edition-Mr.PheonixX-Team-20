@@ -32,7 +32,7 @@ const sideWorks = [
     description:
       "A dark psychological novel exploring themes of social withdrawal, depression, and the struggles of modern Japanese society through the eyes of a hikikomori.",
     descriptionArabic:
-      "رواية نفسية مظلمة تستكشف مواضيع الانعزال الاجتماعي والاكتئاب وصراعات المجتمع الياباني الحديث من خلال عيون هيكيكوموري.",
+      "رواية نفسية مظلمة تستكشف مواضيع الانعزال الاجتماعي والاكتئاب وصراعات المجتمع الياباني الحديث من خلال عيون هيكيكو��وري.",
     genre: "Psychological Drama",
     genreArabic: "دراما نفسية",
     pages: 320,
@@ -252,8 +252,7 @@ export default function SideWorksLibrary() {
                       <Badge
                         key={index}
                         variant="outline"
-                        size="sm"
-                        className="border-gray-500 text-gray-400 text-xs"
+                        className="border-gray-500 text-gray-400 text-xs px-2 py-1"
                       >
                         {tag}
                       </Badge>
@@ -325,7 +324,7 @@ export default function SideWorksLibrary() {
                 </h4>
                 <p className="text-gray-300 leading-relaxed">
                   هذه الأعمال تمثل جوانب مختلفة من الأدب الياباني الحديث، من
-                  الكلاسيكيات التي شكلت الهوية الأدبية اليابانية إلى الأعمال
+                  الكلاسيكيات التي شكلت الهوية الأ��بية اليابانية إلى الأعمال
                   المعاصرة التي تعكس تحديات المجتمع الحديث.
                 </p>
               </CardContent>
