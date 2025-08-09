@@ -52,25 +52,89 @@ const App = () => (
 
 // Robust root management for both dev and production
 function initializeApp() {
-  const container = document.getElementById("root");
-  if (!container) {
-    throw new Error("Root container not found");
-  }
+  try {
+    console.log("🚀 Initializing SAO Arabic Reader...");
 
-  // Check if we already have a root instance
-  if (!window.__SAO_REACT_ROOT__) {
-    // Create new root and store globally
-    const root = createRoot(container);
-    window.__SAO_REACT_ROOT__ = root;
-    console.log("🛡️ SAO Arabic Reader - React root created");
-  }
+    const container = document.getElementById("root");
+    if (!container) {
+      console.error("❌ Root container not found!");
+      throw new Error("Root container not found");
+    }
 
-  // Always render with the existing root
-  const root = window.__SAO_REACT_ROOT__;
-  root.render(<App />);
+    console.log("✅ Root container found:", container);
+
+    // Check if we already have a root instance
+    if (!window.__SAO_REACT_ROOT__) {
+      console.log("🔧 Creating new React root...");
+      // Create new root and store globally
+      const root = createRoot(container);
+      window.__SAO_REACT_ROOT__ = root;
+      console.log("✅ SAO Arabic Reader - React root created");
+    } else {
+      console.log("♻️ Reusing existing React root");
+    }
+
+    // Always render with the existing root
+    const root = window.__SAO_REACT_ROOT__;
+    console.log("🎨 Rendering App component...");
+    root.render(<App />);
+    console.log("✅ App rendered successfully!");
+
+    // Hide loading screen after successful render
+    setTimeout(() => {
+      const loadingScreen = document.getElementById("loading-screen");
+      if (loadingScreen) {
+        loadingScreen.style.display = "none";
+        console.log("👋 Loading screen hidden");
+      }
+    }, 1000);
+
+  } catch (error) {
+    console.error("❌ Failed to initialize app:", error);
+
+    // Show error message to user
+    const container = document.getElementById("root");
+    if (container) {
+      container.innerHTML = `
+        <div style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+          background: linear-gradient(135deg, #1e293b, #3730a3);
+          color: white;
+          font-family: Arial, sans-serif;
+          text-align: center;
+          padding: 2rem;
+        ">
+          <div>
+            <div style="font-size: 4rem; margin-bottom: 1rem;">⚠️</div>
+            <h1 style="font-size: 2rem; margin-bottom: 1rem;">خطأ في تحميل التطبيق</h1>
+            <p style="margin-bottom: 1rem;">حدث خطأ أثناء تحميل منصة قراءة ساو العربية</p>
+            <p style="color: #ef4444; font-family: monospace; font-size: 0.9rem;">${error.message}</p>
+            <button
+              onclick="location.reload()"
+              style="
+                background: #3b82f6;
+                color: white;
+                border: none;
+                padding: 12px 24px;
+                border-radius: 8px;
+                margin-top: 1rem;
+                cursor: pointer;
+              "
+            >
+              🔄 إعادة المحاولة
+            </button>
+          </div>
+        </div>
+      `;
+    }
+  }
 }
 
 // Initialize the app
+console.log("🎯 Starting SAO Arabic Reader initialization...");
 initializeApp();
 
 // Handle hot module replacement in development
