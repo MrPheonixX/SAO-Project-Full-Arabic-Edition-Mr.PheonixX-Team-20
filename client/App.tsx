@@ -13,6 +13,8 @@ import SAOLibrary from "./pages/SAOLibrary";
 import SAOProgressiveLibrary from "./pages/SAOProgressiveLibrary";
 import SideWorksLibrary from "./pages/SideWorksLibrary";
 import BookReader from "./pages/BookReader";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
