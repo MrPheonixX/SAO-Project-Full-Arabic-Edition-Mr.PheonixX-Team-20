@@ -30,7 +30,7 @@ const CUTE_EMOJIS = [
   "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F326ce025c773434a9059094ed71bcfd4?alt=media&token=d7dd83b6-2b8e-4879-b30f-de9d05f5bf49&apiKey=15999d2412c04cefb5e665795b57bb74"
 ];
 
-// صور للتحذيرات والأمان فقط
+// صور للتحذيرات والأم��ن فقط
 const WARNING_EMOJIS = [
   "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F50086dbb9ccf4873b677aa240e6a8f89?alt=media&token=e4e0855b-b210-47d5-9e29-e604b4716067&apiKey=15999d2412c04cefb5e665795b57bb74",
   "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F485b50c978ba4e509f4fb8cfe6c27152?alt=media&token=2546bab0-ac0d-4182-9ada-90d33ad2ead9&apiKey=15999d2412c04cefb5e665795b57bb74",
@@ -104,7 +104,9 @@ export const AnimeEmojiNotifications: React.FC = () => {
   // إضافة إشعار جديد
   const addNotification = (type: AnimeEmojiProps["type"], message?: string, duration = 5000) => {
     const id = Date.now().toString();
-    const imageUrl = getRandomEmoji();
+    // استخدام النوع المناسب للصور��
+    const emojiType = (type === "adblock" || type === "devtools") ? "warning" : "cute";
+    const imageUrl = getRandomEmoji(emojiType);
     const finalMessage = message || getRandomMessage(type);
 
     const notification: AnimeEmojiProps = {
