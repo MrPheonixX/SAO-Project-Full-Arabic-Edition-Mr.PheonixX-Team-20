@@ -22,27 +22,31 @@ interface FloatingEmojiProps {
   duration: number;
 }
 
-// الصور المرفوعة من المستخدم
-const ANIME_EMOJIS = [
-  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F50086dbb9ccf4873b677aa240e6a8f89?alt=media&token=e4e0855b-b210-47d5-9e29-e604b4716067&apiKey=15999d2412c04cefb5e665795b57bb74",
+// صور مناسبة للترحيب والرسائل العادية (اللطيفة والمحترمة فقط)
+const CUTE_EMOJIS = [
   "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2Fc95924a0fc444e14b84a3e4e4aaa1835?alt=media&token=876fb3a0-4450-41fe-857b-f2b8c2c81f14&apiKey=15999d2412c04cefb5e665795b57bb74",
   "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F83f88278eed0424baad8ae192a6b861e?alt=media&token=390a794f-1fb7-4894-8160-c835e8d09ab4&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F540ff8cfcf334d8d86b85dcf26e3d363?alt=media&token=b2a1eab5-129a-4980-8814-9e303a425856&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F326ce025c773434a9059094ed71bcfd4?alt=media&token=d7dd83b6-2b8e-4879-b30f-de9d05f5bf49&apiKey=15999d2412c04cefb5e665795b57bb74"
+];
+
+// صور للتحذيرات والأمان فقط
+const WARNING_EMOJIS = [
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F50086dbb9ccf4873b677aa240e6a8f89?alt=media&token=e4e0855b-b210-47d5-9e29-e604b4716067&apiKey=15999d2412c04cefb5e665795b57bb74",
   "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F485b50c978ba4e509f4fb8cfe6c27152?alt=media&token=2546bab0-ac0d-4182-9ada-90d33ad2ead9&apiKey=15999d2412c04cefb5e665795b57bb74",
   "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F4a600db401354a84b3ce0b5f8673ca8f?alt=media&token=7184e77a-ed5d-461b-a5e9-9627372fa6f5&apiKey=15999d2412c04cefb5e665795b57bb74",
-  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2Fda92ce7343c84b18912f7334aef4b8c7?alt=media&token=35cdc573-edff-45a6-bfe8-ffc448e0d3c8&apiKey=15999d2412c04cefb5e665795b57bb74",
-  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F2164c66ff25448a29a8d4fddaf392980?alt=media&token=b8f09a5d-2b44-490d-ad09-7445c5a90646&apiKey=15999d2412c04cefb5e665795b57bb74",
-  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F540ff8cfcf334d8d86b85dcf26e3d363?alt=media&token=b2a1eab5-129a-4980-8814-9e303a425856&apiKey=15999d2412c04cefb5e665795b57bb74",
-  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F9a0dcc61fc8941db9af92f2bedec7bfc?alt=media&token=6b55c62b-ea51-4e77-b1ae-706d7b1f3143&apiKey=15999d2412c04cefb5e665795b57bb74",
-  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F326ce025c773434a9059094ed71bcfd4?alt=media&token=d7dd83b6-2b8e-4879-b30f-de9d05f5bf49&apiKey=15999d2412c04cefb5e665795b57bb74",
-  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F95b72a03ed1942358d90d9b9489e6fa8?alt=media&token=13fbadb1-e5c8-4c57-a4b1-001804767275&apiKey=15999d2412c04cefb5e665795b57bb74",
-  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F72fdf9fb5a8143debfbd467b32f3e489?alt=media&token=542553ae-0f3b-4b85-8555-01ccf31dda98&apiKey=15999d2412c04cefb5e665795b57bb74",
-  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F7a2a5611036844d8a9972fa247a7134a?alt=media&token=a400c3a2-ddee-48f0-be0c-90c023a7f4a6&apiKey=15999d2412c04cefb5e665795b57bb74",
-  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2Fc8012493594c4d4e98cfc54489b5f380?alt=media&token=eac7edf0-359e-4b22-b97c-7e4618e424ee&apiKey=15999d2412c04cefb5e665795b57bb74"
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2Fda92ce7343c84b18912f7334aef4b8c7?alt=media&token=35cdc573-edff-45a6-bfe8-ffc448e0d3c8&apiKey=15999d2412c04cefb5e665795b57bb74"
+];
+
+// ايموجيات طائرة عادية (2 فقط)
+const FLOATING_EMOJIS = [
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2Fc95924a0fc444e14b84a3e4e4aaa1835?alt=media&token=876fb3a0-4450-41fe-857b-f2b8c2c81f14&apiKey=15999d2412c04cefb5e665795b57bb74",
+  "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F540ff8cfcf334d8d86b85dcf26e3d363?alt=media&token=b2a1eab5-129a-4980-8814-9e303a425856&apiKey=15999d2412c04cefb5e665795b57bb74"
 ];
 
 // رسائل عشوائية تناسب الشخصيات الأنمي
 const RANDOM_MESSAGES = [
-  "✨ أهلاً بك في عالم SAO الرقمي!",
+  "✨ أهلاً بك في عالم SAO ��لرقمي!",
   "🎮 استمتع بالقراءة والمغامرة!",
   "💫 الشخصيات تحييك بحماس!",
   "🌸 وقت ممتع في عالم الأنمي",
