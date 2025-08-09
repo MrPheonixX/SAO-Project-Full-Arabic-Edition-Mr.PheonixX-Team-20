@@ -21,11 +21,20 @@ interface FloatingEmojiProps {
   duration?: number;
 }
 
-export function AnimatedNotifications() {
-  const [notifications, setNotifications] = useState<NotificationProps[]>([]);
+interface AnimatedNotificationsProps {
+  notifications: NotificationProps[];
+}
+
+export function AnimatedNotifications({ notifications: propNotifications }: AnimatedNotificationsProps) {
+  const [notifications, setNotifications] = useState<NotificationProps[]>(propNotifications || []);
   const [floatingEmojis, setFloatingEmojis] = useState<FloatingEmojiProps[]>(
     [],
   );
+
+  // Update notifications when props change
+  useEffect(() => {
+    setNotifications(propNotifications || []);
+  }, [propNotifications]);
 
   // إضافة إشعار جديد
   const addNotification = (notification: Omit<NotificationProps, "id">) => {
@@ -42,7 +51,7 @@ export function AnimatedNotifications() {
     }
   };
 
-  // إزالة إشعار
+  // إزالة ��شعار
   const removeNotification = (id: string) => {
     setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
@@ -297,7 +306,7 @@ export function useNotifications() {
         type: "adblock",
         title: "مانع الإعلانات مُفعل",
         message:
-          "الإعلانات تساعدنا في تقديم المحتوى مجاناً. يرجى تعطيل مانع الإعلانات للمتابعة.",
+          "الإعلانات تساعدنا في تقديم المحتوى مجاناً. يرجى ��عطيل مانع الإعلانات للمتابعة.",
         emoji: "😢",
         persistent: true,
         actions: [
