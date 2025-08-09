@@ -354,18 +354,57 @@ export default function Index() {
             </div>
 
             <h2 className="text-4xl font-bold mb-6 text-white relative">
+              {/* Holographic scan effect for subtitle */}
+              <div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/10 to-transparent -skew-x-12"
+                style={{
+                  animation: 'hologramScan 6s ease-in-out infinite',
+                  animationDelay: '2s'
+                }}
+              ></div>
+
+              {/* Main subtitle text */}
               <span
-                className="bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent"
+                className="relative bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent"
                 style={{
                   backgroundSize: '200% 200%',
-                  animation: 'gradientShift 5s ease-in-out infinite'
+                  animation: 'gradientShift 5s ease-in-out infinite, textGlow 3s ease-in-out infinite alternate'
                 }}
               >
                 الطبعة العربية الكاملة
               </span>
-              <div className="absolute inset-0 text-white opacity-20 animate-pulse">
+
+              {/* Glitch shadow effect for subtitle */}
+              <div
+                className="absolute inset-0 text-white opacity-20 animate-pulse"
+                style={{
+                  animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite, glitchRed 0.1s infinite linear alternate-reverse'
+                }}
+              >
                 الطبعة العربية الكاملة
               </div>
+
+              {/* Tech accent lines */}
+              <div className="absolute -left-4 top-1/2 w-2 h-0.5 bg-blue-400 opacity-60 animate-pulse"></div>
+              <div className="absolute -right-4 top-1/2 w-2 h-0.5 bg-purple-400 opacity-60 animate-pulse delay-300"></div>
+
+              {/* Floating tech particles around subtitle */}
+              <div
+                className="absolute -top-2 left-1/4 w-1 h-1 bg-cyan-400 rounded-full opacity-70"
+                style={{
+                  animation: 'energyOrb 5s ease-in-out infinite',
+                  animationDelay: '1s',
+                  boxShadow: '0 0 10px #06b6d4'
+                }}
+              ></div>
+              <div
+                className="absolute -bottom-2 right-1/4 w-1 h-1 bg-violet-400 rounded-full opacity-70"
+                style={{
+                  animation: 'energyOrb 4s ease-in-out infinite reverse',
+                  animationDelay: '2s',
+                  boxShadow: '0 0 8px #8b5cf6'
+                }}
+              ></div>
             </h2>
 
             <p className="text-xl text-gray-300 max-w-4xl mx-auto mb-8 leading-relaxed animate-pulse">
