@@ -6,31 +6,35 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import SecurityProvider from "./components/SecurityProvider";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import SAOLibrary from "./pages/SAOLibrary";
 import SAOProgressiveLibrary from "./pages/SAOProgressiveLibrary";
+import SideWorksLibrary from "./pages/SideWorksLibrary";
 import BookReader from "./pages/BookReader";
 
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/sao" element={<SAOLibrary />} />
-          <Route path="/progressive" element={<SAOProgressiveLibrary />} />
-          <Route path="/reader/:series/:volumeId" element={<BookReader />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <SecurityProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/sao" element={<SAOLibrary />} />
+            <Route path="/progressive" element={<SAOProgressiveLibrary />} />
+            <Route path="/reader/:series/:volumeId" element={<BookReader />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </SecurityProvider>
 );
 
 createRoot(document.getElementById("root")!).render(<App />);
