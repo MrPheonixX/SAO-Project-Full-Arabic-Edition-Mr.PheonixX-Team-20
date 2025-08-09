@@ -403,14 +403,17 @@
       /* Simple and optimized animations */
       @keyframes sweepingBar {
         0% {
-          transform: translateX(-100px);
+          transform: translateX(-50px);
           opacity: 0;
         }
-        50% {
+        10% {
+          opacity: 1;
+        }
+        90% {
           opacity: 1;
         }
         100% {
-          transform: translateX(calc(100vw - 50px));
+          transform: translateX(320px);
           opacity: 0;
         }
       }
