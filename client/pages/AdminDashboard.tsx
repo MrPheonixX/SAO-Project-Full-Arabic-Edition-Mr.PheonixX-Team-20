@@ -38,6 +38,7 @@ import {
   UserCheck,
   UserX,
   ArrowLeft,
+  Save,
 } from "lucide-react";
 // Security functions will be added later
 // import { disableSecurity, enableSecurity } from "@/lib/security";
@@ -78,7 +79,7 @@ export default function AdminDashboard() {
     {
       id: "sao_1",
       title: "SAO Volume 1",
-      titleArabic: "ساو المجلد 1",
+      titleArabic: "ساو ال��جلد 1",
       series: "sao",
       pages: 250,
       status: "published",
