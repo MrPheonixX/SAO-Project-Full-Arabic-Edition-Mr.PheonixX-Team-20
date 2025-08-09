@@ -149,7 +149,9 @@ export default function Login() {
     // Simulate API call for password recovery
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    setRecoveryMessage("تم إرسال رابط استعادة كلمة المرور إلى بريدك الإلكتروني");
+    setRecoveryMessage(
+      "تم إرسال رابط استعادة كلمة المرور إلى بريدك الإلكتروني",
+    );
     setIsLoading(false);
 
     // Reset recovery mode after 3 seconds
@@ -237,7 +239,9 @@ export default function Login() {
               <CardTitle className="text-2xl text-blue-400">
                 {isRecoveryMode
                   ? "استعادة كلمة المرور"
-                  : isLogin ? "تسجيل الدخول" : "إنشاء حساب جديد"}
+                  : isLogin
+                    ? "تسجيل الدخول"
+                    : "إنشاء حساب جديد"}
               </CardTitle>
               <CardDescription className="text-gray-300">
                 {isRecoveryMode
@@ -270,11 +274,13 @@ export default function Login() {
                   </div>
 
                   {recoveryMessage && (
-                    <div className={`p-3 rounded-md text-sm ${
-                      recoveryMessage.includes('تم')
-                        ? 'bg-green-500/20 text-green-400 border border-green-500/30'
-                        : 'bg-red-500/20 text-red-400 border border-red-500/30'
-                    }`}>
+                    <div
+                      className={`p-3 rounded-md text-sm ${
+                        recoveryMessage.includes("تم")
+                          ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                          : "bg-red-500/20 text-red-400 border border-red-500/30"
+                      }`}
+                    >
                       {recoveryMessage}
                     </div>
                   )}
@@ -311,175 +317,175 @@ export default function Login() {
               ) : (
                 /* Normal Login/Register Form */
                 <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Username */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    اسم المستخدم
-                  </label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
-                    <input
-                      type="text"
-                      value={formData.username}
-                      onChange={(e) =>
-                        handleInputChange("username", e.target.value)
-                      }
-                      className="w-full pl-10 pr-4 py-2 bg-black/40 border border-gray-500/30 rounded-md text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none"
-                      placeholder="اختر اسم المستخدم"
-                      dir="rtl"
-                    />
-                  </div>
-                  {errors.username && (
-                    <p className="text-red-400 text-sm mt-1">
-                      {errors.username}
-                    </p>
-                  )}
-                </div>
-
-                {/* Email (Register only) */}
-                {!isLogin && (
+                  {/* Username */}
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">
-                      البريد الإلكتروني
+                      اسم المستخدم
                     </label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                      <User className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
                       <input
-                        type="email"
-                        value={formData.email}
+                        type="text"
+                        value={formData.username}
                         onChange={(e) =>
-                          handleInputChange("email", e.target.value)
+                          handleInputChange("username", e.target.value)
                         }
                         className="w-full pl-10 pr-4 py-2 bg-black/40 border border-gray-500/30 rounded-md text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none"
-                        placeholder="البريد الإلكتروني"
-                        dir="ltr"
+                        placeholder="اختر اسم المستخدم"
+                        dir="rtl"
                       />
                     </div>
-                    {errors.email && (
+                    {errors.username && (
                       <p className="text-red-400 text-sm mt-1">
-                        {errors.email}
+                        {errors.username}
                       </p>
                     )}
                   </div>
-                )}
 
-                {/* Password */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    كلمة المرور
-                  </label>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      value={formData.password}
-                      onChange={(e) =>
-                        handleInputChange("password", e.target.value)
-                      }
-                      className="w-full pl-10 pr-10 py-2 bg-black/40 border border-gray-500/30 rounded-md text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none"
-                      placeholder="كلمة المرور"
-                      dir="ltr"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-3 text-gray-400 hover:text-gray-300"
-                    >
-                      {showPassword ? (
-                        <EyeOff className="w-4 h-4" />
-                      ) : (
-                        <Eye className="w-4 h-4" />
+                  {/* Email (Register only) */}
+                  {!isLogin && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                        البريد الإلكتروني
+                      </label>
+                      <div className="relative">
+                        <Mail className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                        <input
+                          type="email"
+                          value={formData.email}
+                          onChange={(e) =>
+                            handleInputChange("email", e.target.value)
+                          }
+                          className="w-full pl-10 pr-4 py-2 bg-black/40 border border-gray-500/30 rounded-md text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none"
+                          placeholder="البريد الإلكتروني"
+                          dir="ltr"
+                        />
+                      </div>
+                      {errors.email && (
+                        <p className="text-red-400 text-sm mt-1">
+                          {errors.email}
+                        </p>
                       )}
-                    </button>
-                  </div>
-                  {errors.password && (
-                    <p className="text-red-400 text-sm mt-1">
-                      {errors.password}
-                    </p>
+                    </div>
                   )}
-                </div>
 
-                {/* Confirm Password (Register only) */}
-                {!isLogin && (
+                  {/* Password */}
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">
-                      تأكيد كلمة المرور
+                      كلمة المرور
                     </label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
                       <input
-                        type="password"
-                        value={formData.confirmPassword}
+                        type={showPassword ? "text" : "password"}
+                        value={formData.password}
                         onChange={(e) =>
-                          handleInputChange("confirmPassword", e.target.value)
+                          handleInputChange("password", e.target.value)
                         }
-                        className="w-full pl-10 pr-4 py-2 bg-black/40 border border-gray-500/30 rounded-md text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none"
-                        placeholder="تأكيد كلمة المرور"
+                        className="w-full pl-10 pr-10 py-2 bg-black/40 border border-gray-500/30 rounded-md text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none"
+                        placeholder="كلمة المرور"
                         dir="ltr"
                       />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-3 text-gray-400 hover:text-gray-300"
+                      >
+                        {showPassword ? (
+                          <EyeOff className="w-4 h-4" />
+                        ) : (
+                          <Eye className="w-4 h-4" />
+                        )}
+                      </button>
                     </div>
-                    {errors.confirmPassword && (
+                    {errors.password && (
                       <p className="text-red-400 text-sm mt-1">
-                        {errors.confirmPassword}
+                        {errors.password}
                       </p>
                     )}
                   </div>
-                )}
 
-                {/* Submit Button */}
-                <Button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 py-3 text-lg font-semibold"
-                >
-                  {isLoading ? (
-                    <div className="flex items-center space-x-2">
-                      <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>
-                      <span>جاري المعالجة...</span>
+                  {/* Confirm Password (Register only) */}
+                  {!isLogin && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                        تأكيد كلمة المرور
+                      </label>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                        <input
+                          type="password"
+                          value={formData.confirmPassword}
+                          onChange={(e) =>
+                            handleInputChange("confirmPassword", e.target.value)
+                          }
+                          className="w-full pl-10 pr-4 py-2 bg-black/40 border border-gray-500/30 rounded-md text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none"
+                          placeholder="تأكيد كلمة المرور"
+                          dir="ltr"
+                        />
+                      </div>
+                      {errors.confirmPassword && (
+                        <p className="text-red-400 text-sm mt-1">
+                          {errors.confirmPassword}
+                        </p>
+                      )}
                     </div>
-                  ) : isLogin ? (
-                    "تسجيل الدخول"
-                  ) : (
-                    "إنشاء الحساب"
                   )}
-                </Button>
 
-                {/* Switch between Login/Register */}
-                <div className="text-center space-y-2">
-                  <button
-                    type="button"
-                    onClick={() => setIsLogin(!isLogin)}
-                    className="text-blue-400 hover:text-blue-300 text-sm block w-full"
+                  {/* Submit Button */}
+                  <Button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 py-3 text-lg font-semibold"
                   >
-                    {isLogin
-                      ? "ليس لديك حساب؟ أنشئ حساباً جديداً"
-                      : "لديك حساب بالفعل؟ سجل دخولك"}
-                  </button>
+                    {isLoading ? (
+                      <div className="flex items-center space-x-2">
+                        <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>
+                        <span>جاري المعالجة...</span>
+                      </div>
+                    ) : isLogin ? (
+                      "تسجيل الدخول"
+                    ) : (
+                      "إنشاء الحساب"
+                    )}
+                  </Button>
 
-                  {isLogin && (
+                  {/* Switch between Login/Register */}
+                  <div className="text-center space-y-2">
                     <button
                       type="button"
-                      onClick={() => setIsRecoveryMode(true)}
-                      className="text-gray-400 hover:text-gray-300 text-xs"
+                      onClick={() => setIsLogin(!isLogin)}
+                      className="text-blue-400 hover:text-blue-300 text-sm block w-full"
                     >
-                      نسيت كلمة المرور؟
+                      {isLogin
+                        ? "ليس لديك حساب؟ أنشئ حساباً جديداً"
+                        : "لديك حساب بالفعل؟ سجل دخولك"}
                     </button>
-                  )}
-                </div>
 
-                {/* Guest Login */}
-                <div className="border-t border-gray-600 pt-4">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleGuestLogin}
-                    className="w-full border-gray-500 text-gray-300 hover:bg-gray-500/10"
-                  >
-                    <User className="w-4 h-4 mr-2" />
-                    دخول كضيف
-                  </Button>
-                </div>
-              </form>
+                    {isLogin && (
+                      <button
+                        type="button"
+                        onClick={() => setIsRecoveryMode(true)}
+                        className="text-gray-400 hover:text-gray-300 text-xs"
+                      >
+                        نسيت كلمة المرور؟
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Guest Login */}
+                  <div className="border-t border-gray-600 pt-4">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleGuestLogin}
+                      className="w-full border-gray-500 text-gray-300 hover:bg-gray-500/10"
+                    >
+                      <User className="w-4 h-4 mr-2" />
+                      دخول كضيف
+                    </Button>
+                  </div>
+                </form>
               )}
             </CardContent>
           </Card>

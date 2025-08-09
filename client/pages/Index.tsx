@@ -51,14 +51,15 @@ export default function Index() {
 
     // تشغيل الأنمي ايموجي عند التفاعل
     const handlePageInteraction = () => {
-      if (Math.random() < 0.15) { // 15% احتمال
-        window.dispatchEvent(new CustomEvent('trigger-anime-emoji'));
+      if (Math.random() < 0.15) {
+        // 15% احتمال
+        window.dispatchEvent(new CustomEvent("trigger-anime-emoji"));
       }
     };
 
     // استمع للنقرات والتمرير
-    document.addEventListener('click', handlePageInteraction);
-    document.addEventListener('scroll', handlePageInteraction);
+    document.addEventListener("click", handlePageInteraction);
+    document.addEventListener("scroll", handlePageInteraction);
 
     window.addEventListener("mousemove", handleMouseMove);
 
@@ -80,8 +81,8 @@ export default function Index() {
     return () => {
       clearTimeout(timer);
       window.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener('click', handlePageInteraction);
-      document.removeEventListener('scroll', handlePageInteraction);
+      document.removeEventListener("click", handlePageInteraction);
+      document.removeEventListener("scroll", handlePageInteraction);
       cleanup();
     };
   }, []);
@@ -112,7 +113,13 @@ export default function Index() {
             style={{
               width: `${2 + Math.random() * 4}px`,
               height: `${2 + Math.random() * 4}px`,
-              background: ['#3b82f6', '#8b5cf6', '#06b6d4', '#f59e0b', '#10b981'][i % 5],
+              background: [
+                "#3b82f6",
+                "#8b5cf6",
+                "#06b6d4",
+                "#f59e0b",
+                "#10b981",
+              ][i % 5],
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
               boxShadow: `0 0 ${10 + Math.random() * 20}px currentColor`,
@@ -132,7 +139,7 @@ export default function Index() {
             className="absolute bg-gradient-to-r from-transparent via-blue-400/20 to-transparent"
             style={{
               width: `${100 + Math.random() * 200}px`,
-              height: '1px',
+              height: "1px",
               top: `${20 + Math.random() * 60}%`,
               left: `${Math.random() * 70}%`,
               transform: `rotate(${Math.random() * 45}deg)`,
@@ -236,31 +243,30 @@ export default function Index() {
                   <div
                     className="absolute top-1/2 left-1/2 w-32 h-32 border-2 border-blue-400/30 rounded-full"
                     style={{
-                      transform: 'translate(-50%, -50%)',
-                      animation: 'spin 8s linear infinite'
+                      transform: "translate(-50%, -50%)",
+                      animation: "spin 8s linear infinite",
                     }}
                   ></div>
                   <div
                     className="absolute top-1/2 left-1/2 w-40 h-40 border border-purple-400/20 rounded-full"
                     style={{
-                      transform: 'translate(-50%, -50%)',
-                      animation: 'spin 12s linear infinite reverse'
+                      transform: "translate(-50%, -50%)",
+                      animation: "spin 12s linear infinite reverse",
                     }}
                   ></div>
                   <div
                     className="absolute top-1/2 left-1/2 w-48 h-48 border border-violet-400/15 rounded-full"
                     style={{
-                      transform: 'translate(-50%, -50%)',
-                      animation: 'spin 16s linear infinite'
+                      transform: "translate(-50%, -50%)",
+                      animation: "spin 16s linear infinite",
                     }}
                   ></div>
-
 
                   {/* Holographic Scanning Lines */}
                   <div
                     className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent"
                     style={{
-                      animation: 'hologramScan 4s ease-in-out infinite'
+                      animation: "hologramScan 4s ease-in-out infinite",
                     }}
                   ></div>
                 </div>
@@ -281,8 +287,8 @@ export default function Index() {
                         radial-gradient(circle at 75% 75%, #8b5cf6 1px, transparent 1px),
                         radial-gradient(circle at 50% 50%, #06b6d4 1.5px, transparent 1.5px)
                       `,
-                      backgroundSize: '40px 40px, 30px 30px, 50px 50px',
-                      animation: 'techPattern 6s ease-in-out infinite'
+                      backgroundSize: "40px 40px, 30px 30px, 50px 50px",
+                      animation: "techPattern 6s ease-in-out infinite",
                     }}
                   ></div>
                 </div>
@@ -293,8 +299,9 @@ export default function Index() {
                   <span
                     className="absolute inset-0 text-red-500 opacity-30"
                     style={{
-                      animation: 'glitchRed 0.3s infinite linear alternate-reverse',
-                      textShadow: '2px 0 #ff0000'
+                      animation:
+                        "glitchRed 0.3s infinite linear alternate-reverse",
+                      textShadow: "2px 0 #ff0000",
                     }}
                   >
                     SAO
@@ -302,8 +309,8 @@ export default function Index() {
                   <span
                     className="absolute inset-0 text-cyan-400 opacity-30"
                     style={{
-                      animation: 'glitchBlue 0.3s infinite linear alternate',
-                      textShadow: '-2px 0 #00ffff'
+                      animation: "glitchBlue 0.3s infinite linear alternate",
+                      textShadow: "-2px 0 #00ffff",
                     }}
                   >
                     SAO
@@ -313,34 +320,45 @@ export default function Index() {
                   <span
                     className="relative bg-gradient-to-r from-blue-400 via-purple-400 to-violet-400 bg-clip-text text-transparent inline-block"
                     style={{
-                      backgroundSize: '300% 300%',
-                      animation: 'gradientShift 3s ease-in-out infinite, textGlow 2s ease-in-out infinite alternate, float 4s ease-in-out infinite, letterSpacing 3s ease-in-out infinite'
+                      backgroundSize: "300% 300%",
+                      animation:
+                        "gradientShift 3s ease-in-out infinite, textGlow 2s ease-in-out infinite alternate, float 4s ease-in-out infinite, letterSpacing 3s ease-in-out infinite",
                     }}
                   >
                     SAO
                   </span>
 
                   {/* Enhanced Sparkle effects with more variety */}
-                  <div className="absolute -top-4 -right-4 text-yellow-400 animate-ping text-2xl">✨</div>
-                  <div className="absolute -bottom-4 -left-4 text-blue-400 animate-ping delay-500 text-xl">⭐</div>
-                  <div className="absolute top-1/2 -right-6 text-purple-400 animate-bounce delay-1000 text-lg">���</div>
-                  <div className="absolute top-0 left-0 text-cyan-400 animate-pulse delay-200 text-sm">🌟</div>
-                  <div className="absolute bottom-0 right-0 text-violet-400 animate-bounce delay-800 text-sm">⚡</div>
+                  <div className="absolute -top-4 -right-4 text-yellow-400 animate-ping text-2xl">
+                    ✨
+                  </div>
+                  <div className="absolute -bottom-4 -left-4 text-blue-400 animate-ping delay-500 text-xl">
+                    ⭐
+                  </div>
+                  <div className="absolute top-1/2 -right-6 text-purple-400 animate-bounce delay-1000 text-lg">
+                    ���
+                  </div>
+                  <div className="absolute top-0 left-0 text-cyan-400 animate-pulse delay-200 text-sm">
+                    🌟
+                  </div>
+                  <div className="absolute bottom-0 right-0 text-violet-400 animate-bounce delay-800 text-sm">
+                    ⚡
+                  </div>
 
                   {/* Floating Energy Orbs */}
                   <div
                     className="absolute top-1/4 -left-8 w-3 h-3 bg-blue-400 rounded-full opacity-70"
                     style={{
-                      animation: 'energyOrb 4s ease-in-out infinite',
-                      boxShadow: '0 0 20px #3b82f6'
+                      animation: "energyOrb 4s ease-in-out infinite",
+                      boxShadow: "0 0 20px #3b82f6",
                     }}
                   ></div>
                   <div
                     className="absolute bottom-1/4 -right-8 w-2 h-2 bg-purple-400 rounded-full opacity-60"
                     style={{
-                      animation: 'energyOrb 3s ease-in-out infinite reverse',
-                      animationDelay: '1s',
-                      boxShadow: '0 0 15px #8b5cf6'
+                      animation: "energyOrb 3s ease-in-out infinite reverse",
+                      animationDelay: "1s",
+                      boxShadow: "0 0 15px #8b5cf6",
                     }}
                   ></div>
                 </h1>
@@ -351,7 +369,7 @@ export default function Index() {
                   <div
                     className="absolute top-0 left-0 w-8 h-1 bg-gradient-to-r from-cyan-400 to-blue-500"
                     style={{
-                      animation: 'scanLine 2s ease-in-out infinite'
+                      animation: "scanLine 2s ease-in-out infinite",
                     }}
                   ></div>
                 </div>
@@ -365,10 +383,10 @@ export default function Index() {
                       style={{
                         left: `${i * 12 + 5}%`,
                         animation: `dataStream ${3 + i * 0.5}s linear infinite`,
-                        animationDelay: `${i * 0.2}s`
+                        animationDelay: `${i * 0.2}s`,
                       }}
                     >
-                      {['01', '10', '11', '01', '00', '10'][i % 6]}
+                      {["01", "10", "11", "01", "00", "10"][i % 6]}
                     </div>
                   ))}
                 </div>
@@ -381,8 +399,8 @@ export default function Index() {
               <div
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/10 to-transparent -skew-x-12"
                 style={{
-                  animation: 'hologramScan 6s ease-in-out infinite',
-                  animationDelay: '2s'
+                  animation: "hologramScan 6s ease-in-out infinite",
+                  animationDelay: "2s",
                 }}
               ></div>
 
@@ -390,8 +408,9 @@ export default function Index() {
               <span
                 className="relative bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent"
                 style={{
-                  backgroundSize: '200% 200%',
-                  animation: 'gradientShift 5s ease-in-out infinite, textGlow 3s ease-in-out infinite alternate'
+                  backgroundSize: "200% 200%",
+                  animation:
+                    "gradientShift 5s ease-in-out infinite, textGlow 3s ease-in-out infinite alternate",
                 }}
               >
                 الطبعة العربية الكاملة
@@ -401,7 +420,8 @@ export default function Index() {
               <div
                 className="absolute inset-0 text-white opacity-20 animate-pulse"
                 style={{
-                  animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite, glitchRed 0.1s infinite linear alternate-reverse'
+                  animation:
+                    "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite, glitchRed 0.1s infinite linear alternate-reverse",
                 }}
               >
                 الطبعة العربية الكاملة
@@ -415,17 +435,17 @@ export default function Index() {
               <div
                 className="absolute -top-2 left-1/4 w-1 h-1 bg-cyan-400 rounded-full opacity-70"
                 style={{
-                  animation: 'energyOrb 5s ease-in-out infinite',
-                  animationDelay: '1s',
-                  boxShadow: '0 0 10px #06b6d4'
+                  animation: "energyOrb 5s ease-in-out infinite",
+                  animationDelay: "1s",
+                  boxShadow: "0 0 10px #06b6d4",
                 }}
               ></div>
               <div
                 className="absolute -bottom-2 right-1/4 w-1 h-1 bg-violet-400 rounded-full opacity-70"
                 style={{
-                  animation: 'energyOrb 4s ease-in-out infinite reverse',
-                  animationDelay: '2s',
-                  boxShadow: '0 0 8px #8b5cf6'
+                  animation: "energyOrb 4s ease-in-out infinite reverse",
+                  animationDelay: "2s",
+                  boxShadow: "0 0 8px #8b5cf6",
                 }}
               ></div>
             </h2>
@@ -436,8 +456,8 @@ export default function Index() {
               <span
                 className="font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
                 style={{
-                  backgroundSize: '200% 200%',
-                  animation: 'gradientShift 4s ease-in-out infinite'
+                  backgroundSize: "200% 200%",
+                  animation: "gradientShift 4s ease-in-out infinite",
                 }}
               >
                 ترجمة Mr.PheonixX Team × DeepL Premium
@@ -680,15 +700,21 @@ export default function Index() {
               <span
                 className="bg-gradient-to-r from-blue-400 via-purple-400 to-violet-400 bg-clip-text text-transparent"
                 style={{
-                  backgroundSize: '200% 200%',
-                  animation: 'gradientShift 4s ease-in-out infinite'
+                  backgroundSize: "200% 200%",
+                  animation: "gradientShift 4s ease-in-out infinite",
                 }}
               >
                 ✨ خصائص المنصة المتقدمة ✨
               </span>
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 text-yellow-400 animate-bounce">⭐</div>
-              <div className="absolute -top-6 right-1/4 text-blue-400 animate-ping">💫</div>
-              <div className="absolute -top-3 left-1/4 text-purple-400 animate-pulse">✨</div>
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 text-yellow-400 animate-bounce">
+                ⭐
+              </div>
+              <div className="absolute -top-6 right-1/4 text-blue-400 animate-ping">
+                💫
+              </div>
+              <div className="absolute -top-3 left-1/4 text-purple-400 animate-pulse">
+                ✨
+              </div>
             </h3>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               تجربة فريدة في عالم ساو أونلاين مع أحدث التقنيات وأفضل الخدمات
@@ -703,7 +729,9 @@ export default function Index() {
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center animate-pulse">
                   <BookOpen className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-green-400 text-xl">تحويل لغة فوري</CardTitle>
+                <CardTitle className="text-green-400 text-xl">
+                  تحويل لغة فوري
+                </CardTitle>
                 <CardDescription className="text-gray-300">
                   أسرع الخوارزميات للترجمة الفورية
                 </CardDescription>
@@ -717,7 +745,9 @@ export default function Index() {
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-violet-500 rounded-full flex items-center justify-center animate-pulse">
                   <Shield className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-purple-400 text-xl">حماية مطلقة</CardTitle>
+                <CardTitle className="text-purple-400 text-xl">
+                  حماية مطلقة
+                </CardTitle>
                 <CardDescription className="text-gray-300">
                   منع ال��سخ و القراءة الآمنة 100%
                 </CardDescription>
@@ -731,7 +761,9 @@ export default function Index() {
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center animate-pulse">
                   <Sparkles className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-blue-400 text-xl">قراءة ثلاثية الأبعاد</CardTitle>
+                <CardTitle className="text-blue-400 text-xl">
+                  قراءة ثلاثية الأبعاد
+                </CardTitle>
                 <CardDescription className="text-gray-300">
                   3D Flipbook، Slide، و Scroll
                 </CardDescription>
@@ -745,7 +777,9 @@ export default function Index() {
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-orange-500 to-amber-500 rounded-full flex items-center justify-center animate-pulse">
                   <Play className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-orange-400 text-xl">مجموع نطقي</CardTitle>
+                <CardTitle className="text-orange-400 text-xl">
+                  مجموع نطقي
+                </CardTitle>
                 <CardDescription className="text-gray-300">
                   قراءة الأصوات العربية بتقنيات متطورة
                 </CardDescription>
@@ -759,7 +793,9 @@ export default function Index() {
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-red-500 to-rose-500 rounded-full flex items-center justify-center animate-pulse">
                   <Crown className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-red-400 text-xl">ترجمة مصرية</CardTitle>
+                <CardTitle className="text-red-400 text-xl">
+                  ترجمة مصرية
+                </CardTitle>
                 <CardDescription className="text-gray-300">
                   MrPheonixX Team × DeepL Premium
                 </CardDescription>
@@ -773,7 +809,9 @@ export default function Index() {
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-full flex items-center justify-center animate-pulse">
                   <Globe className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-teal-400 text-xl">تطبيق كامل</CardTitle>
+                <CardTitle className="text-teal-400 text-xl">
+                  تطبيق كامل
+                </CardTitle>
                 <CardDescription className="text-gray-300">
                   PWA + قراءة بدون إنترنت
                 </CardDescription>

@@ -216,8 +216,11 @@ export default function AdminDashboard() {
               لوحة تحكم المدير
             </CardTitle>
             <CardDescription className="text-gray-300">
-              🔐 منطقة محظورة - Admin Only<br/>
-              <span className="text-sm text-blue-400">Username: AhmedRehab3324@gmail.com</span>
+              🔐 منطقة محظورة - Admin Only
+              <br />
+              <span className="text-sm text-blue-400">
+                Username: AhmedRehab3324@gmail.com
+              </span>
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -712,12 +715,18 @@ export default function AdminDashboard() {
                   </div>
 
                   <div className="border-t border-gray-700 pt-4">
-                    <h4 className="text-white font-medium mb-3">🎭 تحكم الأنمي ايموجي</h4>
+                    <h4 className="text-white font-medium mb-3">
+                      🎭 تحكم الأنمي ايموجي
+                    </h4>
                     <div className="grid grid-cols-2 gap-2">
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => window.dispatchEvent(new CustomEvent('trigger-anime-emoji'))}
+                        onClick={() =>
+                          window.dispatchEvent(
+                            new CustomEvent("trigger-anime-emoji"),
+                          )
+                        }
                         className="border-blue-500 text-blue-400 hover:bg-blue-500/10"
                       >
                         ✨ ايموجي طائر
@@ -725,7 +734,11 @@ export default function AdminDashboard() {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => window.dispatchEvent(new CustomEvent('trigger-random-anime'))}
+                        onClick={() =>
+                          window.dispatchEvent(
+                            new CustomEvent("trigger-random-anime"),
+                          )
+                        }
                         className="border-purple-500 text-purple-400 hover:bg-purple-500/10"
                       >
                         🎌 إشعار عشوائي
@@ -733,7 +746,11 @@ export default function AdminDashboard() {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => window.dispatchEvent(new CustomEvent('trigger-adblock-anime'))}
+                        onClick={() =>
+                          window.dispatchEvent(
+                            new CustomEvent("trigger-adblock-anime"),
+                          )
+                        }
                         className="border-red-500 text-red-400 hover:bg-red-500/10"
                       >
                         😢 تحذير مانع الإعلانات
@@ -741,7 +758,11 @@ export default function AdminDashboard() {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => window.dispatchEvent(new CustomEvent('trigger-devtools-anime'))}
+                        onClick={() =>
+                          window.dispatchEvent(
+                            new CustomEvent("trigger-devtools-anime"),
+                          )
+                        }
                         className="border-yellow-500 text-yellow-400 hover:bg-yellow-500/10"
                       >
                         ⚠️ تحذير أدوات المطور
