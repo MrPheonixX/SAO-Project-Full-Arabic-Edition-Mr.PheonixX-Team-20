@@ -45,7 +45,7 @@ const App = () => (
 
 // Ensure we only create root once
 const container = document.getElementById("root")!;
-let root: any;
+let root: Root;
 
 // Check if root already exists to prevent multiple createRoot calls
 if (!(container as any)._reactRoot) {
