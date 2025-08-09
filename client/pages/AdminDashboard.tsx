@@ -283,17 +283,17 @@ export default function AdminDashboard() {
                 size="sm"
                 onClick={toggleSecurity}
                 className={
-                  securityEnabled
+                  security.isSecurityActive
                     ? "border-red-500 text-red-400"
                     : "border-green-500 text-green-400"
                 }
               >
-                {securityEnabled ? (
+                {security.isSecurityActive ? (
                   <Lock className="w-4 h-4 mr-2" />
                 ) : (
                   <Unlock className="w-4 h-4 mr-2" />
                 )}
-                {securityEnabled ? "تعطيل الحماية" : "��فعيل الحماية"}
+                {security.isSecurityActive ? "تعطيل الحماية" : "��فعيل الحماية"}
               </Button>
 
               <Button
@@ -679,12 +679,12 @@ export default function AdminDashboard() {
                       size="sm"
                       onClick={toggleSecurity}
                       className={
-                        securityEnabled
+                        security.isSecurityActive
                           ? "border-red-500 text-red-400"
                           : "border-green-500 text-green-400"
                       }
                     >
-                      {securityEnabled ? "مفعل" : "معطل"}
+                      {security.isSecurityActive ? "مفعل" : "معطل"}
                     </Button>
                   </div>
 
