@@ -277,18 +277,18 @@ export default function Index() {
                 {/* Animated gradient background */}
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-violet-500 blur-xl opacity-30 animate-ping"></div>
 
-                {/* Hexagonal Tech Pattern Overlay */}
-                <div className="absolute inset-0 opacity-20">
+                {/* Hexagonal Tech Pattern Overlay - Hidden */}
+                <div className="absolute inset-0 opacity-0">
                   <div
                     className="w-full h-full"
                     style={{
                       backgroundImage: `
-                        radial-gradient(circle at 25% 25%, #3b82f6 2px, transparent 2px),
-                        radial-gradient(circle at 75% 75%, #8b5cf6 1px, transparent 1px),
-                        radial-gradient(circle at 50% 50%, #06b6d4 1.5px, transparent 1.5px)
+                        radial-gradient(circle at 25% 25%, #3b82f6 1px, transparent 1px),
+                        radial-gradient(circle at 75% 75%, #8b5cf6 0.5px, transparent 0.5px),
+                        radial-gradient(circle at 50% 50%, #06b6d4 0.5px, transparent 0.5px)
                       `,
-                      backgroundSize: "40px 40px, 30px 30px, 50px 50px",
-                      animation: "techPattern 6s ease-in-out infinite",
+                      backgroundSize: "60px 60px, 40px 40px, 80px 80px",
+                      animation: "techPattern 8s ease-in-out infinite",
                     }}
                   ></div>
                 </div>
@@ -494,7 +494,7 @@ export default function Index() {
               <div className="text-6xl font-bold text-blue-400 mb-2">
                 {stats.translationQuality}%
               </div>
-              <p className="text-gray-400">ترجمة احترافية</p>
+              <p className="text-gray-400">��رجمة احترافية</p>
             </div>
             <div className="text-center">
               <div className="text-6xl font-bold text-purple-400 mb-2">
@@ -781,7 +781,7 @@ export default function Index() {
                   مجموع نطقي
                 </CardTitle>
                 <CardDescription className="text-gray-300">
-                  قراءة الأصوات العربية بتقنيات متطورة
+                  قراءة الأصوات العربية بتق��يات متطورة
                 </CardDescription>
               </CardHeader>
             </Card>
