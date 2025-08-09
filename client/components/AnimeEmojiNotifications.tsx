@@ -210,7 +210,7 @@ export const AnimeEmojiNotifications: React.FC = () => {
       if (Math.random() < 0.3) { // 30% احتمال
         addNotification("random");
 
-        // ايموجي طائر عش��ائي أحياناً
+        // ايموجي طائر عشوائي أحياناً
         if (Math.random() < 0.5) {
           setTimeout(() => addFloatingEmoji(), 500);
         }
@@ -362,14 +362,15 @@ export const AnimeEmojiNotifications: React.FC = () => {
             animation: `floatUpAnime ${emoji.duration}ms ease-out forwards`
           }}
         >
-          <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-blue-400/50 shadow-xl backdrop-blur-sm">
+          <div className="sao-holographic relative w-16 h-16 rounded-full overflow-hidden border-2 border-blue-400/50 shadow-xl backdrop-blur-sm"
+               style={{ animation: 'saoGlow 1.5s ease-in-out infinite alternate' }}>
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-violet-500/30 animate-pulse"></div>
             <img
               src={emoji.imageUrl}
               alt="Floating Anime"
               className="w-full h-full object-cover relative z-10"
               style={{
-                filter: 'drop-shadow(0 0 12px rgba(99, 102, 241, 0.6)) brightness(1.1) contrast(1.1)'
+                filter: 'drop-shadow(0 0 12px rgba(99, 102, 241, 0.6)) brightness(1.1) contrast(1.1) saturate(1.2)'
               }}
             />
             <div className="absolute inset-0 rounded-full border border-blue-300/40 animate-ping"></div>
