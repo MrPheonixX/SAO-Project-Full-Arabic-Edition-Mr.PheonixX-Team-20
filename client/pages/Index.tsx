@@ -162,7 +162,7 @@ export default function Index() {
                 className="border-blue-500 text-blue-400 hover:bg-blue-500/10"
                 onClick={() => navigate("/login")}
               >
-                تسجيل دخول
+                تسجيل د��ول
               </Button>
 
               {/* Theme Switcher */}
@@ -224,8 +224,19 @@ export default function Index() {
               <div className="text-6xl animate-bounce delay-300">⚔️</div>
             </div>
 
-            <h2 className="text-4xl font-bold mb-6 text-white">
-              ال��بعة العربية الكاملة
+            <h2 className="text-4xl font-bold mb-6 text-white relative">
+              <span
+                className="bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent"
+                style={{
+                  backgroundSize: '200% 200%',
+                  animation: 'gradientShift 5s ease-in-out infinite'
+                }}
+              >
+                الطبعة العربية الكاملة
+              </span>
+              <div className="absolute inset-0 text-white opacity-20 animate-pulse">
+                الطبعة العربية الكاملة
+              </div>
             </h2>
 
             <p className="text-xl text-gray-300 max-w-4xl mx-auto mb-8 leading-relaxed">
@@ -537,7 +548,7 @@ export default function Index() {
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-orange-500 to-amber-500 rounded-full flex items-center justify-center animate-pulse">
                   <Play className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-orange-400 text-xl">مجموع نطقي</CardTitle>
+                <CardTitle className="text-orange-400 text-xl">مجموع نط��ي</CardTitle>
                 <CardDescription className="text-gray-300">
                   قراءة الأصوات العربية بتقنيات متطورة
                 </CardDescription>
