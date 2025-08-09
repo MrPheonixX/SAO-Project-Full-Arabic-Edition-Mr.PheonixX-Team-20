@@ -191,11 +191,37 @@ export default function Index() {
         <section className="text-center mb-20">
           <div className="mb-12">
             <div className="flex items-center justify-center space-x-6 mb-8">
-              <div className="text-6xl">⚔️</div>
-              <h1 className="text-7xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-violet-400 bg-clip-text text-transparent leading-tight">
-                SAO
-              </h1>
-              <div className="text-6xl">⚔️</div>
+              <div className="text-6xl animate-bounce">⚔️</div>
+              <div className="relative">
+                {/* Background glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 via-purple-400 to-violet-400 blur-2xl opacity-50 animate-pulse scale-110"></div>
+
+                {/* Animated gradient background */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-violet-500 blur-xl opacity-30 animate-ping"></div>
+
+                {/* Main animated title */}
+                <h1 className="relative text-7xl font-bold leading-tight animate-pulse">
+                  {/* Animated gradient text with multiple effects */}
+                  <span
+                    className="bg-gradient-to-r from-blue-400 via-purple-400 to-violet-400 bg-clip-text text-transparent inline-block"
+                    style={{
+                      backgroundSize: '200% 200%',
+                      animation: 'gradientShift 3s ease-in-out infinite, textGlow 2s ease-in-out infinite alternate, float 4s ease-in-out infinite'
+                    }}
+                  >
+                    SAO
+                  </span>
+
+                  {/* Sparkle effects */}
+                  <div className="absolute -top-2 -right-2 text-yellow-400 animate-ping">✨</div>
+                  <div className="absolute -bottom-2 -left-2 text-blue-400 animate-ping delay-500">⭐</div>
+                  <div className="absolute top-1/2 -right-4 text-purple-400 animate-bounce delay-1000">💫</div>
+                </h1>
+
+                {/* Animated underline */}
+                <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent animate-pulse"></div>
+              </div>
+              <div className="text-6xl animate-bounce delay-300">⚔️</div>
             </div>
 
             <h2 className="text-4xl font-bold mb-6 text-white">
