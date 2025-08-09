@@ -22,7 +22,7 @@ interface FloatingEmojiProps {
   duration: number;
 }
 
-// الصور المرفوعة من ال��ستخدم
+// الصور المرفوعة من المستخدم
 const ANIME_EMOJIS = [
   "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F50086dbb9ccf4873b677aa240e6a8f89?alt=media&token=e4e0855b-b210-47d5-9e29-e604b4716067&apiKey=15999d2412c04cefb5e665795b57bb74",
   "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2Fc95924a0fc444e14b84a3e4e4aaa1835?alt=media&token=876fb3a0-4450-41fe-857b-f2b8c2c81f14&apiKey=15999d2412c04cefb5e665795b57bb74",
@@ -57,7 +57,7 @@ const RANDOM_MESSAGES = [
 const ADBLOCK_MESSAGES = [
   "😭 مانع الإعلانات يمنع دعم المنصة",
   "🥺 ساعدنا بإلغاء مانع الإعلانات",
-  "😢 الإعلانات تساعدنا في الاستمرار",
+  "😢 الإعلانات تساعدنا في الاس��مرار",
   "🙏 نحتاج دعمك لتقديم المحتوى",
   "💔 مانع الإعلانات يؤثر على عملنا"
 ];
@@ -209,7 +209,7 @@ export const AnimeEmojiNotifications: React.FC = () => {
     const randomTimer = setInterval(() => {
       if (Math.random() < 0.3) { // 30% احتمال
         addNotification("random");
-        
+
         // ايموجي طائر عشوائي أحياناً
         if (Math.random() < 0.5) {
           setTimeout(() => addFloatingEmoji(), 500);
@@ -220,6 +220,26 @@ export const AnimeEmojiNotifications: React.FC = () => {
     return () => {
       clearTimeout(welcomeTimer);
       clearInterval(randomTimer);
+    };
+  }, []);
+
+  // مستمعي الأحداث للتحكم الخارجي
+  useEffect(() => {
+    const handleTriggerEmoji = () => addFloatingEmoji();
+    const handleAdBlockAnime = () => addNotification("adblock", undefined, 0);
+    const handleDevToolsAnime = () => addNotification("devtools", undefined, 4000);
+    const handleRandomAnime = () => addNotification("random");
+
+    window.addEventListener('trigger-anime-emoji', handleTriggerEmoji);
+    window.addEventListener('trigger-adblock-anime', handleAdBlockAnime);
+    window.addEventListener('trigger-devtools-anime', handleDevToolsAnime);
+    window.addEventListener('trigger-random-anime', handleRandomAnime);
+
+    return () => {
+      window.removeEventListener('trigger-anime-emoji', handleTriggerEmoji);
+      window.removeEventListener('trigger-adblock-anime', handleAdBlockAnime);
+      window.removeEventListener('trigger-devtools-anime', handleDevToolsAnime);
+      window.removeEventListener('trigger-random-anime', handleRandomAnime);
     };
   }, []);
 
