@@ -49,6 +49,17 @@ export default function Index() {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
 
+    // تشغيل الأنمي ايموجي عند التفاعل
+    const handlePageInteraction = () => {
+      if (Math.random() < 0.15) { // 15% احتمال
+        window.dispatchEvent(new CustomEvent('trigger-anime-emoji'));
+      }
+    };
+
+    // استمع للنقرات والتمرير
+    document.addEventListener('click', handlePageInteraction);
+    document.addEventListener('scroll', handlePageInteraction);
+
     window.addEventListener("mousemove", handleMouseMove);
 
     // Animate stats
@@ -324,7 +335,7 @@ export default function Index() {
                   {/* Enhanced Sparkle effects with more variety */}
                   <div className="absolute -top-4 -right-4 text-yellow-400 animate-ping text-2xl">✨</div>
                   <div className="absolute -bottom-4 -left-4 text-blue-400 animate-ping delay-500 text-xl">⭐</div>
-                  <div className="absolute top-1/2 -right-6 text-purple-400 animate-bounce delay-1000 text-lg">💫</div>
+                  <div className="absolute top-1/2 -right-6 text-purple-400 animate-bounce delay-1000 text-lg">���</div>
                   <div className="absolute top-0 left-0 text-cyan-400 animate-pulse delay-200 text-sm">🌟</div>
                   <div className="absolute bottom-0 right-0 text-violet-400 animate-bounce delay-800 text-sm">⚡</div>
 
@@ -637,7 +648,7 @@ export default function Index() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-400 mb-4">
-                  رواية نفسية عميقة عن الانطوائية والمجتمع الياباني
+                  رواية نفسية عميقة عن الانطوائية والمجتمع ��لياباني
                 </p>
                 <Button
                   variant="outline"
