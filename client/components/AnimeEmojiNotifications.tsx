@@ -63,7 +63,7 @@ const ADBLOCK_MESSAGES = [
 ];
 
 const DEVTOOLS_MESSAGES = [
-  "😱 ��دوات المطور مكتشفة!",
+  "😱 أدوات المطور مكتشفة!",
   "🔐 المحتوى محمي من النسخ",
   "🛡️ نظام الحماية نشط",
   "⚠️ تصرف مشبوه مكتشف",
@@ -361,12 +361,17 @@ export const AnimeEmojiNotifications: React.FC = () => {
             animation: `floatUpAnime ${emoji.duration}ms ease-out forwards`
           }}
         >
-          <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-blue-400/50 shadow-lg backdrop-blur-sm">
+          <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-blue-400/50 shadow-xl backdrop-blur-sm">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-violet-500/30 animate-pulse"></div>
             <img
               src={emoji.imageUrl}
               alt="Floating Anime"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover relative z-10"
+              style={{
+                filter: 'drop-shadow(0 0 12px rgba(99, 102, 241, 0.6)) brightness(1.1) contrast(1.1)'
+              }}
             />
+            <div className="absolute inset-0 rounded-full border border-blue-300/40 animate-ping"></div>
           </div>
         </div>
       ))}
@@ -429,7 +434,7 @@ export const AnimeEmojiNotifications: React.FC = () => {
   );
 };
 
-// Hook للتح��م في الإشعارات من مكونات أخرى
+// Hook للتحكم في الإشعارات من مكونات أخرى
 export const useAnimeNotifications = () => {
   const [component, setComponent] = useState<any>(null);
 
