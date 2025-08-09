@@ -46,7 +46,7 @@ const FLOATING_EMOJIS = [
 
 // رسائل عشوائية تناسب الشخصيات الأنمي
 const RANDOM_MESSAGES = [
-  "✨ أهلاً بك في عالم SAO ��لرقمي!",
+  "✨ أهلاً بك في عالم SAO الرقمي!",
   "🎮 استمتع بالقراءة والمغامرة!",
   "💫 الشخصيات تحييك بحماس!",
   "🌸 وقت ممتع في عالم الأنمي",
@@ -78,9 +78,15 @@ export const AnimeEmojiNotifications: React.FC = () => {
   const [notifications, setNotifications] = useState<AnimeEmojiProps[]>([]);
   const [floatingEmojis, setFloatingEmojis] = useState<FloatingEmojiProps[]>([]);
 
-  // الحصول على صورة عشوائية
-  const getRandomEmoji = () => {
-    return ANIME_EMOJIS[Math.floor(Math.random() * ANIME_EMOJIS.length)];
+  // الحصول على صورة مناسبة حسب النوع
+  const getRandomEmoji = (type: string = "cute") => {
+    if (type === "warning") {
+      return WARNING_EMOJIS[Math.floor(Math.random() * WARNING_EMOJIS.length)];
+    } else if (type === "floating") {
+      return FLOATING_EMOJIS[Math.floor(Math.random() * FLOATING_EMOJIS.length)];
+    } else {
+      return CUTE_EMOJIS[Math.floor(Math.random() * CUTE_EMOJIS.length)];
+    }
   };
 
   // الحصول على رسالة عشوائية
