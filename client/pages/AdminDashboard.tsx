@@ -131,7 +131,7 @@ export default function AdminDashboard() {
   const handleAdminLogin = () => {
     if (adminPassword === "MrPheonixX-Admin-2024") {
       setIsAuthenticated(true);
-      disableSecurity("MrPheonixX-Admin-2024");
+      // disableSecurity("MrPheonixX-Admin-2024");
     } else {
       alert("كلمة مرور خاطئة");
     }
@@ -139,10 +139,10 @@ export default function AdminDashboard() {
 
   const toggleSecurity = () => {
     if (securityEnabled) {
-      disableSecurity("MrPheonixX-Admin-2024");
+      // disableSecurity("MrPheonixX-Admin-2024");
       setSecurityEnabled(false);
     } else {
-      enableSecurity();
+      // enableSecurity();
       setSecurityEnabled(true);
     }
   };
@@ -224,7 +224,7 @@ export default function AdminDashboard() {
                 className="w-full border-gray-500 text-gray-300"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                العودة للرئيسية
+                ال��ودة للرئيسية
               </Button>
             </div>
           </CardContent>
@@ -277,7 +277,7 @@ export default function AdminDashboard() {
         <div className="mb-8">
           <div className="flex space-x-2 bg-black/30 p-2 rounded-lg">
             {[
-              { id: "overview", label: "��ظرة عامة", icon: BarChart3 },
+              { id: "overview", label: "نظرة عامة", icon: BarChart3 },
               { id: "volumes", label: "إدارة المجلدات", icon: BookOpen },
               { id: "users", label: "إدارة المستخدمين", icon: Users },
               { id: "analytics", label: "التحليلات", icon: Activity },
@@ -448,7 +448,7 @@ export default function AdminDashboard() {
         {/* Users Management Tab */}
         {activeTab === "users" && (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-purple-400">إدارة المستخدمين</h2>
+            <h2 className="text-2xl font-bold text-purple-400">إدارة ا��مستخدمين</h2>
 
             <div className="grid gap-4">
               {users.map((user) => (
@@ -460,7 +460,7 @@ export default function AdminDashboard() {
                           <h3 className="text-lg font-bold text-white">{user.username}</h3>
                           <Badge className={getStatusColor(user.status)}>
                             {user.status === "active" ? "نشط" : 
-                             user.status === "inactive" ? "غير نشط" : "مح��ور"}
+                             user.status === "inactive" ? "غير نشط" : "محظور"}
                           </Badge>
                         </div>
                         
@@ -576,7 +576,7 @@ export default function AdminDashboard() {
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <span className="text-white">كشف مانع الإعلانات</span>
+                    <span className="text-white">كشف مانع الإ��لانات</span>
                     <Button variant="outline" size="sm" className="border-green-500 text-green-400">
                       مفعل
                     </Button>
