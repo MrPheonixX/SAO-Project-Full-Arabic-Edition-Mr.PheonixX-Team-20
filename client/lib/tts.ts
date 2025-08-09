@@ -5,8 +5,8 @@ interface TTSVoice {
   name: string;
   nameArabic: string;
   lang: string;
-  gender: 'male' | 'female';
-  quality: 'high' | 'medium' | 'low';
+  gender: "male" | "female";
+  quality: "high" | "medium" | "low";
   available: boolean;
 }
 
@@ -35,84 +35,86 @@ class ArabicTTSManager {
   }
 
   private loadSettings(): TTSSettings {
-    const saved = localStorage.getItem('tts-settings');
-    return saved ? JSON.parse(saved) : {
-      voice: 'ar-SA',
-      rate: 1.0,
-      pitch: 1.0,
-      volume: 1.0,
-      autoPlay: false,
-      highlightText: true
-    };
+    const saved = localStorage.getItem("tts-settings");
+    return saved
+      ? JSON.parse(saved)
+      : {
+          voice: "ar-SA",
+          rate: 1.0,
+          pitch: 1.0,
+          volume: 1.0,
+          autoPlay: false,
+          highlightText: true,
+        };
   }
 
   private saveSettings(): void {
-    localStorage.setItem('tts-settings', JSON.stringify(this.settings));
+    localStorage.setItem("tts-settings", JSON.stringify(this.settings));
   }
 
   private initializeVoices(): void {
     const updateVoices = () => {
       const systemVoices = this.synthesis.getVoices();
-      
+
       // Arabic voices
-      const arabicVoices = systemVoices.filter(voice => 
-        voice.lang.startsWith('ar') || voice.name.includes('Arabic')
+      const arabicVoices = systemVoices.filter(
+        (voice) => voice.lang.startsWith("ar") || voice.name.includes("Arabic"),
       );
 
       this.voices = [
         // Premium Arabic voices (if available)
         {
-          id: 'ar-SA-premium',
-          name: 'Premium Saudi Arabic',
-          nameArabic: 'عربي سعودي متقدم',
-          lang: 'ar-SA',
-          gender: 'male',
-          quality: 'high',
-          available: arabicVoices.some(v => v.lang === 'ar-SA')
+          id: "ar-SA-premium",
+          name: "Premium Saudi Arabic",
+          nameArabic: "عربي سعودي متقدم",
+          lang: "ar-SA",
+          gender: "male",
+          quality: "high",
+          available: arabicVoices.some((v) => v.lang === "ar-SA"),
         },
         {
-          id: 'ar-EG-premium',
-          name: 'Premium Egyptian Arabic',
-          nameArabic: 'عربي مصري متقدم',
-          lang: 'ar-EG',
-          gender: 'female',
-          quality: 'high',
-          available: arabicVoices.some(v => v.lang === 'ar-EG')
+          id: "ar-EG-premium",
+          name: "Premium Egyptian Arabic",
+          nameArabic: "عربي مصري متقدم",
+          lang: "ar-EG",
+          gender: "female",
+          quality: "high",
+          available: arabicVoices.some((v) => v.lang === "ar-EG"),
         },
         // Standard Arabic voices
         {
-          id: 'ar-SA-standard',
-          name: 'Standard Saudi Arabic',
-          nameArabic: 'عربي سعودي عادي',
-          lang: 'ar-SA',
-          gender: 'male',
-          quality: 'medium',
-          available: arabicVoices.some(v => v.lang === 'ar-SA')
+          id: "ar-SA-standard",
+          name: "Standard Saudi Arabic",
+          nameArabic: "عربي سعودي عادي",
+          lang: "ar-SA",
+          gender: "male",
+          quality: "medium",
+          available: arabicVoices.some((v) => v.lang === "ar-SA"),
         },
         {
-          id: 'ar-AE-standard',
-          name: 'Standard Emirati Arabic',
-          nameArabic: 'عربي إماراتي عادي',
-          lang: 'ar-AE',
-          gender: 'female',
-          quality: 'medium',
-          available: arabicVoices.some(v => v.lang === 'ar-AE')
+          id: "ar-AE-standard",
+          name: "Standard Emirati Arabic",
+          nameArabic: "عربي إماراتي عادي",
+          lang: "ar-AE",
+          gender: "female",
+          quality: "medium",
+          available: arabicVoices.some((v) => v.lang === "ar-AE"),
         },
         // Fallback voices
         {
-          id: 'ar-generic',
-          name: 'Generic Arabic',
-          nameArabic: 'عربي عام',
-          lang: 'ar',
-          gender: 'male',
-          quality: 'low',
-          available: arabicVoices.length > 0
-        }
+          id: "ar-generic",
+          name: "Generic Arabic",
+          nameArabic: "عربي عام",
+          lang: "ar",
+          gender: "male",
+          quality: "low",
+          available: arabicVoices.length > 0,
+        },
       ];
 
       // If no Arabic voices are available, add a fallback notification
       if (arabicVoices.length === 0) {
-        console.warn('No Arabic voices found. TTS may not work properly.');
+        console.warn("No Arabic voices found. TTS may not work properly.");
       }
     };
 
@@ -124,7 +126,7 @@ class ArabicTTSManager {
   }
 
   public getAvailableVoices(): TTSVoice[] {
-    return this.voices.filter(voice => voice.available);
+    return this.voices.filter((voice) => voice.available);
   }
 
   public setSettings(newSettings: Partial<TTSSettings>): void {
@@ -145,9 +147,9 @@ class ArabicTTSManager {
       this.onStateChange({
         isPlaying: this.isPlaying,
         isPaused: this.isPaused,
-        currentText: this.currentUtterance?.text || '',
+        currentText: this.currentUtterance?.text || "",
         progress: 0, // Note: Web Speech API doesn't provide progress
-        ...state
+        ...state,
       });
     }
   }
@@ -162,7 +164,7 @@ class ArabicTTSManager {
 
       // Create utterance
       this.currentUtterance = new SpeechSynthesisUtterance(cleanText);
-      
+
       // Apply settings
       const effectiveSettings = { ...this.settings, ...options };
       this.currentUtterance.lang = effectiveSettings.voice;
@@ -172,11 +174,12 @@ class ArabicTTSManager {
 
       // Find and set the best available voice
       const voices = this.synthesis.getVoices();
-      const selectedVoice = voices.find(voice => 
-        voice.lang === effectiveSettings.voice || 
-        voice.lang.startsWith(effectiveSettings.voice.split('-')[0])
+      const selectedVoice = voices.find(
+        (voice) =>
+          voice.lang === effectiveSettings.voice ||
+          voice.lang.startsWith(effectiveSettings.voice.split("-")[0]),
       );
-      
+
       if (selectedVoice) {
         this.currentUtterance.voice = selectedVoice;
       }
@@ -219,24 +222,24 @@ class ArabicTTSManager {
 
   private prepareArabicText(text: string): string {
     // Remove HTML tags
-    let cleanText = text.replace(/<[^>]*>/g, '');
-    
+    let cleanText = text.replace(/<[^>]*>/g, "");
+
     // Normalize Arabic text
     cleanText = cleanText
       // Replace multiple spaces with single space
-      .replace(/\s+/g, ' ')
+      .replace(/\s+/g, " ")
       // Add pauses for better pronunciation
-      .replace(/[.!?]/g, '$&... ')
-      .replace(/[،]/g, '$&.. ')
+      .replace(/[.!?]/g, "$&... ")
+      .replace(/[،]/g, "$&.. ")
       // Normalize Arabic characters
-      .replace(/[أإآا]/g, 'ا')
-      .replace(/[ة]/g, 'ه')
-      .replace(/[ى]/g, 'ي')
+      .replace(/[أإآا]/g, "ا")
+      .replace(/[ة]/g, "ه")
+      .replace(/[ى]/g, "ي")
       // Add pronunciation hints for better speech
-      .replace(/\bساو\b/g, 'سورد آرت أونلاين')
-      .replace(/\bSAO\b/g, 'سورد آرت أونلاين')
-      .replace(/\bكيريتو\b/g, 'كيريتو')
-      .replace(/\bأسونا\b/g, 'أسونا')
+      .replace(/\bساو\b/g, "سورد آرت أونلاين")
+      .replace(/\bSAO\b/g, "سورد آرت أونلاين")
+      .replace(/\bكيريتو\b/g, "كيريتو")
+      .replace(/\bأسونا\b/g, "أسونا")
       .trim();
 
     return cleanText;
@@ -259,7 +262,11 @@ class ArabicTTSManager {
     this.isPlaying = false;
     this.isPaused = false;
     this.currentUtterance = null;
-    this.notifyStateChange({ isPlaying: false, isPaused: false, currentText: '' });
+    this.notifyStateChange({
+      isPlaying: false,
+      isPaused: false,
+      currentText: "",
+    });
   }
 
   public toggle(): void {
@@ -273,15 +280,15 @@ class ArabicTTSManager {
   }
 
   public isSupported(): boolean {
-    return 'speechSynthesis' in window;
+    return "speechSynthesis" in window;
   }
 
   public getState(): TTSState {
     return {
       isPlaying: this.isPlaying,
       isPaused: this.isPaused,
-      currentText: this.currentUtterance?.text || '',
-      progress: 0 // Web Speech API doesn't provide progress
+      currentText: this.currentUtterance?.text || "",
+      progress: 0, // Web Speech API doesn't provide progress
     };
   }
 
@@ -305,15 +312,21 @@ class ArabicTTSManager {
     });
   }
 
-  public speakPage(pageElement: HTMLElement, options?: { 
-    skipElements?: string[], 
-    pauseBetweenParagraphs?: number 
-  }): Promise<void> {
-    const skipSelectors = options?.skipElements || ['.skip-tts', '[data-skip-tts]'];
+  public speakPage(
+    pageElement: HTMLElement,
+    options?: {
+      skipElements?: string[];
+      pauseBetweenParagraphs?: number;
+    },
+  ): Promise<void> {
+    const skipSelectors = options?.skipElements || [
+      ".skip-tts",
+      "[data-skip-tts]",
+    ];
     const pauseDuration = options?.pauseBetweenParagraphs || 500;
 
     // Extract text content, skipping specified elements
-    let textContent = '';
+    let textContent = "";
     const walker = document.createTreeWalker(
       pageElement,
       NodeFilter.SHOW_TEXT,
@@ -330,21 +343,21 @@ class ArabicTTSManager {
             parent = parent.parentElement;
           }
           return NodeFilter.FILTER_ACCEPT;
-        }
-      }
+        },
+      },
     );
 
     const textNodes: Text[] = [];
     let node;
-    while (node = walker.nextNode()) {
+    while ((node = walker.nextNode())) {
       textNodes.push(node as Text);
     }
 
     // Combine text with natural pauses
     textContent = textNodes
-      .map(node => node.textContent?.trim())
-      .filter(text => text && text.length > 0)
-      .join(' ... ');
+      .map((node) => node.textContent?.trim())
+      .filter((text) => text && text.length > 0)
+      .join(" ... ");
 
     return this.speak(textContent);
   }
@@ -384,14 +397,15 @@ export const useTTS = () => {
     stop: () => ttsManager.stop(),
     toggle: () => ttsManager.toggle(),
     settings: ttsManager.getSettings(),
-    setSettings: (settings: Partial<TTSSettings>) => ttsManager.setSettings(settings),
+    setSettings: (settings: Partial<TTSSettings>) =>
+      ttsManager.setSettings(settings),
     voices: ttsManager.getAvailableVoices(),
-    isSupported: ttsManager.isSupported()
+    isSupported: ttsManager.isSupported(),
   };
 };
 
 // Add CSS for highlighting animation
-const style = document.createElement('style');
+const style = document.createElement("style");
 style.textContent = `
   @keyframes highlight-pulse {
     0% { background-position: -100% 0; }

@@ -13,7 +13,7 @@
 [![Security](https://img.shields.io/badge/Security-Advanced%20Protection-red.svg)](#security-features)
 
 **أول منصة رسمية لقراءة Sword Art Online بالعربية**  
-*الترجمة العربية الحصرية والكاملة لسيف آرت أونلاين وساو بروجرسيف*
+_الترجمة العربية الحصرية والكاملة لسيف آرت أونلاين وساو بروجرسيف_
 
 [🚀 العرض المباشر](https://mrpheonix-sao-arabic.github.io/) | [📚 المكتبة](#features) | [⚙️ التثبيت](#installation) | [📖 الدليل](#usage-guide)
 
@@ -58,17 +58,20 @@
 ### 📖 تجربة القراءة المتقدمة
 
 #### أنماط القراءة المتعددة
+
 - **🔄 التمرير (Scroll Mode)**: قراءة عمودية مثل الويبتون
 - **📖 الكتاب المقلب (3D Flipbook)**: تقليب صفحات واقعي مع أصوات
 - **🖼️ الشرائح (Slide Mode)**: التنقل صفحة بصفحة
 
 #### القراءة الصوتية المتطورة
+
 - **🎙️ أصوات عربية متعددة**: اختيار من أصوات مختلفة
 - **⚙️ تحكم كامل**: السرعة، النبرة، مستوى الصوت
 - **🎯 تمييز النص**: إبراز النص أثناء القراءة
 - **📱 تحكم بالخلفية**: استمرار التشغيل عند إغلاق الشاشة
 
 #### المظاهر والتخصيص
+
 - **🌙 المظهر المظلم**: مثالي للقراءة الليلية
 - **☀️ المظهر الفاتح**: مريح للعيون في النهار
 - **📜 المظهر الدافئ (Sepia)**: حماية للعيون من الإجهاد
@@ -77,6 +80,7 @@
 ### 🛡️ نظام الحماية المتقدم {#security-features}
 
 #### حماية المحتوى
+
 - **🚫 منع النسخ**: تعطيل تحديد النص والنسخ
 - **📵 منع التحميل**: حماية ضد حفظ الصفحات والطباعة
 - **🖼️ منع لقطات الشاشة**: كشف ومنع محاولات التقاط الشاشة
@@ -84,6 +88,7 @@
 - **🎭 العلامة المائية**: وضع علامة مائية غير مرئية على المحتوى
 
 #### كشف مانع الإعلانات
+
 - **🚨 تحذيرات متحركة**: رسائل ودية مع رموز تعبيرية
 - **🔒 إخفاء المحتوى**: حجب المحتوى حتى تعطيل مانع الإعلانات
 - **📊 إحصائيات**: تتبع معدلات استخدام مانع الإعلانات
@@ -91,12 +96,14 @@
 ### 👥 نظام العضوية والتقدم
 
 #### الملفات الشخصية
+
 - **🆔 تسجيل مبسط**: إنشاء حساب بدون تعقيد
 - **📈 تتبع التقدم**: حفظ تقدم القراءة تلقائياً
 - **🏆 نظام الإنجازات**: شارات ومكافآت للقراءة
 - **📊 إحصائيات شخصية**: عدد الصفحات، وقت القراءة، التقييمات
 
 #### التفاعل الاجتماعي
+
 - **⭐ نظام التقييم**: تقييم المجلدات من 1-5 نجوم
 - **💬 التعليقات**: مشاركة الآراء والملاحظات
 - **❤️ المفضلة**: إضافة المجلدات للقائمة المفضلة
@@ -105,12 +112,14 @@
 ### 📱 تطبيق ويب تقدمي (PWA) {#pwa-features}
 
 #### التثبيت والوصول
+
 - **📲 قابل للتثبيت**: يعمل كتطبيق مستقل على كل المنصات
 - **🌐 يعمل بدون اتصال**: قراءة المحتوى المحفوظ بدون إنترنت
 - **🔄 التحديث التلقائي**: تحديثات سلسة في الخلفية
 - **📱 تجربة مثل التطبيقات**: شاشة البداية، شريط المهام، إشعارات
 
 #### الأداء والسرعة
+
 - **⚡ تحميل سريع**: أقل من 2 ثانية لتحميل الصفحة
 - **💾 تخزين ذكي**: حفظ المحتوى المقروء تلقائياً
 - **🔄 مزامنة الخلفية**: تحديث البيانات عند الاتصال
@@ -118,12 +127,14 @@
 ### 💰 تحقيق الدخل {#monetization}
 
 #### Google AdSense جاهز
+
 - **📊 إعلانات استراتيجية**: مواضع محسنة للنقر
 - **🎯 إعلانات ذكية**: تتكيف مع المحتوى والمستخدم
 - **📱 إعلانات متجاوبة**: تعمل على كل الأجهزة
 - **📈 تحليلات مفصلة**: تتبع الأداء والعائد
 
 #### أنواع الإعلانات
+
 - **🏷️ إعلانات الرأس**: بنر علوي غير مزعج
 - **📦 إعلانات الشريط الجانبي**: محتوى ذات صلة
 - **📰 إعلانات المحتوى**: بين الفصول والمجلدات
@@ -134,6 +145,7 @@
 ## 🛠️ المتطلبات التقنية {#technical-requirements}
 
 ### متطلبات النظام
+
 ```
 Node.js: >= 18.0.0
 npm: >= 8.0.0 أو yarn >= 1.22.0
@@ -141,6 +153,7 @@ npm: >= 8.0.0 أو yarn >= 1.22.0
 ```
 
 ### التقنيات المستخدمة
+
 ```typescript
 Frontend Framework: React 18.3.1 + TypeScript 5.5.3
 Styling: Tailwind CSS 3.4.11 + Custom Components
@@ -154,6 +167,7 @@ Package Manager: npm / yarn / pnpm
 ```
 
 ### ميزات خاصة
+
 ```typescript
 // نظام الحماية المتقدم
 Security: Advanced anti-copy, anti-screenshot, anti-DevTools
@@ -198,7 +212,7 @@ npm run dev
 ```bash
 # إنشاء مجلدات المحتوى
 mkdir -p public/books/sao
-mkdir -p public/books/progressive  
+mkdir -p public/books/progressive
 mkdir -p public/books/sideworks
 
 # إضافة ملفات المجلدات (PDF/Images)
@@ -218,13 +232,13 @@ export const SITE_CONFIG = {
   author: "MrPheonixX Team",
   socialLinks: {
     youtube: "https://bit.ly/452l2pB",
-    discord: "https://bit.ly/4mvCWHb", 
-    patreon: "https://bit.ly/MrPheonixX"
+    discord: "https://bit.ly/4mvCWHb",
+    patreon: "https://bit.ly/MrPheonixX",
   },
   adsense: {
     client: "ca-pub-XXXXXXXXXXXXXXXX", // استبدل بمعرف AdSense
-    enabled: true
-  }
+    enabled: true,
+  },
 };
 ```
 
@@ -232,7 +246,11 @@ export const SITE_CONFIG = {
 
 ```html
 <!-- في index.html -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+<script
+  async
+  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+  crossorigin="anonymous"
+></script>
 
 <!-- استبدل ca-pub-XXXXXXXXXXXXXXXX بمعرف AdSense الخاص بك -->
 ```
@@ -271,32 +289,32 @@ name: Deploy SAO Arabic Reader
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: npm ci
-    
-    - name: Build project
-      run: npm run build
-    
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist
-        cname: sao-arabic.mrpheonix.com  # إذا كان لديك نطاق مخصص
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          cname: sao-arabic.mrpheonix.com # إذا كان لديك نطاق مخصص
 ```
 
 ### 7. نشر على Netlify (بديل)
@@ -314,7 +332,7 @@ netlify deploy --prod --dir=dist
 ### 8. نشر على Vercel (بديل)
 
 ```bash
-# ربط بـ Vercel  
+# ربط بـ Vercel
 npm install -g vercel
 vercel login
 vercel
@@ -329,20 +347,23 @@ vercel
 ### للمستخدمين
 
 #### التسجيل والدخول
+
 1. **زيارة الموقع**: اذهب إلى الرابط الرسمي
 2. **إنشاء حساب**: اضغط "تسجيل دخول" > "إنشاء حساب جديد"
 3. **أو دخول كضيف**: اختر "دخول كضيف" للوصول المؤقت
 
 #### تصفح المكتبة
+
 1. **اختر السلسلة**: SAO الأصلي أو SAO Progressive أو الأعمال الإضافية
 2. **اختر المجلد**: تصفح المجلدات المتاحة مع معاينة المحتوى
 3. **ابدأ القراءة**: اضغط "ابدأ القراءة" لفتح القارئ
 
 #### استخدام القارئ
+
 ```
 أنماط القراءة:
 🔄 تمرير: للقراءة السريعة والمتواصلة
-📖 كتاب مقلب: للتجربة الواقعية مع الأصوات  
+📖 كتاب مقلب: للتجربة الواقعية مع الأصوات
 🖼️ شرائح: للتنقل المتحكم فيه
 
 أدوات القراءة:
@@ -353,6 +374,7 @@ vercel
 ```
 
 #### المزامنة والحفظ
+
 - **التقدم التلقائي**: يتم حفظ موضع القراءة تلقائياً
 - **العمل بدون اتصال**: المجلدات المقروءة تُحفظ للقراءة لاحقاً
 - **المزامنة**: عند الاتصال، يتم تحديث التقدم على الخادم
@@ -360,19 +382,23 @@ vercel
 ### للمديرين
 
 #### الوصول للوحة التحكم
+
 ```
 الرابط السري: https://yoursite.com/admin-panel
 كلمة المرور: MrPheonixX-Admin-2024
 ```
 
 #### إدارة المحتوى
+
 1. **رفع مجلد جديد**:
+
    - اختر السلسلة (SAO/Progressive/Side Works)
    - ارفع ملفات الصفحات (JPG/PNG موصى بها)
    - أضف البيانات الوصفية (العنوان، الوصف، رقم المجلد)
    - حدد حالة النشر (مسودة/منشور/مخفي)
 
 2. **إدارة المستخدمين**:
+
    - عرض قائمة المستخدمين المسجلين
    - إحصائيات القراءة والنشاط
    - إدارة الحسابات (تفعيل/إيقاف/حظر)
@@ -383,6 +409,7 @@ vercel
    - تحليل استخدام النطاق الترددي
 
 #### إعدادات الأمان
+
 ```typescript
 // تفعيل/تعطيل الحماية
 await disableSecurity("MrPheonixX-Admin-2024"); // للاختبار
@@ -403,20 +430,23 @@ adBlockDetection: {
 ### طبقات الحماية
 
 #### 1. حماية على مستوى المتصفح
+
 ```typescript
 // منع النسخ واللصق
-document.addEventListener('copy', (e) => e.preventDefault());
-document.addEventListener('paste', (e) => e.preventDefault());
-document.addEventListener('cut', (e) => e.preventDefault());
+document.addEventListener("copy", (e) => e.preventDefault());
+document.addEventListener("paste", (e) => e.preventDefault());
+document.addEventListener("cut", (e) => e.preventDefault());
 
 // منع النقر بالزر الأيمن
-document.addEventListener('contextmenu', (e) => e.preventDefault());
+document.addEventListener("contextmenu", (e) => e.preventDefault());
 
 // منع اختصارات لوحة المفاتيح الخطيرة
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'F12' || 
-      (e.ctrlKey && e.shiftKey && e.key === 'I') ||
-      (e.ctrlKey && e.key === 'u')) {
+document.addEventListener("keydown", (e) => {
+  if (
+    e.key === "F12" ||
+    (e.ctrlKey && e.shiftKey && e.key === "I") ||
+    (e.ctrlKey && e.key === "u")
+  ) {
     e.preventDefault();
     showSecurityWarning();
   }
@@ -424,18 +454,22 @@ document.addEventListener('keydown', (e) => {
 ```
 
 #### 2. كشف أدوات المطور
+
 ```typescript
 // كشف فتح أدوات المطور
 setInterval(() => {
   const threshold = 160;
-  if (window.outerHeight - window.innerHeight > threshold ||
-      window.outerWidth - window.innerWidth > threshold) {
+  if (
+    window.outerHeight - window.innerHeight > threshold ||
+    window.outerWidth - window.innerWidth > threshold
+  ) {
     hideContentAndShowWarning();
   }
 }, 500);
 ```
 
 #### 3. حماية المحتوى
+
 ```css
 /* منع تحديد النص */
 * {
@@ -456,23 +490,28 @@ img {
 
 /* إخفاء المحتوى عند الطباعة */
 @media print {
-  * { display: none !important; }
+  * {
+    display: none !important;
+  }
 }
 ```
 
 #### 4. كشف لقطات الشاشة
+
 ```typescript
 // مراقبة اختصارات لقطة الشاشة
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'PrintScreen' || 
-      (e.metaKey && e.shiftKey && ['3', '4', '5'].includes(e.key))) {
+document.addEventListener("keydown", (e) => {
+  if (
+    e.key === "PrintScreen" ||
+    (e.metaKey && e.shiftKey && ["3", "4", "5"].includes(e.key))
+  ) {
     blurContentTemporarily();
     showScreenshotWarning();
   }
 });
 
 // كشف فقدان التركيز (قد يشير لأداة لقطة شاشة)
-document.addEventListener('visibilitychange', () => {
+document.addEventListener("visibilitychange", () => {
   if (document.hidden) {
     blurContentTemporarily();
   }
@@ -489,30 +528,30 @@ export const SECURITY_CONFIG = {
   disableTextSelection: true,
   disableImageDragging: true,
   disablePrintScreen: true,
-  
+
   // كشف أدوات المطور
   detectDevTools: true,
   devToolsWarningMessage: "🛡️ أدوات المطور معطلة لحماية المحتوى",
-  
+
   // كشف لقطات الشاشة
   detectScreenshots: true,
   screenshotBlurDuration: 3000, // 3 ثوان
-  
-  // كشف مانع الإعلانات  
+
+  // كشف مانع الإعلانات
   adBlockDetection: true,
   adBlockWarnings: [
     "😢 يرجى تعطيل مانع الإعلانات للمتابعة",
     "🙏 الإعلانات تساعدنا في تقديم المحتوى مجاناً",
-    "💙 دعمك يعني الكثير لنا"
+    "💙 دعمك يعني الكثير لنا",
   ],
-  
+
   // العلامة المائية
   watermark: {
     enabled: true,
     text: "MrPheonixX Team - SAO Arabic Edition",
     opacity: 0.05,
-    rotation: -45
-  }
+    rotation: -45,
+  },
 };
 ```
 
@@ -523,11 +562,12 @@ export const SECURITY_CONFIG = {
 ### إمكانيات التطبيق التقدمي
 
 #### التثبيت
+
 ```javascript
 // إدارة تثبيت PWA
 let deferredPrompt;
 
-window.addEventListener('beforeinstallprompt', (e) => {
+window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
   showInstallPrompt();
@@ -543,84 +583,85 @@ async function installApp() {
 ```
 
 #### العمل بدون اتصال
+
 ```javascript
 // استراتيجية التخزين المؤقت
 const CACHE_STRATEGIES = {
   // ملفات القراءة - أولوية للتخزين المؤقت
-  reading: 'cache-first',
-  
+  reading: "cache-first",
+
   // الصفحات الديناميكية - قديم أثناء إعادة التحقق
-  pages: 'stale-while-revalidate',
-  
+  pages: "stale-while-revalidate",
+
   // API - شبكة أولاً مع احتياطي
-  api: 'network-first',
-  
+  api: "network-first",
+
   // ملفات ثابتة - تخزين مؤقت فقط
-  static: 'cache-only'
+  static: "cache-only",
 };
 
 // تخزين المجلدات للقراءة بدون اتصال
 async function cacheVolumeForOffline(volumeId) {
-  const cache = await caches.open('sao-reading-cache');
+  const cache = await caches.open("sao-reading-cache");
   const volumePages = await getVolumePages(volumeId);
-  
+
   for (const page of volumePages) {
     await cache.add(page.url);
   }
-  
+
   showNotification(`📚 تم حفظ المجلد ${volumeId} للقراءة بدون اتصال`);
 }
 ```
 
 #### المزامنة في الخلفية
+
 ```javascript
 // مزامنة تقدم القراءة
-self.addEventListener('sync', (event) => {
-  if (event.tag === 'reading-progress-sync') {
+self.addEventListener("sync", (event) => {
+  if (event.tag === "reading-progress-sync") {
     event.waitUntil(syncReadingProgress());
   }
 });
 
 async function syncReadingProgress() {
   const progressData = await getOfflineReadingProgress();
-  
+
   if (progressData.length > 0) {
     try {
-      await fetch('/api/sync-progress', {
-        method: 'POST',
-        body: JSON.stringify(progressData)
+      await fetch("/api/sync-progress", {
+        method: "POST",
+        body: JSON.stringify(progressData),
       });
       await clearOfflineProgress();
     } catch (error) {
       // إعادة المحاولة لاحقاً
-      console.log('Sync failed, will retry later');
+      console.log("Sync failed, will retry later");
     }
   }
 }
 ```
 
 #### الإشعارات
+
 ```javascript
 // إشعارات المحتوى الجديد
-self.addEventListener('push', (event) => {
+self.addEventListener("push", (event) => {
   const data = event.data.json();
-  
+
   const options = {
-    body: data.body || 'محتوى جديد متاح في مكتبة ساو العربية',
-    icon: '/icons/icon-192x192.png',
-    badge: '/icons/badge-72x72.png',
-    tag: 'sao-content-update',
-    dir: 'rtl',
-    lang: 'ar',
+    body: data.body || "محتوى جديد متاح في مكتبة ساو العربية",
+    icon: "/icons/icon-192x192.png",
+    badge: "/icons/badge-72x72.png",
+    tag: "sao-content-update",
+    dir: "rtl",
+    lang: "ar",
     actions: [
-      { action: 'view', title: 'عرض' },
-      { action: 'dismiss', title: 'إغلاق' }
-    ]
+      { action: "view", title: "عرض" },
+      { action: "dismiss", title: "إغلاق" },
+    ],
   };
-  
-  event.waitUntil(
-    self.registration.showNotification(data.title, options)
-  );
+
+  event.waitUntil(self.registration.showNotification(data.title, options));
 });
 ```
 
@@ -631,6 +672,7 @@ self.addEventListener('push', (event) => {
 ### إعداد AdSense
 
 #### 1. إنشاء حساب AdSense
+
 ```
 1. اذهب إلى https://www.google.com/adsense/
 2. اشترك بحساب Google
@@ -640,19 +682,20 @@ self.addEventListener('push', (event) => {
 ```
 
 #### 2. تحديث معرف AdSense
+
 ```typescript
 // client/config/adsense.ts
 export const ADSENSE_CONFIG = {
   client: "ca-pub-XXXXXXXXXXXXXXXX", // استبدل بمعرفك
   enabled: true,
   testMode: false, // true للاختبار، false للإنتاج
-  
+
   adUnits: {
     header: "XXXXXXXXXX",
-    sidebar: "XXXXXXXXXX", 
+    sidebar: "XXXXXXXXXX",
     content: "XXXXXXXXXX",
-    footer: "XXXXXXXXXX"
-  }
+    footer: "XXXXXXXXXX",
+  },
 };
 ```
 
@@ -665,37 +708,37 @@ const AD_PLACEMENTS = {
   header: {
     position: "top",
     format: "horizontal", // 728x90
-    priority: "high"
+    priority: "high",
   },
-  
+
   // الشريط الجانبي - تفاعل جيد
   sidebar: {
     position: "right",
     format: "rectangle", // 300x250
     priority: "medium",
-    sticky: true
+    sticky: true,
   },
-  
+
   // داخل المحتوى - معدل نقر عالي
   inContent: {
     position: "between-chapters",
     format: "responsive",
-    priority: "high"
+    priority: "high",
   },
-  
+
   // أسفل الصفحة - تواجد ثابت
   footer: {
-    position: "bottom", 
+    position: "bottom",
     format: "horizontal",
-    priority: "low"
+    priority: "low",
   },
-  
+
   // إعلانات الهاتف
   mobile: {
     position: "bottom-fixed",
     format: "banner", // 320x50
-    priority: "medium"
-  }
+    priority: "medium",
+  },
 };
 ```
 
@@ -706,24 +749,24 @@ const AD_PLACEMENTS = {
 const OPTIMIZATION_CONFIG = {
   // التحميل التدريجي
   lazyLoading: true,
-  
+
   // تحسين للهاتف
   mobileOptimized: true,
-  
+
   // إعلانات تلقائية
   autoAds: {
     enabled: true,
-    density: "medium" // low, medium, high
+    density: "medium", // low, medium, high
   },
-  
+
   // مواضع محسنة
   smartPositioning: true,
-  
+
   // كشف مانع الإعلانات
   adBlockDetection: {
     enabled: true,
-    recoverLostRevenue: true
-  }
+    recoverLostRevenue: true,
+  },
 };
 ```
 
@@ -733,23 +776,23 @@ const OPTIMIZATION_CONFIG = {
 // تتبع أداء الإعلانات
 class AdPerformanceTracker {
   trackAdLoad(adUnit: string) {
-    gtag('event', 'ad_load', {
+    gtag("event", "ad_load", {
       ad_unit: adUnit,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     });
   }
-  
+
   trackAdClick(adUnit: string) {
-    gtag('event', 'ad_click', {
+    gtag("event", "ad_click", {
       ad_unit: adUnit,
-      value: 1
+      value: 1,
     });
   }
-  
+
   trackAdRevenue(revenue: number) {
-    gtag('event', 'ad_revenue', {
+    gtag("event", "ad_revenue", {
       value: revenue,
-      currency: 'USD'
+      currency: "USD",
     });
   }
 }
@@ -762,6 +805,7 @@ class AdPerformanceTracker {
 ### إرشادات المساهمة
 
 #### للمطورين
+
 ```bash
 # تفرع من المشروع
 git clone https://github.com/MrPheonixX/sao-arabic-reader.git
@@ -779,6 +823,7 @@ git push origin feature/new-feature
 ```
 
 #### معايير الكود
+
 ```typescript
 // استخدم TypeScript لكل الملفات الجديدة
 interface ComponentProps {
@@ -804,6 +849,7 @@ function calculateProgress(currentPage: number, totalPages: number): number {
 ```
 
 #### تقارير الأخطاء
+
 ```markdown
 عند الإبلاغ عن خطأ، يرجى تضمين:
 
@@ -817,13 +863,15 @@ function calculateProgress(currentPage: number, totalPages: number): number {
 ### خارطة طريق التطوير
 
 #### الإصدار 1.1 (قريباً)
+
 - [ ] 🎵 تأثيرات صوتية للواجهة
-- [ ] 🎨 خلفيات ديناميكية لكل مجلد  
+- [ ] 🎨 خلفيات ديناميكية لكل مجلد
 - [ ] 📊 تحليلات قراءة متقدمة
 - [ ] 🔍 بحث متقدم في المحتوى
 - [ ] 📝 أخذ ملاحظات أثناء القراءة
 
 #### الإصدار 1.2 (المستقبل)
+
 - [ ] 🤖 ترجمة فورية للمصطلحات
 - [ ] 👥 نظام الأصدقاء والمتابعة
 - [ ] 🏆 بطولات قراءة وتحديات
@@ -837,12 +885,14 @@ function calculateProgress(currentPage: number, totalPages: number): number {
 ### خيارات الدعم
 
 #### للمستخدمين العاديين
+
 - **📧 البريد الإلكتروني**: support@mrpheonix.team
 - **💬 Discord**: [انضم للخادم](https://bit.ly/4mvCWHb)
 - **📺 YouTube**: [قناة الدعم](https://bit.ly/452l2pB)
 - **📋 نماذج الدعم**: متاحة في التطبيق
 
 #### للمطورين والتقنيين
+
 - **🐛 GitHub Issues**: لتقارير الأخطاء والميزات الجديدة
 - **📖 Wiki**: دليل التطوير المفصل
 - **💡 Discussions**: للأسئلة والاقتراحات
@@ -861,6 +911,7 @@ function calculateProgress(currentPage: number, totalPages: number): number {
 5. املأ البيانات الوصفية
 6. اختر حالة النشر واحفظ
 ```
+
 </details>
 
 <details>
@@ -873,6 +924,7 @@ function calculateProgress(currentPage: number, totalPages: number): number {
 - تفعيل JavaScript في المتصفح
 - استخدام متصفح حديث يدعم Service Workers
 ```
+
 </details>
 
 <details>
@@ -885,6 +937,7 @@ function calculateProgress(currentPage: number, totalPages: number): number {
 4. اختبر الإعلانات في وضع التطوير
 5. انشر على الإنتاج وراقب الأداء
 ```
+
 </details>
 
 <details>
@@ -899,6 +952,7 @@ await enableSecurity();
 
 // تخصيص مستوى الحماية في security.ts
 ```
+
 </details>
 
 ---
@@ -960,12 +1014,14 @@ Copyright (c) 2024 MrPheonixX Team
 ## 🙏 الشكر والتقدير
 
 ### فريق التطوير
+
 - **🛡️ MrPheonixX Team**: الترجمة والمراجعة والإشراف العام
-- **🔧 المطورون**: تطوير المنصة والميزات التقنية  
+- **🔧 المطورون**: تطوير المنصة والميزات التقنية
 - **🎨 المصممون**: التصميم والواجهات والتجربة البصرية
 - **🔍 المراجعون**: مراجعة الترجمة والجودة اللغوية
 
 ### أدوات وخدمات
+
 - **🤖 DeepL Premium**: خدمة الترجمة الأساسية
 - **⚡ Vite**: أداة البناء والتطوير
 - **⚛️ React**: مكتبة واجهة المستخدم
@@ -974,6 +1030,7 @@ Copyright (c) 2024 MrPheonixX Team
 - **🌐 GitHub Pages**: استضافة مجانية
 
 ### المجتمع والدعم
+
 - **❤️ القراء والمتابعون**: الدعم المعنوي والتشجيع المستمر
 - **💬 مجتمع Discord**: التفاعل والاقتراحات والدعم
 - **📺 متابعو YouTube**: المشاهدة والإعجاب والمشاركة
@@ -984,6 +1041,7 @@ Copyright (c) 2024 MrPheonixX Team
 ## 📞 معلومات الاتصال
 
 ### الروابط الرسمية
+
 - **🌐 الموقع الرسمي**: [https://sao-arabic.mrpheonix.com](https://sao-arabic.mrpheonix.com)
 - **📺 قناة YouTube**: [https://bit.ly/452l2pB](https://bit.ly/452l2pB)
 - **💬 خادم Discord**: [https://bit.ly/4mvCWHb](https://bit.ly/4mvCWHb)
@@ -991,6 +1049,7 @@ Copyright (c) 2024 MrPheonixX Team
 - **📁 GitHub**: [https://github.com/MrPheonixX](https://github.com/MrPheonixX)
 
 ### للتواصل المباشر
+
 - **📧 البريد الإلكتروني**: contact@mrpheonix.team
 - **💼 الأعمال**: business@mrpheonix.team
 - **🆘 الدعم التقني**: support@mrpheonix.team
@@ -1012,8 +1071,8 @@ Copyright (c) 2024 MrPheonixX Team
 
 **© 2024 MrPheonixX Team - جميع الحقوق محفوظة**
 
-*المحتوى حصري لفريق MrPheonixX - يُمنع إعادة الإنتاج غير المصرح به*
+_المحتوى حصري لفريق MrPheonixX - يُمنع إعادة الإنتاج غير المصرح به_
 
-*Translated and proofread using DeepL Premium with manual supervision*
+_Translated and proofread using DeepL Premium with manual supervision_
 
 </div>

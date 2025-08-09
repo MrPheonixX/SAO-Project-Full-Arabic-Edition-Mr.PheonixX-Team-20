@@ -1,16 +1,22 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Shield, 
-  Users, 
-  BookOpen, 
-  Upload, 
-  BarChart3, 
-  Settings, 
-  Eye, 
+import {
+  Shield,
+  Users,
+  BookOpen,
+  Upload,
+  BarChart3,
+  Settings,
+  Eye,
   EyeOff,
   Download,
   Trash2,
@@ -31,7 +37,7 @@ import {
   Activity,
   UserCheck,
   UserX,
-  ArrowLeft
+  ArrowLeft,
 } from "lucide-react";
 // Security functions will be added later
 // import { disableSecurity, enableSecurity } from "@/lib/security";
@@ -79,7 +85,7 @@ export default function AdminDashboard() {
       uploadDate: "2024-01-15",
       views: 1250,
       rating: 4.8,
-      fileSize: "15.2 MB"
+      fileSize: "15.2 MB",
     },
     {
       id: "prog_1",
@@ -91,7 +97,7 @@ export default function AdminDashboard() {
       uploadDate: "2024-01-20",
       views: 980,
       rating: 4.9,
-      fileSize: "18.5 MB"
+      fileSize: "18.5 MB",
     },
     {
       id: "nhk_1",
@@ -103,8 +109,8 @@ export default function AdminDashboard() {
       uploadDate: "2024-02-01",
       views: 0,
       rating: 0,
-      fileSize: "22.1 MB"
-    }
+      fileSize: "22.1 MB",
+    },
   ]);
 
   const [users, setUsers] = useState<UserStat[]>([
@@ -115,7 +121,7 @@ export default function AdminDashboard() {
       joinDate: "2024-01-15",
       lastActive: "2024-03-10",
       pagesRead: 1250,
-      status: "active"
+      status: "active",
     },
     {
       id: "2",
@@ -124,8 +130,8 @@ export default function AdminDashboard() {
       joinDate: "2024-02-01",
       lastActive: "2024-03-09",
       pagesRead: 850,
-      status: "active"
-    }
+      status: "active",
+    },
   ]);
 
   const handleAdminLogin = () => {
@@ -147,34 +153,55 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleVolumeStatusChange = (volumeId: string, newStatus: "draft" | "published" | "hidden") => {
-    setVolumes(prev => prev.map(vol => 
-      vol.id === volumeId ? { ...vol, status: newStatus } : vol
-    ));
+  const handleVolumeStatusChange = (
+    volumeId: string,
+    newStatus: "draft" | "published" | "hidden",
+  ) => {
+    setVolumes((prev) =>
+      prev.map((vol) =>
+        vol.id === volumeId ? { ...vol, status: newStatus } : vol,
+      ),
+    );
   };
 
-  const handleUserStatusChange = (userId: string, newStatus: "active" | "inactive" | "banned") => {
-    setUsers(prev => prev.map(user => 
-      user.id === userId ? { ...user, status: newStatus } : user
-    ));
+  const handleUserStatusChange = (
+    userId: string,
+    newStatus: "active" | "inactive" | "banned",
+  ) => {
+    setUsers((prev) =>
+      prev.map((user) =>
+        user.id === userId ? { ...user, status: newStatus } : user,
+      ),
+    );
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "published": case "active": return "text-green-400 bg-green-500/20 border-green-500/50";
-      case "draft": case "inactive": return "text-yellow-400 bg-yellow-500/20 border-yellow-500/50";
-      case "hidden": case "banned": return "text-red-400 bg-red-500/20 border-red-500/50";
-      default: return "text-gray-400 bg-gray-500/20 border-gray-500/50";
+      case "published":
+      case "active":
+        return "text-green-400 bg-green-500/20 border-green-500/50";
+      case "draft":
+      case "inactive":
+        return "text-yellow-400 bg-yellow-500/20 border-yellow-500/50";
+      case "hidden":
+      case "banned":
+        return "text-red-400 bg-red-500/20 border-red-500/50";
+      default:
+        return "text-gray-400 bg-gray-500/20 border-gray-500/50";
     }
   };
 
   const stats = {
     totalVolumes: volumes.length,
-    publishedVolumes: volumes.filter(v => v.status === "published").length,
+    publishedVolumes: volumes.filter((v) => v.status === "published").length,
     totalUsers: users.length,
-    activeUsers: users.filter(u => u.status === "active").length,
+    activeUsers: users.filter((u) => u.status === "active").length,
     totalViews: volumes.reduce((sum, vol) => sum + vol.views, 0),
-    averageRating: volumes.filter(v => v.rating > 0).reduce((sum, vol) => sum + vol.rating, 0) / volumes.filter(v => v.rating > 0).length
+    averageRating:
+      volumes
+        .filter((v) => v.rating > 0)
+        .reduce((sum, vol) => sum + vol.rating, 0) /
+      volumes.filter((v) => v.rating > 0).length,
   };
 
   if (!isAuthenticated) {
@@ -188,7 +215,9 @@ export default function AdminDashboard() {
                 <Shield className="w-8 h-8 text-white" />
               </div>
             </div>
-            <CardTitle className="text-2xl text-red-400">لوحة تحكم المدير</CardTitle>
+            <CardTitle className="text-2xl text-red-400">
+              لوحة تحكم المدير
+            </CardTitle>
             <CardDescription className="text-gray-300">
               🔐 منطقة محظورة - Admin Only
             </CardDescription>
@@ -207,7 +236,7 @@ export default function AdminDashboard() {
                     onChange={(e) => setAdminPassword(e.target.value)}
                     className="w-full pl-10 pr-4 py-2 bg-black/40 border border-red-500/30 rounded-md text-white placeholder-gray-400 focus:border-red-400 focus:outline-none"
                     placeholder="Enter admin password"
-                    onKeyPress={(e) => e.key === 'Enter' && handleAdminLogin()}
+                    onKeyPress={(e) => e.key === "Enter" && handleAdminLogin()}
                   />
                 </div>
               </div>
@@ -242,22 +271,34 @@ export default function AdminDashboard() {
             <div className="flex items-center space-x-4">
               <Shield className="w-8 h-8 text-purple-400" />
               <div>
-                <h1 className="text-2xl font-bold text-purple-400">لوحة تحكم المدير</h1>
-                <p className="text-sm text-gray-400">MrPheonixX Team Dashboard</p>
+                <h1 className="text-2xl font-bold text-purple-400">
+                  لوحة تحكم المدير
+                </h1>
+                <p className="text-sm text-gray-400">
+                  MrPheonixX Team Dashboard
+                </p>
               </div>
             </div>
-            
+
             <div className="flex items-center space-x-4">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={toggleSecurity}
-                className={securityEnabled ? "border-red-500 text-red-400" : "border-green-500 text-green-400"}
+                className={
+                  securityEnabled
+                    ? "border-red-500 text-red-400"
+                    : "border-green-500 text-green-400"
+                }
               >
-                {securityEnabled ? <Lock className="w-4 h-4 mr-2" /> : <Unlock className="w-4 h-4 mr-2" />}
+                {securityEnabled ? (
+                  <Lock className="w-4 h-4 mr-2" />
+                ) : (
+                  <Unlock className="w-4 h-4 mr-2" />
+                )}
                 {securityEnabled ? "تعطيل الحماية" : "تفعيل الحماية"}
               </Button>
-              
+
               <Button
                 variant="outline"
                 size="sm"
@@ -281,7 +322,7 @@ export default function AdminDashboard() {
               { id: "volumes", label: "إدارة المجلدات", icon: BookOpen },
               { id: "users", label: "إدارة المستخدمين", icon: Users },
               { id: "analytics", label: "التحليلات", icon: Activity },
-              { id: "settings", label: "الإعدادات", icon: Settings }
+              { id: "settings", label: "الإعدادات", icon: Settings },
             ].map((tab) => (
               <Button
                 key={tab.id}
@@ -304,7 +345,9 @@ export default function AdminDashboard() {
               <Card className="bg-gradient-to-br from-blue-600/20 to-blue-800/20 border-blue-500/30">
                 <CardContent className="p-6 text-center">
                   <BookOpen className="w-12 h-12 text-blue-400 mx-auto mb-3" />
-                  <h3 className="text-2xl font-bold text-blue-300">{stats.totalVolumes}</h3>
+                  <h3 className="text-2xl font-bold text-blue-300">
+                    {stats.totalVolumes}
+                  </h3>
                   <p className="text-gray-300">إجمالي المجلدات</p>
                   <Badge className="mt-2 bg-blue-500/20">
                     {stats.publishedVolumes} منشور
@@ -315,7 +358,9 @@ export default function AdminDashboard() {
               <Card className="bg-gradient-to-br from-purple-600/20 to-purple-800/20 border-purple-500/30">
                 <CardContent className="p-6 text-center">
                   <Users className="w-12 h-12 text-purple-400 mx-auto mb-3" />
-                  <h3 className="text-2xl font-bold text-purple-300">{stats.totalUsers}</h3>
+                  <h3 className="text-2xl font-bold text-purple-300">
+                    {stats.totalUsers}
+                  </h3>
                   <p className="text-gray-300">إجمالي المستخدمين</p>
                   <Badge className="mt-2 bg-purple-500/20">
                     {stats.activeUsers} نشط
@@ -326,7 +371,9 @@ export default function AdminDashboard() {
               <Card className="bg-gradient-to-br from-green-600/20 to-green-800/20 border-green-500/30">
                 <CardContent className="p-6 text-center">
                   <Eye className="w-12 h-12 text-green-400 mx-auto mb-3" />
-                  <h3 className="text-2xl font-bold text-green-300">{stats.totalViews.toLocaleString()}</h3>
+                  <h3 className="text-2xl font-bold text-green-300">
+                    {stats.totalViews.toLocaleString()}
+                  </h3>
                   <p className="text-gray-300">إجمالي المشاهدات</p>
                   <Badge className="mt-2 bg-green-500/20">
                     <TrendingUp className="w-3 h-3 mr-1" />
@@ -338,11 +385,11 @@ export default function AdminDashboard() {
               <Card className="bg-gradient-to-br from-yellow-600/20 to-yellow-800/20 border-yellow-500/30">
                 <CardContent className="p-6 text-center">
                   <BarChart3 className="w-12 h-12 text-yellow-400 mx-auto mb-3" />
-                  <h3 className="text-2xl font-bold text-yellow-300">{stats.averageRating.toFixed(1)}</h3>
+                  <h3 className="text-2xl font-bold text-yellow-300">
+                    {stats.averageRating.toFixed(1)}
+                  </h3>
                   <p className="text-gray-300">متوسط التقييم</p>
-                  <Badge className="mt-2 bg-yellow-500/20">
-                    ⭐ ممتاز
-                  </Badge>
+                  <Badge className="mt-2 bg-yellow-500/20">⭐ ممتاز</Badge>
                 </CardContent>
               </Card>
             </div>
@@ -361,7 +408,7 @@ export default function AdminDashboard() {
                       <p className="text-sm text-gray-400">منذ ساعتين</p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center space-x-3 p-3 bg-blue-500/10 rounded-lg">
                     <Users className="w-5 h-5 text-blue-400" />
                     <div>
@@ -369,7 +416,7 @@ export default function AdminDashboard() {
                       <p className="text-sm text-gray-400">اليوم</p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center space-x-3 p-3 bg-yellow-500/10 rounded-lg">
                     <AlertCircle className="w-5 h-5 text-yellow-400" />
                     <div>
@@ -387,7 +434,9 @@ export default function AdminDashboard() {
         {activeTab === "volumes" && (
           <div className="space-y-6">
             <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold text-purple-400">إدارة المجلدات</h2>
+              <h2 className="text-2xl font-bold text-purple-400">
+                إدارة المجلدات
+              </h2>
               <Button className="bg-gradient-to-r from-green-600 to-blue-600">
                 <Plus className="w-4 h-4 mr-2" />
                 رفع مجلد جديد
@@ -396,20 +445,28 @@ export default function AdminDashboard() {
 
             <div className="grid gap-4">
               {volumes.map((volume) => (
-                <Card key={volume.id} className="bg-black/40 border-purple-500/30 backdrop-blur-xl">
+                <Card
+                  key={volume.id}
+                  className="bg-black/40 border-purple-500/30 backdrop-blur-xl"
+                >
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
                         <div className="flex items-center space-x-3 mb-2">
-                          <h3 className="text-lg font-bold text-white">{volume.titleArabic}</h3>
+                          <h3 className="text-lg font-bold text-white">
+                            {volume.titleArabic}
+                          </h3>
                           <Badge className={getStatusColor(volume.status)}>
-                            {volume.status === "published" ? "منشور" : 
-                             volume.status === "draft" ? "مسودة" : "مخفي"}
+                            {volume.status === "published"
+                              ? "منشور"
+                              : volume.status === "draft"
+                                ? "مسودة"
+                                : "مخفي"}
                           </Badge>
                         </div>
-                        
+
                         <p className="text-gray-400 mb-2">{volume.title}</p>
-                        
+
                         <div className="flex items-center space-x-4 text-sm text-gray-400">
                           <span>{volume.pages} صفحة</span>
                           <span>{volume.fileSize}</span>
@@ -417,23 +474,32 @@ export default function AdminDashboard() {
                           <span>⭐ {volume.rating || "لا يوجد"}</span>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-center space-x-2">
                         <select
                           value={volume.status}
-                          onChange={(e) => handleVolumeStatusChange(volume.id, e.target.value as any)}
+                          onChange={(e) =>
+                            handleVolumeStatusChange(
+                              volume.id,
+                              e.target.value as any,
+                            )
+                          }
                           className="px-3 py-1 bg-black/40 border border-gray-500/30 rounded text-white text-sm"
                         >
                           <option value="draft">مسودة</option>
                           <option value="published">منشور</option>
                           <option value="hidden">مخفي</option>
                         </select>
-                        
+
                         <Button variant="outline" size="sm">
                           <Edit className="w-4 h-4" />
                         </Button>
-                        
-                        <Button variant="outline" size="sm" className="border-red-500 text-red-400">
+
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="border-red-500 text-red-400"
+                        >
                           <Trash2 className="w-4 h-4" />
                         </Button>
                       </div>
@@ -448,42 +514,67 @@ export default function AdminDashboard() {
         {/* Users Management Tab */}
         {activeTab === "users" && (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-purple-400">إدارة ا��مستخدمين</h2>
+            <h2 className="text-2xl font-bold text-purple-400">
+              إدارة ا��مستخدمين
+            </h2>
 
             <div className="grid gap-4">
               {users.map((user) => (
-                <Card key={user.id} className="bg-black/40 border-purple-500/30 backdrop-blur-xl">
+                <Card
+                  key={user.id}
+                  className="bg-black/40 border-purple-500/30 backdrop-blur-xl"
+                >
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
                         <div className="flex items-center space-x-3 mb-2">
-                          <h3 className="text-lg font-bold text-white">{user.username}</h3>
+                          <h3 className="text-lg font-bold text-white">
+                            {user.username}
+                          </h3>
                           <Badge className={getStatusColor(user.status)}>
-                            {user.status === "active" ? "نشط" : 
-                             user.status === "inactive" ? "غير نشط" : "محظور"}
+                            {user.status === "active"
+                              ? "نشط"
+                              : user.status === "inactive"
+                                ? "غير نشط"
+                                : "محظور"}
                           </Badge>
                         </div>
-                        
+
                         <p className="text-gray-400 mb-2">{user.email}</p>
-                        
+
                         <div className="flex items-center space-x-4 text-sm text-gray-400">
-                          <span>انضم: {new Date(user.joinDate).toLocaleDateString('ar-SA')}</span>
-                          <span>آخر نشاط: {new Date(user.lastActive).toLocaleDateString('ar-SA')}</span>
+                          <span>
+                            انضم:{" "}
+                            {new Date(user.joinDate).toLocaleDateString(
+                              "ar-SA",
+                            )}
+                          </span>
+                          <span>
+                            آخر نشاط:{" "}
+                            {new Date(user.lastActive).toLocaleDateString(
+                              "ar-SA",
+                            )}
+                          </span>
                           <span>{user.pagesRead} صفحة مقروءة</span>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-center space-x-2">
                         <select
                           value={user.status}
-                          onChange={(e) => handleUserStatusChange(user.id, e.target.value as any)}
+                          onChange={(e) =>
+                            handleUserStatusChange(
+                              user.id,
+                              e.target.value as any,
+                            )
+                          }
                           className="px-3 py-1 bg-black/40 border border-gray-500/30 rounded text-white text-sm"
                         >
                           <option value="active">نشط</option>
                           <option value="inactive">غير نشط</option>
                           <option value="banned">محظور</option>
                         </select>
-                        
+
                         <Button variant="outline" size="sm">
                           <Eye className="w-4 h-4" />
                         </Button>
@@ -499,33 +590,50 @@ export default function AdminDashboard() {
         {/* Analytics Tab */}
         {activeTab === "analytics" && (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-purple-400">تحليلات الموقع</h2>
-            
+            <h2 className="text-2xl font-bold text-purple-400">
+              تحليلات الموقع
+            </h2>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card className="bg-black/40 border-purple-500/30 backdrop-blur-xl">
                 <CardHeader>
-                  <CardTitle className="text-purple-400">أكثر المجلدات مشاهدة</CardTitle>
+                  <CardTitle className="text-purple-400">
+                    أكثر المجلدات مشاهدة
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    {volumes.sort((a, b) => b.views - a.views).slice(0, 5).map((vol, index) => (
-                      <div key={vol.id} className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <Badge variant="outline" className="w-6 h-6 rounded-full p-0 flex items-center justify-center">
-                            {index + 1}
-                          </Badge>
-                          <span className="text-white">{vol.titleArabic}</span>
+                    {volumes
+                      .sort((a, b) => b.views - a.views)
+                      .slice(0, 5)
+                      .map((vol, index) => (
+                        <div
+                          key={vol.id}
+                          className="flex items-center justify-between"
+                        >
+                          <div className="flex items-center space-x-3">
+                            <Badge
+                              variant="outline"
+                              className="w-6 h-6 rounded-full p-0 flex items-center justify-center"
+                            >
+                              {index + 1}
+                            </Badge>
+                            <span className="text-white">
+                              {vol.titleArabic}
+                            </span>
+                          </div>
+                          <span className="text-gray-400">{vol.views}</span>
                         </div>
-                        <span className="text-gray-400">{vol.views}</span>
-                      </div>
-                    ))}
+                      ))}
                   </div>
                 </CardContent>
               </Card>
 
               <Card className="bg-black/40 border-purple-500/30 backdrop-blur-xl">
                 <CardHeader>
-                  <CardTitle className="text-purple-400">إحصائيات شهرية</CardTitle>
+                  <CardTitle className="text-purple-400">
+                    إحصائيات شهرية
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
@@ -555,12 +663,16 @@ export default function AdminDashboard() {
         {/* Settings Tab */}
         {activeTab === "settings" && (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-purple-400">إعدادات النظام</h2>
-            
+            <h2 className="text-2xl font-bold text-purple-400">
+              إعدادات النظام
+            </h2>
+
             <div className="grid gap-6">
               <Card className="bg-black/40 border-purple-500/30 backdrop-blur-xl">
                 <CardHeader>
-                  <CardTitle className="text-purple-400">إعدادات الحماية</CardTitle>
+                  <CardTitle className="text-purple-400">
+                    إعدادات الحماية
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
@@ -569,22 +681,34 @@ export default function AdminDashboard() {
                       variant="outline"
                       size="sm"
                       onClick={toggleSecurity}
-                      className={securityEnabled ? "border-red-500 text-red-400" : "border-green-500 text-green-400"}
+                      className={
+                        securityEnabled
+                          ? "border-red-500 text-red-400"
+                          : "border-green-500 text-green-400"
+                      }
                     >
                       {securityEnabled ? "مفعل" : "معطل"}
                     </Button>
                   </div>
-                  
+
                   <div className="flex items-center justify-between">
                     <span className="text-white">كشف مانع الإ��لانات</span>
-                    <Button variant="outline" size="sm" className="border-green-500 text-green-400">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="border-green-500 text-green-400"
+                    >
                       مفعل
                     </Button>
                   </div>
-                  
+
                   <div className="flex items-center justify-between">
                     <span className="text-white">حماية ضد النسخ</span>
-                    <Button variant="outline" size="sm" className="border-green-500 text-green-400">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="border-green-500 text-green-400"
+                    >
                       مفعل
                     </Button>
                   </div>
@@ -593,7 +717,9 @@ export default function AdminDashboard() {
 
               <Card className="bg-black/40 border-purple-500/30 backdrop-blur-xl">
                 <CardHeader>
-                  <CardTitle className="text-purple-400">إعدادات الموقع</CardTitle>
+                  <CardTitle className="text-purple-400">
+                    إعدادات الموقع
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
@@ -606,7 +732,7 @@ export default function AdminDashboard() {
                       className="w-full px-3 py-2 bg-black/40 border border-gray-500/30 rounded-md text-white"
                     />
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">
                       وصف الموقع
@@ -617,7 +743,7 @@ export default function AdminDashboard() {
                       className="w-full px-3 py-2 bg-black/40 border border-gray-500/30 rounded-md text-white"
                     />
                   </div>
-                  
+
                   <Button className="bg-gradient-to-r from-purple-600 to-blue-600">
                     <Save className="w-4 h-4 mr-2" />
                     حفظ الإعدادات

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { X, Eye, AlertCircle } from "lucide-react";
@@ -6,7 +6,7 @@ import { X, Eye, AlertCircle } from "lucide-react";
 interface AdSenseProps {
   client?: string;
   slot?: string;
-  format?: 'auto' | 'rectangle' | 'horizontal' | 'vertical';
+  format?: "auto" | "rectangle" | "horizontal" | "vertical";
   responsive?: boolean;
   className?: string;
   style?: React.CSSProperties;
@@ -26,7 +26,7 @@ export function AdSense({
   responsive = true,
   className = "",
   style = {},
-  test = false
+  test = false,
 }: AdSenseProps) {
   const adRef = useRef<HTMLDivElement>(null);
   const [adLoaded, setAdLoaded] = useState(false);
@@ -37,10 +37,11 @@ export function AdSense({
 
     // Load AdSense script if not already loaded
     if (!window.adsbygoogle) {
-      const script = document.createElement('script');
+      const script = document.createElement("script");
       script.async = true;
-      script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
-      script.crossOrigin = 'anonymous';
+      script.src =
+        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+      script.crossOrigin = "anonymous";
       script.onload = () => {
         initializeAd();
       };
@@ -61,23 +62,23 @@ export function AdSense({
         setAdLoaded(true);
       }
     } catch (error) {
-      console.error('AdSense error:', error);
+      console.error("AdSense error:", error);
       setAdError(true);
     }
   };
 
   const getAdStyle = () => {
     const baseStyle: React.CSSProperties = {
-      display: 'block',
-      ...style
+      display: "block",
+      ...style,
     };
 
-    if (format === 'rectangle') {
-      return { ...baseStyle, width: '300px', height: '250px' };
-    } else if (format === 'horizontal') {
-      return { ...baseStyle, width: '728px', height: '90px' };
-    } else if (format === 'vertical') {
-      return { ...baseStyle, width: '160px', height: '600px' };
+    if (format === "rectangle") {
+      return { ...baseStyle, width: "300px", height: "250px" };
+    } else if (format === "horizontal") {
+      return { ...baseStyle, width: "728px", height: "90px" };
+    } else if (format === "vertical") {
+      return { ...baseStyle, width: "160px", height: "600px" };
     }
 
     return baseStyle;
@@ -86,11 +87,15 @@ export function AdSense({
   // Test mode - show placeholder
   if (test) {
     return (
-      <Card className={`bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-dashed border-gray-500/50 ${className}`}>
+      <Card
+        className={`bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-dashed border-gray-500/50 ${className}`}
+      >
         <CardContent className="p-6 text-center">
           <div className="text-blue-400 mb-2">📺</div>
           <p className="text-gray-400 text-sm">AdSense Placeholder</p>
-          <p className="text-gray-500 text-xs">{format} - {client}</p>
+          <p className="text-gray-500 text-xs">
+            {format} - {client}
+          </p>
         </CardContent>
       </Card>
     );
@@ -130,28 +135,31 @@ export function AdSense({
 }
 
 // Ad Block Detector Component
-export function AdBlockDetector({ onAdBlockDetected, onAdBlockDisabled }: AdBlockDetectorProps) {
+export function AdBlockDetector({
+  onAdBlockDetected,
+  onAdBlockDisabled,
+}: AdBlockDetectorProps) {
   useEffect(() => {
     const detectAdBlock = async () => {
       // Create a test ad element
-      const testAd = document.createElement('div');
-      testAd.innerHTML = '&nbsp;';
-      testAd.className = 'adsbox ad ads advertisement banner-ad';
-      testAd.style.cssText = 'position:absolute;top:-999px;left:-999px;width:1px;height:1px;';
-      
+      const testAd = document.createElement("div");
+      testAd.innerHTML = "&nbsp;";
+      testAd.className = "adsbox ad ads advertisement banner-ad";
+      testAd.style.cssText =
+        "position:absolute;top:-999px;left:-999px;width:1px;height:1px;";
+
       document.body.appendChild(testAd);
-      
+
       // Wait for potential ad blocker to act
       setTimeout(() => {
-        const adBlocked = (
+        const adBlocked =
           testAd.offsetHeight === 0 ||
           testAd.offsetWidth === 0 ||
-          testAd.style.display === 'none' ||
-          testAd.style.visibility === 'hidden'
-        );
-        
+          testAd.style.display === "none" ||
+          testAd.style.visibility === "hidden";
+
         document.body.removeChild(testAd);
-        
+
         if (adBlocked) {
           onAdBlockDetected();
         } else {
@@ -161,10 +169,10 @@ export function AdBlockDetector({ onAdBlockDetected, onAdBlockDisabled }: AdBloc
     };
 
     detectAdBlock();
-    
+
     // Re-check periodically
     const interval = setInterval(detectAdBlock, 10000);
-    
+
     return () => clearInterval(interval);
   }, [onAdBlockDetected, onAdBlockDisabled]);
 
@@ -180,7 +188,7 @@ export function HeaderBannerAd() {
       <AdSense
         format="horizontal"
         className="max-w-full"
-        test={process.env.NODE_ENV === 'development'}
+        test={process.env.NODE_ENV === "development"}
       />
     </div>
   );
@@ -193,14 +201,17 @@ export function SidebarAd() {
       <Card className="bg-black/20 border-gray-500/30 backdrop-blur-sm mb-4">
         <CardContent className="p-2">
           <div className="flex items-center justify-between mb-2">
-            <Badge variant="outline" className="text-xs border-gray-500 text-gray-400">
+            <Badge
+              variant="outline"
+              className="text-xs border-gray-500 text-gray-400"
+            >
               إعلان
             </Badge>
             <Eye className="w-3 h-3 text-gray-500" />
           </div>
           <AdSense
             format="rectangle"
-            test={process.env.NODE_ENV === 'development'}
+            test={process.env.NODE_ENV === "development"}
           />
         </CardContent>
       </Card>
@@ -221,7 +232,7 @@ export function InContentAd() {
         format="auto"
         responsive={true}
         className="max-w-2xl mx-auto"
-        test={process.env.NODE_ENV === 'development'}
+        test={process.env.NODE_ENV === "development"}
       />
     </div>
   );
@@ -240,7 +251,7 @@ export function FooterAd() {
         <div className="flex justify-center">
           <AdSense
             format="horizontal"
-            test={process.env.NODE_ENV === 'development'}
+            test={process.env.NODE_ENV === "development"}
           />
         </div>
       </div>
@@ -256,8 +267,8 @@ export function MobileBannerAd() {
         <AdSense
           format="auto"
           responsive={true}
-          style={{ height: '60px' }}
-          test={process.env.NODE_ENV === 'development'}
+          style={{ height: "60px" }}
+          test={process.env.NODE_ENV === "development"}
         />
       </div>
     </div>
@@ -268,14 +279,15 @@ export function MobileBannerAd() {
 export function AutoAds() {
   useEffect(() => {
     // Load AdSense script with auto ads
-    const script = document.createElement('script');
+    const script = document.createElement("script");
     script.async = true;
-    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX';
-    script.crossOrigin = 'anonymous';
+    script.src =
+      "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX";
+    script.crossOrigin = "anonymous";
     document.head.appendChild(script);
 
     // Initialize auto ads
-    const autoAdScript = document.createElement('script');
+    const autoAdScript = document.createElement("script");
     autoAdScript.innerHTML = `
       (adsbygoogle = window.adsbygoogle || []).push({
         google_ad_client: "ca-pub-XXXXXXXXXXXXXXXX",
@@ -295,34 +307,34 @@ export function AutoAds() {
 }
 
 // Smart Ad Container - automatically chooses best ad format based on space
-export function SmartAd({ 
-  containerWidth, 
-  containerHeight, 
-  className = "" 
-}: { 
-  containerWidth?: number; 
-  containerHeight?: number; 
-  className?: string; 
+export function SmartAd({
+  containerWidth,
+  containerHeight,
+  className = "",
+}: {
+  containerWidth?: number;
+  containerHeight?: number;
+  className?: string;
 }) {
   const getOptimalFormat = () => {
-    if (!containerWidth || !containerHeight) return 'auto';
-    
+    if (!containerWidth || !containerHeight) return "auto";
+
     if (containerWidth >= 728 && containerHeight >= 90) {
-      return 'horizontal';
+      return "horizontal";
     } else if (containerWidth >= 300 && containerHeight >= 250) {
-      return 'rectangle';
+      return "rectangle";
     } else if (containerWidth >= 160 && containerHeight >= 600) {
-      return 'vertical';
+      return "vertical";
     }
-    
-    return 'auto';
+
+    return "auto";
   };
 
   return (
     <AdSense
       format={getOptimalFormat()}
       className={className}
-      test={process.env.NODE_ENV === 'development'}
+      test={process.env.NODE_ENV === "development"}
     />
   );
 }

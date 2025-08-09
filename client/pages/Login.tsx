@@ -1,22 +1,28 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  User, 
-  Lock, 
-  Mail, 
-  Eye, 
-  EyeOff, 
-  Sword, 
-  Star, 
-  Crown, 
+import {
+  User,
+  Lock,
+  Mail,
+  Eye,
+  EyeOff,
+  Sword,
+  Star,
+  Crown,
   ArrowLeft,
   Shield,
   BookOpen,
   Award,
-  Zap
+  Zap,
 } from "lucide-react";
 
 interface UserProfile {
@@ -46,7 +52,7 @@ export default function Login() {
     username: "",
     email: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
@@ -67,14 +73,14 @@ export default function Login() {
     readingPreferences: {
       theme: "dark",
       fontSize: 16,
-      readingMode: "scroll"
-    }
+      readingMode: "scroll",
+    },
   };
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: "" }));
+      setErrors((prev) => ({ ...prev, [field]: "" }));
     }
   };
 
@@ -109,7 +115,7 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const validationErrors = validateForm();
-    
+
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
@@ -118,12 +124,12 @@ export default function Login() {
     setIsLoading(true);
 
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    await new Promise((resolve) => setTimeout(resolve, 1500));
 
     // Mock successful login/register
     localStorage.setItem("user-profile", JSON.stringify(mockUser));
     localStorage.setItem("auth-token", "mock-jwt-token");
-    
+
     setIsLoading(false);
     navigate("/profile");
   };
@@ -136,9 +142,9 @@ export default function Login() {
       xp: 0,
       badge: "Guest Reader",
       readingStreak: 0,
-      totalPagesRead: 0
+      totalPagesRead: 0,
     };
-    
+
     localStorage.setItem("user-profile", JSON.stringify(guestUser));
     localStorage.setItem("auth-token", "guest-token");
     navigate("/");
@@ -150,7 +156,7 @@ export default function Login() {
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        
+
         {/* Floating particles */}
         {Array.from({ length: 15 }, (_, i) => (
           <div
@@ -160,7 +166,7 @@ export default function Login() {
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`
+              animationDuration: `${2 + Math.random() * 2}s`,
             }}
           ></div>
         ))}
@@ -179,10 +185,12 @@ export default function Login() {
               <ArrowLeft className="w-4 h-4 mr-2" />
               العودة للرئيسية
             </Button>
-            
+
             <div className="flex items-center space-x-3">
               <Sword className="w-6 h-6 text-blue-400" />
-              <span className="text-xl font-bold text-blue-400">MrPheonixX Team</span>
+              <span className="text-xl font-bold text-blue-400">
+                MrPheonixX Team
+              </span>
             </div>
           </div>
         </div>
@@ -199,15 +207,14 @@ export default function Login() {
                   <User className="w-8 h-8 text-white" />
                 </div>
               </div>
-              
+
               <CardTitle className="text-2xl text-blue-400">
                 {isLogin ? "تسجيل الدخول" : "إنشاء حساب جديد"}
               </CardTitle>
               <CardDescription className="text-gray-300">
-                {isLogin 
-                  ? "ادخل إلى مكتبة ساو العربية الحصرية" 
-                  : "انضم إلى مجتمع قراء ساو العربي"
-                }
+                {isLogin
+                  ? "ادخل إلى مكتبة ساو العربية الحصرية"
+                  : "انضم إلى مجتمع قراء ساو العربي"}
               </CardDescription>
             </CardHeader>
 
@@ -223,14 +230,18 @@ export default function Login() {
                     <input
                       type="text"
                       value={formData.username}
-                      onChange={(e) => handleInputChange("username", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("username", e.target.value)
+                      }
                       className="w-full pl-10 pr-4 py-2 bg-black/40 border border-gray-500/30 rounded-md text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none"
                       placeholder="اختر اسم المستخدم"
                       dir="rtl"
                     />
                   </div>
                   {errors.username && (
-                    <p className="text-red-400 text-sm mt-1">{errors.username}</p>
+                    <p className="text-red-400 text-sm mt-1">
+                      {errors.username}
+                    </p>
                   )}
                 </div>
 
@@ -245,14 +256,18 @@ export default function Login() {
                       <input
                         type="email"
                         value={formData.email}
-                        onChange={(e) => handleInputChange("email", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("email", e.target.value)
+                        }
                         className="w-full pl-10 pr-4 py-2 bg-black/40 border border-gray-500/30 rounded-md text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none"
                         placeholder="البريد الإلكتروني"
                         dir="ltr"
                       />
                     </div>
                     {errors.email && (
-                      <p className="text-red-400 text-sm mt-1">{errors.email}</p>
+                      <p className="text-red-400 text-sm mt-1">
+                        {errors.email}
+                      </p>
                     )}
                   </div>
                 )}
@@ -267,7 +282,9 @@ export default function Login() {
                     <input
                       type={showPassword ? "text" : "password"}
                       value={formData.password}
-                      onChange={(e) => handleInputChange("password", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("password", e.target.value)
+                      }
                       className="w-full pl-10 pr-10 py-2 bg-black/40 border border-gray-500/30 rounded-md text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none"
                       placeholder="كلمة المرور"
                       dir="ltr"
@@ -277,11 +294,17 @@ export default function Login() {
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-3 top-3 text-gray-400 hover:text-gray-300"
                     >
-                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      {showPassword ? (
+                        <EyeOff className="w-4 h-4" />
+                      ) : (
+                        <Eye className="w-4 h-4" />
+                      )}
                     </button>
                   </div>
                   {errors.password && (
-                    <p className="text-red-400 text-sm mt-1">{errors.password}</p>
+                    <p className="text-red-400 text-sm mt-1">
+                      {errors.password}
+                    </p>
                   )}
                 </div>
 
@@ -296,14 +319,18 @@ export default function Login() {
                       <input
                         type="password"
                         value={formData.confirmPassword}
-                        onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("confirmPassword", e.target.value)
+                        }
                         className="w-full pl-10 pr-4 py-2 bg-black/40 border border-gray-500/30 rounded-md text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none"
                         placeholder="تأكيد كلمة المرور"
                         dir="ltr"
                       />
                     </div>
                     {errors.confirmPassword && (
-                      <p className="text-red-400 text-sm mt-1">{errors.confirmPassword}</p>
+                      <p className="text-red-400 text-sm mt-1">
+                        {errors.confirmPassword}
+                      </p>
                     )}
                   </div>
                 )}
@@ -319,8 +346,10 @@ export default function Login() {
                       <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>
                       <span>جاري المعالجة...</span>
                     </div>
+                  ) : isLogin ? (
+                    "تسجيل الدخول"
                   ) : (
-                    isLogin ? "تسجيل الدخول" : "إنشاء الحساب"
+                    "إنشاء الحساب"
                   )}
                 </Button>
 
@@ -331,10 +360,9 @@ export default function Login() {
                     onClick={() => setIsLogin(!isLogin)}
                     className="text-blue-400 hover:text-blue-300 text-sm"
                   >
-                    {isLogin 
-                      ? "ليس لديك حساب؟ أنشئ حساباً جديداً" 
-                      : "لديك حساب بالفعل؟ سجل دخولك"
-                    }
+                    {isLogin
+                      ? "ليس لديك حساب؟ أنشئ حساباً جديداً"
+                      : "لديك حساب بالفعل؟ سجل دخولك"}
                   </button>
                 </div>
 
@@ -359,7 +387,9 @@ export default function Login() {
             <Card className="bg-black/30 border-blue-500/20 backdrop-blur-sm">
               <CardContent className="p-4 text-center">
                 <Shield className="w-8 h-8 text-blue-400 mx-auto mb-2" />
-                <h4 className="text-sm font-semibold text-blue-300">حماية متقدمة</h4>
+                <h4 className="text-sm font-semibold text-blue-300">
+                  حماية متقدمة
+                </h4>
                 <p className="text-xs text-gray-400">محتوى محمي ومشفر</p>
               </CardContent>
             </Card>
@@ -367,7 +397,9 @@ export default function Login() {
             <Card className="bg-black/30 border-purple-500/20 backdrop-blur-sm">
               <CardContent className="p-4 text-center">
                 <BookOpen className="w-8 h-8 text-purple-400 mx-auto mb-2" />
-                <h4 className="text-sm font-semibold text-purple-300">مكتبة ضخمة</h4>
+                <h4 className="text-sm font-semibold text-purple-300">
+                  مكتبة ضخمة
+                </h4>
                 <p className="text-xs text-gray-400">37+ مجلد مترجم</p>
               </CardContent>
             </Card>
@@ -375,7 +407,9 @@ export default function Login() {
             <Card className="bg-black/30 border-green-500/20 backdrop-blur-sm">
               <CardContent className="p-4 text-center">
                 <Award className="w-8 h-8 text-green-400 mx-auto mb-2" />
-                <h4 className="text-sm font-semibold text-green-300">نظام إنجازات</h4>
+                <h4 className="text-sm font-semibold text-green-300">
+                  نظام إنجازات
+                </h4>
                 <p className="text-xs text-gray-400">اكسب نقاط ومكافآت</p>
               </CardContent>
             </Card>
@@ -383,7 +417,9 @@ export default function Login() {
             <Card className="bg-black/30 border-yellow-500/20 backdrop-blur-sm">
               <CardContent className="p-4 text-center">
                 <Zap className="w-8 h-8 text-yellow-400 mx-auto mb-2" />
-                <h4 className="text-sm font-semibold text-yellow-300">قراءة متقدمة</h4>
+                <h4 className="text-sm font-semibold text-yellow-300">
+                  قراءة متقدمة
+                </h4>
                 <p className="text-xs text-gray-400">3 أنماط قراءة مختلفة</p>
               </CardContent>
             </Card>

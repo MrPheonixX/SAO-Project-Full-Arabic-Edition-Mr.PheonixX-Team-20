@@ -1,17 +1,23 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  User, 
-  Settings, 
-  BookOpen, 
-  Award, 
-  Clock, 
-  Star, 
-  Target, 
-  TrendingUp, 
+import {
+  User,
+  Settings,
+  BookOpen,
+  Award,
+  Clock,
+  Star,
+  Target,
+  TrendingUp,
   Calendar,
   Crown,
   Heart,
@@ -21,7 +27,7 @@ import {
   ArrowLeft,
   Edit,
   Save,
-  Sword
+  Sword,
 } from "lucide-react";
 
 interface UserProfile {
@@ -76,7 +82,7 @@ export default function Profile() {
       unlockedDate: "2024-01-15",
       progress: 1,
       maxProgress: 1,
-      rarity: "common"
+      rarity: "common",
     },
     {
       id: "page_master",
@@ -89,7 +95,7 @@ export default function Profile() {
       unlockedDate: "2024-02-20",
       progress: 1250,
       maxProgress: 1000,
-      rarity: "rare"
+      rarity: "rare",
     },
     {
       id: "week_streak",
@@ -102,7 +108,7 @@ export default function Profile() {
       unlockedDate: "2024-03-01",
       progress: 7,
       maxProgress: 7,
-      rarity: "epic"
+      rarity: "epic",
     },
     {
       id: "sao_expert",
@@ -114,8 +120,8 @@ export default function Profile() {
       unlocked: false,
       progress: 15,
       maxProgress: 28,
-      rarity: "legendary"
-    }
+      rarity: "legendary",
+    },
   ];
 
   useEffect(() => {
@@ -143,18 +149,24 @@ export default function Profile() {
 
   const getRarityColor = (rarity: string) => {
     switch (rarity) {
-      case "common": return "text-gray-400 border-gray-400";
-      case "rare": return "text-blue-400 border-blue-400";
-      case "epic": return "text-purple-400 border-purple-400";
-      case "legendary": return "text-yellow-400 border-yellow-400";
-      default: return "text-gray-400 border-gray-400";
+      case "common":
+        return "text-gray-400 border-gray-400";
+      case "rare":
+        return "text-blue-400 border-blue-400";
+      case "epic":
+        return "text-purple-400 border-purple-400";
+      case "legendary":
+        return "text-yellow-400 border-yellow-400";
+      default:
+        return "text-gray-400 border-gray-400";
     }
   };
 
   const calculateLevelProgress = (xp: number) => {
     const currentLevelXp = (user?.level || 1) * 100;
     const nextLevelXp = ((user?.level || 1) + 1) * 100;
-    const progress = ((xp - currentLevelXp) / (nextLevelXp - currentLevelXp)) * 100;
+    const progress =
+      ((xp - currentLevelXp) / (nextLevelXp - currentLevelXp)) * 100;
     return Math.max(0, Math.min(100, progress));
   };
 
@@ -184,7 +196,7 @@ export default function Profile() {
               <ArrowLeft className="w-4 h-4 mr-2" />
               العودة للرئيسية
             </Button>
-            
+
             <div className="flex items-center space-x-4">
               <Button
                 variant="outline"
@@ -213,30 +225,35 @@ export default function Profile() {
                     {user.level}
                   </div>
                 </div>
-                
+
                 <div className="flex-1">
                   <div className="flex items-center space-x-3 mb-2">
                     {isEditing ? (
                       <input
                         type="text"
                         value={user.username}
-                        onChange={(e) => setUser({...user, username: e.target.value})}
+                        onChange={(e) =>
+                          setUser({ ...user, username: e.target.value })
+                        }
                         className="text-2xl font-bold bg-transparent border-b border-blue-400 text-blue-400 focus:outline-none"
                       />
                     ) : (
-                      <h1 className="text-3xl font-bold text-blue-400">{user.username}</h1>
+                      <h1 className="text-3xl font-bold text-blue-400">
+                        {user.username}
+                      </h1>
                     )}
-                    
+
                     <Badge className="bg-gradient-to-r from-purple-600 to-pink-600">
                       <Crown className="w-3 h-3 mr-1" />
                       {user.badge}
                     </Badge>
                   </div>
-                  
+
                   <p className="text-gray-300 mb-3">
-                    عضو منذ {new Date(user.joinDate).toLocaleDateString('ar-SA')}
+                    عضو منذ{" "}
+                    {new Date(user.joinDate).toLocaleDateString("ar-SA")}
                   </p>
-                  
+
                   {/* Level Progress */}
                   <div className="mb-4">
                     <div className="flex justify-between text-sm text-gray-400 mb-1">
@@ -244,19 +261,23 @@ export default function Profile() {
                       <span>{user.xp} XP</span>
                     </div>
                     <div className="w-full bg-gray-700 rounded-full h-2">
-                      <div 
+                      <div
                         className="bg-gradient-to-r from-blue-400 to-purple-400 h-2 rounded-full transition-all duration-300"
                         style={{ width: `${calculateLevelProgress(user.xp)}%` }}
                       ></div>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center space-x-4">
                     <Button
                       variant={isEditing ? "default" : "outline"}
                       size="sm"
-                      onClick={isEditing ? handleSaveProfile : () => setIsEditing(true)}
-                      className={isEditing ? "bg-green-600 hover:bg-green-700" : ""}
+                      onClick={
+                        isEditing ? handleSaveProfile : () => setIsEditing(true)
+                      }
+                      className={
+                        isEditing ? "bg-green-600 hover:bg-green-700" : ""
+                      }
                     >
                       {isEditing ? (
                         <>
@@ -284,7 +305,7 @@ export default function Profile() {
               { id: "overview", label: "نظرة عامة", icon: User },
               { id: "achievements", label: "الإنجازات", icon: Award },
               { id: "statistics", label: "الإحصائيات", icon: TrendingUp },
-              { id: "settings", label: "الإعدادات", icon: Settings }
+              { id: "settings", label: "الإعدادات", icon: Settings },
             ].map((tab) => (
               <Button
                 key={tab.id}
@@ -305,7 +326,9 @@ export default function Profile() {
             <Card className="bg-gradient-to-br from-blue-600/20 to-blue-800/20 border-blue-500/30">
               <CardContent className="p-6 text-center">
                 <BookOpen className="w-12 h-12 text-blue-400 mx-auto mb-3" />
-                <h3 className="text-2xl font-bold text-blue-300">{user.totalPagesRead}</h3>
+                <h3 className="text-2xl font-bold text-blue-300">
+                  {user.totalPagesRead}
+                </h3>
                 <p className="text-gray-300">صفحة مقروءة</p>
               </CardContent>
             </Card>
@@ -313,7 +336,9 @@ export default function Profile() {
             <Card className="bg-gradient-to-br from-purple-600/20 to-purple-800/20 border-purple-500/30">
               <CardContent className="p-6 text-center">
                 <Zap className="w-12 h-12 text-purple-400 mx-auto mb-3" />
-                <h3 className="text-2xl font-bold text-purple-300">{user.readingStreak}</h3>
+                <h3 className="text-2xl font-bold text-purple-300">
+                  {user.readingStreak}
+                </h3>
                 <p className="text-gray-300">أيام متتالية</p>
               </CardContent>
             </Card>
@@ -322,7 +347,7 @@ export default function Profile() {
               <CardContent className="p-6 text-center">
                 <Trophy className="w-12 h-12 text-green-400 mx-auto mb-3" />
                 <h3 className="text-2xl font-bold text-green-300">
-                  {achievements.filter(a => a.unlocked).length}
+                  {achievements.filter((a) => a.unlocked).length}
                 </h3>
                 <p className="text-gray-300">إنجاز مفتوح</p>
               </CardContent>
@@ -331,7 +356,9 @@ export default function Profile() {
             <Card className="bg-gradient-to-br from-yellow-600/20 to-yellow-800/20 border-yellow-500/30">
               <CardContent className="p-6 text-center">
                 <Star className="w-12 h-12 text-yellow-400 mx-auto mb-3" />
-                <h3 className="text-2xl font-bold text-yellow-300">{user.level}</h3>
+                <h3 className="text-2xl font-bold text-yellow-300">
+                  {user.level}
+                </h3>
                 <p className="text-gray-300">المستوى</p>
               </CardContent>
             </Card>
@@ -341,48 +368,62 @@ export default function Profile() {
         {activeTab === "achievements" && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {achievements.map((achievement) => (
-              <Card 
+              <Card
                 key={achievement.id}
                 className={`bg-black/40 backdrop-blur-xl transition-all duration-300 ${
-                  achievement.unlocked 
-                    ? `border-${getRarityColor(achievement.rarity).split(' ')[0].split('-')[1]}-500/50` 
-                    : 'border-gray-600/30'
+                  achievement.unlocked
+                    ? `border-${getRarityColor(achievement.rarity).split(" ")[0].split("-")[1]}-500/50`
+                    : "border-gray-600/30"
                 }`}
               >
                 <CardContent className="p-6">
                   <div className="flex items-center space-x-4">
-                    <div className={`text-4xl ${achievement.unlocked ? '' : 'grayscale opacity-50'}`}>
+                    <div
+                      className={`text-4xl ${achievement.unlocked ? "" : "grayscale opacity-50"}`}
+                    >
                       {achievement.icon}
                     </div>
-                    
+
                     <div className="flex-1">
                       <div className="flex items-center space-x-2 mb-1">
-                        <h3 className={`font-bold ${achievement.unlocked ? getRarityColor(achievement.rarity) : 'text-gray-500'}`}>
+                        <h3
+                          className={`font-bold ${achievement.unlocked ? getRarityColor(achievement.rarity) : "text-gray-500"}`}
+                        >
                           {achievement.titleArabic}
                         </h3>
-                        <Badge variant="outline" className={getRarityColor(achievement.rarity)}>
+                        <Badge
+                          variant="outline"
+                          className={getRarityColor(achievement.rarity)}
+                        >
                           {achievement.rarity}
                         </Badge>
                       </div>
-                      
+
                       <p className="text-gray-400 text-sm mb-3">
                         {achievement.descriptionArabic}
                       </p>
-                      
+
                       {achievement.unlocked ? (
                         <Badge className="bg-green-600">
-                          مفتوح في {new Date(achievement.unlockedDate!).toLocaleDateString('ar-SA')}
+                          مفتوح في{" "}
+                          {new Date(
+                            achievement.unlockedDate!,
+                          ).toLocaleDateString("ar-SA")}
                         </Badge>
                       ) : (
                         <div>
                           <div className="flex justify-between text-xs text-gray-400 mb-1">
                             <span>التقدم</span>
-                            <span>{achievement.progress}/{achievement.maxProgress}</span>
+                            <span>
+                              {achievement.progress}/{achievement.maxProgress}
+                            </span>
                           </div>
                           <div className="w-full bg-gray-700 rounded-full h-2">
-                            <div 
+                            <div
                               className="bg-gradient-to-r from-blue-400 to-purple-400 h-2 rounded-full"
-                              style={{ width: `${(achievement.progress / achievement.maxProgress) * 100}%` }}
+                              style={{
+                                width: `${(achievement.progress / achievement.maxProgress) * 100}%`,
+                              }}
                             ></div>
                           </div>
                         </div>
@@ -399,26 +440,36 @@ export default function Profile() {
           <div className="space-y-6">
             <Card className="bg-black/40 border-blue-500/30 backdrop-blur-xl">
               <CardHeader>
-                <CardTitle className="text-blue-400">إحصائيات القراءة</CardTitle>
+                <CardTitle className="text-blue-400">
+                  إحصائيات القراءة
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="text-center">
                     <Clock className="w-8 h-8 text-blue-400 mx-auto mb-2" />
-                    <h4 className="text-lg font-semibold text-blue-300">وقت القراءة</h4>
+                    <h4 className="text-lg font-semibold text-blue-300">
+                      وقت القراءة
+                    </h4>
                     <p className="text-2xl font-bold text-white">127 ساعة</p>
                   </div>
-                  
+
                   <div className="text-center">
                     <Target className="w-8 h-8 text-purple-400 mx-auto mb-2" />
-                    <h4 className="text-lg font-semibold text-purple-300">معدل القراءة</h4>
+                    <h4 className="text-lg font-semibold text-purple-300">
+                      معدل القراءة
+                    </h4>
                     <p className="text-2xl font-bold text-white">45 صفحة/يوم</p>
                   </div>
-                  
+
                   <div className="text-center">
                     <Heart className="w-8 h-8 text-red-400 mx-auto mb-2" />
-                    <h4 className="text-lg font-semibold text-red-300">الشخصية المفضلة</h4>
-                    <p className="text-2xl font-bold text-white">{user.favoriteCharacter}</p>
+                    <h4 className="text-lg font-semibold text-red-300">
+                      الشخصية المفضلة
+                    </h4>
+                    <p className="text-2xl font-bold text-white">
+                      {user.favoriteCharacter}
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -437,12 +488,17 @@ export default function Profile() {
                   <label className="block text-sm font-medium text-gray-300 mb-2">
                     المظهر المفضل
                   </label>
-                  <select 
+                  <select
                     value={user.readingPreferences.theme}
-                    onChange={(e) => setUser({
-                      ...user, 
-                      readingPreferences: {...user.readingPreferences, theme: e.target.value}
-                    })}
+                    onChange={(e) =>
+                      setUser({
+                        ...user,
+                        readingPreferences: {
+                          ...user.readingPreferences,
+                          theme: e.target.value,
+                        },
+                      })
+                    }
                     className="w-full px-3 py-2 bg-black/40 border border-gray-500/30 rounded-md text-white focus:border-blue-400 focus:outline-none"
                   >
                     <option value="dark">مظلم</option>
@@ -460,10 +516,15 @@ export default function Profile() {
                     min="12"
                     max="24"
                     value={user.readingPreferences.fontSize}
-                    onChange={(e) => setUser({
-                      ...user, 
-                      readingPreferences: {...user.readingPreferences, fontSize: parseInt(e.target.value)}
-                    })}
+                    onChange={(e) =>
+                      setUser({
+                        ...user,
+                        readingPreferences: {
+                          ...user.readingPreferences,
+                          fontSize: parseInt(e.target.value),
+                        },
+                      })
+                    }
                     className="w-full"
                   />
                 </div>
@@ -472,12 +533,17 @@ export default function Profile() {
                   <label className="block text-sm font-medium text-gray-300 mb-2">
                     نمط القراءة المفضل
                   </label>
-                  <select 
+                  <select
                     value={user.readingPreferences.readingMode}
-                    onChange={(e) => setUser({
-                      ...user, 
-                      readingPreferences: {...user.readingPreferences, readingMode: e.target.value}
-                    })}
+                    onChange={(e) =>
+                      setUser({
+                        ...user,
+                        readingPreferences: {
+                          ...user.readingPreferences,
+                          readingMode: e.target.value,
+                        },
+                      })
+                    }
                     className="w-full px-3 py-2 bg-black/40 border border-gray-500/30 rounded-md text-white focus:border-blue-400 focus:outline-none"
                   >
                     <option value="scroll">تمرير</option>
@@ -486,7 +552,7 @@ export default function Profile() {
                   </select>
                 </div>
 
-                <Button 
+                <Button
                   onClick={handleSaveProfile}
                   className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500"
                 >

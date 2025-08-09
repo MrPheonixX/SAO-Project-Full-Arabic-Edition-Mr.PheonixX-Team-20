@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Star, 
-  Heart, 
-  ThumbsUp, 
-  ThumbsDown, 
-  MessageSquare, 
-  Send, 
+import {
+  Star,
+  Heart,
+  ThumbsUp,
+  ThumbsDown,
+  MessageSquare,
+  Send,
   Award,
   TrendingUp,
   Users,
@@ -16,7 +22,7 @@ import {
   AlertCircle,
   Sparkles,
   Bookmark,
-  Share2
+  Share2,
 } from "lucide-react";
 
 interface RatingData {
@@ -40,13 +46,13 @@ interface FeedbackItem {
   spoilerWarning: boolean;
 }
 
-export default function RatingFeedback({ 
-  volumeId, 
-  volumeTitle, 
-  onRatingSubmit 
-}: { 
-  volumeId: string; 
-  volumeTitle: string; 
+export default function RatingFeedback({
+  volumeId,
+  volumeTitle,
+  onRatingSubmit,
+}: {
+  volumeId: string;
+  volumeTitle: string;
   onRatingSubmit?: (rating: number, feedback: string) => void;
 }) {
   const [ratingData, setRatingData] = useState<RatingData>({
@@ -55,7 +61,7 @@ export default function RatingFeedback({
     averageRating: 4.7,
     totalRatings: 1250,
     ratingDistribution: { 5: 65, 4: 25, 3: 8, 2: 1, 1: 1 },
-    hasRated: false
+    hasRated: false,
   });
 
   const [selectedRating, setSelectedRating] = useState(0);
@@ -63,7 +69,9 @@ export default function RatingFeedback({
   const [feedback, setFeedback] = useState("");
   const [showFeedbackForm, setShowFeedbackForm] = useState(false);
   const [feedbackList, setFeedbackList] = useState<FeedbackItem[]>([]);
-  const [feedbackFilter, setFeedbackFilter] = useState<"all" | "positive" | "negative">("all");
+  const [feedbackFilter, setFeedbackFilter] = useState<
+    "all" | "positive" | "negative"
+  >("all");
   const [showSpoilers, setShowSpoilers] = useState(false);
 
   // Mock feedback data
@@ -73,42 +81,45 @@ export default function RatingFeedback({
         id: "1",
         username: "SAOFan2024",
         rating: 5,
-        comment: "ترجمة رائعة! الحوارات طبيعية والأسلوب ممتاز. شكراً لفريق MrPheonixX على الجهد المبذول",
+        comment:
+          "ترجمة رائعة! الحوارات طبيعية والأسلوب ممتاز. شكراً لفريق MrPheonixX على الجهد المبذول",
         timestamp: "2024-03-10",
         likes: 15,
         verified: true,
-        spoilerWarning: false
+        spoilerWarning: false,
       },
       {
         id: "2",
         username: "AsunaLover",
         rating: 5,
-        comment: "أخيراً ترجمة عربية احترافية لساو! جودة الترجمة عالية جداً والتنسيق مثالي",
+        comment:
+          "أخيراً ترجمة عربية احترافية لساو! جودة الترجمة عالية جداً والتنسيق مثالي",
         timestamp: "2024-03-09",
         likes: 12,
         verified: false,
-        spoilerWarning: false
+        spoilerWarning: false,
       },
       {
         id: "3",
         username: "KiritoSwordsman",
         rating: 4,
-        comment: "مجلد ممتاز! هناك بعض المصطلحات التقنية يمكن تحسينها ولكن بشكل عام العمل رائع",
+        comment:
+          "مجلد ممتاز! هناك بعض المصطلحات التقنية يمكن تحسينها ولكن بشكل عام العمل رائع",
         timestamp: "2024-03-08",
         likes: 8,
         verified: true,
-        spoilerWarning: true
-      }
+        spoilerWarning: true,
+      },
     ]);
 
     // Load user's previous rating
     const savedRating = localStorage.getItem(`rating-${volumeId}`);
     if (savedRating) {
       const rating = JSON.parse(savedRating);
-      setRatingData(prev => ({
+      setRatingData((prev) => ({
         ...prev,
         userRating: rating.rating,
-        hasRated: true
+        hasRated: true,
       }));
       setSelectedRating(rating.rating);
       setFeedback(rating.feedback || "");
@@ -129,17 +140,20 @@ export default function RatingFeedback({
       volumeId,
       rating: selectedRating,
       feedback: feedback.trim(),
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
 
     // Save to localStorage
-    localStorage.setItem(`rating-${volumeId}`, JSON.stringify(ratingSubmission));
+    localStorage.setItem(
+      `rating-${volumeId}`,
+      JSON.stringify(ratingSubmission),
+    );
 
     // Update state
-    setRatingData(prev => ({
+    setRatingData((prev) => ({
       ...prev,
       userRating: selectedRating,
-      hasRated: true
+      hasRated: true,
     }));
 
     // Callback
@@ -154,12 +168,18 @@ export default function RatingFeedback({
 
   const getRatingText = (rating: number) => {
     switch (rating) {
-      case 1: return "ضعيف جداً 😞";
-      case 2: return "ضعيف 😕";
-      case 3: return "متوسط 😐";
-      case 4: return "جيد 😊";
-      case 5: return "ممتاز! 🤩";
-      default: return "اختر تقييمك";
+      case 1:
+        return "ضعيف جداً 😞";
+      case 2:
+        return "ضعيف 😕";
+      case 3:
+        return "متوسط 😐";
+      case 4:
+        return "جيد 😊";
+      case 5:
+        return "ممتاز! 🤩";
+      default:
+        return "اختر تقييمك";
     }
   };
 
@@ -170,7 +190,7 @@ export default function RatingFeedback({
     return "text-red-400";
   };
 
-  const filteredFeedback = feedbackList.filter(item => {
+  const filteredFeedback = feedbackList.filter((item) => {
     if (feedbackFilter === "positive") return item.rating >= 4;
     if (feedbackFilter === "negative") return item.rating <= 2;
     return true;
@@ -185,16 +205,16 @@ export default function RatingFeedback({
             <Star className="w-6 h-6" />
             تقييم المجلد
           </CardTitle>
-          <CardDescription>
-            قيم هذا المجلد وساعد القراء الآخرين
-          </CardDescription>
+          <CardDescription>قيم هذا المجلد وساعد القراء الآخرين</CardDescription>
         </CardHeader>
-        
+
         <CardContent className="space-y-6">
           {/* Average Rating Display */}
           <div className="flex items-center justify-between">
             <div className="text-center">
-              <div className={`text-4xl font-bold ${getRatingColor(ratingData.averageRating)}`}>
+              <div
+                className={`text-4xl font-bold ${getRatingColor(ratingData.averageRating)}`}
+              >
                 {ratingData.averageRating.toFixed(1)}
               </div>
               <div className="flex items-center justify-center mt-2">
@@ -216,14 +236,16 @@ export default function RatingFeedback({
 
             {/* Rating Distribution */}
             <div className="flex-1 max-w-xs ml-8">
-              {[5, 4, 3, 2, 1].map(stars => (
+              {[5, 4, 3, 2, 1].map((stars) => (
                 <div key={stars} className="flex items-center gap-2 mb-1">
                   <span className="text-sm w-6">{stars}</span>
                   <Star className="w-3 h-3 text-yellow-400" />
                   <div className="flex-1 bg-gray-700 rounded-full h-2">
                     <div
                       className="bg-yellow-400 h-2 rounded-full transition-all duration-300"
-                      style={{ width: `${ratingData.ratingDistribution[stars]}%` }}
+                      style={{
+                        width: `${ratingData.ratingDistribution[stars]}%`,
+                      }}
                     ></div>
                   </div>
                   <span className="text-xs text-gray-400 w-8">
@@ -240,7 +262,7 @@ export default function RatingFeedback({
               <h4 className="text-lg font-semibold text-blue-300 mb-4">
                 ما رأيك في هذا المجلد؟
               </h4>
-              
+
               <div className="flex items-center gap-2 mb-4">
                 {Array.from({ length: 5 }, (_, i) => (
                   <button
@@ -275,7 +297,7 @@ export default function RatingFeedback({
                     rows={3}
                     dir="rtl"
                   />
-                  
+
                   <div className="flex items-center gap-3">
                     <Button
                       onClick={handleRatingSubmit}
@@ -285,7 +307,7 @@ export default function RatingFeedback({
                       <Send className="w-4 h-4 mr-2" />
                       إرسال التقييم
                     </Button>
-                    
+
                     <Button
                       variant="outline"
                       onClick={() => setShowFeedbackForm(false)}
@@ -303,7 +325,8 @@ export default function RatingFeedback({
                 <CheckCircle className="w-5 h-5 text-green-400" />
                 <div>
                   <p className="text-green-400 font-medium">
-                    شكراً لك! لقد قيمت هذا المجلد بـ {ratingData.userRating} نجوم
+                    شكراً لك! لقد قيمت هذا المجلد بـ {ratingData.userRating}{" "}
+                    نجوم
                   </p>
                   {feedback && (
                     <p className="text-gray-300 text-sm mt-1">
@@ -325,7 +348,7 @@ export default function RatingFeedback({
               <MessageSquare className="w-6 h-6" />
               آراء المجتمع
             </CardTitle>
-            
+
             <div className="flex items-center gap-2">
               <select
                 value={feedbackFilter}
@@ -342,7 +365,7 @@ export default function RatingFeedback({
             اقرأ آراء القراء الآخرين حول هذا المجلد
           </CardDescription>
         </CardHeader>
-        
+
         <CardContent className="space-y-4">
           {/* Spoiler Warning Toggle */}
           <div className="flex items-center gap-2 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
@@ -364,7 +387,10 @@ export default function RatingFeedback({
           {showSpoilers && (
             <div className="space-y-4">
               {filteredFeedback.map((item) => (
-                <Card key={item.id} className="bg-gray-800/50 border-gray-600/30">
+                <Card
+                  key={item.id}
+                  className="bg-gray-800/50 border-gray-600/30"
+                >
                   <CardContent className="p-4">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center gap-3">
@@ -373,7 +399,9 @@ export default function RatingFeedback({
                         </div>
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="font-medium text-white">{item.username}</span>
+                            <span className="font-medium text-white">
+                              {item.username}
+                            </span>
                             {item.verified && (
                               <Badge className="bg-blue-500/20 text-blue-400 text-xs">
                                 <CheckCircle className="w-3 h-3 mr-1" />
@@ -395,28 +423,30 @@ export default function RatingFeedback({
                               ))}
                             </div>
                             <span className="text-xs text-gray-400">
-                              {new Date(item.timestamp).toLocaleDateString('ar-SA')}
+                              {new Date(item.timestamp).toLocaleDateString(
+                                "ar-SA",
+                              )}
                             </span>
                           </div>
                         </div>
                       </div>
                     </div>
-                    
+
                     <p className="text-gray-300 mb-3 leading-relaxed" dir="rtl">
                       {item.comment}
                     </p>
-                    
+
                     <div className="flex items-center gap-4 text-sm">
                       <button className="flex items-center gap-1 text-gray-400 hover:text-blue-400 transition-colors">
                         <ThumbsUp className="w-4 h-4" />
                         <span>{item.likes}</span>
                       </button>
-                      
+
                       <button className="flex items-center gap-1 text-gray-400 hover:text-red-400 transition-colors">
                         <Heart className="w-4 h-4" />
                         إعجاب
                       </button>
-                      
+
                       <button className="flex items-center gap-1 text-gray-400 hover:text-green-400 transition-colors">
                         <Share2 className="w-4 h-4" />
                         مشاركة
@@ -425,7 +455,7 @@ export default function RatingFeedback({
                   </CardContent>
                 </Card>
               ))}
-              
+
               {filteredFeedback.length === 0 && (
                 <div className="text-center py-8 text-gray-400">
                   <MessageSquare className="w-12 h-12 mx-auto mb-3 opacity-50" />
@@ -443,12 +473,12 @@ export default function RatingFeedback({
           <Bookmark className="w-4 h-4 mr-2" />
           حفظ المجلد
         </Button>
-        
+
         <Button variant="outline" className="border-purple-500 text-purple-400">
           <Share2 className="w-4 h-4 mr-2" />
           مشاركة
         </Button>
-        
+
         <Button variant="outline" className="border-green-500 text-green-400">
           <Award className="w-4 h-4 mr-2" />
           إضافة للمفضلة
@@ -459,12 +489,12 @@ export default function RatingFeedback({
 }
 
 // Quick Rating Component for volume cards
-export function QuickRating({ 
-  volumeId, 
+export function QuickRating({
+  volumeId,
   currentRating = 0,
-  onRate
-}: { 
-  volumeId: string; 
+  onRate,
+}: {
+  volumeId: string;
   currentRating?: number;
   onRate?: (rating: number) => void;
 }) {

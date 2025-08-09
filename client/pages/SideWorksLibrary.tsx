@@ -1,8 +1,23 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, BookOpen, Play, Globe, Heart, Star, Clock, Trophy } from "lucide-react";
+import {
+  ArrowLeft,
+  BookOpen,
+  Play,
+  Globe,
+  Heart,
+  Star,
+  Clock,
+  Trophy,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 // Mock data for side works
@@ -14,8 +29,10 @@ const sideWorks = [
     titleJapanese: "NHK にようこそ！",
     author: "Tatsuhiko Takimoto",
     authorArabic: "تاتسوهيكو تاكيموتو",
-    description: "A dark psychological novel exploring themes of social withdrawal, depression, and the struggles of modern Japanese society through the eyes of a hikikomori.",
-    descriptionArabic: "رواية نفسية مظلمة تستكشف مواضيع الانعزال الاجتماعي والاكتئاب وصراعات المجتمع الياباني الحديث من خلال عيون هيكيكوموري.",
+    description:
+      "A dark psychological novel exploring themes of social withdrawal, depression, and the struggles of modern Japanese society through the eyes of a hikikomori.",
+    descriptionArabic:
+      "رواية نفسية مظلمة تستكشف مواضيع الانعزال الاجتماعي والاكتئاب وصراعات المجتمع الياباني الحديث من خلال عيون هيكيكوموري.",
     genre: "Psychological Drama",
     genreArabic: "دراما نفسية",
     pages: 320,
@@ -25,7 +42,7 @@ const sideWorks = [
     coverColor: "from-gray-700 to-gray-900",
     tags: ["نفسي", "اجتماعي", "ياباني", "واقعي"],
     publishYear: 2002,
-    difficulty: "متوسط"
+    difficulty: "متوسط",
   },
   {
     id: "no-longer-human",
@@ -34,8 +51,10 @@ const sideWorks = [
     titleJapanese: "人間失格",
     author: "Osamu Dazai",
     authorArabic: "أوسامو دازاي",
-    description: "A classic Japanese literary work that explores themes of alienation, mental illness, and the human condition through the confessions of a troubled protagonist.",
-    descriptionArabic: "عمل أدبي ياباني كلاسيكي يستكشف مواضيع الاغتراب والمرض النفسي والحالة الإنسانية من خلال اعترافات بطل مضطرب.",
+    description:
+      "A classic Japanese literary work that explores themes of alienation, mental illness, and the human condition through the confessions of a troubled protagonist.",
+    descriptionArabic:
+      "عمل أدبي ياباني كلاسيكي يستكشف مواضيع الاغتراب والمرض النفسي والحالة الإنسانية من خلال اعترافات بطل مضطرب.",
     genre: "Literary Fiction",
     genreArabic: "أدب خيالي",
     pages: 280,
@@ -45,8 +64,8 @@ const sideWorks = [
     coverColor: "from-amber-700 to-amber-900",
     tags: ["كلاسيكي", "أدبي", "فلسفي", "ياباني"],
     publishYear: 1948,
-    difficulty: "متقدم"
-  }
+    difficulty: "متقدم",
+  },
 ];
 
 export default function SideWorksLibrary() {
@@ -55,13 +74,15 @@ export default function SideWorksLibrary() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterBy, setFilterBy] = useState("all");
 
-  const filteredWorks = sideWorks.filter(work => {
-    const matchesSearch = work.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         work.titleArabic.includes(searchQuery) ||
-                         work.author.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesFilter = filterBy === "all" || 
-                         (filterBy === "available" && work.status === "available") ||
-                         (filterBy === "reading" && work.readProgress > 0);
+  const filteredWorks = sideWorks.filter((work) => {
+    const matchesSearch =
+      work.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      work.titleArabic.includes(searchQuery) ||
+      work.author.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesFilter =
+      filterBy === "all" ||
+      (filterBy === "available" && work.status === "available") ||
+      (filterBy === "reading" && work.readProgress > 0);
     return matchesSearch && matchesFilter;
   });
 
@@ -101,9 +122,12 @@ export default function SideWorksLibrary() {
                 <p className="text-sm text-gray-400">Side Literary Works</p>
               </div>
             </div>
-            
+
             <div className="flex items-center space-x-2">
-              <Badge variant="outline" className="border-amber-400 text-amber-400">
+              <Badge
+                variant="outline"
+                className="border-amber-400 text-amber-400"
+              >
                 <Trophy className="w-3 h-3 mr-1" />
                 أعمال مختارة
               </Badge>
@@ -119,8 +143,10 @@ export default function SideWorksLibrary() {
             أعمال أدبية مختارة
           </h2>
           <p className="text-gray-300 leading-relaxed">
-            مجموعة من الأعمال الأدبية اليابانية المميزة مترجمة بعناية فائقة. هذه الأعمال تقدم نظرة عميقة على الثقافة والمجتمع الياباني
-            من خلال قصص مؤثرة وشخصيات معقدة. كل عمل يحمل في طياته فلسفة وتجربة إنسانية فريدة.
+            مجموعة من الأعمال الأدبية اليابانية المميزة مترجمة بعناية فائقة. هذه
+            الأعمال تقدم نظرة عميقة على الثقافة والمجتمع الياباني من خلال قصص
+            مؤثرة وشخصيات معقدة. كل عمل يحمل في طياته فلسفة وتجربة إنسانية
+            فريدة.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Badge variant="secondary">أدب ياباني</Badge>
@@ -155,29 +181,37 @@ export default function SideWorksLibrary() {
         {/* Works Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
           {filteredWorks.map((work) => (
-            <Card 
+            <Card
               key={work.id}
               className="bg-black/40 border-gray-500/30 backdrop-blur-sm hover:border-gray-400/50 transition-all duration-300 cursor-pointer group relative overflow-hidden"
-              onClick={() => work.status === 'available' ? handleWorkSelect(work.id) : null}
+              onClick={() =>
+                work.status === "available" ? handleWorkSelect(work.id) : null
+              }
             >
               {/* Gradient overlay */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${work.coverColor}/10 group-hover:${work.coverColor.replace('/10', '/20')} transition-all`}></div>
-              
+              <div
+                className={`absolute inset-0 bg-gradient-to-br ${work.coverColor}/10 group-hover:${work.coverColor.replace("/10", "/20")} transition-all`}
+              ></div>
+
               <CardHeader className="p-6 relative z-10">
-                <div className={`aspect-[3/4] bg-gradient-to-b ${work.coverColor} rounded-md mb-4 flex flex-col items-center justify-center relative overflow-hidden`}>
+                <div
+                  className={`aspect-[3/4] bg-gradient-to-b ${work.coverColor} rounded-md mb-4 flex flex-col items-center justify-center relative overflow-hidden`}
+                >
                   <div className="text-center p-6">
                     <BookOpen className="w-16 h-16 text-white/80 mb-4" />
-                    <h3 className="text-white font-bold text-lg mb-2">{work.titleJapanese}</h3>
+                    <h3 className="text-white font-bold text-lg mb-2">
+                      {work.titleJapanese}
+                    </h3>
                     <p className="text-white/70 text-sm">{work.publishYear}</p>
                   </div>
-                  
+
                   <div className="absolute top-3 right-3">
                     <Badge className="bg-black/50 text-white">
                       {work.difficulty}
                     </Badge>
                   </div>
                 </div>
-                
+
                 <CardTitle className="text-xl text-gray-300 mb-2">
                   {work.titleArabic}
                 </CardTitle>
@@ -188,7 +222,7 @@ export default function SideWorksLibrary() {
                   بقلم: {work.authorArabic} ({work.author})
                 </CardDescription>
               </CardHeader>
-              
+
               <CardContent className="p-6 pt-0 relative z-10">
                 <div className="space-y-4">
                   {/* Description */}
@@ -198,22 +232,27 @@ export default function SideWorksLibrary() {
 
                   {/* Genre and Rating */}
                   <div className="flex items-center justify-between">
-                    <Badge variant="outline" className="border-gray-400 text-gray-400">
+                    <Badge
+                      variant="outline"
+                      className="border-gray-400 text-gray-400"
+                    >
                       {work.genreArabic}
                     </Badge>
                     <div className="flex items-center space-x-1">
                       <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                      <span className="text-gray-300 text-sm">{work.rating}</span>
+                      <span className="text-gray-300 text-sm">
+                        {work.rating}
+                      </span>
                     </div>
                   </div>
 
                   {/* Tags */}
                   <div className="flex flex-wrap gap-2">
                     {work.tags.map((tag, index) => (
-                      <Badge 
+                      <Badge
                         key={index}
-                        variant="outline" 
-                        size="sm" 
+                        variant="outline"
+                        size="sm"
                         className="border-gray-500 text-gray-400 text-xs"
                       >
                         {tag}
@@ -229,7 +268,7 @@ export default function SideWorksLibrary() {
                         <span>{work.readProgress}%</span>
                       </div>
                       <div className="w-full bg-gray-700 rounded-full h-2">
-                        <div 
+                        <div
                           className="bg-gradient-to-r from-gray-400 to-gray-600 h-2 rounded-full transition-all duration-300"
                           style={{ width: `${work.readProgress}%` }}
                         ></div>
@@ -247,16 +286,23 @@ export default function SideWorksLibrary() {
                   </div>
 
                   {/* Action Button */}
-                  {work.status === 'available' ? (
-                    <Button 
+                  {work.status === "available" ? (
+                    <Button
                       className="w-full bg-gradient-to-r from-gray-600 to-slate-600 hover:from-gray-500 hover:to-slate-500 group-hover:scale-105 transition-all"
                       size="sm"
                     >
                       <Play className="w-4 h-4 mr-2" />
-                      {work.readProgress > 0 ? 'متابعة القراءة' : 'ابدأ القراءة'}
+                      {work.readProgress > 0
+                        ? "متابعة القراءة"
+                        : "ابدأ القراءة"}
                     </Button>
                   ) : (
-                    <Button variant="outline" className="w-full border-gray-400 text-gray-400" disabled size="sm">
+                    <Button
+                      variant="outline"
+                      className="w-full border-gray-400 text-gray-400"
+                      disabled
+                      size="sm"
+                    >
                       قريباً
                     </Button>
                   )}
@@ -274,20 +320,26 @@ export default function SideWorksLibrary() {
           <div className="grid md:grid-cols-2 gap-8">
             <Card className="bg-gradient-to-br from-amber-900/20 to-orange-900/20 border-amber-500/30">
               <CardContent className="p-6">
-                <h4 className="text-xl font-bold text-amber-300 mb-3">الأدب الياباني الحديث</h4>
+                <h4 className="text-xl font-bold text-amber-300 mb-3">
+                  الأدب الياباني الحديث
+                </h4>
                 <p className="text-gray-300 leading-relaxed">
-                  هذه الأعمال تمثل جوانب مختلفة من الأدب الياباني الحديث، من الكلاسيكيات التي شكلت الهوية الأدبية اليابانية
-                  إلى الأعمال المعاصرة التي تعكس تحديات المجتمع الحديث.
+                  هذه الأعمال تمثل جوانب مختلفة من الأدب الياباني الحديث، من
+                  الكلاسيكيات التي شكلت الهوية الأدبية اليابانية إلى الأعمال
+                  المعاصرة التي تعكس تحديات المجتمع الحديث.
                 </p>
               </CardContent>
             </Card>
 
             <Card className="bg-gradient-to-br from-gray-900/20 to-slate-900/20 border-gray-500/30">
               <CardContent className="p-6">
-                <h4 className="text-xl font-bold text-gray-300 mb-3">الترجمة والمراجعة</h4>
+                <h4 className="text-xl font-bold text-gray-300 mb-3">
+                  الترجمة والمراجعة
+                </h4>
                 <p className="text-gray-300 leading-relaxed">
-                  تم ترجمة هذه الأعمال بعناية فائقة مع الحفاظ على الجوهر الثقافي والأدبي للنصوص الأصلية،
-                  مع إضافة تفسيرات ثقافية عند الحاجة لتسهيل الفهم للقارئ العربي.
+                  تم ترجمة هذه الأعمال بعناية فائقة مع الحفاظ على الجوهر الثقافي
+                  والأدبي للنصوص الأصلية، مع إضافة تفسيرات ثقافية عند الحاجة
+                  لتسهيل الفهم للقارئ العربي.
                 </p>
               </CardContent>
             </Card>
@@ -299,12 +351,12 @@ export default function SideWorksLibrary() {
           <Card className="bg-gradient-to-r from-amber-600/20 to-yellow-600/20 border-amber-400/50">
             <CardContent className="p-6 text-center">
               <h3 className="text-2xl font-bold text-amber-300">
-                {sideWorks.filter(w => w.status === 'available').length}
+                {sideWorks.filter((w) => w.status === "available").length}
               </h3>
               <p className="text-gray-300">أعمال متاحة</p>
             </CardContent>
           </Card>
-          
+
           <Card className="bg-gradient-to-r from-gray-600/20 to-slate-600/20 border-gray-400/50">
             <CardContent className="p-6 text-center">
               <h3 className="text-2xl font-bold text-gray-300">
@@ -313,11 +365,14 @@ export default function SideWorksLibrary() {
               <p className="text-gray-300">إجمالي الصفحات</p>
             </CardContent>
           </Card>
-          
+
           <Card className="bg-gradient-to-r from-slate-600/20 to-gray-600/20 border-slate-400/50">
             <CardContent className="p-6 text-center">
               <h3 className="text-2xl font-bold text-slate-300">
-                {(sideWorks.reduce((acc, w) => acc + w.rating, 0) / sideWorks.length).toFixed(1)}
+                {(
+                  sideWorks.reduce((acc, w) => acc + w.rating, 0) /
+                  sideWorks.length
+                ).toFixed(1)}
               </h3>
               <p className="text-gray-300">متوسط التقييم</p>
             </CardContent>

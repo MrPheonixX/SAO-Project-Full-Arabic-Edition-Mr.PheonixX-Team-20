@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { X, RefreshCw } from "lucide-react";
 
 interface NotificationProps {
   id: string;
-  type: 'adblock' | 'security' | 'update' | 'success' | 'warning' | 'error';
+  type: "adblock" | "security" | "update" | "success" | "warning" | "error";
   title: string;
   message: string;
   emoji?: string;
@@ -23,15 +23,17 @@ interface FloatingEmojiProps {
 
 export function AnimatedNotifications() {
   const [notifications, setNotifications] = useState<NotificationProps[]>([]);
-  const [floatingEmojis, setFloatingEmojis] = useState<FloatingEmojiProps[]>([]);
+  const [floatingEmojis, setFloatingEmojis] = useState<FloatingEmojiProps[]>(
+    [],
+  );
 
   // إضافة إشعار جديد
-  const addNotification = (notification: Omit<NotificationProps, 'id'>) => {
+  const addNotification = (notification: Omit<NotificationProps, "id">) => {
     const id = Date.now().toString();
     const newNotification = { ...notification, id };
-    
-    setNotifications(prev => [...prev, newNotification]);
-    
+
+    setNotifications((prev) => [...prev, newNotification]);
+
     // إزالة تلقائية إذا لم يكن دائماً
     if (!notification.persistent && notification.duration !== 0) {
       setTimeout(() => {
@@ -42,7 +44,7 @@ export function AnimatedNotifications() {
 
   // إزالة إشعار
   const removeNotification = (id: string) => {
-    setNotifications(prev => prev.filter(n => n.id !== id));
+    setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
 
   // إضافة إيموجي طائر
@@ -51,54 +53,54 @@ export function AnimatedNotifications() {
       emoji,
       x: x || Math.random() * window.innerWidth,
       y: y || window.innerHeight,
-      duration: 3000
+      duration: 3000,
     };
-    
-    setFloatingEmojis(prev => [...prev, floatingEmoji]);
-    
+
+    setFloatingEmojis((prev) => [...prev, floatingEmoji]);
+
     setTimeout(() => {
-      setFloatingEmojis(prev => prev.filter(e => e !== floatingEmoji));
+      setFloatingEmojis((prev) => prev.filter((e) => e !== floatingEmoji));
     }, floatingEmoji.duration);
   };
 
   // تحديد ألوان ونمط الإشعار
   const getNotificationStyle = (type: string) => {
     switch (type) {
-      case 'adblock':
+      case "adblock":
         return {
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          border: 'border-purple-400/50',
-          animation: 'bounce'
+          background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+          border: "border-purple-400/50",
+          animation: "bounce",
         };
-      case 'security':
+      case "security":
         return {
-          background: 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)',
-          border: 'border-red-400/50',
-          animation: 'shake'
+          background: "linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)",
+          border: "border-red-400/50",
+          animation: "shake",
         };
-      case 'update':
+      case "update":
         return {
-          background: 'linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%)',
-          border: 'border-teal-400/50',
-          animation: 'pulse'
+          background: "linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%)",
+          border: "border-teal-400/50",
+          animation: "pulse",
         };
-      case 'success':
+      case "success":
         return {
-          background: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
-          border: 'border-green-400/50',
-          animation: 'fadeIn'
+          background: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+          border: "border-green-400/50",
+          animation: "fadeIn",
         };
-      case 'warning':
+      case "warning":
         return {
-          background: 'linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%)',
-          border: 'border-yellow-400/50',
-          animation: 'wobble'
+          background: "linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%)",
+          border: "border-yellow-400/50",
+          animation: "wobble",
         };
       default:
         return {
-          background: 'linear-gradient(135deg, #74b9ff 0%, #0984e3 100%)',
-          border: 'border-blue-400/50',
-          animation: 'slideIn'
+          background: "linear-gradient(135deg, #74b9ff 0%, #0984e3 100%)",
+          border: "border-blue-400/50",
+          animation: "slideIn",
         };
     }
   };
@@ -109,7 +111,7 @@ export function AnimatedNotifications() {
       <div className="fixed top-4 right-4 z-[9999] space-y-3 max-w-sm">
         {notifications.map((notification) => {
           const style = getNotificationStyle(notification.type);
-          
+
           return (
             <Card
               key={notification.id}
@@ -131,7 +133,7 @@ export function AnimatedNotifications() {
                       <p className="text-white/90 text-sm leading-relaxed">
                         {notification.message}
                       </p>
-                      
+
                       {notification.actions && (
                         <div className="mt-3 flex space-x-2">
                           {notification.actions.map((action, index) => (
@@ -149,7 +151,7 @@ export function AnimatedNotifications() {
                       )}
                     </div>
                   </div>
-                  
+
                   {!notification.persistent && (
                     <Button
                       variant="ghost"
@@ -175,7 +177,7 @@ export function AnimatedNotifications() {
           style={{
             left: emoji.x,
             top: emoji.y,
-            animation: `floatUp ${emoji.duration}ms ease-out forwards`
+            animation: `floatUp ${emoji.duration}ms ease-out forwards`,
           }}
         >
           {emoji.emoji}
@@ -194,7 +196,7 @@ export function AnimatedNotifications() {
             opacity: 1;
           }
         }
-        
+
         @keyframes floatUp {
           0% {
             transform: translateY(0) scale(1);
@@ -209,13 +211,18 @@ export function AnimatedNotifications() {
             opacity: 0;
           }
         }
-        
+
         @keyframes bounce {
-          0%, 20%, 53%, 80%, 100% {
+          0%,
+          20%,
+          53%,
+          80%,
+          100% {
             animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
             transform: translate3d(0, 0, 0);
           }
-          40%, 43% {
+          40%,
+          43% {
             animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
             transform: translate3d(0, -8px, 0);
           }
@@ -227,21 +234,49 @@ export function AnimatedNotifications() {
             transform: translate3d(0, -2px, 0);
           }
         }
-        
+
         @keyframes shake {
-          0%, 100% { transform: translateX(0); }
-          10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
-          20%, 40%, 60%, 80% { transform: translateX(2px); }
+          0%,
+          100% {
+            transform: translateX(0);
+          }
+          10%,
+          30%,
+          50%,
+          70%,
+          90% {
+            transform: translateX(-2px);
+          }
+          20%,
+          40%,
+          60%,
+          80% {
+            transform: translateX(2px);
+          }
         }
-        
+
         @keyframes wobble {
-          0% { transform: translateX(0%); }
-          15% { transform: translateX(-6px) rotate(-6deg); }
-          30% { transform: translateX(3px) rotate(6deg); }
-          45% { transform: translateX(-3px) rotate(-3.6deg); }
-          60% { transform: translateX(2px) rotate(2.4deg); }
-          75% { transform: translateX(-1px) rotate(-1.2deg); }
-          100% { transform: translateX(0%); }
+          0% {
+            transform: translateX(0%);
+          }
+          15% {
+            transform: translateX(-6px) rotate(-6deg);
+          }
+          30% {
+            transform: translateX(3px) rotate(6deg);
+          }
+          45% {
+            transform: translateX(-3px) rotate(-3.6deg);
+          }
+          60% {
+            transform: translateX(2px) rotate(2.4deg);
+          }
+          75% {
+            transform: translateX(-1px) rotate(-1.2deg);
+          }
+          100% {
+            transform: translateX(0%);
+          }
         }
       `}</style>
     </>
@@ -259,21 +294,22 @@ export function useNotifications() {
   const showAdBlockWarning = () => {
     if (notificationComponent) {
       notificationComponent.addNotification({
-        type: 'adblock',
-        title: 'مانع الإعلانات مُفعل',
-        message: 'الإعلانات تساعدنا في تقديم المحتوى مجاناً. يرجى تعطيل مانع الإعلانات للمتابعة.',
-        emoji: '😢',
+        type: "adblock",
+        title: "مانع الإعلانات مُفعل",
+        message:
+          "الإعلانات تساعدنا في تقديم المحتوى مجاناً. يرجى تعطيل مانع الإعلانات للمتابعة.",
+        emoji: "😢",
         persistent: true,
         actions: [
           {
-            label: 'تحديث الصفحة',
-            action: () => window.location.reload()
+            label: "تحديث الصفحة",
+            action: () => window.location.reload(),
           },
           {
-            label: 'المساعدة',
-            action: () => alert('تعليمات تعطيل مانع الإعلانات...')
-          }
-        ]
+            label: "المساعدة",
+            action: () => alert("تعليمات تعطيل مانع الإعلانات..."),
+          },
+        ],
       });
     }
   };
@@ -281,11 +317,11 @@ export function useNotifications() {
   const showSecurityWarning = (message: string) => {
     if (notificationComponent) {
       notificationComponent.addNotification({
-        type: 'security',
-        title: 'تحذير أمني',
+        type: "security",
+        title: "تحذير أمني",
         message,
-        emoji: '🛡️',
-        duration: 3000
+        emoji: "🛡️",
+        duration: 3000,
       });
     }
   };
@@ -293,20 +329,20 @@ export function useNotifications() {
   const showUpdateNotification = () => {
     if (notificationComponent) {
       notificationComponent.addNotification({
-        type: 'update',
-        title: 'تحديث متاح',
-        message: 'يتوفر إصدار جديد من التطبيق. هل تريد التحديث الآن؟',
-        emoji: '🔄',
+        type: "update",
+        title: "تحديث متاح",
+        message: "يتوفر إصدار جديد من التطبيق. هل تريد التحديث الآن؟",
+        emoji: "🔄",
         actions: [
           {
-            label: 'تحدي�� الآن',
-            action: () => window.location.reload()
+            label: "تحدي�� الآن",
+            action: () => window.location.reload(),
           },
           {
-            label: 'لاحقاً',
-            action: () => {}
-          }
-        ]
+            label: "لاحقاً",
+            action: () => {},
+          },
+        ],
       });
     }
   };
@@ -314,11 +350,11 @@ export function useNotifications() {
   const showSuccessMessage = (message: string) => {
     if (notificationComponent) {
       notificationComponent.addNotification({
-        type: 'success',
-        title: 'نجح!',
+        type: "success",
+        title: "نجح!",
         message,
-        emoji: '✅',
-        duration: 3000
+        emoji: "✅",
+        duration: 3000,
       });
     }
   };
@@ -326,11 +362,11 @@ export function useNotifications() {
   const showWarningMessage = (message: string) => {
     if (notificationComponent) {
       notificationComponent.addNotification({
-        type: 'warning',
-        title: 'تحذير',
+        type: "warning",
+        title: "تحذير",
         message,
-        emoji: '⚠️',
-        duration: 4000
+        emoji: "⚠️",
+        duration: 4000,
       });
     }
   };
@@ -348,19 +384,19 @@ export function useNotifications() {
     showUpdateNotification,
     showSuccessMessage,
     showWarningMessage,
-    showFloatingEmoji
+    showFloatingEmoji,
   };
 }
 
 // مكونات إشعارات سريعة
-export function QuickNotification({ 
-  type, 
-  message, 
+export function QuickNotification({
+  type,
+  message,
   emoji,
-  onClose 
-}: { 
-  type: string; 
-  message: string; 
+  onClose,
+}: {
+  type: string;
+  message: string;
   emoji?: string;
   onClose?: () => void;
 }) {
@@ -376,19 +412,15 @@ export function QuickNotification({
   if (!isVisible) return null;
 
   return (
-    <div className={`fixed bottom-4 left-4 max-w-sm transform transition-all duration-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}>
+    <div
+      className={`fixed bottom-4 left-4 max-w-sm transform transition-all duration-300 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}`}
+    >
       <Card className="bg-gradient-to-r from-blue-600/90 to-purple-600/90 border-blue-400/50 backdrop-blur-xl">
         <CardContent className="p-4">
           <div className="flex items-center space-x-3">
-            {emoji && (
-              <div className="text-2xl animate-pulse">
-                {emoji}
-              </div>
-            )}
+            {emoji && <div className="text-2xl animate-pulse">{emoji}</div>}
             <div className="flex-1">
-              <p className="text-white text-sm">
-                {message}
-              </p>
+              <p className="text-white text-sm">{message}</p>
             </div>
             <Button
               variant="ghost"
@@ -406,30 +438,36 @@ export function QuickNotification({
 }
 
 // إشعار شريط ال��دوات
-export function ToolbarNotification({ 
-  message, 
-  type = 'info',
-  action
-}: { 
-  message: string; 
-  type?: 'info' | 'success' | 'warning' | 'error';
+export function ToolbarNotification({
+  message,
+  type = "info",
+  action,
+}: {
+  message: string;
+  type?: "info" | "success" | "warning" | "error";
   action?: { label: string; onClick: () => void };
 }) {
   const [isVisible, setIsVisible] = useState(true);
 
   const getColors = () => {
     switch (type) {
-      case 'success': return 'bg-green-500/90 text-white';
-      case 'warning': return 'bg-yellow-500/90 text-black';
-      case 'error': return 'bg-red-500/90 text-white';
-      default: return 'bg-blue-500/90 text-white';
+      case "success":
+        return "bg-green-500/90 text-white";
+      case "warning":
+        return "bg-yellow-500/90 text-black";
+      case "error":
+        return "bg-red-500/90 text-white";
+      default:
+        return "bg-blue-500/90 text-white";
     }
   };
 
   if (!isVisible) return null;
 
   return (
-    <div className={`${getColors()} px-4 py-2 text-center text-sm flex items-center justify-center space-x-4`}>
+    <div
+      className={`${getColors()} px-4 py-2 text-center text-sm flex items-center justify-center space-x-4`}
+    >
       <span>{message}</span>
       {action && (
         <Button

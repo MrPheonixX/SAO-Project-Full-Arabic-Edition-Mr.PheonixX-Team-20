@@ -22,13 +22,13 @@ class SimpleTTSManager {
 
       // Clean Arabic text
       const cleanText = text
-        .replace(/<[^>]*>/g, '')
-        .replace(/\s+/g, ' ')
-        .replace(/\bساو\b/g, 'سورد آرت أونلاين')
+        .replace(/<[^>]*>/g, "")
+        .replace(/\s+/g, " ")
+        .replace(/\bساو\b/g, "سورد آرت أونلاين")
         .trim();
 
       this.currentUtterance = new SpeechSynthesisUtterance(cleanText);
-      this.currentUtterance.lang = 'ar-SA';
+      this.currentUtterance.lang = "ar-SA";
       this.currentUtterance.rate = 1.0;
       this.currentUtterance.pitch = 1.0;
       this.currentUtterance.volume = 1.0;

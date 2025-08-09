@@ -1,21 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Volume2, 
-  VolumeX, 
-  Play, 
-  Pause, 
-  Square, 
-  Settings, 
+import {
+  Volume2,
+  VolumeX,
+  Play,
+  Pause,
+  Square,
+  Settings,
   Mic,
   Volume1,
   SkipForward,
   SkipBack,
   RotateCcw,
   Check,
-  AlertCircle
+  AlertCircle,
 } from "lucide-react";
 import { ttsManager } from "@/lib/tts";
 
@@ -34,18 +40,18 @@ interface TTSState {
   progress: number;
 }
 
-export default function TTSControls({ 
-  text = "", 
+export default function TTSControls({
+  text = "",
   elementId,
   className = "",
   size = "md",
-  showSettings = false 
+  showSettings = false,
 }: TTSControlsProps) {
   const [ttsState, setTtsState] = useState<TTSState>({
     isPlaying: false,
     isPaused: false,
     currentText: "",
-    progress: 0
+    progress: 0,
   });
   const [showSettingsPanel, setShowSettingsPanel] = useState(false);
   const [settings, setSettings] = useState(ttsManager.getSettings());
@@ -55,10 +61,10 @@ export default function TTSControls({
   useEffect(() => {
     // Set up TTS state callback
     ttsManager.setStateChangeCallback(setTtsState);
-    
+
     // Check if TTS is supported
     setIsSupported(ttsManager.isSupported());
-    
+
     // Update voices list
     setVoices(ttsManager.getAvailableVoices());
 
@@ -75,7 +81,7 @@ export default function TTSControls({
         await ttsManager.speak(text);
       }
     } catch (error) {
-      console.error('TTS Error:', error);
+      console.error("TTS Error:", error);
     }
   };
 
@@ -99,17 +105,23 @@ export default function TTSControls({
 
   const getSizeClasses = () => {
     switch (size) {
-      case "sm": return "text-xs space-x-1";
-      case "lg": return "text-lg space-x-3";
-      default: return "text-sm space-x-2";
+      case "sm":
+        return "text-xs space-x-1";
+      case "lg":
+        return "text-lg space-x-3";
+      default:
+        return "text-sm space-x-2";
     }
   };
 
   const getButtonSize = () => {
     switch (size) {
-      case "sm": return "sm";
-      case "lg": return "lg";
-      default: return "default";
+      case "sm":
+        return "sm";
+      case "lg":
+        return "lg";
+      default:
+        return "default";
     }
   };
 
@@ -117,7 +129,9 @@ export default function TTSControls({
     return (
       <div className={`flex items-center space-x-2 ${className}`}>
         <AlertCircle className="w-4 h-4 text-red-400" />
-        <span className="text-red-400 text-sm">TTS غير مدعوم في هذا المتصفح</span>
+        <span className="text-red-400 text-sm">
+          TTS غير مدعوم في هذا المتصفح
+        </span>
       </div>
     );
   }
@@ -126,7 +140,9 @@ export default function TTSControls({
     return (
       <div className={`flex items-center space-x-2 ${className}`}>
         <AlertCircle className="w-4 h-4 text-yellow-400" />
-        <span className="text-yellow-400 text-sm">لا توجد أصوات عربية متاحة</span>
+        <span className="text-yellow-400 text-sm">
+          لا توجد أصوات عربية متاحة
+        </span>
       </div>
     );
   }
@@ -146,7 +162,9 @@ export default function TTSControls({
               className="text-green-400 hover:text-green-300 hover:bg-green-500/10"
               title="تشغيل القراءة الصوتية"
             >
-              <Play className={`${size === 'sm' ? 'w-3 h-3' : size === 'lg' ? 'w-6 h-6' : 'w-4 h-4'}`} />
+              <Play
+                className={`${size === "sm" ? "w-3 h-3" : size === "lg" ? "w-6 h-6" : "w-4 h-4"}`}
+              />
             </Button>
           ) : (
             <>
@@ -158,7 +176,9 @@ export default function TTSControls({
                   className="text-yellow-400 hover:text-yellow-300 hover:bg-yellow-500/10"
                   title="إيقاف مؤقت"
                 >
-                  <Pause className={`${size === 'sm' ? 'w-3 h-3' : size === 'lg' ? 'w-6 h-6' : 'w-4 h-4'}`} />
+                  <Pause
+                    className={`${size === "sm" ? "w-3 h-3" : size === "lg" ? "w-6 h-6" : "w-4 h-4"}`}
+                  />
                 </Button>
               ) : (
                 <Button
@@ -168,10 +188,12 @@ export default function TTSControls({
                   className="text-green-400 hover:text-green-300 hover:bg-green-500/10"
                   title="متابعة"
                 >
-                  <Play className={`${size === 'sm' ? 'w-3 h-3' : size === 'lg' ? 'w-6 h-6' : 'w-4 h-4'}`} />
+                  <Play
+                    className={`${size === "sm" ? "w-3 h-3" : size === "lg" ? "w-6 h-6" : "w-4 h-4"}`}
+                  />
                 </Button>
               )}
-              
+
               <Button
                 variant="ghost"
                 size={getButtonSize()}
@@ -179,7 +201,9 @@ export default function TTSControls({
                 className="text-red-400 hover:text-red-300 hover:bg-red-500/10"
                 title="إيقاف"
               >
-                <Square className={`${size === 'sm' ? 'w-3 h-3' : size === 'lg' ? 'w-6 h-6' : 'w-4 h-4'}`} />
+                <Square
+                  className={`${size === "sm" ? "w-3 h-3" : size === "lg" ? "w-6 h-6" : "w-4 h-4"}`}
+                />
               </Button>
             </>
           )}
@@ -202,11 +226,17 @@ export default function TTSControls({
         {/* Volume Indicator */}
         <div className="flex items-center space-x-1">
           {settings.volume > 0.7 ? (
-            <Volume2 className={`text-blue-400 ${size === 'sm' ? 'w-3 h-3' : size === 'lg' ? 'w-5 h-5' : 'w-4 h-4'}`} />
+            <Volume2
+              className={`text-blue-400 ${size === "sm" ? "w-3 h-3" : size === "lg" ? "w-5 h-5" : "w-4 h-4"}`}
+            />
           ) : settings.volume > 0.3 ? (
-            <Volume1 className={`text-blue-400 ${size === 'sm' ? 'w-3 h-3' : size === 'lg' ? 'w-5 h-5' : 'w-4 h-4'}`} />
+            <Volume1
+              className={`text-blue-400 ${size === "sm" ? "w-3 h-3" : size === "lg" ? "w-5 h-5" : "w-4 h-4"}`}
+            />
           ) : (
-            <VolumeX className={`text-gray-400 ${size === 'sm' ? 'w-3 h-3' : size === 'lg' ? 'w-5 h-5' : 'w-4 h-4'}`} />
+            <VolumeX
+              className={`text-gray-400 ${size === "sm" ? "w-3 h-3" : size === "lg" ? "w-5 h-5" : "w-4 h-4"}`}
+            />
           )}
         </div>
 
@@ -219,7 +249,9 @@ export default function TTSControls({
             className="text-gray-400 hover:text-gray-300"
             title="إعدادات الصوت"
           >
-            <Settings className={`${size === 'sm' ? 'w-3 h-3' : size === 'lg' ? 'w-5 h-5' : 'w-4 h-4'}`} />
+            <Settings
+              className={`${size === "sm" ? "w-3 h-3" : size === "lg" ? "w-5 h-5" : "w-4 h-4"}`}
+            />
           </Button>
         )}
       </div>
@@ -236,7 +268,7 @@ export default function TTSControls({
               اختر الصوت وضبط الإعدادات حسب تفضيلك
             </CardDescription>
           </CardHeader>
-          
+
           <CardContent className="space-y-4">
             {/* Voice Selection */}
             <div>
@@ -245,13 +277,14 @@ export default function TTSControls({
               </label>
               <select
                 value={settings.voice}
-                onChange={(e) => handleSettingsChange('voice', e.target.value)}
+                onChange={(e) => handleSettingsChange("voice", e.target.value)}
                 className="w-full px-3 py-2 bg-black/40 border border-gray-500/30 rounded-md text-white text-sm focus:border-blue-400 focus:outline-none"
               >
                 {voices.map((voice) => (
                   <option key={voice.id} value={voice.lang}>
-                    {voice.nameArabic} ({voice.gender === 'male' ? 'ذكر' : 'أنثى'})
-                    {voice.quality === 'high' && ' - جودة عالية'}
+                    {voice.nameArabic} (
+                    {voice.gender === "male" ? "ذكر" : "أنثى"})
+                    {voice.quality === "high" && " - جودة عالية"}
                   </option>
                 ))}
               </select>
@@ -268,7 +301,9 @@ export default function TTSControls({
                 max="2.0"
                 step="0.1"
                 value={settings.rate}
-                onChange={(e) => handleSettingsChange('rate', parseFloat(e.target.value))}
+                onChange={(e) =>
+                  handleSettingsChange("rate", parseFloat(e.target.value))
+                }
                 className="w-full"
               />
               <div className="flex justify-between text-xs text-gray-400 mt-1">
@@ -289,7 +324,9 @@ export default function TTSControls({
                 max="2.0"
                 step="0.1"
                 value={settings.pitch}
-                onChange={(e) => handleSettingsChange('pitch', parseFloat(e.target.value))}
+                onChange={(e) =>
+                  handleSettingsChange("pitch", parseFloat(e.target.value))
+                }
                 className="w-full"
               />
               <div className="flex justify-between text-xs text-gray-400 mt-1">
@@ -310,7 +347,9 @@ export default function TTSControls({
                 max="1"
                 step="0.1"
                 value={settings.volume}
-                onChange={(e) => handleSettingsChange('volume', parseFloat(e.target.value))}
+                onChange={(e) =>
+                  handleSettingsChange("volume", parseFloat(e.target.value))
+                }
                 className="w-full"
               />
             </div>
@@ -321,20 +360,26 @@ export default function TTSControls({
                 <input
                   type="checkbox"
                   checked={settings.autoPlay}
-                  onChange={(e) => handleSettingsChange('autoPlay', e.target.checked)}
+                  onChange={(e) =>
+                    handleSettingsChange("autoPlay", e.target.checked)
+                  }
                   className="rounded"
                 />
                 <span className="text-sm text-gray-300">تشغيل تلقائي</span>
               </label>
-              
+
               <label className="flex items-center space-x-2">
                 <input
                   type="checkbox"
                   checked={settings.highlightText}
-                  onChange={(e) => handleSettingsChange('highlightText', e.target.checked)}
+                  onChange={(e) =>
+                    handleSettingsChange("highlightText", e.target.checked)
+                  }
                   className="rounded"
                 />
-                <span className="text-sm text-gray-300">تمييز النص أثناء القراءة</span>
+                <span className="text-sm text-gray-300">
+                  تمييز النص أثناء القراءة
+                </span>
               </label>
             </div>
 
@@ -365,12 +410,12 @@ export default function TTSControls({
 }
 
 // Quick TTS button component
-export function QuickTTSButton({ 
-  text, 
+export function QuickTTSButton({
+  text,
   className = "",
-  size = "sm"
-}: { 
-  text: string; 
+  size = "sm",
+}: {
+  text: string;
   className?: string;
   size?: "sm" | "md" | "lg";
 }) {
@@ -385,14 +430,15 @@ export function QuickTTSButton({
       try {
         await ttsManager.speak(text);
       } catch (error) {
-        console.error('TTS Error:', error);
+        console.error("TTS Error:", error);
       } finally {
         setIsPlaying(false);
       }
     }
   };
 
-  const iconSize = size === 'sm' ? 'w-3 h-3' : size === 'lg' ? 'w-6 h-6' : 'w-4 h-4';
+  const iconSize =
+    size === "sm" ? "w-3 h-3" : size === "lg" ? "w-6 h-6" : "w-4 h-4";
 
   return (
     <Button
