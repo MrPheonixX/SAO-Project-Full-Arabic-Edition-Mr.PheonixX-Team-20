@@ -261,7 +261,7 @@
             animation: pulse 2s ease-in-out infinite;
           "
         >
-          ⚔️
+          ⚔���
         </div>
 
         <!-- Site Name with Simple Sweeping Bar -->
@@ -572,24 +572,15 @@
         localStorage.setItem("pwa-dismissed", "true");
       });
 
-      // Performance detection and optimization
+      // Simple device optimization
       function optimizeForDevice() {
-        const isLowEnd =
-          navigator.hardwareConcurrency <= 2 ||
-          navigator.deviceMemory <= 2 ||
-          /Android.*Chrome.*Mobile/.test(navigator.userAgent);
+        const isLowEnd = navigator.hardwareConcurrency <= 2 || /Android.*Chrome.*Mobile/.test(navigator.userAgent);
 
         if (isLowEnd) {
-          // Reduce animation complexity for low-end devices
           const style = document.createElement("style");
           style.textContent = `
-            #loading-screen * {
-              animation-duration: 1s !important;
-            }
-            @keyframes cuttingBar, @keyframes revealText {
-              0% { width: 0%; }
-              100% { width: 100%; }
-            }
+            #loading-screen * { animation-duration: 1.5s !important; }
+            @keyframes sweepingBar { 0% { transform: translateX(0); } 100% { transform: translateX(100%); } }
           `;
           document.head.appendChild(style);
         }
@@ -603,11 +594,9 @@
           document.body.classList.add("app-loaded");
           setTimeout(() => {
             const loadingScreen = document.getElementById("loading-screen");
-            if (loadingScreen) {
-              loadingScreen.style.display = "none";
-            }
-          }, 800);
-        }, 1200);
+            if (loadingScreen) loadingScreen.style.display = "none";
+          }, 600);
+        }, 1000);
       });
 
       // Show update notification
