@@ -255,20 +255,6 @@ export default function Index() {
                     }}
                   ></div>
 
-                  {/* Matrix Rain Effect */}
-                  {Array.from({ length: 12 }, (_, i) => (
-                    <div
-                      key={i}
-                      className="absolute w-0.5 bg-gradient-to-b from-blue-400 via-purple-400 to-transparent opacity-40"
-                      style={{
-                        left: `${10 + i * 8}%`,
-                        top: '-20px',
-                        height: '200px',
-                        animation: `matrixRain ${2 + Math.random() * 3}s linear infinite`,
-                        animationDelay: `${Math.random() * 2}s`
-                      }}
-                    ></div>
-                  ))}
 
                   {/* Holographic Scanning Lines */}
                   <div
