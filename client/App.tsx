@@ -58,15 +58,15 @@ function initializeApp() {
   }
 
   // Check if we already have a root instance
-  if (!(window as any).__SAO_REACT_ROOT__) {
+  if (!window.__SAO_REACT_ROOT__) {
     // Create new root and store globally
     const root = createRoot(container);
-    (window as any).__SAO_REACT_ROOT__ = root;
+    window.__SAO_REACT_ROOT__ = root;
     console.log("🛡️ SAO Arabic Reader - React root created");
   }
 
   // Always render with the existing root
-  const root = (window as any).__SAO_REACT_ROOT__;
+  const root = window.__SAO_REACT_ROOT__;
   root.render(<App />);
 }
 
@@ -77,7 +77,7 @@ initializeApp();
 if (import.meta.hot) {
   import.meta.hot.accept(() => {
     // On hot reload, just re-render with existing root
-    const root = (window as any).__SAO_REACT_ROOT__;
+    const root = window.__SAO_REACT_ROOT__;
     if (root) {
       root.render(<App />);
     }
