@@ -25,9 +25,10 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/sao" element={<SAOLibrary />} />
-            <Route path="/progressive" element={<SAOProgressiveLibrary />} />
-            <Route path="/reader/:series/:volumeId" element={<BookReader />} />
+          <Route path="/sao" element={<SAOLibrary />} />
+          <Route path="/progressive" element={<SAOProgressiveLibrary />} />
+          <Route path="/sideworks" element={<SideWorksLibrary />} />
+          <Route path="/reader/:series/:volumeId" element={<BookReader />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
