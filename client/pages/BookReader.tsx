@@ -177,17 +177,52 @@ export default function BookReader() {
     }
   };
 
+  // عرض صفحة الخلفية
+  const renderCoverPage = (page: any) => (
+    <div
+      className="relative w-full h-[80vh] flex items-center justify-center overflow-hidden rounded-lg max-w-4xl mx-auto"
+      style={{
+        backgroundImage: `url(${page.backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
+      {/* تدرج للنص */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
+
+      {/* محتوى العنوان */}
+      <div className="relative z-10 text-center text-white">
+        <h1 className="text-6xl font-bold mb-4 drop-shadow-2xl bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          {page.title}
+        </h1>
+        <p className="text-2xl mb-8 drop-shadow-lg text-gray-200">
+          {page.subtitle}
+        </p>
+        <div className="bg-black/50 backdrop-blur-sm rounded-lg p-4 inline-block">
+          <p className="text-lg text-gray-300 mb-2">ترجمة ومراجعة: فريق MrPheonixX</p>
+          <p className="text-sm text-gray-400">باستخدام DeepL Premium مع المراجعة اليدوية</p>
+        </div>
+      </div>
+    </div>
+  );
+
   const renderScrollMode = () => (
     <div className="scroll-reader space-y-8">
-      {mockPages.slice(0, currentPage).map((page) => (
-        <div
-          key={page.id}
-          className={`page ${getThemeClasses()} p-8 rounded-lg shadow-lg max-w-4xl mx-auto`}
-          style={{ fontSize: `${fontSize}px`, zoom: `${zoom}%` }}
-          dangerouslySetInnerHTML={{ __html: page.content }}
-        />
+      {mockPages.slice(0, currentPage + 1).map((page) => (
+        <div key={page.id} className="max-w-4xl mx-auto">
+          {page.type === "cover" ? (
+            renderCoverPage(page)
+          ) : (
+            <div
+              className={`page ${getThemeClasses()} p-8 rounded-lg shadow-lg`}
+              style={{ fontSize: `${fontSize}px`, zoom: `${zoom}%` }}
+              dangerouslySetInnerHTML={{ __html: page.content }}
+            />
+          )}
+        </div>
       ))}
-      {currentPage < mockPages.length && (
+      {currentPage < mockPages.length - 1 && (
         <div className="text-center py-8">
           <Button onClick={nextPage} className="bg-blue-600 hover:bg-blue-700">
             تحميل المزيد - Load More
@@ -197,27 +232,41 @@ export default function BookReader() {
     </div>
   );
 
-  const renderFlipbookMode = () => (
-    <div className="page-flip-container flex justify-center">
-      <div 
-        className={`page-flip ${getThemeClasses()} p-8 rounded-lg shadow-xl max-w-4xl w-full h-[80vh] overflow-y-auto`}
-        style={{ fontSize: `${fontSize}px`, zoom: `${zoom}%` }}
-      >
-        <div dangerouslySetInnerHTML={{ __html: mockPages[currentPage - 1]?.content }} />
+  const renderFlipbookMode = () => {
+    const page = mockPages[currentPage];
+    return (
+      <div className="page-flip-container flex justify-center">
+        {page?.type === "cover" ? (
+          renderCoverPage(page)
+        ) : (
+          <div
+            className={`page-flip ${getThemeClasses()} p-8 rounded-lg shadow-xl max-w-4xl w-full h-[80vh] overflow-y-auto`}
+            style={{ fontSize: `${fontSize}px`, zoom: `${zoom}%` }}
+          >
+            <div dangerouslySetInnerHTML={{ __html: page?.content }} />
+          </div>
+        )}
       </div>
-    </div>
-  );
+    );
+  };
 
-  const renderSlideMode = () => (
-    <div className="slide-reader flex justify-center">
-      <div 
-        className={`page ${getThemeClasses()} p-8 rounded-lg shadow-xl max-w-4xl w-full h-[80vh] overflow-y-auto`}
-        style={{ fontSize: `${fontSize}px`, zoom: `${zoom}%` }}
-      >
-        <div dangerouslySetInnerHTML={{ __html: mockPages[currentPage - 1]?.content }} />
+  const renderSlideMode = () => {
+    const page = mockPages[currentPage];
+    return (
+      <div className="slide-reader flex justify-center">
+        {page?.type === "cover" ? (
+          renderCoverPage(page)
+        ) : (
+          <div
+            className={`page ${getThemeClasses()} p-8 rounded-lg shadow-xl max-w-4xl w-full h-[80vh] overflow-y-auto`}
+            style={{ fontSize: `${fontSize}px`, zoom: `${zoom}%` }}
+          >
+            <div dangerouslySetInnerHTML={{ __html: page?.content }} />
+          </div>
+        )}
       </div>
-    </div>
-  );
+    );
+  };
 
   const renderReader = () => {
     switch (readingMode) {
