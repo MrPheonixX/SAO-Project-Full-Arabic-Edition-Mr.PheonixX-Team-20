@@ -55,6 +55,7 @@ const App = () => (
               <Route path="/anime-works" element={<AnimeWorksLibrary />} />
               <Route path="/classic-literature" element={<ClassicLiterature />} />
               <Route path="/light-novels" element={<LightNovels />} />
+              <Route path="/all-works" element={<AllWorksLibrary />} />
               <Route
                 path="/reader/:series/:volumeId"
                 element={<BookReader />}
