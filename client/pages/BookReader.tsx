@@ -63,31 +63,52 @@ export default function BookReader() {
 
   const bookData = getVolumeData();
 
-  // Mock pages with Arabic text
-  const mockPages = Array.from({ length: bookData.totalPages }, (_, i) => ({
-    id: i + 1,
-    content: `
-      <div class="page-content" dir="rtl">
-        <h2 class="text-2xl font-bold mb-4 text-center">${i === 0 ? bookData.titleArabic : `الصفحة ${i + 1}`}</h2>
-        <p class="text-lg leading-relaxed mb-4">
-          ${i === 0 ? 
-            `مرحباً بكم في ${bookData.titleArabic}. هذا العمل مترجم ومراجع بواسطة فريق MrPheonixX باستخدام DeepL Premium مع المراجعة اليدوية.` :
-            `محتوى الصفحة ${i + 1} من ${bookData.titleArabic}. النص العربي المترجم بعناية فائقة لضمان أفضل تجربة قراءة ممكنة للقارئ العربي.`
-          }
-        </p>
-        <p class="text-base leading-relaxed mb-4">
-          في هذا المجلد، نتابع مغامرات كيريتو وأسونا في عالم ساو الافتراضي المليء بالتحديات والمخاطر. 
-          القصة مليئة بالإثارة والتشويق، وتأخذنا في رحلة عبر طوابق أينكراد المختلفة.
-        </p>
-        <div class="mt-8 text-center text-sm text-gray-500">
-          ترجمة ومراجعة: فريق MrPheonixX | الصفحة ${i + 1} من ${bookData.totalPages}
-        </div>
-      </div>
-    `,
-    audioText: i === 0 ? 
-      `مرحباً بكم في ${bookData.titleArabic}` :
-      `الصفحة ${i + 1} من ${bookData.titleArabic}`
-  }));
+  // إنشاء الصفحات مع صفحة الخلفية كأول صفحة
+  const createPages = () => {
+    const pages = [];
+
+    // الصفحة الأولى: صورة خلفية المجل��
+    pages.push({
+      id: 0,
+      type: "cover",
+      content: null,
+      backgroundImage: bookData.backgroundImage,
+      title: bookData.titleArabic,
+      subtitle: `المجلد ${bookData.volumeNumber}`,
+      isFirstPage: true,
+      audioText: `صورة خلفية ${bookData.titleArabic}`
+    });
+
+    // باقي الصفحات: النص العادي
+    for (let i = 1; i <= bookData.totalPages; i++) {
+      pages.push({
+        id: i,
+        type: "content",
+        backgroundImage: null,
+        isFirstPage: false,
+        content: `
+          <div class="page-content" dir="rtl">
+            <h2 class="text-2xl font-bold mb-4 text-center">الصفحة ${i}</h2>
+            <p class="text-lg leading-relaxed mb-4">
+              محتوى الصفحة ${i} من ${bookData.titleArabic}. النص العربي المترجم بعناية فائقة لضمان أفضل تجربة قراءة ممكنة للقارئ العربي.
+            </p>
+            <p class="text-base leading-relaxed mb-4">
+              في هذا المجلد، نتابع مغامرات كيريتو وأسونا في عالم ساو الافتراضي المليء بالتحديات والمخاطر.
+              القصة مليئة بالإثارة والتشويق، وتأخذنا في رح��ة عبر طوابق أينكراد المختلفة.
+            </p>
+            <div class="mt-8 text-center text-sm text-gray-500">
+              ترجمة ومراجعة: فريق MrPheonixX | الصفحة ${i} من ${bookData.totalPages}
+            </div>
+          </div>
+        `,
+        audioText: `الصفحة ${i} من ${bookData.titleArabic}`
+      });
+    }
+
+    return pages;
+  };
+
+  const mockPages = createPages();
 
   useEffect(() => {
     // Load saved progress
@@ -116,7 +137,7 @@ export default function BookReader() {
   };
 
   const prevPage = () => {
-    if (currentPage > 1) {
+    if (currentPage > 0) {
       setCurrentPage(currentPage - 1);
     }
   };
