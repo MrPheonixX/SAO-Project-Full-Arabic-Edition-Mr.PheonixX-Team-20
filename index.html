@@ -422,21 +422,49 @@
 
     <!-- Critical CSS -->
     <style>
-      /* Simple and optimized animations */
-      @keyframes sweepingBar {
+      /* Cutting and revealing animations */
+      @keyframes cuttingBar {
         0% {
-          transform: translateX(-50px);
+          transform: translateX(-10px);
           opacity: 0;
         }
-        10% {
+        5% {
           opacity: 1;
         }
-        90% {
+        47.5% {
+          transform: translateX(320px);
+          opacity: 1;
+        }
+        50% {
+          transform: translateX(320px);
+          opacity: 0.7;
+        }
+        52.5% {
+          transform: translateX(320px);
+          opacity: 1;
+        }
+        95% {
+          transform: translateX(-10px);
           opacity: 1;
         }
         100% {
-          transform: translateX(320px);
+          transform: translateX(-10px);
           opacity: 0;
+        }
+      }
+
+      @keyframes revealText {
+        0% {
+          width: 0%;
+        }
+        47.5% {
+          width: 100%;
+        }
+        52.5% {
+          width: 100%;
+        }
+        100% {
+          width: 0%;
         }
       }
 
@@ -444,11 +472,8 @@
         0% {
           transform: translateX(-100%);
         }
-        50% {
-          transform: translateX(0%);
-        }
         100% {
-          transform: translateX(300%);
+          transform: translateX(400%);
         }
       }
 
