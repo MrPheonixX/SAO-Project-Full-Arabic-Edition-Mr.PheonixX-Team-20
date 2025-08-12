@@ -20,6 +20,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import AnimeEmojiNotifications from "./components/AnimeEmojiNotifications";
 import AdvancedAnimeSystem from "./components/AdvancedAnimeSystem";
 import PerformanceOptimizer from "./components/PerformanceOptimizer";
+import UIEnhancements from "./components/UIEnhancements";
 
 // TypeScript declarations for global variables
 declare global {
@@ -137,7 +138,7 @@ function initializeApp() {
                 cursor: pointer;
               "
             >
-              🔄 إعادة المحاولة
+              🔄 إع��دة المحاولة
             </button>
           </div>
         </div>
