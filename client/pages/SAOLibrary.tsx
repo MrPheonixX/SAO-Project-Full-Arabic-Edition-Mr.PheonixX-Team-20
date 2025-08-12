@@ -11,7 +11,7 @@ const saoVolumes = [
   {
     id: 1,
     title: "Sword Art Online Volume 1: Aincrad",
-    titleArabic: "سيف آرت أونلاين المجلد 1: آي��كراد",
+    titleArabic: "سيف آرت أونلاين المجلد 1: آينكراد",
     subtitle: "آينكراد",
     description: "البداية الحقيقية لمغامرة كيريتو في عالم ساو الافتراضي الخطير. عندما يصبح اللعب مسألة حياة أو موت.",
     descriptionArabic: "البداية الحقيقية لمغامرة كيريتو في عالم ساو الافتراضي الخطير. عندما يصبح اللعب مسألة حياة أو موت.",
@@ -32,7 +32,7 @@ const saoVolumes = [
     id: 2,
     title: "Sword Art Online Volume 2: Aincrad",
     titleArabic: "سيف آرت أونلاين المجلد 2: آينكراد",
-    subtitle: "آينكراد",
+    subtitle: "آين��راد",
     description: "مواصلة مغامرة كيريتو في آينكراد مع قصص جانبية مؤثرة ولقاءات جديدة تشكل مستقبله.",
     descriptionArabic: "مواصلة مغامرة كيريتو في آينكراد مع قصص جانبية مؤثرة ولقاءات جديدة تشكل مستقبله.",
     coverImage: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=600",
@@ -72,7 +72,7 @@ const saoVolumes = [
     id: 4,
     title: "Sword Art Online Volume 4: Fairy Dance",
     titleArabic: "سيف آرت أونلاين المجلد 4: رقصة الجنيات",
-    subtitle: "رقصة الجني��ت",
+    subtitle: "رقصة الجنيات",
     description: "خاتمة مثيرة لقوس رقصة الجنيات مع معركة نهائية من أجل حرية أسونا وكشف الحقيقة المظلمة.",
     descriptionArabic: "خاتمة مثيرة لقوس رقصة الجنيات مع معركة نهائية من أجل حرية أسونا وكشف الحقيقة المظلمة.",
     coverImage: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=600",
@@ -92,7 +92,7 @@ const saoVolumes = [
     id: 5,
     title: "Sword Art Online Volume 5: Phantom Bullet",
     titleArabic: "سيف آرت أونلاين المجلد 5: الرصاصة الوهمية",
-    subtitle: "الرصاصة ا��وهمية",
+    subtitle: "الرصاصة الوهمية",
     description: "كيريتو يدخل عالم Gun Gale Online للتحقيق في جرائم قتل غامضة مرتبطة باللعبة.",
     descriptionArabic: "كيريتو يدخل عالم Gun Gale Online للتحقيق في جرائم قتل غامضة مرتبطة باللعبة.",
     coverImage: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=600",
@@ -167,8 +167,61 @@ const saoVolumes = [
     genre: ["إيسيكاي", "قصص قصيرة", "متنوع"],
     summary: "مجموعة من القصص القصيرة المتنوعة التي تغطي فترات مختلفة من رحلة كيريتو وأصدقائه عبر العوالم الافتراضية.",
     keyCharacters: ["كيريتو", "أسونا", "شخصيات متنوعة"]
+  },
+  {
+    id: 9,
+    title: "Sword Art Online Volume 9: Alicization Beginning",
+    titleArabic: "سيف آرت أونلاين المجلد 9: بداية الأليسزايشن",
+    subtitle: "أليسزايشن: البداية",
+    description: "بداية قوس أليسزايشن الملحمي حيث يجد كيريتو نفسه في عالم جديد بقوانين مختلفة تمامًا.",
+    descriptionArabic: "بداية قوس أليسزايشن الملحمي حيث يجد كيريتو نفسه في عالم جديد بقوانين مختلفة تمامًا.",
+    coverImage: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=600",
+    backgroundImage: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1920&h=1080",
+    pages: 312,
+    chapters: 12,
+    readProgress: 65,
+    rating: 9.2,
+    status: 'available',
+    releaseDate: "2012-10-10",
+    translator: "MrPheonixX Team",
+    genre: ["إيسيكاي", "أكشن", "فانتازي", "خارق"],
+    summary: "كيريتو يستيقظ في عالم غير معروف بقواعد صارمة وسيوف مقدسة وذكاء اصطناعي متطور.",
+    keyCharacters: ["كيريتو", "يوجينيو", "أليس", "أسونا"]
+  },
+  {
+    id: 10,
+    title: "Sword Art Online Volume 10: Alicization Running",
+    titleArabic: "سيف آرت أونلاين المجلد 10: الأليسزايشن الجارية",
+    subtitle: "أليسزايشن: الجارية",
+    description: "تستمر رحلة كيريتو ويوجينيو عبر العوالم الداخلية لاكتشاف حقيقة هذا العالم الغامض.",
+    descriptionArabic: "تستمر رحلة كيريتو ويوجينيو عبر العوالم الداخلية لاكتشاف حقيقة هذا العالم الغامض.",
+    coverImage: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=600",
+    backgroundImage: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1920&h=1080",
+    pages: 298,
+    chapters: 11,
+    readProgress: 60,
+    rating: 9.1,
+    status: 'available',
+    releaseDate: "2013-03-10",
+    translator: "MrPheonixX Team",
+    genre: ["إيسيكاي", "أكشن", "فانتازي", "مغامرة"],
+    summary: "تقدم كبير في عالم الأليسزايشن مع تحديات جديدة وصراعات مصيرية.",
+    keyCharacters: ["كيريتو", "يوجينيو", "أليس", "المدير الإداري"]
   }
 ];
+
+const saoPdfUrls: Record<number, string> = {
+  1: "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2Fbd45621c6c894855b5650b06f7f5105b?alt=media&token=dd638303-cc9f-45f8-9f02-1df9c881714a&apiKey=15999d2412c04cefb5e665795b57bb74",
+  2: "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2Fec55798c95bc435ea71f06ac938cefc4?alt=media&token=90805070-1ea6-4fae-8abd-e6663b494759&apiKey=15999d2412c04cefb5e665795b57bb74",
+  3: "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F090576a5a73347e5b4b2f4b00f406ec9?alt=media&token=f13aa44f-85b2-488f-bf4c-69f75737e67c&apiKey=15999d2412c04cefb5e665795b57bb74",
+  4: "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F50468fa300ac4c9cae98579c0c479ed3?alt=media&token=0453971b-ce93-4f9b-8372-20b89de110fb&apiKey=15999d2412c04cefb5e665795b57bb74",
+  5: "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F1ec43481ca804e5085b0ce0fa936f783?alt=media&token=921df5c1-4219-4e8c-9526-13dba57ccfb5&apiKey=15999d2412c04cefb5e665795b57bb74",
+  6: "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2Fed1797f4171a43f68f1918285e6ad895?alt=media&token=59bf4efa-3482-4254-a14c-f052e8bb616e&apiKey=15999d2412c04cefb5e665795b57bb74",
+  7: "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F8bd4a9b5e2244df08b597c653952d406?alt=media&token=c93c02a3-7ae0-4cb7-b822-7fe859c16de4&apiKey=15999d2412c04cefb5e665795b57bb74",
+  8: "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F8931eeaf1b1740ffba9f0689193d1d9b?alt=media&token=279c2321-40cc-49de-89e4-03d388edf7ce&apiKey=15999d2412c04cefb5e665795b57bb74",
+  9: "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2Fe205e51930914ab3b6dd4ba5b58f016a?alt=media&token=b819ef33-3efd-455f-ae69-5b33c69a3ec3&apiKey=15999d2412c04cefb5e665795b57bb74",
+  10: "https://cdn.builder.io/o/assets%2F15999d2412c04cefb5e665795b57bb74%2F0c344b8b6c4a48a080dbd588d466864c?alt=media&token=9715fa1e-828e-4460-9535-46c9475fe7eb&apiKey=15999d2412c04cefb5e665795b57bb74"
+};
 
 export default function SAOLibrary() {
   const navigate = useNavigate();
@@ -239,7 +292,7 @@ export default function SAOLibrary() {
                   className="flex items-center gap-2"
                 >
                   <ArrowLeft className="w-5 h-5" />
-                  العودة
+                  الع��دة
                 </InteractiveButton>
                 
                 <div>
@@ -432,7 +485,7 @@ export default function SAOLibrary() {
                         variant="outline"
                         size="sm"
                         className="flex-1 border-blue-500/50 text-blue-300 hover:bg-blue-500/10"
-                        onClick={(e) => e.stopPropagation()}
+                        onClick={(e) => { e.stopPropagation(); const url = saoPdfUrls[volume.id]; if (url) window.open(url, '_blank'); }}
                       >
                         <Download className="w-3 h-3 mr-1" />
                         تحميل
@@ -441,7 +494,7 @@ export default function SAOLibrary() {
                         variant="outline"
                         size="sm"
                         className="flex-1 border-red-500/50 text-red-300 hover:bg-red-500/10"
-                        onClick={(e) => e.stopPropagation()}
+                        onClick={(e) => { e.stopPropagation(); const url = saoPdfUrls[volume.id]; if (url) window.open(url, '_blank'); }}
                       >
                         <Heart className="w-3 h-3 mr-1" />
                         إعجاب
