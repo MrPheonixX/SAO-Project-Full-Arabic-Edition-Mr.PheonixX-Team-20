@@ -464,7 +464,7 @@ export default function Index() {
                   animation: "gradientShift 4s ease-in-out infinite",
                 }}
               >
-                تر��مة Mr.PheonixX Team × DeepL Premium
+                ترجمة Mr.PheonixX Team × DeepL Premium
               </span>
             </p>
 
@@ -517,7 +517,7 @@ export default function Index() {
         {/* Main Series Section */}
         <section className="grid md:grid-cols-2 gap-12 mb-20 max-w-6xl mx-auto">
           {/* Sword Art Online */}
-          <Card className="bg-gradient-to-br from-blue-900/20 to-blue-600/20 border-blue-500/30 backdrop-blur-xl hover:border-blue-400/50 transition-all duration-500 group relative overflow-hidden">
+          <InteractiveCard className="bg-gradient-to-br from-blue-900/20 to-blue-600/20 border-blue-500/30 backdrop-blur-xl hover:border-blue-400/50 transition-all duration-500 group relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
 
             <CardHeader className="relative z-10">
@@ -542,7 +542,7 @@ export default function Index() {
 
             <CardContent className="relative z-10">
               <p className="text-gray-300 mb-6 leading-relaxed">
-                القصة الأصلية لكيريتو وأسونا في عالم ساو الافتراضي. مغامرة
+                القصة الأصلية لكير��تو وأسونا في عالم ساو الافتراضي. مغامرة
                 ملحمية تمتد عبر عوالم متعددة مع ترجمة دقيقة ومراجعة احترافية.
               </p>
 
@@ -570,18 +570,20 @@ export default function Index() {
                 </Badge>
               </div>
 
-              <Button
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 group-hover:scale-105 transition-all duration-300 text-lg py-6"
+              <InteractiveButton
+                variant="magic"
+                size="lg"
                 onClick={() => navigate("/sao")}
+                className="w-full group-hover:scale-105 transition-all duration-300 text-lg py-6"
               >
                 <Play className="w-5 h-5 mr-2" />
                 ابدأ القراءة الآن
-              </Button>
+              </InteractiveButton>
             </CardContent>
-          </Card>
+          </InteractiveCard>
 
           {/* SAO Progressive */}
-          <Card className="bg-gradient-to-br from-purple-900/20 to-violet-600/20 border-purple-500/30 backdrop-blur-xl hover:border-purple-400/50 transition-all duration-500 group relative overflow-hidden">
+          <InteractiveCard className="bg-gradient-to-br from-purple-900/20 to-violet-600/20 border-purple-500/30 backdrop-blur-xl hover:border-purple-400/50 transition-all duration-500 group relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
 
             <CardHeader className="relative z-10">
@@ -633,15 +635,17 @@ export default function Index() {
                 </Badge>
               </div>
 
-              <Button
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 group-hover:scale-105 transition-all duration-300 text-lg py-6"
+              <InteractiveButton
+                variant="ice"
+                size="lg"
                 onClick={() => navigate("/progressive")}
+                className="w-full group-hover:scale-105 transition-all duration-300 text-lg py-6"
               >
                 <Play className="w-5 h-5 mr-2" />
-                ابدأ ا��قراءة الآن
-              </Button>
+                ابدأ القراءة الآن
+              </InteractiveButton>
             </CardContent>
-          </Card>
+          </InteractiveCard>
         </section>
 
         {/* Side Works Preview */}
