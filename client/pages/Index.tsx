@@ -230,6 +230,9 @@ export default function Index() {
         </div>
       </header>
 
+      {/* Visual Effects Component */}
+      <VisualEffectsComponent />
+
       {/* Main Content */}
       <main className="container mx-auto px-4 py-16 relative z-10">
         {/* Hero Section */}
@@ -472,7 +475,7 @@ export default function Index() {
                 onClick={() => navigate("/sao")}
               >
                 <Zap className="w-5 h-5 mr-2" />
-                است��شف السيرفرات
+                استكشف السيرفرات
               </Button>
 
               <Button
