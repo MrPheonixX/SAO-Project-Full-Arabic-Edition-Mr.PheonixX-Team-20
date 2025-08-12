@@ -15,6 +15,7 @@ import SideWorksLibrary from "./pages/SideWorksLibrary";
 import AnimeWorksLibrary from "./pages/AnimeWorksLibrary";
 import ClassicLiterature from "./pages/ClassicLiterature";
 import LightNovels from "./pages/LightNovels";
+import AllWorksLibrary from "./pages/AllWorksLibrary";
 import BookReader from "./pages/BookReader";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
