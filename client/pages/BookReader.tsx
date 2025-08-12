@@ -37,7 +37,7 @@ export default function BookReader() {
   const [showControls, setShowControls] = useState(true);
   const readerRef = useRef<HTMLDivElement>(null);
 
-  // بيانات المجلد مع صورة الخلفية
+  // بيانات الم��لد مع صورة الخلفية
   const getVolumeData = () => {
     const volumeNumber = parseInt(volumeId || "1");
     const backgrounds = [
@@ -177,7 +177,7 @@ export default function BookReader() {
     }
   };
 
-  // عرض صفحة الخلفية
+  // عرض صفحة الخلف��ة
   const renderCoverPage = (page: any) => (
     <div
       className="relative w-full h-[80vh] flex items-center justify-center overflow-hidden rounded-lg max-w-4xl mx-auto"
@@ -406,7 +406,7 @@ export default function BookReader() {
               variant="ghost"
               size="sm"
               onClick={prevPage}
-              disabled={currentPage === 1}
+              disabled={currentPage === 0}
               className="text-white hover:text-blue-400"
             >
               <ChevronRight className="w-5 h-5" />
@@ -414,14 +414,14 @@ export default function BookReader() {
             </Button>
             
             <div className="text-white text-sm font-medium">
-              {currentPage} / {mockPages.length}
+              {currentPage === 0 ? 'خلفية' : `${currentPage} / ${mockPages.length - 1}`}
             </div>
             
             <Button
               variant="ghost"
               size="sm"
               onClick={nextPage}
-              disabled={currentPage === mockPages.length}
+              disabled={currentPage === mockPages.length - 1}
               className="text-white hover:text-blue-400"
             >
               التالي
