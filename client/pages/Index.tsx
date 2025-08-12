@@ -697,6 +697,11 @@ export default function Index() {
           </div>
         </section>
 
+        {/* Interactive Experience Section */}
+        <section className="mb-16 max-w-7xl mx-auto">
+          <InteractiveExperience />
+        </section>
+
         {/* Advanced Features Section */}
         <section className="mb-20 max-w-7xl mx-auto">
           <div className="text-center mb-16">
