@@ -464,29 +464,28 @@ export default function Index() {
                   animation: "gradientShift 4s ease-in-out infinite",
                 }}
               >
-                ترجمة Mr.PheonixX Team × DeepL Premium
+                تر��مة Mr.PheonixX Team × DeepL Premium
               </span>
             </p>
 
             <div className="flex justify-center space-x-6 mb-8">
-              <Button
+              <InteractiveButton
+                variant="energy"
                 size="lg"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 px-8 py-4 text-lg font-semibold"
                 onClick={() => navigate("/sao")}
               >
                 <Zap className="w-5 h-5 mr-2" />
                 استكشف السيرفرات
-              </Button>
+              </InteractiveButton>
 
-              <Button
-                variant="outline"
+              <InteractiveButton
+                variant="crystal"
                 size="lg"
-                className="border-purple-500 text-purple-400 hover:bg-purple-500/10 px-8 py-4 text-lg"
                 onClick={() => navigate("/progressive")}
               >
                 <Download className="w-5 h-5 mr-2" />
                 دخول للمكتبة
-              </Button>
+              </InteractiveButton>
             </div>
           </div>
         </section>
