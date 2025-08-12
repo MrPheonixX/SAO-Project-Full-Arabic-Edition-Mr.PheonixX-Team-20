@@ -41,6 +41,7 @@ const App = () => (
             <Sonner />
             <AnimeEmojiNotifications />
             <AdvancedAnimeSystem />
+            <UIEnhancements />
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
@@ -138,7 +139,7 @@ function initializeApp() {
                 cursor: pointer;
               "
             >
-              🔄 إع��دة المحاولة
+              🔄 إعادة المحاولة
             </button>
           </div>
         </div>
