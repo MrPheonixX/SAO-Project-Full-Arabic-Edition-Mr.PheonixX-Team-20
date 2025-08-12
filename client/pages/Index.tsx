@@ -271,11 +271,11 @@ export default function Index() {
                   ></div>
                 </div>
 
-                {/* Background glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 via-purple-400 to-violet-400 blur-2xl opacity-50 animate-pulse scale-110"></div>
+                {/* Background glow effect - Reduced */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 via-purple-400 to-violet-400 blur-3xl opacity-20 animate-pulse scale-150"></div>
 
-                {/* Animated gradient background */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-violet-500 blur-xl opacity-30 animate-ping"></div>
+                {/* Animated gradient background - Reduced */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-violet-500 blur-2xl opacity-15 animate-ping"></div>
 
                 {/* Hexagonal Tech Pattern Overlay - Hidden */}
                 <div className="absolute inset-0 opacity-0">
