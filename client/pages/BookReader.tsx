@@ -114,7 +114,8 @@ export default function BookReader() {
     // Load saved progress
     const savedPage = localStorage.getItem(`book-progress-${series}-${volumeId}`);
     if (savedPage) {
-      setCurrentPage(parseInt(savedPage));
+      const pageNum = parseInt(savedPage);
+      setCurrentPage(pageNum >= 0 ? pageNum : 0); // تأكد من أن الصفحة صحيحة
     }
 
     // Load preferences
