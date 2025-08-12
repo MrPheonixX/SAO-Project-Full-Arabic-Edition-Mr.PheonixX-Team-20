@@ -231,7 +231,7 @@ export default function Index() {
       </header>
 
       {/* Visual Effects Component */}
-      {/* <VisualEffectsComponent /> */}
+      <VisualEffectsComponent />
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-16 relative z-10">
@@ -642,7 +642,7 @@ export default function Index() {
                 className="w-full group-hover:scale-105 transition-all duration-300 text-lg py-6"
               >
                 <Play className="w-5 h-5 mr-2" />
-                ابدأ ا��قراءة الآن
+                ابدأ القراءة الآن
               </InteractiveButton>
             </CardContent>
           </InteractiveCard>
@@ -939,7 +939,7 @@ export default function Index() {
               MrPheonixX Team
             </h4>
             <p className="text-gray-400">
-              المحتوى حصري لفريق MrPheonixX - يُمنع إعاد�� الإنتاج غير المصرح به
+              المحتوى حصري لفريق MrPheonixX - يُمنع إعادة الإنتاج غير المصرح به
             </p>
           </div>
 
