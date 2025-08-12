@@ -25,7 +25,7 @@ import {
   Globe,
   TrendingUp,
 } from "lucide-react";
-import { InteractiveButton, InteractiveCard, VisualEffectsComponent, InteractiveExperience } from "@/components/InteractiveElements";
+// import { InteractiveButton, InteractiveCard, VisualEffectsComponent, InteractiveExperience } from "@/components/InteractiveElements";
 
 export default function Index() {
   const navigate = useNavigate();
@@ -542,7 +542,7 @@ export default function Index() {
 
             <CardContent className="relative z-10">
               <p className="text-gray-300 mb-6 leading-relaxed">
-                القصة الأصلية لكير��تو وأسونا في عالم ساو الافتراضي. مغامرة
+                القصة الأصلية لكيريتو وأسونا في عالم ساو الافتراضي. مغامرة
                 ملحمية تمتد عبر عوالم متعددة مع ترجمة دقيقة ومراجعة احترافية.
               </p>
 
