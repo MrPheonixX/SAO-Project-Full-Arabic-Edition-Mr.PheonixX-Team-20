@@ -12,6 +12,9 @@ import NotFound from "./pages/NotFound";
 import SAOLibrary from "./pages/SAOLibrary";
 import SAOProgressiveLibrary from "./pages/SAOProgressiveLibrary";
 import SideWorksLibrary from "./pages/SideWorksLibrary";
+import AnimeWorksLibrary from "./pages/AnimeWorksLibrary";
+import ClassicLiterature from "./pages/ClassicLiterature";
+import LightNovels from "./pages/LightNovels";
 import BookReader from "./pages/BookReader";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
@@ -94,7 +97,7 @@ function initializeApp() {
     const root = window.__SAO_REACT_ROOT__;
     console.log("🎨 Rendering App component...");
     root.render(<App />);
-    console.log("✅ App rendered successfully!");
+    console.log("�� App rendered successfully!");
 
     // Hide loading screen after successful render
     setTimeout(() => {
