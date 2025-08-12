@@ -486,6 +486,15 @@ export default function Index() {
                 <Download className="w-5 h-5 mr-2" />
                 دخول للمكتبة
               </InteractiveButton>
+
+              <InteractiveButton
+                variant="ice"
+                size="lg"
+                onClick={() => navigate("/all-works")}
+              >
+                <BookOpen className="w-5 h-5 mr-2" />
+                المكتبة الشاملة
+              </InteractiveButton>
             </div>
           </div>
         </section>
@@ -509,7 +518,7 @@ export default function Index() {
               <div className="text-6xl font-bold text-violet-400 mb-2">
                 +{stats.translatedVolumes}
               </div>
-              <p className="text-gray-400">مجلد مترجم</p>
+              <p className="text-gray-400">م��لد مترجم</p>
             </div>
           </div>
         </section>
