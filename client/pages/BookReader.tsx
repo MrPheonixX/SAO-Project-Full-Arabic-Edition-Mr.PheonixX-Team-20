@@ -67,7 +67,7 @@ export default function BookReader() {
   const createPages = () => {
     const pages = [];
 
-    // الصفحة الأولى: صورة خلفية المجل��
+    // الصفحة الأولى: صورة خلفية الم��ل��
     pages.push({
       id: 0,
       type: "cover",
@@ -302,7 +302,7 @@ export default function BookReader() {
                 <div>
                   <h1 className="text-lg font-bold text-white">{bookData.titleArabic}</h1>
                   <p className="text-sm text-gray-400">
-                    الصفحة {currentPage} من {mockPages.length}
+                    {currentPage === 0 ? 'صفحة الخلفية' : `الصفحة ${currentPage} من ${mockPages.length - 1}`}
                   </p>
                 </div>
               </div>
