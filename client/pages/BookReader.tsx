@@ -37,13 +37,31 @@ export default function BookReader() {
   const [showControls, setShowControls] = useState(true);
   const readerRef = useRef<HTMLDivElement>(null);
 
-  // Mock book data
-  const bookData = {
-    title: series === "sao" ? `Sword Art Online Volume ${volumeId}` : `SAO Progressive Volume ${volumeId}`,
-    titleArabic: series === "sao" ? `سيف آرت أونلاين المجلد ${volumeId}` : `ساو بروجرسيف المجلد ${volumeId}`,
-    totalPages: 250,
-    currentProgress: 0,
+  // بيانات المجلد مع صورة الخلفية
+  const getVolumeData = () => {
+    const volumeNumber = parseInt(volumeId || "1");
+    const backgrounds = [
+      "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1920&h=1080", // Volume 1
+      "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1920&h=1080", // Volume 2
+      "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1920&h=1080", // Volume 3
+      "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1920&h=1080", // Volume 4
+      "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1920&h=1080", // Volume 5
+      "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1920&h=1080", // Volume 6
+      "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1920&h=1080", // Volume 7
+      "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1920&h=1080", // Volume 8
+    ];
+
+    return {
+      title: series === "sao" ? `Sword Art Online Volume ${volumeId}` : `SAO Progressive Volume ${volumeId}`,
+      titleArabic: series === "sao" ? `سيف آرت أونلاين المجلد ${volumeId}` : `ساو بروجرسيف المجلد ${volumeId}`,
+      totalPages: 250,
+      currentProgress: 0,
+      backgroundImage: backgrounds[volumeNumber - 1] || backgrounds[0],
+      volumeNumber
+    };
   };
+
+  const bookData = getVolumeData();
 
   // Mock pages with Arabic text
   const mockPages = Array.from({ length: bookData.totalPages }, (_, i) => ({
