@@ -51,6 +51,9 @@ const App = () => (
               <Route path="/sao" element={<SAOLibrary />} />
               <Route path="/progressive" element={<SAOProgressiveLibrary />} />
               <Route path="/sideworks" element={<SideWorksLibrary />} />
+              <Route path="/anime-works" element={<AnimeWorksLibrary />} />
+              <Route path="/classic-literature" element={<ClassicLiterature />} />
+              <Route path="/light-novels" element={<LightNovels />} />
               <Route
                 path="/reader/:series/:volumeId"
                 element={<BookReader />}
@@ -97,7 +100,7 @@ function initializeApp() {
     const root = window.__SAO_REACT_ROOT__;
     console.log("🎨 Rendering App component...");
     root.render(<App />);
-    console.log("�� App rendered successfully!");
+    console.log("✅ App rendered successfully!");
 
     // Hide loading screen after successful render
     setTimeout(() => {
