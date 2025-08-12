@@ -28,7 +28,7 @@ export default function BookReader() {
   const { series, volumeId } = useParams();
   const navigate = useNavigate();
   const [readingMode, setReadingMode] = useState<ReadingMode>("scroll");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0); // تبدأ من صفحة الخلفية
   const [theme, setTheme] = useState<Theme>("dark");
   const [fontSize, setFontSize] = useState(16);
   const [zoom, setZoom] = useState(100);
@@ -37,7 +37,7 @@ export default function BookReader() {
   const [showControls, setShowControls] = useState(true);
   const readerRef = useRef<HTMLDivElement>(null);
 
-  // بيانات الم��لد مع صورة الخلفية
+  // بيانات المجلد مع صورة الخلفية
   const getVolumeData = () => {
     const volumeNumber = parseInt(volumeId || "1");
     const backgrounds = [
@@ -177,7 +177,7 @@ export default function BookReader() {
     }
   };
 
-  // عرض صفحة الخلف��ة
+  // عرض صفحة الخلفية
   const renderCoverPage = (page: any) => (
     <div
       className="relative w-full h-[80vh] flex items-center justify-center overflow-hidden rounded-lg max-w-4xl mx-auto"
