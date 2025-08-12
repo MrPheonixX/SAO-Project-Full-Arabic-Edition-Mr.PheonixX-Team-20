@@ -49,6 +49,8 @@ export default function BookReader() {
       "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1920&h=1080", // Volume 6
       "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1920&h=1080", // Volume 7
       "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1920&h=1080", // Volume 8
+      "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1920&h=1080", // Volume 9
+      "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1920&h=1080", // Volume 10
     ];
 
     return {
@@ -132,7 +134,7 @@ export default function BookReader() {
   }, [currentPage, series, volumeId]);
 
   const nextPage = () => {
-    if (currentPage < mockPages.length) {
+    if (currentPage < mockPages.length - 1) {
       setCurrentPage(currentPage + 1);
     }
   };
@@ -158,7 +160,7 @@ export default function BookReader() {
       speechSynthesis.cancel();
       setIsTTSPlaying(false);
     } else {
-      const currentPageData = mockPages[currentPage - 1];
+      const currentPageData = mockPages[currentPage];
       const utterance = new SpeechSynthesisUtterance(currentPageData.audioText);
       utterance.lang = 'ar-SA';
       utterance.onend = () => setIsTTSPlaying(false);
