@@ -18,6 +18,8 @@ import Profile from "./pages/Profile";
 import AdminDashboard from "./pages/AdminDashboard";
 import ErrorBoundary from "./components/ErrorBoundary";
 import AnimeEmojiNotifications from "./components/AnimeEmojiNotifications";
+import AdvancedAnimeSystem from "./components/AdvancedAnimeSystem";
+import PerformanceOptimizer from "./components/PerformanceOptimizer";
 
 // TypeScript declarations for global variables
 declare global {
@@ -30,12 +32,14 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <ErrorBoundary>
-    <SecurityProvider enableSecurity={false}>
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <AnimeEmojiNotifications />
+    <PerformanceOptimizer enableDebugInfo={process.env.NODE_ENV === 'development'}>
+      <SecurityProvider enableSecurity={false}>
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <AnimeEmojiNotifications />
+            <AdvancedAnimeSystem />
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
@@ -53,9 +57,10 @@ const App = () => (
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
-        </TooltipProvider>
-      </QueryClientProvider>
-    </SecurityProvider>
+          </TooltipProvider>
+        </QueryClientProvider>
+      </SecurityProvider>
+    </PerformanceOptimizer>
   </ErrorBoundary>
 );
 
