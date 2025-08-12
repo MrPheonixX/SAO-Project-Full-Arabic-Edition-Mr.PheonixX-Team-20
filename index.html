@@ -264,8 +264,22 @@
           ⚔️
         </div>
 
-        <!-- Site Name with Simple Sweeping Bar -->
-        <div style="position: relative; margin-bottom: 2rem">
+        <!-- Site Name with Cutting Animation -->
+        <div style="position: relative; margin-bottom: 2rem; overflow: hidden">
+          <!-- Base Gray Text -->
+          <h1
+            style="
+              font-size: 2.5rem;
+              font-weight: bold;
+              color: #6b7280;
+              margin: 0;
+              position: relative;
+            "
+          >
+            MrPheonixX Team
+          </h1>
+
+          <!-- Colorful Text (Initially Hidden) -->
           <h1
             style="
               font-size: 2.5rem;
@@ -275,31 +289,39 @@
               -webkit-background-clip: text;
               -webkit-text-fill-color: transparent;
               margin: 0;
-              position: relative;
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 0%;
               overflow: hidden;
+              animation: revealText 4s ease-in-out infinite;
             "
           >
             MrPheonixX Team
           </h1>
 
-          <!-- Single Sweeping Bar -->
+          <!-- Cutting Bar -->
           <div
             style="
               position: absolute;
               top: 0;
               left: 0;
               height: 100%;
-              width: 4px;
-              background: linear-gradient(90deg,
+              width: 3px;
+              background: linear-gradient(to bottom,
                 transparent 0%,
-                #ffffff 30%,
-                #3b82f6 50%,
-                #ffffff 70%,
+                #ffffff 10%,
+                #3b82f6 30%,
+                #8b5cf6 70%,
+                #ffffff 90%,
                 transparent 100%
               );
-              box-shadow: 0 0 15px #3b82f6, 0 0 30px #8b5cf6, 0 0 50px rgba(59, 130, 246, 0.3);
-              animation: sweepingBar 3s ease-in-out infinite;
-              border-radius: 2px;
+              box-shadow:
+                0 0 20px #3b82f6,
+                0 0 40px #8b5cf6,
+                0 0 60px rgba(59, 130, 246, 0.4);
+              animation: cuttingBar 4s ease-in-out infinite;
+              border-radius: 1px;
             "
           ></div>
         </div>
