@@ -633,17 +633,41 @@
         localStorage.setItem("pwa-dismissed", "true");
       });
 
-      // Simple device optimization
+      // Enhanced device optimization
       function optimizeForDevice() {
-        const isLowEnd = navigator.hardwareConcurrency <= 2 || /Android.*Chrome.*Mobile/.test(navigator.userAgent);
+        const isLowEnd =
+          navigator.hardwareConcurrency <= 2 ||
+          navigator.deviceMemory <= 2 ||
+          /Android.*Chrome.*Mobile|iPhone|iPad/.test(navigator.userAgent);
 
         if (isLowEnd) {
           const style = document.createElement("style");
           style.textContent = `
-            #loading-screen * { animation-duration: 1.5s !important; }
-            @keyframes sweepingBar { 0% { transform: translateX(0); } 100% { transform: translateX(100%); } }
+            #loading-screen * {
+              animation-duration: 2s !important;
+              animation-timing-function: linear !important;
+            }
+            @keyframes cuttingBar {
+              0%, 100% { transform: translateX(0); opacity: 0; }
+              50% { transform: translateX(250px); opacity: 1; }
+            }
+            @keyframes revealText {
+              0%, 100% { width: 0%; }
+              50% { width: 100%; }
+            }
           `;
           document.head.appendChild(style);
+        }
+
+        // Very low-end device detection
+        if (navigator.hardwareConcurrency <= 1 || navigator.deviceMemory <= 1) {
+          const ultraLowStyle = document.createElement("style");
+          ultraLowStyle.textContent = `
+            #loading-screen { background: #1e293b !important; }
+            #loading-screen * { animation: none !important; }
+            #loading-screen h1:nth-child(2) { width: 100% !important; }
+          `;
+          document.head.appendChild(ultraLowStyle);
         }
       }
 
