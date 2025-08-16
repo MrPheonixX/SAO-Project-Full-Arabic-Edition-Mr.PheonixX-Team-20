@@ -480,7 +480,7 @@ export default function Index() {
                 onClick={() => navigate("/all-works")}
               >
                 <Zap className="w-5 h-5 mr-2" />
-                استكشف المكتبة
+                استكشاف الأعمال
               </InteractiveButton>
 
               <InteractiveButton
@@ -779,7 +779,7 @@ export default function Index() {
                   <Sparkles className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-blue-400 text-xl">
-                  قراءة ثلاثية الأبعاد
+                  ��راءة ثلاثية الأبعاد
                 </CardTitle>
                 <CardDescription className="text-gray-300">
                   3D Flipbook، Slide، و Scroll
