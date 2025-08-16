@@ -37,34 +37,42 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <ErrorBoundary>
-    <PerformanceOptimizer enableDebugInfo={process.env.NODE_ENV === 'development'}>
+    <PerformanceOptimizer
+      enableDebugInfo={process.env.NODE_ENV === "development"}
+    >
       <SecurityProvider enableSecurity={true}>
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
             <Toaster />
             <Sonner />
             <UIEnhancements />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/sao" element={<SAOLibrary />} />
-              <Route path="/progressive" element={<SAOProgressiveLibrary />} />
-              <Route path="/sideworks" element={<SideWorksLibrary />} />
-              <Route path="/anime-works" element={<AnimeWorksLibrary />} />
-              <Route path="/classic-literature" element={<ClassicLiterature />} />
-              <Route path="/light-novels" element={<LightNovels />} />
-              <Route path="/all-works" element={<AllWorksLibrary />} />
-              <Route
-                path="/reader/:series/:volumeId"
-                element={<BookReader />}
-              />
-              <Route path="/login" element={<Login />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/admin-panel" element={<AdminDashboard />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/sao" element={<SAOLibrary />} />
+                <Route
+                  path="/progressive"
+                  element={<SAOProgressiveLibrary />}
+                />
+                <Route path="/sideworks" element={<SideWorksLibrary />} />
+                <Route path="/anime-works" element={<AnimeWorksLibrary />} />
+                <Route
+                  path="/classic-literature"
+                  element={<ClassicLiterature />}
+                />
+                <Route path="/light-novels" element={<LightNovels />} />
+                <Route path="/all-works" element={<AllWorksLibrary />} />
+                <Route
+                  path="/reader/:series/:volumeId"
+                  element={<BookReader />}
+                />
+                <Route path="/login" element={<Login />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/admin-panel" element={<AdminDashboard />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
           </TooltipProvider>
         </QueryClientProvider>
       </SecurityProvider>

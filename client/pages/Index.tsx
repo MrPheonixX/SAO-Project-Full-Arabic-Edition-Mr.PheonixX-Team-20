@@ -25,7 +25,12 @@ import {
   Globe,
   TrendingUp,
 } from "lucide-react";
-import { InteractiveButton, InteractiveCard, VisualEffectsComponent, InteractiveExperience } from "@/components/InteractiveElements";
+import {
+  InteractiveButton,
+  InteractiveCard,
+  VisualEffectsComponent,
+  InteractiveExperience,
+} from "@/components/InteractiveElements";
 
 export default function Index() {
   const navigate = useNavigate();
@@ -486,7 +491,6 @@ export default function Index() {
                 <Download className="w-5 h-5 mr-2" />
                 دخول للمكتبة
               </InteractiveButton>
-
             </div>
           </div>
         </section>

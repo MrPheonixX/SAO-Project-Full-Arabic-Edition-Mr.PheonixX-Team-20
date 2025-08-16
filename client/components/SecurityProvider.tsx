@@ -271,11 +271,29 @@ export const SecurityProvider: React.FC<SecurityProviderProps> = ({
   return (
     <SecurityContext.Provider value={contextValue}>
       {isSecurityActive && adBlockDetected ? (
-        <div style={{position:'fixed',inset:0 as any,background:'rgba(0,0,0,0.95)',color:'#fff',zIndex:99999,display:'flex',alignItems:'center',justifyContent:'center',textAlign:'center',padding:'2rem'}}>
+        <div
+          style={{
+            position: "fixed",
+            inset: 0 as any,
+            background: "rgba(0,0,0,0.95)",
+            color: "#fff",
+            zIndex: 99999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            padding: "2rem",
+          }}
+        >
           <div>
-            <div style={{fontSize: '3rem', marginBottom: '1rem'}}>🛡️</div>
-            <h2 style={{fontSize:'1.5rem',marginBottom:'0.5rem'}}>تم اكتشاف مانع الإعلانات</h2>
-            <p style={{color:'#9ca3af'}}>يرجى تعطيل مانع الإعلانات لمتابعة التصفح. المحتوى للعرض فقط ومحمّي من النسخ والتحميل.</p>
+            <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>🛡️</div>
+            <h2 style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>
+              تم اكتشاف مانع الإعلانات
+            </h2>
+            <p style={{ color: "#9ca3af" }}>
+              يرجى تعطيل مانع الإعلانات لمتابعة التصفح. المحتوى للعرض فقط ومحمّي
+              من النسخ والتحميل.
+            </p>
           </div>
         </div>
       ) : null}
