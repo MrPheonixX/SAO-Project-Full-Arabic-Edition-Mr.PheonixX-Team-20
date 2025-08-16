@@ -44,7 +44,7 @@ const saoVolumes = [
     status: 'available',
     releaseDate: "2009-08-10",
     translator: "MrPheonixX Team",
-    genre: ["إيسيكاي", "أكشن", "رومانسي"],
+    genre: ["إيس��كاي", "أكشن", "رومانسي"],
     summary: "قصص جانبية من آينكراد تكشف المزيد عن العلاقات والصداقات التي تكونت في هذا العالم الخطير.",
     keyCharacters: ["كيريتو", "أسونا", "ليزبيث", "سيلكا"]
   },
@@ -85,7 +85,7 @@ const saoVolumes = [
     releaseDate: "2010-04-10",
     translator: "MrPheonixX Team",
     genre: ["إيسيكاي", "أكشن", "رومانسي", "فانتازي"],
-    summary: "المواجهة النهائية في ALfheim Online. كيريتو يواجه سوغو في معركة مصيرية لإنقاذ أسونا وكشف مؤامرته الشريرة.",
+    summary: "الم��اجهة النهائية في ALfheim Online. كيريتو يواجه سوغو في معركة مصيرية لإنقاذ أسونا وكشف مؤامرته الشريرة.",
     keyCharacters: ["كيريتو", "أسونا", "ليفا", "سوغو", "كايابا"]
   },
   {
@@ -105,7 +105,7 @@ const saoVolumes = [
     releaseDate: "2010-08-10",
     translator: "MrPheonixX Team",
     genre: ["إيسيكاي", "أكشن", "إثارة", "خيال علمي"],
-    summary: "في عالم GGO المليء بالأسلحة، كيريتو يحقق في ظاهرة Death Gun الغامضة التي تقتل اللاعبين في الواقع.",
+    summary: "في عالم GGO المليء بالأسلحة، كيريت�� يحقق في ظاهرة Death Gun الغامضة التي تقتل اللاعبين في الواقع.",
     keyCharacters: ["كيريتو", "سينون", "Death Gun", "كيريتو (GGO)"]
   },
   {
@@ -230,8 +230,51 @@ export default function SAOLibrary() {
   const [sortBy, setSortBy] = useState("number");
   const [isTTSEnabled, setIsTTSEnabled] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [pdfUrls, setPdfUrls] = useState<Record<number, string>>(saoPdfUrls);
+  const [bgOverrides, setBgOverrides] = useState<Record<number, string>>({});
+  const [titleOverrides, setTitleOverrides] = useState<Record<number, string>>({});
 
-  const filteredVolumes = saoVolumes
+  // دمج بيانات المانيفست المحلية
+  const mergedVolumes = saoVolumes.map(v => ({
+    ...v,
+    backgroundImage: bgOverrides[v.id] || v.backgroundImage,
+    titleArabic: titleOverrides[v.id] || v.titleArabic,
+  }));
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch('/works-manifest.json', { cache: 'no-cache' });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!Array.isArray(data)) return;
+        const nextPdf: Record<number, string> = { ...saoPdfUrls };
+        const nextBg: Record<number, string> = {};
+        const nextTitle: Record<number, string> = {};
+        data.forEach((item: any) => {
+          const series = String(item.series || '').toLowerCase();
+          const vol = parseInt(item.volume || item.vol || item.id);
+          const pdf = item.pdfUrlRaw || item.pdfUrl || item.url;
+          const bg = item.backgroundImage || item.cover || item.image;
+          const titleAr = item.titleAr || item.titleArabic;
+          if (series.includes('sao') && Number.isFinite(vol)) {
+            if (typeof pdf === 'string' && pdf.startsWith('http')) nextPdf[vol] = pdf;
+            if (typeof bg === 'string' && bg.startsWith('http')) nextBg[vol] = bg;
+            if (typeof titleAr === 'string' && titleAr.length > 0) nextTitle[vol] = titleAr;
+          }
+        });
+        if (!cancelled) {
+          setPdfUrls(nextPdf);
+          setBgOverrides(nextBg);
+          setTitleOverrides(nextTitle);
+        }
+      } catch {}
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
+  const filteredVolumes = mergedVolumes
     .filter(volume => 
       volume.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       volume.titleArabic.includes(searchQuery) ||
@@ -248,7 +291,13 @@ export default function SAOLibrary() {
 
   const handleVolumeSelect = (volumeId: number) => {
     setSelectedVolume(volumeId);
-    // Navigate to reader with volume ID
+    const vol = mergedVolumes.find(v => v.id === volumeId);
+    if (vol) {
+      try {
+        localStorage.setItem(`reader-cover-sao-${volumeId}`, vol.backgroundImage || '');
+        localStorage.setItem(`reader-title-sao-${volumeId}`, vol.titleArabic || vol.title);
+      } catch {}
+    }
     navigate(`/reader/sao/${volumeId}`);
   };
 
@@ -480,26 +529,6 @@ export default function SAOLibrary() {
                       {volume.readProgress > 0 ? 'متابعة القراءة' : 'ابدأ القراءة'}
                     </InteractiveButton>
                     
-                    <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="flex-1 border-blue-500/50 text-blue-300 hover:bg-blue-500/10"
-                        onClick={(e) => { e.stopPropagation(); const url = saoPdfUrls[volume.id]; if (url) window.open(url, '_blank'); }}
-                      >
-                        <Download className="w-3 h-3 mr-1" />
-                        تحميل
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="flex-1 border-red-500/50 text-red-300 hover:bg-red-500/10"
-                        onClick={(e) => { e.stopPropagation(); const url = saoPdfUrls[volume.id]; if (url) window.open(url, '_blank'); }}
-                      >
-                        <Heart className="w-3 h-3 mr-1" />
-                        إعجاب
-                      </Button>
-                    </div>
                   </div>
 
                   {/* الشخصيات الرئيسية */}
