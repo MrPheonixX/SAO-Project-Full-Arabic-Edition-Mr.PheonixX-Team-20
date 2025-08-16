@@ -40,7 +40,7 @@ const App = () => (
     <PerformanceOptimizer
       enableDebugInfo={process.env.NODE_ENV === "development"}
     >
-      <SecurityProvider enableSecurity={false}>
+      <SecurityProvider enableSecurity={true}>
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
             <Toaster />
