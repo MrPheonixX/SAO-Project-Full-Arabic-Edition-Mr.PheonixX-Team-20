@@ -38,13 +38,11 @@ const queryClient = new QueryClient();
 const App = () => (
   <ErrorBoundary>
     <PerformanceOptimizer enableDebugInfo={process.env.NODE_ENV === 'development'}>
-      <SecurityProvider enableSecurity={false}>
+      <SecurityProvider enableSecurity={true}>
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
             <Toaster />
             <Sonner />
-            <AnimeEmojiNotifications />
-            <AdvancedAnimeSystem />
             <UIEnhancements />
           <BrowserRouter>
             <Routes>

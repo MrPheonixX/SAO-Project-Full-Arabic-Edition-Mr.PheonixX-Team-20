@@ -472,10 +472,10 @@ export default function Index() {
               <InteractiveButton
                 variant="energy"
                 size="lg"
-                onClick={() => navigate("/sao")}
+                onClick={() => navigate("/all-works")}
               >
                 <Zap className="w-5 h-5 mr-2" />
-                استكشف السيرفرات
+                استكشف المكتبة
               </InteractiveButton>
 
               <InteractiveButton
@@ -487,14 +487,6 @@ export default function Index() {
                 دخول للمكتبة
               </InteractiveButton>
 
-              <InteractiveButton
-                variant="ice"
-                size="lg"
-                onClick={() => navigate("/all-works")}
-              >
-                <BookOpen className="w-5 h-5 mr-2" />
-                المكتبة الشاملة
-              </InteractiveButton>
             </div>
           </div>
         </section>
@@ -518,7 +510,7 @@ export default function Index() {
               <div className="text-6xl font-bold text-violet-400 mb-2">
                 +{stats.translatedVolumes}
               </div>
-              <p className="text-gray-400">م��لد مترجم</p>
+              <p className="text-gray-400">مجلد مترجم</p>
             </div>
           </div>
         </section>
@@ -660,7 +652,7 @@ export default function Index() {
         {/* Side Works Preview */}
         <section className="mb-20">
           <h3 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            أعمال إضافية مميزة
+            أعمال إضافي�� مميزة
           </h3>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <Card className="bg-gradient-to-br from-gray-800/50 to-gray-700/50 border-gray-500/30 backdrop-blur-xl hover:border-gray-400/50 transition-all duration-300">
