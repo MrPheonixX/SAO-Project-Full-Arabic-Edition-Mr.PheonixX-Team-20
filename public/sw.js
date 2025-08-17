@@ -29,32 +29,50 @@ const DYNAMIC_ROUTES = [
   "/profile",
 ];
 
-// Install event - cache static files
+// Install event - cache static files and PDFs from manifest
 self.addEventListener("install", (event) => {
   console.log("🛡️ MrPheonixX SAO Reader - Service Worker Installing...");
 
   event.waitUntil(
-    Promise.all([
-      // Cache static files
-      caches.open(STATIC_CACHE).then((cache) => {
-        console.log("📦 Caching static files...");
-        return cache.addAll(STATIC_FILES);
-      }),
+    (async () => {
+      try {
+        await Promise.all([
+          // Cache static files
+          caches.open(STATIC_CACHE).then((cache) => {
+            console.log("📦 Caching static files...");
+            return cache.addAll(STATIC_FILES);
+          }),
+          // Cache shell for offline reading
+          caches.open(READING_CACHE).then((cache) => {
+            console.log("📚 Preparing offline reading cache...");
+            return cache.addAll(["/offline.html", "/reader-offline.html"]);
+          }),
+        ]);
 
-      // Cache shell for offline reading
-      caches.open(READING_CACHE).then((cache) => {
-        console.log("📚 Preparing offline reading cache...");
-        return cache.addAll(["/offline.html", "/reader-offline.html"]);
-      }),
-    ])
-      .then(() => {
+        // Pre-cache PDFs from local manifest if available
+        try {
+          const res = await fetch('/works-manifest.json', { cache: 'no-cache' });
+          if (res.ok) {
+            const manifest = await res.json();
+            const pdfUrls = (Array.isArray(manifest) ? manifest : [])
+              .map((item) => item.pdfUrlRaw)
+              .filter((u) => typeof u === 'string' && u.startsWith('http'));
+            if (pdfUrls.length) {
+              const cache = await caches.open(READING_CACHE);
+              await Promise.allSettled(pdfUrls.map((u) => cache.add(u).catch(() => undefined)));
+              console.log(`📚 Pre-cached ${pdfUrls.length} PDFs from manifest`);
+            }
+          }
+        } catch (e) {
+          console.warn('⚠️ Could not pre-cache PDFs from manifest', e);
+        }
+
         console.log("✅ Installation complete");
-        // Force activation of new service worker
-        return self.skipWaiting();
-      })
-      .catch((error) => {
+        await self.skipWaiting();
+      } catch (error) {
         console.error("❌ Installation failed:", error);
-      }),
+      }
+    })(),
   );
 });
 
