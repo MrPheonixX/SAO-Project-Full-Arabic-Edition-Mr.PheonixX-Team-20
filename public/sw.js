@@ -188,6 +188,24 @@ async function handleApiRequest(request) {
   }
 }
 
+// Handle PDF requests (cache first)
+async function handlePdfRequest(request) {
+  try {
+    const cache = await caches.open(READING_CACHE);
+    const cached = await cache.match(request);
+    if (cached) return cached;
+
+    const networkResponse = await fetch(request, { mode: 'cors' });
+    if (networkResponse.ok) {
+      cache.put(request, networkResponse.clone());
+    }
+    return networkResponse;
+  } catch (e) {
+    console.warn('⚠️ PDF fetch failed', e);
+    return new Response('PDF unavailable offline', { status: 503 });
+  }
+}
+
 // Handle reader requests (cache first for offline reading)
 async function handleReaderRequest(request) {
   try {
@@ -637,7 +655,7 @@ function createOfflineReaderHTML() {
         <div class="feature-list">
           <p><strong>للاستمتاع بالقراءة غير المتصلة:</strong></p>
           <ul>
-            <li>قم ��زيارة المجلدات أثناء الاتصال بالإنترنت</li>
+            <li>قم بزيارة المجلدات أثناء الاتصال بالإنترنت</li>
             <li>سيتم حفظها تلقائياً للقراءة لاحقاً</li>
             <li>استخدم زر "حفظ للقراءة غير المتصلة" في كل مجلد</li>
           </ul>
