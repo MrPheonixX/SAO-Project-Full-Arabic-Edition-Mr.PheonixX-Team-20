@@ -137,6 +137,9 @@ self.addEventListener("fetch", (event) => {
   } else if (url.pathname.startsWith("/reader/")) {
     // Reading content - cache first for offline reading
     event.respondWith(handleReaderRequest(request));
+  } else if (request.destination === 'document' && url.pathname.endsWith('.pdf') || request.url.endsWith('.pdf')) {
+    // PDF files (external or local) - cache first in READING_CACHE
+    event.respondWith(handlePdfRequest(request));
   } else if (
     STATIC_FILES.includes(url.pathname) ||
     url.pathname.includes("/static/")
@@ -634,7 +637,7 @@ function createOfflineReaderHTML() {
         <div class="feature-list">
           <p><strong>للاستمتاع بالقراءة غير المتصلة:</strong></p>
           <ul>
-            <li>قم بزيارة المجلدات أثناء الاتصال بالإنترنت</li>
+            <li>قم ��زيارة المجلدات أثناء الاتصال بالإنترنت</li>
             <li>سيتم حفظها تلقائياً للقراءة لاحقاً</li>
             <li>استخدم زر "حفظ للقراءة غير المتصلة" في كل مجلد</li>
           </ul>
