@@ -51,20 +51,24 @@ self.addEventListener("install", (event) => {
 
         // Pre-cache PDFs from local manifest if available
         try {
-          const res = await fetch('/works-manifest.json', { cache: 'no-cache' });
+          const res = await fetch("/works-manifest.json", {
+            cache: "no-cache",
+          });
           if (res.ok) {
             const manifest = await res.json();
             const pdfUrls = (Array.isArray(manifest) ? manifest : [])
               .map((item) => item.pdfUrlRaw)
-              .filter((u) => typeof u === 'string' && u.startsWith('http'));
+              .filter((u) => typeof u === "string" && u.startsWith("http"));
             if (pdfUrls.length) {
               const cache = await caches.open(READING_CACHE);
-              await Promise.allSettled(pdfUrls.map((u) => cache.add(u).catch(() => undefined)));
+              await Promise.allSettled(
+                pdfUrls.map((u) => cache.add(u).catch(() => undefined)),
+              );
               console.log(`📚 Pre-cached ${pdfUrls.length} PDFs from manifest`);
             }
           }
         } catch (e) {
-          console.warn('⚠️ Could not pre-cache PDFs from manifest', e);
+          console.warn("⚠️ Could not pre-cache PDFs from manifest", e);
         }
 
         console.log("✅ Installation complete");
@@ -137,7 +141,10 @@ self.addEventListener("fetch", (event) => {
   } else if (url.pathname.startsWith("/reader/")) {
     // Reading content - cache first for offline reading
     event.respondWith(handleReaderRequest(request));
-  } else if (request.destination === 'document' && url.pathname.endsWith('.pdf') || request.url.endsWith('.pdf')) {
+  } else if (
+    (request.destination === "document" && url.pathname.endsWith(".pdf")) ||
+    request.url.endsWith(".pdf")
+  ) {
     // PDF files (external or local) - cache first in READING_CACHE
     event.respondWith(handlePdfRequest(request));
   } else if (
@@ -195,14 +202,14 @@ async function handlePdfRequest(request) {
     const cached = await cache.match(request);
     if (cached) return cached;
 
-    const networkResponse = await fetch(request, { mode: 'cors' });
+    const networkResponse = await fetch(request, { mode: "cors" });
     if (networkResponse.ok) {
       cache.put(request, networkResponse.clone());
     }
     return networkResponse;
   } catch (e) {
-    console.warn('⚠️ PDF fetch failed', e);
-    return new Response('PDF unavailable offline', { status: 503 });
+    console.warn("⚠️ PDF fetch failed", e);
+    return new Response("PDF unavailable offline", { status: 503 });
   }
 }
 
