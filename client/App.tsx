@@ -26,6 +26,9 @@ import AdvancedAnimeSystem from "./components/AdvancedAnimeSystem";
 import PerformanceOptimizer from "./components/PerformanceOptimizer";
 import UIEnhancements from "./components/UIEnhancements";
 import MobileOptimization from "./components/MobileOptimization";
+import AntiCopyProtection from "./components/AntiCopyProtection";
+import DevToolsBlocker from "./components/DevToolsBlocker";
+import RandomAnimeEmojis from "./components/RandomAnimeEmojis";
 
 // TypeScript declarations for global variables
 declare global {
@@ -44,6 +47,9 @@ const App = () => (
       <SecurityProvider enableSecurity={true}>
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
+            <AntiCopyProtection />
+            <DevToolsBlocker />
+            <RandomAnimeEmojis />
             <Toaster />
             <Sonner />
             <UIEnhancements />
