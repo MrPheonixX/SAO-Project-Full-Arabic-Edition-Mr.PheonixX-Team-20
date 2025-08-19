@@ -9,6 +9,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import ReadingEnhancementSystem from "@/components/ReadingEnhancementSystem";
+import PersonalizationEngine from "@/components/PersonalizationEngine";
+import ReadingAnalytics from "@/components/ReadingAnalytics";
 import {
   User,
   Settings,
@@ -28,6 +31,9 @@ import {
   Edit,
   Save,
   Sword,
+  Palette,
+  BarChart,
+  Brain,
 } from "lucide-react";
 
 interface UserProfile {
@@ -300,18 +306,21 @@ export default function Profile() {
 
         {/* Navigation Tabs */}
         <div className="mb-8">
-          <div className="flex space-x-2 bg-black/30 p-2 rounded-lg">
+          <div className="flex space-x-2 bg-black/30 p-2 rounded-lg overflow-x-auto">
             {[
               { id: "overview", label: "نظرة عامة", icon: User },
               { id: "achievements", label: "الإنجازات", icon: Award },
               { id: "statistics", label: "الإحصائيات", icon: TrendingUp },
+              { id: "analytics", label: "التحليلات الذكية", icon: BarChart },
+              { id: "personalization", label: "التخصيص", icon: Palette },
+              { id: "reading", label: "نظام القراءة", icon: Brain },
               { id: "settings", label: "الإعدادات", icon: Settings },
             ].map((tab) => (
               <Button
                 key={tab.id}
                 variant={activeTab === tab.id ? "default" : "ghost"}
                 onClick={() => setActiveTab(tab.id)}
-                className="flex-1"
+                className="flex-shrink-0 min-w-fit"
               >
                 <tab.icon className="w-4 h-4 mr-2" />
                 {tab.label}
@@ -474,6 +483,29 @@ export default function Profile() {
                 </div>
               </CardContent>
             </Card>
+          </div>
+        )}
+
+        {activeTab === "analytics" && (
+          <div className="space-y-6">
+            <ReadingAnalytics />
+          </div>
+        )}
+
+        {activeTab === "personalization" && (
+          <div className="space-y-6">
+            <PersonalizationEngine />
+          </div>
+        )}
+
+        {activeTab === "reading" && (
+          <div className="space-y-6">
+            <ReadingEnhancementSystem
+              content="هذا نموذج لنظام القراءة المتقدم. يمكنك تجربة جميع الخصائص المتاحة من خلال الشريط العلوي."
+              onSettingsChange={(settings) => {
+                console.log('إعدادات القراءة محدثة:', settings);
+              }}
+            />
           </div>
         )}
 
