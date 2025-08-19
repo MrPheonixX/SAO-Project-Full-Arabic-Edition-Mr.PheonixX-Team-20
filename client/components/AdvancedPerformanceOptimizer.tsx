@@ -73,7 +73,7 @@ const AdvancedPerformanceOptimizer: React.FC = () => {
     },
     {
       id: 'prefetch-content',
-      name: '��لتحميل المسبق',
+      name: 'التحميل المسبق',
       description: 'تحميل المحتوى المتوقع قراءته',
       impact: 'medium',
       enabled: true,
@@ -324,7 +324,7 @@ const AdvancedPerformanceOptimizer: React.FC = () => {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-gray-800 mb-2">محسن الأداء المتقدم</h2>
-            <p className="text-gray-600">مراقبة وتحسين أداء التطبيق تلقائياً</p>
+            <p className="text-gray-600">مراقبة وتحسين أداء ال��طبيق تلقائياً</p>
           </div>
           <div className="text-center">
             <div className={`text-4xl font-bold ${getScoreColor(performanceScore)}`}>

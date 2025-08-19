@@ -249,7 +249,7 @@ export const SecurityProvider: React.FC<SecurityProviderProps> = ({
       "color: #3b82f6; font-size: 24px; font-weight: bold;",
     );
     console.log(
-      "%c⚠️ تحذير: هذا الموقع محم�� من النسخ والتحميل",
+      "%c⚠️ تحذير: هذا الموقع محمي من النسخ والتحميل",
       "color: #ef4444; font-size: 16px; font-weight: bold;",
     );
     console.log(
