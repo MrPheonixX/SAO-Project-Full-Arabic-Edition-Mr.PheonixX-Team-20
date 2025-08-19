@@ -55,7 +55,7 @@ export function AnimatedNotifications({
     }
   };
 
-  // إزالة ��شعار
+  // إزالة إشعار
   const removeNotification = (id: string) => {
     setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
@@ -320,7 +320,7 @@ export function useNotifications() {
           },
           {
             label: "المساعدة",
-            action: () => alert("تعليمات تعطيل مانع الإعلانات..."),
+            action: () => alert("��عليمات تعطيل مانع الإعلانات..."),
           },
         ],
       });
