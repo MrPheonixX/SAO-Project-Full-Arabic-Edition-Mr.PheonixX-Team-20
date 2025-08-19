@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import ReadingEnhancementSystem from "@/components/ReadingEnhancementSystem";
 import PersonalizationEngine from "@/components/PersonalizationEngine";
 import ReadingAnalytics from "@/components/ReadingAnalytics";
+import SocialReadingHub from "@/components/SocialReadingHub";
 import {
   User,
   Settings,
@@ -34,6 +35,7 @@ import {
   Palette,
   BarChart,
   Brain,
+  Users,
 } from "lucide-react";
 
 interface UserProfile {
@@ -312,6 +314,7 @@ export default function Profile() {
               { id: "achievements", label: "الإنجازات", icon: Award },
               { id: "statistics", label: "الإحصائيات", icon: TrendingUp },
               { id: "analytics", label: "التحليلات الذكية", icon: BarChart },
+              { id: "social", label: "التفاعل الاجتماعي", icon: Users },
               { id: "personalization", label: "التخصيص", icon: Palette },
               { id: "reading", label: "نظام القراءة", icon: Brain },
               { id: "settings", label: "الإعدادات", icon: Settings },
@@ -489,6 +492,12 @@ export default function Profile() {
         {activeTab === "analytics" && (
           <div className="space-y-6">
             <ReadingAnalytics />
+          </div>
+        )}
+
+        {activeTab === "social" && (
+          <div className="space-y-6">
+            <SocialReadingHub />
           </div>
         )}
 
