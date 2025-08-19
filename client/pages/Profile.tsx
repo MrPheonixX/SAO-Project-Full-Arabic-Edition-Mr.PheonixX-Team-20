@@ -37,7 +37,6 @@ import {
   BarChart,
   Brain,
   Users,
-  Zap,
 } from "lucide-react";
 
 interface UserProfile {
@@ -519,7 +518,7 @@ export default function Profile() {
         {activeTab === "reading" && (
           <div className="space-y-6">
             <ReadingEnhancementSystem
-              content="هذا نموذج لنظام القراءة المتقدم. يمكنك تجربة جميع الخصائص المتاحة من خلال ��لشريط العلوي."
+              content="هذا نموذج لنظام القراءة المتقدم. يمكنك تجربة جميع الخصائص المتاحة من خلال الشريط العلوي."
               onSettingsChange={(settings) => {
                 console.log('إعدادات القراءة محدثة:', settings);
               }}

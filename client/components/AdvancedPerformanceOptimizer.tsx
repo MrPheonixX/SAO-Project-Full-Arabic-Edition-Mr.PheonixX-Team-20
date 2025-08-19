@@ -73,7 +73,7 @@ const AdvancedPerformanceOptimizer: React.FC = () => {
     },
     {
       id: 'prefetch-content',
-      name: 'التحميل المسبق',
+      name: '��لتحميل المسبق',
       description: 'تحميل المحتوى المتوقع قراءته',
       impact: 'medium',
       enabled: true,
@@ -165,9 +165,9 @@ const AdvancedPerformanceOptimizer: React.FC = () => {
     // Device performance estimation
     const estimateDevicePerformance = () => {
       const canvas = document.createElement('canvas');
-      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-      
-      if (gl) {
+      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl') as WebGLRenderingContext;
+
+      if (gl && 'getParameter' in gl) {
         const vendor = gl.getParameter(gl.VENDOR);
         const renderer = gl.getParameter(gl.RENDERER);
         
