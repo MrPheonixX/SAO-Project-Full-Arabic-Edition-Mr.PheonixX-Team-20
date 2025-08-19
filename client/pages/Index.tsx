@@ -31,6 +31,7 @@ import {
   VisualEffectsComponent,
   InteractiveExperience,
 } from "@/components/InteractiveElements";
+import AdvancedFeaturesDashboard from "@/components/AdvancedFeaturesDashboard";
 
 export default function Index() {
   const navigate = useNavigate();
@@ -547,7 +548,7 @@ export default function Index() {
 
             <CardContent className="relative z-10">
               <p className="text-gray-300 mb-6 leading-relaxed">
-                القصة الأصلية لكيريتو وأسونا في عالم ساو الافتراضي. مغامرة
+                القصة الأصلية لكيريتو وأسونا في عالم س��و الافتراضي. مغامرة
                 ملحمية تمتد عبر عوالم متعددة مع ترجمة دقيقة ومراجعة احترافية.
               </p>
 
@@ -647,7 +648,7 @@ export default function Index() {
                 className="w-full group-hover:scale-105 transition-all duration-300 text-lg py-6"
               >
                 <Play className="w-5 h-5 mr-2" />
-                ابدأ ا��قراءة الآن
+                ابدأ القراءة الآن
               </InteractiveButton>
             </CardContent>
           </InteractiveCard>
@@ -750,7 +751,7 @@ export default function Index() {
                   تحويل لغة فوري
                 </CardTitle>
                 <CardDescription className="text-gray-300">
-                  أسرع الخوارزميات للترجمة الفورية
+                  أس��ع الخوارزميات للترجمة الفورية
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -795,7 +796,7 @@ export default function Index() {
                   <Play className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-orange-400 text-xl">
-                  مجموع نطق��
+                  مجموع نطقي
                 </CardTitle>
                 <CardDescription className="text-gray-300">
                   قراءة الأصوات العربية بتق��يات متطورة
@@ -875,7 +876,7 @@ export default function Index() {
                   <div className="text-4xl font-bold text-purple-400 mb-2 animate-pulse">
                     {stats.readers.toLocaleString()}+
                   </div>
-                  <p className="text-gray-300">قارئ نشط</p>
+                  <p className="text-gray-300">ق��رئ نشط</p>
                 </div>
                 <div className="text-center">
                   <div className="text-4xl font-bold text-blue-400 mb-2 animate-pulse">
