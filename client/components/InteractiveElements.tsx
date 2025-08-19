@@ -18,24 +18,29 @@ export const InteractiveButton: React.FC<InteractiveButtonProps> = ({
   variant = "magic",
   size = "md",
   className = "",
-  disabled = false
+  disabled = false,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [particles, setParticles] = useState<Array<{id: number, x: number, y: number}>>([]);
+  const [particles, setParticles] = useState<
+    Array<{ id: number; x: number; y: number }>
+  >([]);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const variantStyles = {
-    magic: "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 border-purple-500/50",
-    energy: "bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 border-blue-500/50", 
-    crystal: "bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 border-indigo-500/50",
+    magic:
+      "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 border-purple-500/50",
+    energy:
+      "bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 border-blue-500/50",
+    crystal:
+      "bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 border-indigo-500/50",
     fire: "bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 border-red-500/50",
-    ice: "bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 border-cyan-500/50"
+    ice: "bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 border-cyan-500/50",
   };
 
   const sizeStyles = {
     sm: "px-4 py-2 text-sm",
-    md: "px-6 py-3 text-base", 
-    lg: "px-8 py-4 text-lg"
+    md: "px-6 py-3 text-base",
+    lg: "px-8 py-4 text-lg",
   };
 
   const handleMouseEnter = () => {
@@ -44,7 +49,7 @@ export const InteractiveButton: React.FC<InteractiveButtonProps> = ({
     const newParticles = Array.from({ length: 5 }, (_, i) => ({
       id: Date.now() + i,
       x: Math.random() * 100,
-      y: Math.random() * 100
+      y: Math.random() * 100,
     }));
     setParticles(newParticles);
   };
@@ -64,27 +69,29 @@ export const InteractiveButton: React.FC<InteractiveButtonProps> = ({
       className={`
         relative overflow-hidden border transition-all duration-300 
         ${variantStyles[variant]} ${sizeStyles[size]} ${className}
-        ${isHovered ? 'scale-105 shadow-2xl' : 'scale-100'}
-        ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
+        ${isHovered ? "scale-105 shadow-2xl" : "scale-100"}
+        ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
       `}
     >
       {/* خلفية متحركة */}
-      <div className={`
+      <div
+        className={`
         absolute inset-0 opacity-0 transition-opacity duration-300
-        ${isHovered ? 'opacity-20' : 'opacity-0'}
+        ${isHovered ? "opacity-20" : "opacity-0"}
         bg-gradient-to-r from-white via-transparent to-white
         animate-pulse
-      `} />
+      `}
+      />
 
       {/* جسيمات تفاعلية */}
-      {particles.map(particle => (
+      {particles.map((particle) => (
         <div
           key={particle.id}
           className="absolute w-1 h-1 bg-white rounded-full opacity-60 animate-ping"
           style={{
             left: `${particle.x}%`,
             top: `${particle.y}%`,
-            animationDelay: `${Math.random() * 0.5}s`
+            animationDelay: `${Math.random() * 0.5}s`,
           }}
         />
       ))}
@@ -109,7 +116,7 @@ export const InteractiveCard: React.FC<InteractiveCardProps> = ({
   children,
   className = "",
   onClick,
-  enableHover = true
+  enableHover = true,
 }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
@@ -117,11 +124,11 @@ export const InteractiveCard: React.FC<InteractiveCardProps> = ({
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!enableHover || !cardRef.current) return;
-    
+
     const rect = cardRef.current.getBoundingClientRect();
     setMousePosition({
       x: ((e.clientX - rect.left) / rect.width) * 100,
-      y: ((e.clientY - rect.top) / rect.height) * 100
+      y: ((e.clientY - rect.top) / rect.height) * 100,
     });
   };
 
@@ -134,7 +141,7 @@ export const InteractiveCard: React.FC<InteractiveCardProps> = ({
       onMouseLeave={() => setIsHovered(false)}
       className={`
         relative overflow-hidden transition-all duration-300 cursor-pointer
-        ${isHovered && enableHover ? 'scale-[1.02] shadow-2xl' : 'scale-100'}
+        ${isHovered && enableHover ? "scale-[1.02] shadow-2xl" : "scale-100"}
         ${className}
       `}
     >
@@ -143,21 +150,19 @@ export const InteractiveCard: React.FC<InteractiveCardProps> = ({
         <div
           className={`
             absolute w-32 h-32 rounded-full pointer-events-none transition-opacity duration-300
-            ${isHovered ? 'opacity-10' : 'opacity-0'}
+            ${isHovered ? "opacity-10" : "opacity-0"}
             bg-gradient-radial from-white to-transparent
           `}
           style={{
             left: `${mousePosition.x}%`,
             top: `${mousePosition.y}%`,
-            transform: 'translate(-50%, -50%)'
+            transform: "translate(-50%, -50%)",
           }}
         />
       )}
 
       {/* محتوى البطاقة */}
-      <div className="relative z-10">
-        {children}
-      </div>
+      <div className="relative z-10">{children}</div>
     </Card>
   );
 };
@@ -171,7 +176,7 @@ export const VisualEffectsComponent: React.FC = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     // تحديد حجم الكانفاس
@@ -181,7 +186,7 @@ export const VisualEffectsComponent: React.FC = () => {
     };
 
     resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener("resize", resizeCanvas);
 
     // إنشاء جسيمات عائمة
     const particles: Array<{
@@ -202,8 +207,10 @@ export const VisualEffectsComponent: React.FC = () => {
         vx: (Math.random() - 0.5) * 0.5,
         vy: (Math.random() - 0.5) * 0.5,
         size: Math.random() * 2 + 1,
-        color: ['#3b82f6', '#8b5cf6', '#06b6d4', '#10b981'][Math.floor(Math.random() * 4)],
-        opacity: Math.random() * 0.5 + 0.1
+        color: ["#3b82f6", "#8b5cf6", "#06b6d4", "#10b981"][
+          Math.floor(Math.random() * 4)
+        ],
+        opacity: Math.random() * 0.5 + 0.1,
       });
     }
 
@@ -211,7 +218,7 @@ export const VisualEffectsComponent: React.FC = () => {
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      particles.forEach(particle => {
+      particles.forEach((particle) => {
         // تحديث المواقع
         particle.x += particle.vx;
         particle.y += particle.vy;
@@ -238,7 +245,7 @@ export const VisualEffectsComponent: React.FC = () => {
     animate();
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener("resize", resizeCanvas);
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
@@ -260,18 +267,22 @@ export const InteractiveExperience: React.FC = () => {
   const [score, setScore] = useState(0);
 
   const effects = [
-    { id: 'lightning', name: '⚡ البرق', color: 'from-yellow-500 to-orange-500' },
-    { id: 'ice', name: '❄️ الجليد', color: 'from-cyan-500 to-blue-500' },
-    { id: 'fire', name: '🔥 النار', color: 'from-red-500 to-orange-500' },
-    { id: 'magic', name: '�� السحر', color: 'from-purple-500 to-pink-500' }
+    {
+      id: "lightning",
+      name: "⚡ البرق",
+      color: "from-yellow-500 to-orange-500",
+    },
+    { id: "ice", name: "❄️ الجليد", color: "from-cyan-500 to-blue-500" },
+    { id: "fire", name: "🔥 النار", color: "from-red-500 to-orange-500" },
+    { id: "magic", name: "�� السحر", color: "from-purple-500 to-pink-500" },
   ];
 
   const triggerEffect = (effectId: string) => {
     setActiveEffect(effectId);
-    setScore(prev => prev + 10);
-    
+    setScore((prev) => prev + 10);
+
     // إرسال حدث مخصص
-    window.dispatchEvent(new CustomEvent('sao-special-event'));
+    window.dispatchEvent(new CustomEvent("sao-special-event"));
 
     setTimeout(() => setActiveEffect(null), 2000);
   };
@@ -281,20 +292,20 @@ export const InteractiveExperience: React.FC = () => {
       <h3 className="text-3xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
         🎮 تجربة تفاعلية
       </h3>
-      
+
       <div className="mb-6">
         <span className="text-lg text-gray-300">النقاط: </span>
         <span className="text-2xl font-bold text-blue-400">{score}</span>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
-        {effects.map(effect => (
+        {effects.map((effect) => (
           <InteractiveButton
             key={effect.id}
             variant="magic"
             onClick={() => triggerEffect(effect.id)}
             className={`
-              ${activeEffect === effect.id ? 'animate-pulse scale-110' : ''}
+              ${activeEffect === effect.id ? "animate-pulse scale-110" : ""}
               bg-gradient-to-r ${effect.color}
             `}
           >
@@ -307,7 +318,7 @@ export const InteractiveExperience: React.FC = () => {
       {activeEffect && (
         <div className="fixed inset-0 pointer-events-none z-40 flex items-center justify-center">
           <div className="text-6xl animate-bounce">
-            {effects.find(e => e.id === activeEffect)?.name}
+            {effects.find((e) => e.id === activeEffect)?.name}
           </div>
         </div>
       )}
@@ -319,5 +330,5 @@ export default {
   InteractiveButton,
   InteractiveCard,
   VisualEffectsComponent,
-  InteractiveExperience
+  InteractiveExperience,
 };

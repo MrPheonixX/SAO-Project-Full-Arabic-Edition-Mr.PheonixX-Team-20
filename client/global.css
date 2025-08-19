@@ -128,7 +128,13 @@
   }
 
   /* Disable image and video dragging completely */
-  img, video, canvas, svg, iframe, embed, object {
+  img,
+  video,
+  canvas,
+  svg,
+  iframe,
+  embed,
+  object {
     -webkit-user-drag: none !important;
     -moz-user-drag: none !important;
     user-drag: none !important;
@@ -140,7 +146,9 @@
   }
 
   /* Allow text selection for input fields only */
-  input, textarea, [contenteditable="true"] {
+  input,
+  textarea,
+  [contenteditable="true"] {
     -webkit-user-select: text !important;
     -moz-user-select: text !important;
     -ms-user-select: text !important;
@@ -212,7 +220,7 @@
   /* Disable text highlighting and selection on mobile */
   * {
     -webkit-tap-highlight-color: transparent !important;
-    -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
     outline: none !important;
   }
 

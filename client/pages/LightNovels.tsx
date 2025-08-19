@@ -30,7 +30,10 @@ import {
   Shield,
   Sword,
 } from "lucide-react";
-import { InteractiveButton, InteractiveCard } from "@/components/InteractiveElements";
+import {
+  InteractiveButton,
+  InteractiveCard,
+} from "@/components/InteractiveElements";
 
 const lightNovels = [
   {
@@ -44,14 +47,15 @@ const lightNovels = [
     status: "مستمر",
     rating: 9.4,
     genre: ["إيسيكاي", "نفسي", "رومانسي", "دراما"],
-    description: "سوبارو ناتسوكي ينتقل إلى عالم فانتازي ويكتشف أن لديه قدرة على العودة من الموت. رحلة مؤلمة مليئة بالمعاناة والنمو.",
+    description:
+      "سوبارو ناتسوكي ينتقل إلى عالم فانتازي ويكتشف أن لديه قدرة على العودة من الموت. رحلة مؤلمة مليئة بالمعاناة والنمو.",
     cover: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400",
     readTime: "45 ساعة",
     chapters: 650,
     language: "عربي",
     popularity: "عالية جداً",
     themes: ["قوة الإرادة", "الحب", "التضحية", "النمو الشخصي"],
-    ageRating: "17+"
+    ageRating: "17+",
   },
   {
     id: 2,
@@ -64,14 +68,15 @@ const lightNovels = [
     status: "مستمر",
     rating: 9.1,
     genre: ["إيسيكاي", "أكشن", "كوميدي", "فانتازي"],
-    description: "لاعب يجد نفسه محاصراً في لعبة MMO كسيد الظلام مومونغا. يحكم عالماً جديداً بقوة مطلقة.",
+    description:
+      "لاعب يجد نفسه محاصراً في لعبة MMO كسيد الظلام مومونغا. يحكم عالماً جديداً بقوة مطلقة.",
     cover: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400",
     readTime: "30 ساعة",
     chapters: 400,
     language: "عربي",
     popularity: "عالية",
     themes: ["القوة", "الحكم", "الولاء", "الاستراتيجية"],
-    ageRating: "16+"
+    ageRating: "16+",
   },
   {
     id: 3,
@@ -84,14 +89,15 @@ const lightNovels = [
     status: "مكتمل",
     rating: 8.9,
     genre: ["إيسيكاي", "كوميدي", "مغامرة", "باروديا"],
-    description: "كازوما يموت بطريقة محرجة وينتقل لعالم فانتازي مع إلهة عديمة الفائدة. كوميديا خفيفة ومرحة.",
+    description:
+      "كازوما يموت بطريقة محرجة وينتقل لعالم فانتازي مع إلهة عديمة الفائدة. كوميديا خفيفة ومرحة.",
     cover: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400",
     readTime: "25 ساعة",
     chapters: 340,
     language: "عربي",
     popularity: "عالية",
     themes: ["الصداقة", "المرح", "المغامرة", "النمو"],
-    ageRating: "13+"
+    ageRating: "13+",
   },
   {
     id: 4,
@@ -104,14 +110,15 @@ const lightNovels = [
     status: "مستمر",
     rating: 9.0,
     genre: ["إيسيكاي", "استراتيجي", "كوميدي", "إثارة"],
-    description: "الأخوين سورا وشيرو ينتقلان لعالم حيث كل شيء يُحل بالألعاب. معارك ذهنية وألعاب استراتيجية معقدة.",
+    description:
+      "الأخوين سورا وشيرو ينتقلان لعالم حيث كل شيء يُحل بالألعاب. معارك ذهنية وألعاب استراتيجية معقدة.",
     cover: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400",
     readTime: "20 ساعة",
     chapters: 240,
     language: "عربي",
     popularity: "عالية",
     themes: ["الذكاء", "الألعاب", "الاستراتيجية", "الأخوة"],
-    ageRating: "15+"
+    ageRating: "15+",
   },
   {
     id: 5,
@@ -124,14 +131,15 @@ const lightNovels = [
     status: "مستمر",
     rating: 8.8,
     genre: ["إيسيكاي", "أكشن", "بناء الحضارة", "فانتازي"],
-    description: "سالاري مان يتجسد كوحل في عالم فانتازي ويبني إمبراطورية. قصة عن ب���اء الحضارة والقيادة الحكيمة.",
+    description:
+      "سالاري مان يتجسد كوحل في عالم فانتازي ويبني إمبراطورية. قصة عن ب���اء الحضارة والقيادة الحكيمة.",
     cover: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400",
     readTime: "35 ساعة",
     chapters: 420,
     language: "عربي",
     popularity: "عالية",
     themes: ["القيادة", "بناء المجتمع", "التطور", "الحكمة"],
-    ageRating: "13+"
+    ageRating: "13+",
   },
   {
     id: 6,
@@ -144,14 +152,15 @@ const lightNovels = [
     status: "مستمر",
     rating: 9.2,
     genre: ["نفسي", "إثارة", "مدرسي", "استراتيجي"],
-    description: "كيوتاكا أيانوكوجي في مدرسة نخبة حيث الطلاب يتنافسون بكل الطرق. ألعاب نفسية ومعارك ذكية.",
+    description:
+      "كيوتاكا أيانوكوجي في مدرسة نخبة حيث الطلاب يتنافسون بكل الطرق. ألعاب نفسية ومعارك ذكية.",
     cover: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400",
     readTime: "40 ساعة",
     chapters: 560,
     language: "عربي",
     popularity: "عالية جداً",
     themes: ["التنافس", "الذكاء", "المدرسة", "النفسية"],
-    ageRating: "16+"
+    ageRating: "16+",
   },
   {
     id: 7,
@@ -164,14 +173,15 @@ const lightNovels = [
     status: "مكتمل",
     rating: 9.3,
     genre: ["رومانسي", "دراما", "مدرسي", "نفسي"],
-    description: "هاتشيمان هيكيغايا شاب متشائم ينضم لنادي التطوع. قصة عن النمو الشخصي والعلاقات الإنسانية الحقيقية.",
+    description:
+      "هاتشيمان هيكيغايا شاب متشائم ينضم لنادي التطوع. قصة عن النمو الشخصي والعلاقات الإنسانية الحقيقية.",
     cover: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400",
     readTime: "30 ساعة",
     chapters: 360,
     language: "عربي",
     popularity: "عالية",
     themes: ["الحب", "النمو", "الصداقة", "فهم الذات"],
-    ageRating: "15+"
+    ageRating: "15+",
   },
   {
     id: 8,
@@ -184,15 +194,16 @@ const lightNovels = [
     status: "مستمر",
     rating: 8.7,
     genre: ["إيسيكاي", "أكشن", "مغامرة", "انتقام"],
-    description: "نافومي إيواتاني يُستدعى كبطل الدرع لكنه يُخان من الجميع. رحلة انتقام وإثبات الذات في عالم قاسٍ.",
+    description:
+      "نافومي إيواتاني يُستدعى كبطل الدرع لكنه يُخان من الجميع. رحلة انتقام وإثبات الذات في عالم قاسٍ.",
     cover: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400",
     readTime: "28 ساعة",
     chapters: 440,
     language: "عربي",
     popularity: "متوسطة",
     themes: ["الانتقام", "الثقة", "العدالة", "القوة"],
-    ageRating: "16+"
-  }
+    ageRating: "16+",
+  },
 ];
 
 export default function LightNovels() {
@@ -204,8 +215,12 @@ export default function LightNovels() {
   const [filteredNovels, setFilteredNovels] = useState(lightNovels);
 
   // استخراج جميع الأنواع والحالات
-  const allGenres = Array.from(new Set(lightNovels.flatMap(novel => novel.genre)));
-  const allStatuses = Array.from(new Set(lightNovels.map(novel => novel.status)));
+  const allGenres = Array.from(
+    new Set(lightNovels.flatMap((novel) => novel.genre)),
+  );
+  const allStatuses = Array.from(
+    new Set(lightNovels.map((novel) => novel.status)),
+  );
 
   // تصفية الروايات
   useEffect(() => {
@@ -213,23 +228,24 @@ export default function LightNovels() {
 
     // تصفية حسب البحث
     if (searchTerm) {
-      filtered = filtered.filter(novel => 
-        novel.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        novel.arabicTitle.includes(searchTerm) ||
-        novel.author.includes(searchTerm)
+      filtered = filtered.filter(
+        (novel) =>
+          novel.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          novel.arabicTitle.includes(searchTerm) ||
+          novel.author.includes(searchTerm),
       );
     }
 
     // تصفية حسب النوع
     if (selectedGenres.length > 0) {
-      filtered = filtered.filter(novel => 
-        selectedGenres.some(genre => novel.genre.includes(genre))
+      filtered = filtered.filter((novel) =>
+        selectedGenres.some((genre) => novel.genre.includes(genre)),
       );
     }
 
     // تصفية حسب الحالة
     if (selectedStatus) {
-      filtered = filtered.filter(novel => novel.status === selectedStatus);
+      filtered = filtered.filter((novel) => novel.status === selectedStatus);
     }
 
     // ترتيب النتائج
@@ -242,9 +258,17 @@ export default function LightNovels() {
         case "volumes":
           return b.volumes - a.volumes;
         case "popularity":
-          const popularityOrder = { "عالية جداً": 4, "عالية": 3, "متوسطة": 2, "منخفضة": 1 };
-          return (popularityOrder[b.popularity as keyof typeof popularityOrder] || 0) - 
-                 (popularityOrder[a.popularity as keyof typeof popularityOrder] || 0);
+          const popularityOrder = {
+            "عالية جداً": 4,
+            عالية: 3,
+            متوسطة: 2,
+            منخفضة: 1,
+          };
+          return (
+            (popularityOrder[b.popularity as keyof typeof popularityOrder] ||
+              0) -
+            (popularityOrder[a.popularity as keyof typeof popularityOrder] || 0)
+          );
         default:
           return 0;
       }
@@ -254,36 +278,50 @@ export default function LightNovels() {
   }, [searchTerm, selectedGenres, selectedStatus, sortBy]);
 
   const toggleGenre = (genre: string) => {
-    setSelectedGenres(prev => 
-      prev.includes(genre) 
-        ? prev.filter(g => g !== genre)
-        : [...prev, genre]
+    setSelectedGenres((prev) =>
+      prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre],
     );
   };
 
   const getPopularityColor = (popularity: string) => {
     switch (popularity) {
-      case "عالية جداً": return "text-red-400 border-red-500/50";
-      case "عالية": return "text-orange-400 border-orange-500/50";
-      case "متوسطة": return "text-yellow-400 border-yellow-500/50";
-      case "منخفضة": return "text-gray-400 border-gray-500/50";
-      default: return "text-gray-400 border-gray-500/50";
+      case "عالية جداً":
+        return "text-red-400 border-red-500/50";
+      case "عالية":
+        return "text-orange-400 border-orange-500/50";
+      case "متوسطة":
+        return "text-yellow-400 border-yellow-500/50";
+      case "منخفضة":
+        return "text-gray-400 border-gray-500/50";
+      default:
+        return "text-gray-400 border-gray-500/50";
     }
   };
 
   const getGenreIcon = (genre: string) => {
     switch (genre) {
-      case "إيسيكاي": return "🌟";
-      case "أكشن": return "⚔️";
-      case "رومانسي": return "💖";
-      case "كوميدي": return "😄";
-      case "نفسي": return "🧠";
-      case "فانتازي": return "🔮";
-      case "مدرسي": return "🏫";
-      case "استراتيجي": return "♟️";
-      case "إثارة": return "🔥";
-      case "دراما": return "🎭";
-      default: return "📖";
+      case "إيسيكاي":
+        return "🌟";
+      case "أكشن":
+        return "⚔️";
+      case "رومانسي":
+        return "💖";
+      case "كوميدي":
+        return "😄";
+      case "نفسي":
+        return "🧠";
+      case "فانتازي":
+        return "🔮";
+      case "مدرسي":
+        return "🏫";
+      case "استراتيجي":
+        return "♟️";
+      case "إثارة":
+        return "🔥";
+      case "دراما":
+        return "🎭";
+      default:
+        return "📖";
     }
   };
 
@@ -292,7 +330,7 @@ export default function LightNovels() {
       {/* خلفية متحركة */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-blue-900/20 to-purple-900/20"></div>
-        
+
         {/* جسيمات عائمة */}
         {Array.from({ length: 30 }, (_, i) => (
           <div
@@ -301,7 +339,7 @@ export default function LightNovels() {
             style={{
               width: `${2 + Math.random() * 3}px`,
               height: `${2 + Math.random() * 3}px`,
-              background: ['#06b6d4', '#3b82f6', '#8b5cf6', '#ec4899'][i % 4],
+              background: ["#06b6d4", "#3b82f6", "#8b5cf6", "#ec4899"][i % 4],
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
               animation: `float ${3 + Math.random() * 4}s ease-in-out infinite`,
@@ -320,9 +358,11 @@ export default function LightNovels() {
                 <h1 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-2">
                   ⚡ الروايات الخفيفة
                 </h1>
-                <p className="text-gray-400">أحدث وأفضل الروايات الخفيفة اليابانية</p>
+                <p className="text-gray-400">
+                  أحدث وأفضل الروايات الخفيفة اليابانية
+                </p>
               </div>
-              
+
               <InteractiveButton
                 variant="crystal"
                 onClick={() => navigate("/")}
@@ -354,14 +394,14 @@ export default function LightNovels() {
                 <Filter className="w-4 h-4" />
                 ��لأنواع:
               </span>
-              {allGenres.map(genre => (
+              {allGenres.map((genre) => (
                 <button
                   key={genre}
                   onClick={() => toggleGenre(genre)}
                   className={`px-4 py-2 rounded-full text-sm transition-all duration-300 flex items-center gap-1 ${
                     selectedGenres.includes(genre)
-                      ? 'bg-cyan-500 text-white'
-                      : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50'
+                      ? "bg-cyan-500 text-white"
+                      : "bg-gray-800/50 text-gray-300 hover:bg-gray-700/50"
                   }`}
                 >
                   <span>{getGenreIcon(genre)}</span>
@@ -373,14 +413,16 @@ export default function LightNovels() {
             {/* فلتر الحالة */}
             <div className="flex flex-wrap justify-center gap-3">
               <span className="text-purple-400 font-semibold">الحالة:</span>
-              {allStatuses.map(status => (
+              {allStatuses.map((status) => (
                 <button
                   key={status}
-                  onClick={() => setSelectedStatus(selectedStatus === status ? "" : status)}
+                  onClick={() =>
+                    setSelectedStatus(selectedStatus === status ? "" : status)
+                  }
                   className={`px-4 py-2 rounded-full text-sm transition-all duration-300 ${
                     selectedStatus === status
-                      ? 'bg-purple-500 text-white'
-                      : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50'
+                      ? "bg-purple-500 text-white"
+                      : "bg-gray-800/50 text-gray-300 hover:bg-gray-700/50"
                   }`}
                 >
                   {status}
@@ -407,7 +449,9 @@ export default function LightNovels() {
           {/* إحصائيات */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 max-w-4xl mx-auto">
             <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/30 rounded-lg p-4 text-center">
-              <div className="text-2xl font-bold text-cyan-400">{filteredNovels.length}</div>
+              <div className="text-2xl font-bold text-cyan-400">
+                {filteredNovels.length}
+              </div>
               <div className="text-gray-400 text-sm">رواية متاحة</div>
             </div>
             <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-lg p-4 text-center">
@@ -418,13 +462,19 @@ export default function LightNovels() {
             </div>
             <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-lg p-4 text-center">
               <div className="text-2xl font-bold text-purple-400">
-                {(filteredNovels.reduce((sum, novel) => sum + novel.rating, 0) / filteredNovels.length).toFixed(1)}
+                {(
+                  filteredNovels.reduce((sum, novel) => sum + novel.rating, 0) /
+                  filteredNovels.length
+                ).toFixed(1)}
               </div>
               <div className="text-gray-400 text-sm">متوسط التقييم</div>
             </div>
             <div className="bg-gradient-to-r from-green-500/10 to-teal-500/10 border border-green-500/30 rounded-lg p-4 text-center">
               <div className="text-2xl font-bold text-green-400">
-                {filteredNovels.filter(novel => novel.status === "مستمر").length}
+                {
+                  filteredNovels.filter((novel) => novel.status === "مستمر")
+                    .length
+                }
               </div>
               <div className="text-gray-400 text-sm">رواية مستمرة</div>
             </div>
@@ -438,7 +488,7 @@ export default function LightNovels() {
                 className="bg-gradient-to-br from-gray-900/50 to-gray-800/50 border border-cyan-500/30 backdrop-blur-xl hover:border-cyan-400/50 transition-all duration-500 group relative overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                
+
                 <CardHeader className="relative z-10">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
@@ -452,11 +502,13 @@ export default function LightNovels() {
                         {novel.author} • رسوم: {novel.illustrator}
                       </CardDescription>
                     </div>
-                    
+
                     <div className="flex flex-col items-end gap-2">
                       <div className="flex items-center gap-1 bg-yellow-500/20 px-2 py-1 rounded-full">
                         <Star className="w-4 h-4 text-yellow-400" />
-                        <span className="text-yellow-400 text-sm font-bold">{novel.rating}</span>
+                        <span className="text-yellow-400 text-sm font-bold">
+                          {novel.rating}
+                        </span>
                       </div>
                       <Badge
                         variant="outline"
@@ -508,7 +560,9 @@ export default function LightNovels() {
 
                   {/* المواضيع */}
                   <div className="mb-4">
-                    <p className="text-sm text-gray-400 mb-2">المواضيع الرئيسية:</p>
+                    <p className="text-sm text-gray-400 mb-2">
+                      المواضيع الرئيسية:
+                    </p>
                     <div className="flex flex-wrap gap-1">
                       {novel.themes.slice(0, 3).map((theme) => (
                         <span
@@ -524,15 +578,18 @@ export default function LightNovels() {
                   <div className="flex items-center justify-between mb-4">
                     <Badge
                       className={`${
-                        novel.status === "مكتمل" 
+                        novel.status === "مكتمل"
                           ? "bg-green-500/20 text-green-300 border-green-500/50"
                           : "bg-blue-500/20 text-blue-300 border-blue-500/50"
                       }`}
                     >
                       {novel.status}
                     </Badge>
-                    
-                    <Badge variant="outline" className="border-gray-500/50 text-gray-300 text-xs">
+
+                    <Badge
+                      variant="outline"
+                      className="border-gray-500/50 text-gray-300 text-xs"
+                    >
                       {novel.language}
                     </Badge>
                   </div>
@@ -546,7 +603,7 @@ export default function LightNovels() {
                       <Play className="w-4 h-4 mr-2" />
                       ابدأ القراءة
                     </InteractiveButton>
-                    
+
                     <div className="flex gap-2">
                       <Button
                         variant="outline"
@@ -575,8 +632,12 @@ export default function LightNovels() {
           {filteredNovels.length === 0 && (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📚</div>
-              <h3 className="text-2xl font-bold text-gray-400 mb-2">لا توجد نتائج</h3>
-              <p className="text-gray-500">جرب البحث بكلمات مختلفة أو قم بتغيير المرشحات</p>
+              <h3 className="text-2xl font-bold text-gray-400 mb-2">
+                لا توجد نتائج
+              </h3>
+              <p className="text-gray-500">
+                جرب البحث بكلمات مختلفة أو قم بتغيير المرشحات
+              </p>
             </div>
           )}
         </main>

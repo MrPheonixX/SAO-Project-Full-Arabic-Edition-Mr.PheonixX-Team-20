@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 
 // منع النسخ والتحميل والتصوير
 const AntiCopyProtection: React.FC = () => {
@@ -16,16 +16,18 @@ const AntiCopyProtection: React.FC = () => {
     const preventDevTools = (e: KeyboardEvent) => {
       // F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S, Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
       if (
-        e.key === 'F12' ||
-        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
-        (e.ctrlKey && (e.key === 'u' || e.key === 'U')) ||
-        (e.ctrlKey && (e.key === 's' || e.key === 'S')) ||
-        (e.ctrlKey && (e.key === 'a' || e.key === 'A')) ||
-        (e.ctrlKey && (e.key === 'c' || e.key === 'C')) ||
-        (e.ctrlKey && (e.key === 'v' || e.key === 'V')) ||
-        (e.ctrlKey && (e.key === 'x' || e.key === 'X')) ||
-        (e.ctrlKey && (e.key === 'p' || e.key === 'P')) ||
-        e.key === 'PrintScreen'
+        e.key === "F12" ||
+        (e.ctrlKey &&
+          e.shiftKey &&
+          (e.key === "I" || e.key === "J" || e.key === "C")) ||
+        (e.ctrlKey && (e.key === "u" || e.key === "U")) ||
+        (e.ctrlKey && (e.key === "s" || e.key === "S")) ||
+        (e.ctrlKey && (e.key === "a" || e.key === "A")) ||
+        (e.ctrlKey && (e.key === "c" || e.key === "C")) ||
+        (e.ctrlKey && (e.key === "v" || e.key === "V")) ||
+        (e.ctrlKey && (e.key === "x" || e.key === "X")) ||
+        (e.ctrlKey && (e.key === "p" || e.key === "P")) ||
+        e.key === "PrintScreen"
       ) {
         e.preventDefault();
         e.stopPropagation();
@@ -55,36 +57,36 @@ const AntiCopyProtection: React.FC = () => {
     // كشف محاولة فتح أدوات المطور
     const detectDevTools = () => {
       const threshold = 160;
-      
+
       if (
         window.outerHeight - window.innerHeight > threshold ||
         window.outerWidth - window.innerWidth > threshold
       ) {
         // إعادة توجيه أو إخفاء المحتوى
-        document.body.style.display = 'none';
-        alert('تم اكتشاف محاولة غير مسموحة للوصول إلى المحتوى');
-        window.location.href = 'about:blank';
+        document.body.style.display = "none";
+        alert("تم اكتشاف محاولة غير مسموحة للوصول إلى المحتوى");
+        window.location.href = "about:blank";
       }
     };
 
     // كشف التقاط الشاشة
     const detectScreenshot = () => {
       // كشف الضغط على Print Screen
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'PrintScreen') {
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "PrintScreen") {
           e.preventDefault();
-          alert('التقاط الشاشة غير مسموح');
+          alert("التقاط الشاشة غير مسموح");
         }
       });
 
       // كشف فقدان التركيز (قد يشير لفتح أدوات التقاط)
-      document.addEventListener('visibilitychange', () => {
+      document.addEventListener("visibilitychange", () => {
         if (document.hidden) {
           // المستخدم غادر النافذة - قد يكون يستخدم أداة تقاط
           setTimeout(() => {
             if (!document.hidden) {
               // عاد للنافذة
-              alert('تم اكتشاف نشاط مشبوه');
+              alert("تم اكتشاف نشاط مشبوه");
             }
           }, 1000);
         }
@@ -93,7 +95,7 @@ const AntiCopyProtection: React.FC = () => {
 
     // إضافة طبقة حماية شفافة
     const createProtectionOverlay = () => {
-      const overlay = document.createElement('div');
+      const overlay = document.createElement("div");
       overlay.style.cssText = `
         position: fixed;
         top: 0;
@@ -109,16 +111,16 @@ const AntiCopyProtection: React.FC = () => {
         -ms-user-select: none;
       `;
       document.body.appendChild(overlay);
-      
+
       // منع النقر الأيمن على الطبقة
-      overlay.addEventListener('contextmenu', preventContextMenu);
-      
+      overlay.addEventListener("contextmenu", preventContextMenu);
+
       return overlay;
     };
 
     // إضافة CSS لمنع التحديد والسحب
     const addProtectionCSS = () => {
-      const style = document.createElement('style');
+      const style = document.createElement("style");
       style.textContent = `
         * {
           -webkit-user-select: none !important;
@@ -156,7 +158,7 @@ const AntiCopyProtection: React.FC = () => {
     // منع التصوير عبر الهاتف أو الكاميرا الخارجية
     const preventExternalCapture = () => {
       // إضافة علامة مائية متحركة
-      const watermark = document.createElement('div');
+      const watermark = document.createElement("div");
       watermark.style.cssText = `
         position: fixed;
         top: 50%;
@@ -171,10 +173,10 @@ const AntiCopyProtection: React.FC = () => {
         text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         animation: float 6s ease-in-out infinite;
       `;
-      watermark.textContent = 'MrPheonixX © محمي';
-      
+      watermark.textContent = "MrPheonixX © محمي";
+
       // إضافة CSS للحركة
-      const animationStyle = document.createElement('style');
+      const animationStyle = document.createElement("style");
       animationStyle.textContent = `
         @keyframes float {
           0%, 100% { transform: translate(-50%, -50%) rotate(-45deg) scale(1); }
@@ -189,23 +191,23 @@ const AntiCopyProtection: React.FC = () => {
     const detectNetworkTools = () => {
       // كشف فتح نافذة جديدة لعرض المصدر
       const originalOpen = window.open;
-      window.open = function(...args) {
-        alert('فتح النوافذ الجديدة غير مسموح');
+      window.open = function (...args) {
+        alert("فتح النوافذ الجديدة غير مسموح");
         return null;
       };
 
       // منع طباعة الصفحة
-      window.addEventListener('beforeprint', (e) => {
+      window.addEventListener("beforeprint", (e) => {
         e.preventDefault();
-        alert('طباعة الصفحة غير مسموحة');
+        alert("طباعة الصفحة غير مسموحة");
         return false;
       });
 
       // منع حفظ الصفحة
-      document.addEventListener('keydown', (e) => {
-        if (e.ctrlKey && e.key === 's') {
+      document.addEventListener("keydown", (e) => {
+        if (e.ctrlKey && e.key === "s") {
           e.preventDefault();
-          alert('حفظ الصفحة غير مسموح');
+          alert("حفظ الصفحة غير مسموح");
         }
       });
     };
@@ -218,22 +220,22 @@ const AntiCopyProtection: React.FC = () => {
     detectNetworkTools();
 
     // ��ضافة المستمعين
-    document.addEventListener('contextmenu', preventRightClick);
-    document.addEventListener('keydown', preventDevTools);
-    document.addEventListener('selectstart', preventSelection);
-    document.addEventListener('dragstart', preventDragDrop);
-    document.addEventListener('drop', preventDragDrop);
+    document.addEventListener("contextmenu", preventRightClick);
+    document.addEventListener("keydown", preventDevTools);
+    document.addEventListener("selectstart", preventSelection);
+    document.addEventListener("dragstart", preventDragDrop);
+    document.addEventListener("drop", preventDragDrop);
 
     // كشف أدوات المطور كل ثانية
     const devToolsInterval = setInterval(detectDevTools, 1000);
 
     // إزالة المستمعين عند إلغاء التحميل
     return () => {
-      document.removeEventListener('contextmenu', preventRightClick);
-      document.removeEventListener('keydown', preventDevTools);
-      document.removeEventListener('selectstart', preventSelection);
-      document.removeEventListener('dragstart', preventDragDrop);
-      document.removeEventListener('drop', preventDragDrop);
+      document.removeEventListener("contextmenu", preventRightClick);
+      document.removeEventListener("keydown", preventDevTools);
+      document.removeEventListener("selectstart", preventSelection);
+      document.removeEventListener("dragstart", preventDragDrop);
+      document.removeEventListener("drop", preventDragDrop);
       clearInterval(devToolsInterval);
     };
   }, []);

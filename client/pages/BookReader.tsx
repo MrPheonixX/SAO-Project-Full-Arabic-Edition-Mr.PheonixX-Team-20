@@ -3,22 +3,22 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  ArrowLeft, 
-  ChevronLeft, 
-  ChevronRight, 
-  RotateCcw, 
-  BookOpen, 
-  Scroll, 
-  Layers, 
-  Volume2, 
+import {
+  ArrowLeft,
+  ChevronLeft,
+  ChevronRight,
+  RotateCcw,
+  BookOpen,
+  Scroll,
+  Layers,
+  Volume2,
   VolumeX,
   Sun,
   Moon,
   Eye,
   ZoomIn,
   ZoomOut,
-  Settings
+  Settings,
 } from "lucide-react";
 
 type ReadingMode = "scroll" | "flipbook" | "slide";
@@ -54,12 +54,18 @@ export default function BookReader() {
     ];
 
     return {
-      title: series === "sao" ? `Sword Art Online Volume ${volumeId}` : `SAO Progressive Volume ${volumeId}`,
-      titleArabic: series === "sao" ? `سيف آرت أونلاين المجلد ${volumeId}` : `ساو بروجرسيف المجلد ${volumeId}`,
+      title:
+        series === "sao"
+          ? `Sword Art Online Volume ${volumeId}`
+          : `SAO Progressive Volume ${volumeId}`,
+      titleArabic:
+        series === "sao"
+          ? `سيف آرت أونلاين المجلد ${volumeId}`
+          : `ساو بروجرسيف المجلد ${volumeId}`,
       totalPages: 250,
       currentProgress: 0,
       backgroundImage: backgrounds[volumeNumber - 1] || backgrounds[0],
-      volumeNumber
+      volumeNumber,
     };
   };
 
@@ -78,7 +84,7 @@ export default function BookReader() {
       title: bookData.titleArabic,
       subtitle: `المجلد ${bookData.volumeNumber}`,
       isFirstPage: true,
-      audioText: `صورة خلفية ${bookData.titleArabic}`
+      audioText: `صورة خلفية ${bookData.titleArabic}`,
     });
 
     // باقي الصفحات: النص العادي
@@ -103,7 +109,7 @@ export default function BookReader() {
             </div>
           </div>
         `,
-        audioText: `الصفحة ${i} من ${bookData.titleArabic}`
+        audioText: `الصفحة ${i} من ${bookData.titleArabic}`,
       });
     }
 
@@ -114,7 +120,9 @@ export default function BookReader() {
 
   useEffect(() => {
     // Load saved progress
-    const savedPage = localStorage.getItem(`book-progress-${series}-${volumeId}`);
+    const savedPage = localStorage.getItem(
+      `book-progress-${series}-${volumeId}`,
+    );
     if (savedPage) {
       const pageNum = parseInt(savedPage);
       setCurrentPage(pageNum >= 0 ? pageNum : 0); // تأكد من أن الصفحة صحيحة
@@ -130,7 +138,10 @@ export default function BookReader() {
 
   useEffect(() => {
     // Save progress
-    localStorage.setItem(`book-progress-${series}-${volumeId}`, currentPage.toString());
+    localStorage.setItem(
+      `book-progress-${series}-${volumeId}`,
+      currentPage.toString(),
+    );
   }, [currentPage, series, volumeId]);
 
   const nextPage = () => {
@@ -162,7 +173,7 @@ export default function BookReader() {
     } else {
       const currentPageData = mockPages[currentPage];
       const utterance = new SpeechSynthesisUtterance(currentPageData.audioText);
-      utterance.lang = 'ar-SA';
+      utterance.lang = "ar-SA";
       utterance.onend = () => setIsTTSPlaying(false);
       speechSynthesis.speak(utterance);
       setIsTTSPlaying(true);
@@ -186,9 +197,9 @@ export default function BookReader() {
       className="relative w-full h-[80vh] flex items-center justify-center overflow-hidden rounded-lg max-w-4xl mx-auto"
       style={{
         backgroundImage: `url(${page.backgroundImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
       {/* تدرج للنص */}
@@ -203,8 +214,12 @@ export default function BookReader() {
           {page.subtitle}
         </p>
         <div className="bg-black/50 backdrop-blur-sm rounded-lg p-4 inline-block">
-          <p className="text-lg text-gray-300 mb-2">ترجمة ومراجعة: فريق MrPheonixX</p>
-          <p className="text-sm text-gray-400">باستخدام DeepL Premium مع المراجعة اليدوية</p>
+          <p className="text-lg text-gray-300 mb-2">
+            ترجمة ومراجعة: فريق MrPheonixX
+          </p>
+          <p className="text-sm text-gray-400">
+            باستخدام DeepL Premium مع المراجعة اليدوية
+          </p>
         </div>
       </div>
     </div>
@@ -285,7 +300,10 @@ export default function BookReader() {
   };
 
   return (
-    <div className={`min-h-screen ${getThemeClasses()} transition-all duration-300`} ref={readerRef}>
+    <div
+      className={`min-h-screen ${getThemeClasses()} transition-all duration-300`}
+      ref={readerRef}
+    >
       {/* Header Controls */}
       {showControls && (
         <header className="sticky top-0 z-50 bg-black/90 backdrop-blur-sm border-b border-gray-700">
@@ -296,16 +314,22 @@ export default function BookReader() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => navigate(series === "sao" ? "/sao" : "/progressive")}
+                  onClick={() =>
+                    navigate(series === "sao" ? "/sao" : "/progressive")
+                  }
                   className="text-blue-400 hover:text-blue-300"
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   العودة
                 </Button>
                 <div>
-                  <h1 className="text-lg font-bold text-white">{bookData.titleArabic}</h1>
+                  <h1 className="text-lg font-bold text-white">
+                    {bookData.titleArabic}
+                  </h1>
                   <p className="text-sm text-gray-400">
-                    {currentPage === 0 ? 'صفحة الخلفية' : `الصفحة ${currentPage} من ${mockPages.length - 1}`}
+                    {currentPage === 0
+                      ? "صفحة الخلفية"
+                      : `الصفحة ${currentPage} من ${mockPages.length - 1}`}
                   </p>
                 </div>
               </div>
@@ -346,9 +370,13 @@ export default function BookReader() {
                   onClick={toggleTTS}
                   className={isTTSPlaying ? "text-green-400" : "text-gray-400"}
                 >
-                  {isTTSPlaying ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+                  {isTTSPlaying ? (
+                    <Volume2 className="w-4 h-4" />
+                  ) : (
+                    <VolumeX className="w-4 h-4" />
+                  )}
                 </Button>
-                
+
                 <div className="flex space-x-1">
                   <Button
                     variant={theme === "light" ? "default" : "ghost"}
@@ -397,9 +425,7 @@ export default function BookReader() {
       )}
 
       {/* Main Reader Content */}
-      <main className="container mx-auto px-4 py-8">
-        {renderReader()}
-      </main>
+      <main className="container mx-auto px-4 py-8">{renderReader()}</main>
 
       {/* Navigation Controls for non-scroll modes */}
       {readingMode !== "scroll" && showControls && (
@@ -415,11 +441,13 @@ export default function BookReader() {
               <ChevronRight className="w-5 h-5" />
               السابق
             </Button>
-            
+
             <div className="text-white text-sm font-medium">
-              {currentPage === 0 ? 'خلفية' : `${currentPage} / ${mockPages.length - 1}`}
+              {currentPage === 0
+                ? "خلفية"
+                : `${currentPage} / ${mockPages.length - 1}`}
             </div>
-            
+
             <Button
               variant="ghost"
               size="sm"
@@ -436,7 +464,7 @@ export default function BookReader() {
 
       {/* Progress Bar */}
       <div className="fixed bottom-0 left-0 right-0 h-1 bg-gray-800 z-40">
-        <div 
+        <div
           className="h-full bg-gradient-to-r from-blue-500 to-violet-500 transition-all duration-300"
           style={{ width: `${(currentPage / mockPages.length) * 100}%` }}
         />

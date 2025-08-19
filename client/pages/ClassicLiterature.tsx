@@ -28,7 +28,10 @@ import {
   Calendar,
   User,
 } from "lucide-react";
-import { InteractiveButton, InteractiveCard } from "@/components/InteractiveElements";
+import {
+  InteractiveButton,
+  InteractiveCard,
+} from "@/components/InteractiveElements";
 
 const classicWorks = [
   {
@@ -43,11 +46,12 @@ const classicWorks = [
     status: "مكتمل",
     rating: 9.3,
     genre: ["أدب كلاسيكي", "نفسي", "فلسفي"],
-    description: "رواية يابانية كلاسيكية تستكشف الطبيعة البشرية والصداقة والخيانة. قصة عميقة عن الذنب والندم في اليابان الحديثة المبكرة.",
+    description:
+      "رواية يابانية كلاسيكية تستكشف الطبيعة البشرية والصداقة والخيانة. قصة عميقة عن الذنب والندم في اليابان الحديثة المبكرة.",
     readTime: "6 ساعات",
     language: "عربي",
     difficulty: "متوسط",
-    themes: ["الصداقة", "الخيانة", "الذنب", "الحداثة"]
+    themes: ["الصداقة", "الخيانة", "الذنب", "الحداثة"],
   },
   {
     id: 2,
@@ -61,11 +65,12 @@ const classicWorks = [
     status: "مكتمل",
     rating: 9.1,
     genre: ["أدب كلاسيكي", "نفسي", "سيرة ذاتية"],
-    description: "عمل أدبي ياباني مؤثر يحكي قصة رجل يشعر بالاغتراب التام عن المجتمع. تحفة أدبية عن الاكتئاب والعزلة النفسية.",
+    description:
+      "عمل أدبي ياباني مؤثر يحكي قصة رجل يشعر بالاغتراب التام عن المجتمع. تحفة أدبية عن الاكتئاب والعزلة النفسية.",
     readTime: "4 ساعات",
     language: "عربي",
     difficulty: "متقدم",
-    themes: ["الاغتراب", "الاكتئاب", "الهوية", "المجتمع"]
+    themes: ["الاغتراب", "الاكتئاب", "الهوية", "المجتمع"],
   },
   {
     id: 3,
@@ -79,11 +84,12 @@ const classicWorks = [
     status: "مكتمل",
     rating: 9.4,
     genre: ["أدب كلاسيكي", "رومانسي", "شاعري"],
-    description: "رواية شاعرية جميلة عن الحب والفراق في منطقة جبلية مغطاة بالثلوج. فاز المؤلف بجائزة نوبل للآداب.",
+    description:
+      "رواية شاعرية جميلة عن الحب والفراق في منطقة جبلية مغطاة بالثلوج. فاز المؤلف بجائزة نوبل للآداب.",
     readTime: "5 ساعات",
     language: "عربي",
     difficulty: "متوسط",
-    themes: ["الحب", "الطبيعة", "الجمال", "الزوال"]
+    themes: ["الحب", "الطبيعة", "الجمال", "الزوال"],
   },
   {
     id: 4,
@@ -97,11 +103,12 @@ const classicWorks = [
     status: "مكتمل",
     rating: 8.9,
     genre: ["أدب معاصر", "نفسي", "كوميدي سوداء"],
-    description: "رواية مظلمة وكوميدية عن شاب انطوائي يعاني من جنون العظمة. نظرة صادقة على ثقافة الـ otaku والعزلة الاجتماعية.",
+    description:
+      "رواية مظلمة وكوميدية عن شاب انطوائي يعاني من جنون العظمة. نظرة صادقة على ثقافة الـ otaku والعزلة الاجتماعية.",
     readTime: "8 ساعات",
     language: "عربي",
     difficulty: "متوسط",
-    themes: ["العزلة", "جنون العظمة", "ثقافة الأوتاكو", "المجتمع الياباني"]
+    themes: ["العزلة", "جنون العظمة", "ثقافة الأوتاكو", "المجتمع الياباني"],
   },
   {
     id: 5,
@@ -115,11 +122,12 @@ const classicWorks = [
     status: "مكتمل",
     rating: 9.0,
     genre: ["أدب معاصر", "رومانسي", "درامي"],
-    description: "قصة حب معقدة في اليابان في الستينات. رواية عن الشباب والحب والفقدان مع أجواء موراكامي المميزة.",
+    description:
+      "قصة حب معقدة في اليابان في الستينات. رواية عن الشباب والحب والفقدان مع أجواء موراكامي المميزة.",
     readTime: "7 ساعات",
     language: "عربي",
     difficulty: "سهل",
-    themes: ["الحب", "الشباب", "الفقدان", "الذكريات"]
+    themes: ["الحب", "الشباب", "الفقدان", "الذكريات"],
   },
   {
     id: 6,
@@ -133,11 +141,12 @@ const classicWorks = [
     status: "مكتمل",
     rating: 9.2,
     genre: ["أدب معاصر", "خيال سحري", "فلسفي"],
-    description: "رواية سحرية وفلسفية تجمع بين الواقع والخيال. قصة فتى يهرب من المنزل ورجل يبحث عن قطة مفقودة.",
+    description:
+      "رواية سحرية وفلسفية تجمع بين الواقع والخيال. قصة فتى يهرب من المنزل ورجل يبحث عن قطة مفقودة.",
     readTime: "12 ساعة",
     language: "عربي",
     difficulty: "متقدم",
-    themes: ["الهوية", "القدر", "الذاكرة", "السحر"]
+    themes: ["الهوية", "القدر", "الذاكرة", "السحر"],
   },
   {
     id: 7,
@@ -151,11 +160,12 @@ const classicWorks = [
     status: "مكتمل",
     rating: 9.5,
     genre: ["أدب كلاسيكي", "تاريخي", "رومانسي"],
-    description: "أقدم رواية في العالم، تحكي قصة الأمير جينجي في البلاط الياباني القد��م. تحفة أدبية خالدة عن الحب والجمال.",
+    description:
+      "أقدم رواية في العالم، تحكي قصة الأمير جينجي في البلاط الياباني القد��م. تحفة أدبية خالدة عن الحب والجمال.",
     readTime: "30 ساعة",
     language: "عربي",
     difficulty: "متقدم جداً",
-    themes: ["الحب", "البلاط", "الجمال", "التاريخ الياباني"]
+    themes: ["الحب", "البلاط", "الجمال", "التاريخ الياباني"],
   },
   {
     id: 8,
@@ -169,12 +179,13 @@ const classicWorks = [
     status: "مكتمل",
     rating: 8.8,
     genre: ["أدب كلاسيكي", "عائلي", "نفسي"],
-    description: "رواية حساسة عن رجل مسن يواجه الشيخوخة وتعقيدات العلاقات العائلية. أسلوب شاعري مميز يصور الثقافة اليابانية.",
+    description:
+      "رواية حساسة عن رجل مسن يواجه الشيخوخة وتعقيدات العلاقات العائلية. أسلوب شاعري مميز يصور الثقافة اليابانية.",
     readTime: "6 ساعات",
     language: "عربي",
     difficulty: "متوسط",
-    themes: ["الشيخوخة", "العائلة", "التقاليد", "الزمن"]
-  }
+    themes: ["الشيخوخة", "العائلة", "التقاليد", "الزمن"],
+  },
 ];
 
 export default function ClassicLiterature() {
@@ -186,8 +197,12 @@ export default function ClassicLiterature() {
   const [filteredWorks, setFilteredWorks] = useState(classicWorks);
 
   // استخراج جميع الأنواع والصعوبات
-  const allGenres = Array.from(new Set(classicWorks.flatMap(work => work.genre)));
-  const allDifficulties = Array.from(new Set(classicWorks.map(work => work.difficulty)));
+  const allGenres = Array.from(
+    new Set(classicWorks.flatMap((work) => work.genre)),
+  );
+  const allDifficulties = Array.from(
+    new Set(classicWorks.map((work) => work.difficulty)),
+  );
 
   // تصفية الأعمال
   useEffect(() => {
@@ -195,23 +210,26 @@ export default function ClassicLiterature() {
 
     // تصفية حسب البحث
     if (searchTerm) {
-      filtered = filtered.filter(work => 
-        work.title.includes(searchTerm) ||
-        work.originalTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        work.author.includes(searchTerm)
+      filtered = filtered.filter(
+        (work) =>
+          work.title.includes(searchTerm) ||
+          work.originalTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          work.author.includes(searchTerm),
       );
     }
 
     // تصفية حسب النوع
     if (selectedGenres.length > 0) {
-      filtered = filtered.filter(work => 
-        selectedGenres.some(genre => work.genre.includes(genre))
+      filtered = filtered.filter((work) =>
+        selectedGenres.some((genre) => work.genre.includes(genre)),
       );
     }
 
     // تصفية حسب الصعوبة
     if (selectedDifficulty) {
-      filtered = filtered.filter(work => work.difficulty === selectedDifficulty);
+      filtered = filtered.filter(
+        (work) => work.difficulty === selectedDifficulty,
+      );
     }
 
     // ترتيب النتائج
@@ -234,20 +252,23 @@ export default function ClassicLiterature() {
   }, [searchTerm, selectedGenres, selectedDifficulty, sortBy]);
 
   const toggleGenre = (genre: string) => {
-    setSelectedGenres(prev => 
-      prev.includes(genre) 
-        ? prev.filter(g => g !== genre)
-        : [...prev, genre]
+    setSelectedGenres((prev) =>
+      prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre],
     );
   };
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case "سهل": return "text-green-400 border-green-500/50";
-      case "متوسط": return "text-yellow-400 border-yellow-500/50";
-      case "متقدم": return "text-orange-400 border-orange-500/50";
-      case "متقدم جداً": return "text-red-400 border-red-500/50";
-      default: return "text-gray-400 border-gray-500/50";
+      case "سهل":
+        return "text-green-400 border-green-500/50";
+      case "متوسط":
+        return "text-yellow-400 border-yellow-500/50";
+      case "متقدم":
+        return "text-orange-400 border-orange-500/50";
+      case "متقدم جداً":
+        return "text-red-400 border-red-500/50";
+      default:
+        return "text-gray-400 border-gray-500/50";
     }
   };
 
@@ -256,7 +277,7 @@ export default function ClassicLiterature() {
       {/* خلفية متحركة */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-indigo-900/20 to-blue-900/20"></div>
-        
+
         {/* جسيمات عائمة */}
         {Array.from({ length: 25 }, (_, i) => (
           <div
@@ -265,7 +286,7 @@ export default function ClassicLiterature() {
             style={{
               width: `${1 + Math.random() * 2}px`,
               height: `${1 + Math.random() * 2}px`,
-              background: ['#8b5cf6', '#6366f1', '#3b82f6', '#06b6d4'][i % 4],
+              background: ["#8b5cf6", "#6366f1", "#3b82f6", "#06b6d4"][i % 4],
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
               animation: `float ${4 + Math.random() * 3}s ease-in-out infinite`,
@@ -284,13 +305,12 @@ export default function ClassicLiterature() {
                 <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-2">
                   📚 الأدب الكلاسيكي الياباني
                 </h1>
-                <p className="text-gray-400">كنوز الأدب الياباني العريق والمعاصر</p>
+                <p className="text-gray-400">
+                  كنوز الأدب الياباني العريق والمعاصر
+                </p>
               </div>
-              
-              <InteractiveButton
-                variant="magic"
-                onClick={() => navigate("/")}
-              >
+
+              <InteractiveButton variant="magic" onClick={() => navigate("/")}>
                 العودة للرئيسية
               </InteractiveButton>
             </div>
@@ -318,14 +338,14 @@ export default function ClassicLiterature() {
                 <Filter className="w-4 h-4" />
                 الأنواع:
               </span>
-              {allGenres.map(genre => (
+              {allGenres.map((genre) => (
                 <button
                   key={genre}
                   onClick={() => toggleGenre(genre)}
                   className={`px-4 py-2 rounded-full text-sm transition-all duration-300 ${
                     selectedGenres.includes(genre)
-                      ? 'bg-purple-500 text-white'
-                      : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50'
+                      ? "bg-purple-500 text-white"
+                      : "bg-gray-800/50 text-gray-300 hover:bg-gray-700/50"
                   }`}
                 >
                   {genre}
@@ -335,15 +355,21 @@ export default function ClassicLiterature() {
 
             {/* فلتر الصعوبة */}
             <div className="flex flex-wrap justify-center gap-3">
-              <span className="text-blue-400 font-semibold">مستوى الصعوبة:</span>
-              {allDifficulties.map(difficulty => (
+              <span className="text-blue-400 font-semibold">
+                مستوى الصعوبة:
+              </span>
+              {allDifficulties.map((difficulty) => (
                 <button
                   key={difficulty}
-                  onClick={() => setSelectedDifficulty(selectedDifficulty === difficulty ? "" : difficulty)}
+                  onClick={() =>
+                    setSelectedDifficulty(
+                      selectedDifficulty === difficulty ? "" : difficulty,
+                    )
+                  }
                   className={`px-4 py-2 rounded-full text-sm transition-all duration-300 ${
                     selectedDifficulty === difficulty
-                      ? 'bg-blue-500 text-white'
-                      : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50'
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-800/50 text-gray-300 hover:bg-gray-700/50"
                   }`}
                 >
                   {difficulty}
@@ -370,24 +396,33 @@ export default function ClassicLiterature() {
           {/* إحصائيات */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 max-w-4xl mx-auto">
             <div className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/30 rounded-lg p-4 text-center">
-              <div className="text-2xl font-bold text-purple-400">{filteredWorks.length}</div>
+              <div className="text-2xl font-bold text-purple-400">
+                {filteredWorks.length}
+              </div>
               <div className="text-gray-400 text-sm">عمل أدبي</div>
             </div>
             <div className="bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/30 rounded-lg p-4 text-center">
               <div className="text-2xl font-bold text-blue-400">
-                {Math.round(filteredWorks.reduce((sum, work) => sum + work.pages, 0) / 1000)}K
+                {Math.round(
+                  filteredWorks.reduce((sum, work) => sum + work.pages, 0) /
+                    1000,
+                )}
+                K
               </div>
               <div className="text-gray-400 text-sm">صفحة</div>
             </div>
             <div className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/30 rounded-lg p-4 text-center">
               <div className="text-2xl font-bold text-indigo-400">
-                {(filteredWorks.reduce((sum, work) => sum + work.rating, 0) / filteredWorks.length).toFixed(1)}
+                {(
+                  filteredWorks.reduce((sum, work) => sum + work.rating, 0) /
+                  filteredWorks.length
+                ).toFixed(1)}
               </div>
               <div className="text-gray-400 text-sm">متوسط التقييم</div>
             </div>
             <div className="bg-gradient-to-r from-green-500/10 to-teal-500/10 border border-green-500/30 rounded-lg p-4 text-center">
               <div className="text-2xl font-bold text-green-400">
-                {Math.min(...filteredWorks.map(work => work.year))}
+                {Math.min(...filteredWorks.map((work) => work.year))}
               </div>
               <div className="text-gray-400 text-sm">أقدم عمل</div>
             </div>
@@ -401,7 +436,7 @@ export default function ClassicLiterature() {
                 className="bg-gradient-to-br from-gray-900/50 to-gray-800/50 border border-purple-500/30 backdrop-blur-xl hover:border-purple-400/50 transition-all duration-500 group relative overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                
+
                 <CardHeader className="relative z-10">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
@@ -412,11 +447,13 @@ export default function ClassicLiterature() {
                         {work.originalTitle} • {work.author}
                       </CardDescription>
                     </div>
-                    
+
                     <div className="flex items-center gap-2">
                       <div className="flex items-center gap-1 bg-yellow-500/20 px-2 py-1 rounded-full">
                         <Star className="w-4 h-4 text-yellow-400" />
-                        <span className="text-yellow-400 text-sm font-bold">{work.rating}</span>
+                        <span className="text-yellow-400 text-sm font-bold">
+                          {work.rating}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -466,7 +503,9 @@ export default function ClassicLiterature() {
 
                   {/* المواضيع */}
                   <div className="mb-4">
-                    <p className="text-sm text-gray-400 mb-2">المواضيع الرئيسية:</p>
+                    <p className="text-sm text-gray-400 mb-2">
+                      المواضيع الرئيسية:
+                    </p>
                     <div className="flex flex-wrap gap-1">
                       {work.themes.slice(0, 3).map((theme) => (
                         <span
@@ -488,7 +527,7 @@ export default function ClassicLiterature() {
                       <BookOpen className="w-4 h-4 mr-2" />
                       ابدأ القراءة
                     </InteractiveButton>
-                    
+
                     <div className="flex gap-2">
                       <Button
                         variant="outline"
@@ -517,8 +556,12 @@ export default function ClassicLiterature() {
           {filteredWorks.length === 0 && (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📖</div>
-              <h3 className="text-2xl font-bold text-gray-400 mb-2">لا توجد نتائج</h3>
-              <p className="text-gray-500">جرب البحث بكلمات مختلفة أو قم بتغيير المرشحات</p>
+              <h3 className="text-2xl font-bold text-gray-400 mb-2">
+                لا توجد نتائج
+              </h3>
+              <p className="text-gray-500">
+                جرب البحث بكلمات مختلفة أو قم بتغيير المرشحات
+              </p>
             </div>
           )}
         </main>
