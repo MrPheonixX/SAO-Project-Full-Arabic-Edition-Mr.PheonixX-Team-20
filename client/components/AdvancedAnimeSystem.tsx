@@ -289,7 +289,7 @@ export default function AdvancedAnimeSystem() {
       </div>
 
       {/* إضافة CSS للأنيميشن */}
-      <style jsx>{`
+      <style>{`
         @keyframes progressBar {
           from { width: 100%; }
           to { width: 0%; }
