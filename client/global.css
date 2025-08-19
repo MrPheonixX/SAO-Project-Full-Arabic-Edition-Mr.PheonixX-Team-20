@@ -113,29 +113,138 @@
 
   /* Security: Disable right-click and text selection */
   * {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -khtml-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    -webkit-user-drag: none !important;
+    -khtml-user-drag: none !important;
+    -moz-user-drag: none !important;
+    -o-user-drag: none !important;
+    user-drag: none !important;
+    pointer-events: auto !important;
   }
 
-  /* Allow text selection for input fields */
-  input,
-  textarea,
-  [contenteditable] {
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
-    user-select: text;
+  /* Disable image and video dragging completely */
+  img, video, canvas, svg, iframe, embed, object {
+    -webkit-user-drag: none !important;
+    -moz-user-drag: none !important;
+    user-drag: none !important;
+    pointer-events: none !important;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    user-select: none !important;
   }
 
-  /* Print protection */
+  /* Allow text selection for input fields only */
+  input, textarea, [contenteditable="true"] {
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    user-select: text !important;
+    pointer-events: auto !important;
+  }
+
+  /* Comprehensive print protection */
   @media print {
     * {
       display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
     }
+    body::before {
+      content: "🚫 الطباعة غير مسموحة - المحتوى محمي بحقوق الطبع والنشر © MrPheonixX";
+      display: block !important;
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      font-size: 24px !important;
+      color: red !important;
+      background: white !important;
+      padding: 20px !important;
+      border: 3px solid red !important;
+      z-index: 999999 !important;
+    }
+  }
+
+  /* Screen capture protection */
+  @media screen and (max-resolution: 0.01dpi) {
+    * {
+      display: none !important;
+    }
+  }
+
+  /* Disable F12 and developer tools detection */
+  .developer-tools-open {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+
+  /* Anti-screenshot overlay when window focus is lost */
+  .anti-screenshot-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: #000 !important;
+    z-index: 999999 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: red !important;
+    font-size: 48px !important;
+    font-weight: bold !important;
+    text-align: center !important;
+  }
+
+  /* Disable context menu completely */
+  * {
+    -webkit-context-menu: none !important;
+    context-menu: none !important;
+  }
+
+  /* Disable text highlighting and selection on mobile */
+  * {
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+    outline: none !important;
+  }
+
+  /* Disable zoom and scroll capture */
+  body {
+    overscroll-behavior: none !important;
+    overflow-x: hidden !important;
+    touch-action: pan-y !important;
+  }
+
+  /* Hide scrollbars to prevent screenshot reference points */
+  *::-webkit-scrollbar {
+    width: 0px !important;
+    background: transparent !important;
+  }
+
+  /* Security watermark */
+  body::after {
+    content: "© MrPheonixX - محمي";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    font-size: 8rem;
+    color: rgba(255, 255, 255, 0.03);
+    pointer-events: none;
+    z-index: 999998;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    font-weight: bold;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
   }
 }
 
