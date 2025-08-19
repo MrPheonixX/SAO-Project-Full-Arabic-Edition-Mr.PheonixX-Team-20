@@ -25,6 +25,7 @@ import AnimeEmojiNotifications from "./components/AnimeEmojiNotifications";
 import AdvancedAnimeSystem from "./components/AdvancedAnimeSystem";
 import PerformanceOptimizer from "./components/PerformanceOptimizer";
 import UIEnhancements from "./components/UIEnhancements";
+import MobileOptimization from "./components/MobileOptimization";
 
 // TypeScript declarations for global variables
 declare global {
@@ -46,6 +47,7 @@ const App = () => (
             <Toaster />
             <Sonner />
             <UIEnhancements />
+            <MobileOptimization />
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Index />} />
