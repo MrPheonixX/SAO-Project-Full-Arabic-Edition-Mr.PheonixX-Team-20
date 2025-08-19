@@ -294,7 +294,7 @@ const AdvancedFeaturesDashboard: React.FC = () => {
           <Crown className="w-16 h-16 mx-auto mb-4" />
           <h3 className="text-2xl font-bold mb-4">استمتع بتجربة القراءة المتطورة</h3>
           <p className="text-lg mb-6 opacity-90">
-            اكتشف جميع الخصائص المتقدمة وشخصّ تجربة القراءة حسب تفضي��اتك
+            اكتشف جميع الخصائص المتقدمة وشخصّ تجربة القراءة حسب تفضيلاتك
           </p>
           <div className="flex gap-4 justify-center">
             <Button 

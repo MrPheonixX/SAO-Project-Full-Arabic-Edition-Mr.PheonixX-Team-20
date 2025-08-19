@@ -174,7 +174,7 @@ export default function TTSControls({
                   size={getButtonSize()}
                   onClick={handlePause}
                   className="text-yellow-400 hover:text-yellow-300 hover:bg-yellow-500/10"
-                  title="إيقاف مؤق��"
+                  title="إيقاف مؤقت"
                 >
                   <Pause
                     className={`${size === "sm" ? "w-3 h-3" : size === "lg" ? "w-6 h-6" : "w-4 h-4"}`}

@@ -40,7 +40,7 @@ export const InteractiveButton: React.FC<InteractiveButtonProps> = ({
 
   const handleMouseEnter = () => {
     setIsHovered(true);
-    // إنشاء جسيمات عند التحويم
+    // إنشاء جسيم��ت عند التحويم
     const newParticles = Array.from({ length: 5 }, (_, i) => ({
       id: Date.now() + i,
       x: Math.random() * 100,
@@ -263,7 +263,7 @@ export const InteractiveExperience: React.FC = () => {
     { id: 'lightning', name: '⚡ البرق', color: 'from-yellow-500 to-orange-500' },
     { id: 'ice', name: '❄️ الجليد', color: 'from-cyan-500 to-blue-500' },
     { id: 'fire', name: '🔥 النار', color: 'from-red-500 to-orange-500' },
-    { id: 'magic', name: '✨ السحر', color: 'from-purple-500 to-pink-500' }
+    { id: 'magic', name: '�� السحر', color: 'from-purple-500 to-pink-500' }
   ];
 
   const triggerEffect = (effectId: string) => {
@@ -279,7 +279,7 @@ export const InteractiveExperience: React.FC = () => {
   return (
     <div className="text-center py-8">
       <h3 className="text-3xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-        🎮 تجر��ة تفاعلية
+        🎮 تجربة تفاعلية
       </h3>
       
       <div className="mb-6">

@@ -69,7 +69,7 @@ export default function BookReader() {
   const createPages = () => {
     const pages = [];
 
-    // الصفحة الأولى: صورة خلفية الم��ل��
+    // الصفحة الأولى: صورة خلفية المجلد
     pages.push({
       id: 0,
       type: "cover",
@@ -96,7 +96,7 @@ export default function BookReader() {
             </p>
             <p class="text-base leading-relaxed mb-4">
               في هذا المجلد، نتابع مغامرات كيريتو وأسونا في عالم ساو الافتراضي المليء بالتحديات والمخاطر.
-              القصة مليئة بالإثارة والتشويق، وتأخذنا في رح��ة عبر طوابق أينكراد المختلفة.
+              القصة مليئة بالإثارة والتشويق، وتأخذنا في رحلة عبر طوابق أينكراد المختلفة.
             </p>
             <div class="mt-8 text-center text-sm text-gray-500">
               ترجمة ومراجعة: فريق MrPheonixX | الصفحة ${i} من ${bookData.totalPages}
@@ -326,7 +326,7 @@ export default function BookReader() {
                   onClick={() => changeReadingMode("flipbook")}
                 >
                   <BookOpen className="w-4 h-4" />
-                  كت��ب
+                  كتاب
                 </Button>
                 <Button
                   variant={readingMode === "slide" ? "default" : "ghost"}
