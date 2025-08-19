@@ -503,7 +503,7 @@ export default function Index() {
               <div className="text-6xl font-bold text-blue-400 mb-2">
                 {stats.translationQuality}%
               </div>
-              <p className="text-gray-400">��رجمة احترافية</p>
+              <p className="text-gray-400">ترجمة احترافية</p>
             </div>
             <div className="text-center">
               <div className="text-6xl font-bold text-purple-400 mb-2">
