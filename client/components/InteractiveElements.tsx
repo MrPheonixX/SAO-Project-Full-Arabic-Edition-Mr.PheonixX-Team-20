@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 // مكون الزر التفاعلي
 export interface InteractiveButtonProps {
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
   variant?: "magic" | "energy" | "crystal" | "fire" | "ice";
   size?: "sm" | "md" | "lg";
   className?: string;
@@ -154,7 +154,7 @@ export const InteractiveCard: React.FC<InteractiveCardProps> = ({
         />
       )}
 
-      {/* محتوى البطاقة */}
+      {/* محت��ى البطاقة */}
       <div className="relative z-10">
         {children}
       </div>
