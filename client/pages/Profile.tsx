@@ -13,6 +13,7 @@ import ReadingEnhancementSystem from "@/components/ReadingEnhancementSystem";
 import PersonalizationEngine from "@/components/PersonalizationEngine";
 import ReadingAnalytics from "@/components/ReadingAnalytics";
 import SocialReadingHub from "@/components/SocialReadingHub";
+import AdvancedPerformanceOptimizer from "@/components/AdvancedPerformanceOptimizer";
 import {
   User,
   Settings,
@@ -36,6 +37,7 @@ import {
   BarChart,
   Brain,
   Users,
+  Zap,
 } from "lucide-react";
 
 interface UserProfile {
@@ -315,6 +317,7 @@ export default function Profile() {
               { id: "statistics", label: "الإحصائيات", icon: TrendingUp },
               { id: "analytics", label: "التحليلات الذكية", icon: BarChart },
               { id: "social", label: "التفاعل الاجتماعي", icon: Users },
+              { id: "performance", label: "محسن الأداء", icon: Zap },
               { id: "personalization", label: "التخصيص", icon: Palette },
               { id: "reading", label: "نظام القراءة", icon: Brain },
               { id: "settings", label: "الإعدادات", icon: Settings },
@@ -501,6 +504,12 @@ export default function Profile() {
           </div>
         )}
 
+        {activeTab === "performance" && (
+          <div className="space-y-6">
+            <AdvancedPerformanceOptimizer />
+          </div>
+        )}
+
         {activeTab === "personalization" && (
           <div className="space-y-6">
             <PersonalizationEngine />
@@ -510,7 +519,7 @@ export default function Profile() {
         {activeTab === "reading" && (
           <div className="space-y-6">
             <ReadingEnhancementSystem
-              content="هذا نموذج لنظام القراءة المتقدم. يمكنك تجربة جميع الخصائص المتاحة من خلال الشريط العلوي."
+              content="هذا نموذج لنظام القراءة المتقدم. يمكنك تجربة جميع الخصائص المتاحة من خلال ��لشريط العلوي."
               onSettingsChange={(settings) => {
                 console.log('إعدادات القراءة محدثة:', settings);
               }}
