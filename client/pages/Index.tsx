@@ -548,7 +548,7 @@ export default function Index() {
 
             <CardContent className="relative z-10">
               <p className="text-gray-300 mb-6 leading-relaxed">
-                القصة الأصلية لكيريتو وأسونا في عالم س��و الافتراضي. مغامرة
+                القصة الأصلية لكيريتو وأسونا في عالم ساو الافتراضي. مغامرة
                 ملحمية تمتد عبر عوالم متعددة مع ترجمة دقيقة ومراجعة احترافية.
               </p>
 
@@ -748,7 +748,7 @@ export default function Index() {
                   <BookOpen className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-green-400 text-xl">
-                  تحويل لغة فوري
+                  تح��يل لغة فوري
                 </CardTitle>
                 <CardDescription className="text-gray-300">
                   أس��ع الخوارزميات للترجمة الفورية
