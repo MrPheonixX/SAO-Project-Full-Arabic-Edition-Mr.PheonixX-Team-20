@@ -80,7 +80,7 @@ export default function AdminDashboard() {
     {
       id: "sao_1",
       title: "SAO Volume 1",
-      titleArabic: "ساو ال��جلد 1",
+      titleArabic: "ساو المجلد 1",
       series: "sao",
       pages: 250,
       status: "published",
@@ -254,7 +254,7 @@ export default function AdminDashboard() {
                 className="w-full border-gray-500 text-gray-300"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                ال��ودة للرئيسية
+                العودة للرئيسية
               </Button>
             </div>
           </CardContent>
@@ -297,7 +297,7 @@ export default function AdminDashboard() {
                 ) : (
                   <Unlock className="w-4 h-4 mr-2" />
                 )}
-                {security.isSecurityActive ? "تعطيل الحماية" : "��فعيل الحماية"}
+                {security.isSecurityActive ? "تعطيل الحماية" : "تفعيل الحماية"}
               </Button>
 
               <Button
@@ -349,7 +349,7 @@ export default function AdminDashboard() {
                   <h3 className="text-2xl font-bold text-blue-300">
                     {stats.totalVolumes}
                   </h3>
-                  <p className="text-gray-300">إجمالي المجلدات</p>
+                  <p className="text-gray-300">إجمالي ��لمجلدات</p>
                   <Badge className="mt-2 bg-blue-500/20">
                     {stats.publishedVolumes} منشور
                   </Badge>
@@ -440,7 +440,7 @@ export default function AdminDashboard() {
               </h2>
               <Button className="bg-gradient-to-r from-green-600 to-blue-600">
                 <Plus className="w-4 h-4 mr-2" />
-                رفع ��جلد جديد
+                رفع مجلد جديد
               </Button>
             </div>
 
@@ -516,7 +516,7 @@ export default function AdminDashboard() {
         {activeTab === "users" && (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-purple-400">
-              إدارة ا��مستخدمين
+              إدارة المستخدمين
             </h2>
 
             <div className="grid gap-4">
@@ -693,7 +693,7 @@ export default function AdminDashboard() {
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <span className="text-white">كشف مانع الإ��لانات</span>
+                    <span className="text-white">كشف مانع الإعلانات</span>
                     <Button
                       variant="outline"
                       size="sm"
