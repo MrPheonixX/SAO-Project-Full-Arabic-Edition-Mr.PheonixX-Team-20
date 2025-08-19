@@ -193,8 +193,8 @@ const ReadingAnalytics: React.FC = () => {
     const mockInsights: ReadingInsight[] = [
       {
         type: 'improvement',
-        title: 'تحسن في سرعة القراءة',
-        description: 'سرعة قراءتك زادت بنسبة 12% هذا ��لأسبوع!',
+        title: 'تحسن في سرع�� القراءة',
+        description: 'سرعة قراءتك زادت بنسبة 12% هذا الأسبوع!',
         actionable: 'حافظ على هذا المعدل للوصول لهدف 100 كلمة/دقيقة',
         priority: 'high'
       },

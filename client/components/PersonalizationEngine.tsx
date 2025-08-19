@@ -231,7 +231,7 @@ const PersonalizationEngine: React.FC = () => {
   const applyTheme = (theme: PersonalTheme) => {
     const root = document.documentElement;
     
-    // تطبيق المتغي��ات CSS
+    // تطبيق المتغيرات CSS
     root.style.setProperty('--theme-primary', theme.colors.primary);
     root.style.setProperty('--theme-secondary', theme.colors.secondary);
     root.style.setProperty('--theme-accent', theme.colors.accent);

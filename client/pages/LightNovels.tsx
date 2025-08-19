@@ -124,7 +124,7 @@ const lightNovels = [
     status: "مستمر",
     rating: 8.8,
     genre: ["إيسيكاي", "أكشن", "بناء الحضارة", "فانتازي"],
-    description: "سالاري مان يتجسد كوحل في عالم فانتازي ويبني إمبراطورية. قصة عن ب��اء الحضارة والقيادة الحكيمة.",
+    description: "سالاري مان يتجسد كوحل في عالم فانتازي ويبني إمبراطورية. قصة عن ب���اء الحضارة والقيادة الحكيمة.",
     cover: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400",
     readTime: "35 ساعة",
     chapters: 420,
@@ -318,7 +318,7 @@ export default function LightNovels() {
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-2">
-                  ⚡ الروايات الخفيف��
+                  ⚡ الروايات الخفيفة
                 </h1>
                 <p className="text-gray-400">أحدث وأفضل الروايات الخفيفة اليابانية</p>
               </div>
@@ -352,7 +352,7 @@ export default function LightNovels() {
             <div className="flex flex-wrap justify-center gap-3">
               <span className="text-cyan-400 font-semibold flex items-center gap-2">
                 <Filter className="w-4 h-4" />
-                الأنواع:
+                ��لأنواع:
               </span>
               {allGenres.map(genre => (
                 <button

@@ -154,7 +154,7 @@ export const InteractiveCard: React.FC<InteractiveCardProps> = ({
         />
       )}
 
-      {/* محت��ى البطاقة */}
+      {/* محتوى البطاقة */}
       <div className="relative z-10">
         {children}
       </div>
