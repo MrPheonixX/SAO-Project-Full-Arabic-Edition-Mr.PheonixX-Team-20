@@ -72,6 +72,8 @@ const App = () => (
                 />
                 <Route path="/light-novels" element={<LightNovels />} />
                 <Route path="/all-works" element={<AllWorksLibrary />} />
+                <Route path="/pdf-works" element={<PDFWorksLibrary />} />
+                <Route path="/pdf-reader/:workId" element={<PDFReader />} />
                 <Route
                   path="/reader/:series/:volumeId"
                   element={<BookReader />}
