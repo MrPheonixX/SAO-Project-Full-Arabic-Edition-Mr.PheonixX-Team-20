@@ -197,7 +197,7 @@ const DevToolsBlocker: React.FC = () => {
       // منع window.open
       const originalOpen = window.open;
       window.open = function () {
-        alert("🚫 فتح نوافذ جديدة غير مسموح");
+        alert("🚫 فتح نوافذ جديدة غير مس��وح");
         return null;
       };
     };
@@ -311,55 +311,66 @@ const DevToolsBlocker: React.FC = () => {
       }
     };
 
-    // منع رسائل التطوير
-    const disableDevMessages = () => {
-      try {
-        // إعادة تعريف console methods بطريقة آمنة
-        const methods = [
-          "log",
-          "debug",
-          "info",
-          "warn",
-          "error",
-          "table",
-          "trace",
-          "dir",
-          "group",
-          "groupCollapsed",
-          "groupEnd",
-          "clear",
-          "count",
-          "countReset",
-          "time",
-          "timeEnd",
-          "timeLog",
-          "timeStamp",
-          "profile",
-          "profileEnd",
-          "assert",
-        ];
+    // نظام كشف البيئات البرمجية والاستثناءات
+    const isDevelopmentEnvironment = () => {
+      // كشف بيئات التطوير المشروعة
+      const devEnvironments = [
+        'localhost',
+        '127.0.0.1',
+        'builder.io',
+        'github.dev',
+        'codesandbox.io',
+        'stackblitz.com',
+        'vercel.app',
+        'netlify.app',
+        'surge.sh',
+        'glitch.me',
+        'gitpod.io',
+        'codespaces.new'
+      ];
 
-        methods.forEach((method) => {
-          try {
-            // التحقق من قابلية التعديل قبل المحاولة
-            const descriptor = Object.getOwnPropertyDescriptor(console, method);
-            if (!descriptor || descriptor.writable !== false) {
-              Object.defineProperty(console, method, {
-                value: function () {
-                  console.warn(`🚫 استخدام console.${method} غير مسموح`);
-                  // إزالة التوجيه المباشر لتجنب حلقة لا نهائية
-                },
-                writable: false,
-                configurable: false
-              });
+      const currentHost = window.location.hostname.toLowerCase();
+      const isDevHost = devEnvironments.some(env => currentHost.includes(env));
+      const isDevMode = process.env.NODE_ENV === 'development';
+      const hasDevTools = window.location.search.includes('dev=true');
+
+      return isDevHost || isDevMode || hasDevTools;
+    };
+
+    // حماية الكونسول الذكية (فقط للمستخدمين العاديين)
+    const smartConsoleProtection = () => {
+      if (isDevelopmentEnvironment()) {
+        console.log('🔧 بيئة تطوير مكتشفة - تم إيقاف حماية الكونسول');
+        return; // لا نحمي الكونسول في بيئات التطوير
+      }
+
+      try {
+        // حماية خفيفة للمستخدمين العاديين فقط
+        const originalWarn = console.warn;
+        const showWarningOnce = (() => {
+          let warningShown = false;
+          return () => {
+            if (!warningShown) {
+              originalWarn('🛡️ هذا الموقع محمي - لا تحاول الوصول للكود المصدري');
+              warningShown = true;
             }
+          };
+        })();
+
+        // مراقبة بدلاً من منع
+        ['log', 'error', 'warn', 'info'].forEach(method => {
+          const original = (console as any)[method];
+          try {
+            (console as any)[method] = function(...args: any[]) {
+              showWarningOnce();
+              return original.apply(console, args);
+            };
           } catch (error) {
-            // تجاهل الأخطاء للخصائص المحمية
-            console.warn(`تعذر تعديل console.${method}:`, error);
+            // تجاهل الأخطاء وترك الكونسول يعمل عادي
           }
         });
       } catch (error) {
-        console.warn('تعذر تطبيق حماية الكونسول:', error);
+        // تجاهل أي أخطاء في الحماية
       }
     };
 
