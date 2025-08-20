@@ -51,6 +51,7 @@ const App = () => (
       <SecurityProvider enableSecurity={true}>
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
+            <SecurityErrorHandler />
             <AntiCopyProtection />
             <DevToolsBlocker />
             <PDFSecurityLayer />
