@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 const PDFSecurityLayer: React.FC = () => {
   useEffect(() => {
-    // منع تحميل PDF بشكل إضافي
+    // منع تحمي�� PDF بشكل إضافي
     const preventPDFDownload = () => {
       // حجب المواقع المعروفة لتحميل PDF
       const blockedDomains = [
@@ -14,20 +14,28 @@ const PDFSecurityLayer: React.FC = () => {
       ];
 
       // مراقبة محاولات فتح نوافذ جديدة
-      const originalOpen = window.open;
-      window.open = function(url?: string | URL, target?: string, features?: string) {
-        if (url && typeof url === 'string') {
-          const urlStr = url.toLowerCase();
-          const hasBlockedDomain = blockedDomains.some(domain => urlStr.includes(domain));
-          const isPDFUrl = urlStr.includes('.pdf') || urlStr.includes('pdf');
-          
-          if (hasBlockedDomain || isPDFUrl) {
-            alert('🚫 فتح الروابط الخارجية محظور لحماية المحتوى');
-            return null;
-          }
-        }
-        return originalOpen.call(window, url, target, features);
-      };
+      try {
+        const originalOpen = window.open;
+        Object.defineProperty(window, 'open', {
+          value: function(url?: string | URL, target?: string, features?: string) {
+            if (url && typeof url === 'string') {
+              const urlStr = url.toLowerCase();
+              const hasBlockedDomain = blockedDomains.some(domain => urlStr.includes(domain));
+              const isPDFUrl = urlStr.includes('.pdf') || urlStr.includes('pdf');
+
+              if (hasBlockedDomain || isPDFUrl) {
+                console.warn('🚫 فتح الروابط الخارجية محظور لحماية المحتوى');
+                return null;
+              }
+            }
+            return originalOpen.call(window, url, target, features);
+          },
+          writable: false,
+          configurable: false
+        });
+      } catch (error) {
+        console.warn('تعذر حماية window.open:', error);
+      }
 
       // منع تحميل الملفات
       const preventDownload = (e: Event) => {
