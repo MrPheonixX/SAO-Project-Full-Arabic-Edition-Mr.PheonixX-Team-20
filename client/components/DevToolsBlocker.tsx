@@ -2,8 +2,26 @@ import React, { useEffect } from "react";
 
 const DevToolsBlocker: React.FC = () => {
   useEffect(() => {
-    // وظيفة لكشف أدوات المطور
+    // التحقق من وضع المطور
+    const isDeveloperMode = () => {
+      return (
+        (window as any).__DEVELOPER_MODE__ ||
+        (window as any).__SECURITY_BYPASS__ ||
+        localStorage.getItem('developer_mode') === 'true' ||
+        localStorage.getItem('legitimate_developer') === 'true' ||
+        process.env.NODE_ENV === 'development' ||
+        window.location.hostname.includes('localhost') ||
+        window.location.hostname.includes('builder.io') ||
+        window.location.search.includes('dev=true')
+      );
+    };
+
+    // وظيفة لكشف أدوات المطور (مع استثناءات)
     const detectDevTools = () => {
+      if (isDeveloperMode()) {
+        console.log('🔧 وضع المطور نشط - تم تجاهل كشف أدوات التطوير');
+        return;
+      }
       const devtools = {
         open: false,
         orientation: null,
@@ -264,7 +282,7 @@ const DevToolsBlocker: React.FC = () => {
           console.warn('تعذر تجميد Function.prototype:', error);
         }
       } catch (error) {
-        console.warn('تعذر تطبيق تجميد الكائنات:', error);
+        console.warn('تعذر تطبيق تج��يد الكائنات:', error);
       }
     };
 
