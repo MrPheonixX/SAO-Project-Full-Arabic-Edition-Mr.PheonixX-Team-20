@@ -23,7 +23,7 @@ const DevToolsBlocker: React.FC = () => {
             document.body.style.display = "none";
             alert("🚫 تم اكتشاف أدوات المطور\nالموقع محمي ضد السرقة");
 
-            // إعادة توجيه لصفحة فارغة
+            // إع��دة توجيه لصفحة فارغة
             setTimeout(() => {
               window.location.href = "about:blank";
             }, 1000);
@@ -240,25 +240,45 @@ const DevToolsBlocker: React.FC = () => {
 
     // إخفاء رموز JavaScript في الذاكرة
     const obfuscateCode = () => {
-      // إعادة تعريف setTimeout و setInterval لكشف التلاعب
-      const originalSetTimeout = window.setTimeout;
-      const originalSetInterval = window.setInterval;
+      try {
+        // إعادة تعريف setTimeout و setInterval لكشف التلاعب
+        const originalSetTimeout = window.setTimeout;
+        const originalSetInterval = window.setInterval;
 
-      window.setTimeout = function (fn: Function, delay: number) {
-        if (typeof fn === "string") {
-          alert("🚫 تشغيل كود نصي غير مسموح");
-          return 0;
+        try {
+          Object.defineProperty(window, 'setTimeout', {
+            value: function (fn: Function, delay: number) {
+              if (typeof fn === "string") {
+                console.warn("🚫 تشغيل كود نصي غير مسموح");
+                return 0;
+              }
+              return originalSetTimeout(fn, delay);
+            },
+            writable: false,
+            configurable: false
+          });
+        } catch (error) {
+          console.warn('تعذر حماية setTimeout:', error);
         }
-        return originalSetTimeout(fn, delay);
-      };
 
-      window.setInterval = function (fn: Function, delay: number) {
-        if (typeof fn === "string") {
-          alert("🚫 تشغيل كود نصي غير مسموح");
-          return 0;
+        try {
+          Object.defineProperty(window, 'setInterval', {
+            value: function (fn: Function, delay: number) {
+              if (typeof fn === "string") {
+                console.warn("🚫 تشغيل كود نصي غير مسموح");
+                return 0;
+              }
+              return originalSetInterval(fn, delay);
+            },
+            writable: false,
+            configurable: false
+          });
+        } catch (error) {
+          console.warn('تعذر حماية setInterval:', error);
         }
-        return originalSetInterval(fn, delay);
-      };
+      } catch (error) {
+        console.warn('تعذر تطبيق حماية الكود:', error);
+      }
     };
 
     // منع رسائل التطوير
