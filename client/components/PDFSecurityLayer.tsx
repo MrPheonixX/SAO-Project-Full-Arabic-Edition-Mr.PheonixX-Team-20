@@ -173,29 +173,61 @@ const PDFSecurityLayer: React.FC = () => {
 
     // حماية من تقنيات الالتفاف الشائعة
     const preventBypassTechniques = () => {
-      // منع تشغيل كود JavaScript خارجي
-      const originalEval = window.eval;
-      window.eval = function(code: string) {
-        console.warn('🚫 تشغيل eval محجوب لأسباب أمنية');
-        throw new Error('eval blocked for security');
-      };
-
-      // منع Function constructor
-      const originalFunction = window.Function;
-      window.Function = function() {
-        console.warn('🚫 Function constructor محجوب لأسباب أمنية');
-        throw new Error('Function constructor blocked for security');
-      } as any;
-
-      // حماية من تعديل document.write
-      const originalDocumentWrite = document.write;
-      document.write = function(markup: string) {
-        if (markup.includes('pdf') || markup.includes('download')) {
-          console.warn('🚫 محاولة كتابة محتوى مشبوه محجوبة');
-          return;
+      try {
+        // منع تشغيل كود JavaScript خارجي
+        if (typeof window.eval === 'function') {
+          try {
+            Object.defineProperty(window, 'eval', {
+              value: function(code: string) {
+                console.warn('🚫 تشغيل eval محجوب لأسباب أمنية');
+                throw new Error('eval blocked for security');
+              },
+              writable: false,
+              configurable: false
+            });
+          } catch (error) {
+            console.warn('تعذر حجب eval:', error);
+          }
         }
-        return originalDocumentWrite.call(document, markup);
-      };
+
+        // منع Function constructor
+        if (typeof window.Function === 'function') {
+          try {
+            Object.defineProperty(window, 'Function', {
+              value: function() {
+                console.warn('🚫 Function constructor محجوب لأسباب أمنية');
+                throw new Error('Function constructor blocked for security');
+              },
+              writable: false,
+              configurable: false
+            });
+          } catch (error) {
+            console.warn('تعذر حجب Function constructor:', error);
+          }
+        }
+
+        // حماية من تعديل document.write
+        if (typeof document.write === 'function') {
+          try {
+            const originalDocumentWrite = document.write.bind(document);
+            Object.defineProperty(document, 'write', {
+              value: function(markup: string) {
+                if (markup.includes('pdf') || markup.includes('download')) {
+                  console.warn('🚫 محاولة كتابة محتوى مشبوه محجوبة');
+                  return;
+                }
+                return originalDocumentWrite(markup);
+              },
+              writable: false,
+              configurable: false
+            });
+          } catch (error) {
+            console.warn('تعذر حماية document.write:', error);
+          }
+        }
+      } catch (error) {
+        console.warn('تعذر تطبيق حماية تقنيات الالتفاف:', error);
+      }
     };
 
     // مراقبة الحافظة لمنع النسخ
