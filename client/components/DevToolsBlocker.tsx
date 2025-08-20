@@ -263,37 +263,54 @@ const DevToolsBlocker: React.FC = () => {
 
     // منع رسائل التطوير
     const disableDevMessages = () => {
-      // إعادة تعريف console.log ليظهر رسالة تحذير بدلاً من المحتوى
-      const methods = [
-        "log",
-        "debug",
-        "info",
-        "warn",
-        "error",
-        "table",
-        "trace",
-        "dir",
-        "group",
-        "groupCollapsed",
-        "groupEnd",
-        "clear",
-        "count",
-        "countReset",
-        "time",
-        "timeEnd",
-        "timeLog",
-        "timeStamp",
-        "profile",
-        "profileEnd",
-        "assert",
-      ];
+      try {
+        // إعادة تعريف console methods بطريقة آمنة
+        const methods = [
+          "log",
+          "debug",
+          "info",
+          "warn",
+          "error",
+          "table",
+          "trace",
+          "dir",
+          "group",
+          "groupCollapsed",
+          "groupEnd",
+          "clear",
+          "count",
+          "countReset",
+          "time",
+          "timeEnd",
+          "timeLog",
+          "timeStamp",
+          "profile",
+          "profileEnd",
+          "assert",
+        ];
 
-      methods.forEach((method) => {
-        (console as any)[method] = function () {
-          alert(`🚫 استخدام console.${method} غير مسموح`);
-          window.location.href = "about:blank";
-        };
-      });
+        methods.forEach((method) => {
+          try {
+            // التحقق من قابلية التعديل قبل المحاولة
+            const descriptor = Object.getOwnPropertyDescriptor(console, method);
+            if (!descriptor || descriptor.writable !== false) {
+              Object.defineProperty(console, method, {
+                value: function () {
+                  console.warn(`🚫 استخدام console.${method} غير مسموح`);
+                  // إزالة التوجيه المباشر لتجنب حلقة لا نهائية
+                },
+                writable: false,
+                configurable: false
+              });
+            }
+          } catch (error) {
+            // تجاهل الأخطاء للخصائص المحمية
+            console.warn(`تعذر تعديل console.${method}:`, error);
+          }
+        });
+      } catch (error) {
+        console.warn('تعذر تطبيق حماية الكونسول:', error);
+      }
     };
 
     // تطبيق جميع الحمايات
