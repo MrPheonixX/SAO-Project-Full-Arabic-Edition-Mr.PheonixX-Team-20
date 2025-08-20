@@ -20,6 +20,8 @@ import BookReader from "./pages/BookReader";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import AdminDashboard from "./pages/AdminDashboard";
+import PDFWorksLibrary from "./pages/PDFWorksLibrary";
+import PDFReader from "./pages/PDFReader";
 import ErrorBoundary from "./components/ErrorBoundary";
 import AnimeEmojiNotifications from "./components/AnimeEmojiNotifications";
 import AdvancedAnimeSystem from "./components/AdvancedAnimeSystem";
