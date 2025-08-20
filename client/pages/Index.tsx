@@ -478,6 +478,15 @@ export default function Index() {
               <InteractiveButton
                 variant="energy"
                 size="lg"
+                onClick={() => navigate("/pdf-works")}
+              >
+                <BookOpen className="w-5 h-5 mr-2" />
+                📚 المكتبة المحمية
+              </InteractiveButton>
+
+              <InteractiveButton
+                variant="quantum"
+                size="lg"
                 onClick={() => navigate("/all-works")}
               >
                 <Zap className="w-5 h-5 mr-2" />
@@ -490,7 +499,7 @@ export default function Index() {
                 onClick={() => navigate("/progressive")}
               >
                 <Download className="w-5 h-5 mr-2" />
-                دخول للمكتبة
+                دخول للمكتبة القديمة
               </InteractiveButton>
             </div>
           </div>
@@ -669,7 +678,7 @@ export default function Index() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-400 mb-4">
-                  رواية نفسية عميقة عن الانطوائية والمجتمع ��لياباني
+                  رواية نفسية عميقة عن الانطوائي�� والمجتمع ��لياباني
                 </p>
                 <Button
                   variant="outline"
