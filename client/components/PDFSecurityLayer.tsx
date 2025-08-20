@@ -112,34 +112,66 @@ const PDFSecurityLayer: React.FC = () => {
 
     // منع استخدام أدوات المطور لتحميل الملفات
     const blockDevToolsDownload = () => {
-      // حجب console.save إذا كان متاحاً
-      if (window.console && (window.console as any).save) {
-        (window.console as any).save = function() {
-          alert('🚫 حفظ المحتوى من الكونسول محظور');
-        };
+      try {
+        // حجب console.save إذا كان متاحاً
+        if (window.console && (window.console as any).save) {
+          try {
+            Object.defineProperty(window.console, 'save', {
+              value: function() {
+                console.warn('🚫 حفظ المحتوى من الكونسول محظور');
+              },
+              writable: false,
+              configurable: false
+            });
+          } catch (error) {
+            console.warn('تعذر حجب console.save:', error);
+          }
+        }
+
+        // حجب تحميل البيانات من الشبكة
+        if (typeof window.fetch === 'function') {
+          try {
+            const originalFetch = window.fetch;
+            Object.defineProperty(window, 'fetch', {
+              value: function(input: RequestInfo | URL, init?: RequestInit) {
+                const url = typeof input === 'string' ? input : input.url;
+                if (url && url.includes('.pdf')) {
+                  console.warn('🚫 محاولة تحميل PDF محجوبة');
+                  return Promise.reject(new Error('PDF download blocked'));
+                }
+                return originalFetch.call(window, input, init);
+              },
+              writable: false,
+              configurable: false
+            });
+          } catch (error) {
+            console.warn('تعذر حجب fetch:', error);
+          }
+        }
+
+        // حجب XMLHttpRequest للملفات
+        if (typeof XMLHttpRequest !== 'undefined' && XMLHttpRequest.prototype.open) {
+          try {
+            const originalXHROpen = XMLHttpRequest.prototype.open;
+            Object.defineProperty(XMLHttpRequest.prototype, 'open', {
+              value: function(method: string, url: string | URL) {
+                const urlStr = typeof url === 'string' ? url : url.toString();
+                if (urlStr.includes('.pdf')) {
+                  console.warn('🚫 محاولة تحميل PDF عبر XHR محجوبة');
+                  throw new Error('PDF download blocked');
+                }
+                return originalXHROpen.apply(this, arguments as any);
+              },
+              writable: false,
+              configurable: false
+            });
+          } catch (error) {
+            console.warn('تعذر حجب XMLHttpRequest:', error);
+          }
+        }
+      } catch (error) {
+        console.warn('تعذر تطبيق حجب أدوات التحميل:', error);
       }
-
-      // حجب تحميل البيانات من الشبكة
-      const originalFetch = window.fetch;
-      window.fetch = function(input: RequestInfo | URL, init?: RequestInit) {
-        const url = typeof input === 'string' ? input : input.url;
-        if (url && url.includes('.pdf')) {
-          console.warn('🚫 محاولة تحميل PDF محجوبة');
-          return Promise.reject(new Error('PDF download blocked'));
-        }
-        return originalFetch.call(window, input, init);
-      };
-
-      // حجب XMLHttpRequest للملفات
-      const originalXHROpen = XMLHttpRequest.prototype.open;
-      XMLHttpRequest.prototype.open = function(method: string, url: string | URL) {
-        const urlStr = typeof url === 'string' ? url : url.toString();
-        if (urlStr.includes('.pdf')) {
-          console.warn('🚫 محاولة تحميل PDF عبر XHR محجوبة');
-          throw new Error('PDF download blocked');
-        }
-        return originalXHROpen.apply(this, arguments as any);
-      };
     };
 
     // منع الطباعة للمحتوى المحمي
@@ -255,7 +287,7 @@ const PDFSecurityLayer: React.FC = () => {
         const clipboardData = e.clipboardData?.getData('text/plain') || '';
         if (clipboardData.includes('pdf') || clipboardData.includes('download')) {
           e.preventDefault();
-          alert('🚫 لصق محتوى مشبوه محظور');
+          alert('🚫 لصق محتوى مشبو�� محظور');
         }
       });
     };
