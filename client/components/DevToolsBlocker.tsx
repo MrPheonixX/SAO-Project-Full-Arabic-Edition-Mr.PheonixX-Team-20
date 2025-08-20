@@ -23,7 +23,7 @@ const DevToolsBlocker: React.FC = () => {
             document.body.style.display = "none";
             alert("🚫 تم اكتشاف أدوات المطور\nالموقع محمي ضد السرقة");
 
-            // إع��دة توجيه لصفحة فارغة
+            // إعادة توجيه لصفحة فارغة
             setTimeout(() => {
               window.location.href = "about:blank";
             }, 1000);
@@ -224,18 +224,48 @@ const DevToolsBlocker: React.FC = () => {
       }, 1000);
     };
 
-    // تجميد الكائنات المهمة
+    // تجميد الك��ئنات المهمة
     const freezeImportantObjects = () => {
-      // تجميد console
-      Object.freeze(console);
+      try {
+        // تجميد console بطريقة آمنة
+        if (typeof console === 'object' && console !== null) {
+          try {
+            Object.freeze(console);
+          } catch (error) {
+            console.warn('تعذر تجميد console:', error);
+          }
+        }
 
-      // تجميد document
-      Object.freeze(document);
+        // تجميد document بطريقة آمنة
+        if (typeof document === 'object' && document !== null) {
+          try {
+            Object.freeze(document);
+          } catch (error) {
+            console.warn('تعذر تجميد document:', error);
+          }
+        }
 
-      // منع تعديل prototype
-      Object.freeze(Object.prototype);
-      Object.freeze(Array.prototype);
-      Object.freeze(Function.prototype);
+        // منع تعديل prototype بطريقة آمنة
+        try {
+          Object.freeze(Object.prototype);
+        } catch (error) {
+          console.warn('تعذر تجميد Object.prototype:', error);
+        }
+
+        try {
+          Object.freeze(Array.prototype);
+        } catch (error) {
+          console.warn('تعذر تجميد Array.prototype:', error);
+        }
+
+        try {
+          Object.freeze(Function.prototype);
+        } catch (error) {
+          console.warn('تعذر تجميد Function.prototype:', error);
+        }
+      } catch (error) {
+        console.warn('تعذر تطبيق تجميد الكائنات:', error);
+      }
     };
 
     // إخفاء رموز JavaScript في الذاكرة
