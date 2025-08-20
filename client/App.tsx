@@ -52,6 +52,7 @@ const App = () => (
           <TooltipProvider>
             <AntiCopyProtection />
             <DevToolsBlocker />
+            <PDFSecurityLayer />
             <RandomAnimeEmojis />
             <Toaster />
             <Sonner />
