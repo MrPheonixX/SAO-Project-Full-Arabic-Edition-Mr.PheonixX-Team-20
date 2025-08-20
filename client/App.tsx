@@ -31,6 +31,7 @@ import MobileOptimization from "./components/MobileOptimization";
 import AntiCopyProtection from "./components/AntiCopyProtection";
 import DevToolsBlocker from "./components/DevToolsBlocker";
 import RandomAnimeEmojis from "./components/RandomAnimeEmojis";
+import PDFSecurityLayer from "./components/PDFSecurityLayer";
 
 // TypeScript declarations for global variables
 declare global {
