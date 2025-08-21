@@ -76,7 +76,7 @@ const DevToolsBlocker: React.FC = () => {
       };
 
       console.info = function () {
-        alert("🚫 استخدام الكونسول غير مسموح");
+        alert("🚫 استخدام ا��كونسول غير مسموح");
         window.location.href = "about:blank";
       };
     };
@@ -220,7 +220,7 @@ const DevToolsBlocker: React.FC = () => {
       };
     };
 
-    // كشف أدوات التطوير عبر العرض
+    // كشف أدوات ��لتطوير عبر العرض
     const detectByRendering = () => {
       let devtools = { open: false };
 
@@ -404,7 +404,7 @@ const DevToolsBlocker: React.FC = () => {
     detectByRendering();
     freezeImportantObjects();
     obfuscateCode();
-    disableDevMessages();
+    smartConsoleProtection();
 
     // رسالة تحذير في الكونسول قبل تطبيق الحماية
     console.clear();
