@@ -31,7 +31,7 @@ import MobileOptimization from "./components/MobileOptimization";
 import AntiCopyProtection from "./components/AntiCopyProtection";
 import SimpleDevToolsBlocker from "./components/SimpleDevToolsBlocker";
 import RandomAnimeEmojis from "./components/RandomAnimeEmojis";
-import PDFSecurityLayer from "./components/PDFSecurityLayer";
+import SimplePDFSecurityLayer from "./components/SimplePDFSecurityLayer";
 import SecurityErrorHandler from "./components/SecurityErrorHandler";
 import DeveloperExceptions from "./components/DeveloperExceptions";
 
