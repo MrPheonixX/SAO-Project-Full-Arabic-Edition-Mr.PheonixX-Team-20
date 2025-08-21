@@ -10,19 +10,21 @@ const AntiCopyProtection: React.FC = () => {
       return (
         (window as any).__DEVELOPER_MODE__ ||
         (window as any).__SECURITY_BYPASS__ ||
-        localStorage.getItem('developer_mode') === 'true' ||
-        localStorage.getItem('legitimate_developer') === 'true' ||
-        process.env.NODE_ENV === 'development' ||
-        window.location.hostname.includes('localhost') ||
-        window.location.hostname.includes('builder.io') ||
-        window.location.hostname.includes('127.0.0.1') ||
-        window.location.search.includes('dev=true')
+        localStorage.getItem("developer_mode") === "true" ||
+        localStorage.getItem("legitimate_developer") === "true" ||
+        process.env.NODE_ENV === "development" ||
+        window.location.hostname.includes("localhost") ||
+        window.location.hostname.includes("builder.io") ||
+        window.location.hostname.includes("127.0.0.1") ||
+        window.location.search.includes("dev=true")
       );
     };
 
     // إذا كان وضع المطور نشط، لا نطبق حماية النسخ
     if (isDeveloperMode()) {
-      console.log('🔧 Developer mode active - Anti-copy protection disabled for development');
+      console.log(
+        "🔧 Developer mode active - Anti-copy protection disabled for development",
+      );
       return;
     }
 

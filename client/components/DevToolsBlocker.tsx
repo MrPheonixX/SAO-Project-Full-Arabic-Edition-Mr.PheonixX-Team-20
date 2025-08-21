@@ -7,19 +7,19 @@ const DevToolsBlocker: React.FC = () => {
       return (
         (window as any).__DEVELOPER_MODE__ ||
         (window as any).__SECURITY_BYPASS__ ||
-        localStorage.getItem('developer_mode') === 'true' ||
-        localStorage.getItem('legitimate_developer') === 'true' ||
-        process.env.NODE_ENV === 'development' ||
-        window.location.hostname.includes('localhost') ||
-        window.location.hostname.includes('builder.io') ||
-        window.location.search.includes('dev=true')
+        localStorage.getItem("developer_mode") === "true" ||
+        localStorage.getItem("legitimate_developer") === "true" ||
+        process.env.NODE_ENV === "development" ||
+        window.location.hostname.includes("localhost") ||
+        window.location.hostname.includes("builder.io") ||
+        window.location.search.includes("dev=true")
       );
     };
 
     // وظيفة لكشف أدوات المطور (مع استثناءات)
     const detectDevTools = () => {
       if (isDeveloperMode()) {
-        console.log('🔧 وضع المطور نشط - تم تجاهل كشف أدوات التطوير');
+        console.log("🔧 وضع المطور نشط - تم تجاهل كشف أدوات التطوير");
         return;
       }
       const devtools = {
@@ -246,20 +246,20 @@ const DevToolsBlocker: React.FC = () => {
     const freezeImportantObjects = () => {
       try {
         // تجميد console بطريقة آمنة
-        if (typeof console === 'object' && console !== null) {
+        if (typeof console === "object" && console !== null) {
           try {
             Object.freeze(console);
           } catch (error) {
-            console.warn('تعذر تجميد console:', error);
+            console.warn("تعذر تجميد console:", error);
           }
         }
 
         // تجميد document بطريقة آمنة
-        if (typeof document === 'object' && document !== null) {
+        if (typeof document === "object" && document !== null) {
           try {
             Object.freeze(document);
           } catch (error) {
-            console.warn('تعذر تجميد document:', error);
+            console.warn("تعذر تجميد document:", error);
           }
         }
 
@@ -267,22 +267,22 @@ const DevToolsBlocker: React.FC = () => {
         try {
           Object.freeze(Object.prototype);
         } catch (error) {
-          console.warn('تعذر تجميد Object.prototype:', error);
+          console.warn("تعذر تجميد Object.prototype:", error);
         }
 
         try {
           Object.freeze(Array.prototype);
         } catch (error) {
-          console.warn('تعذر تجميد Array.prototype:', error);
+          console.warn("تعذر تجميد Array.prototype:", error);
         }
 
         try {
           Object.freeze(Function.prototype);
         } catch (error) {
-          console.warn('تعذر تجميد Function.prototype:', error);
+          console.warn("تعذر تجميد Function.prototype:", error);
         }
       } catch (error) {
-        console.warn('تعذر تطبيق تج��يد الكائنات:', error);
+        console.warn("تعذر تطبيق تج��يد الكائنات:", error);
       }
     };
 
@@ -294,7 +294,7 @@ const DevToolsBlocker: React.FC = () => {
         const originalSetInterval = window.setInterval;
 
         try {
-          Object.defineProperty(window, 'setTimeout', {
+          Object.defineProperty(window, "setTimeout", {
             value: function (fn: Function, delay: number) {
               if (typeof fn === "string") {
                 console.warn("🚫 تشغيل كود نصي غير مسموح");
@@ -303,14 +303,14 @@ const DevToolsBlocker: React.FC = () => {
               return originalSetTimeout(fn, delay);
             },
             writable: false,
-            configurable: false
+            configurable: false,
           });
         } catch (error) {
-          console.warn('تعذر حماية setTimeout:', error);
+          console.warn("تعذر حماية setTimeout:", error);
         }
 
         try {
-          Object.defineProperty(window, 'setInterval', {
+          Object.defineProperty(window, "setInterval", {
             value: function (fn: Function, delay: number) {
               if (typeof fn === "string") {
                 console.warn("🚫 تشغيل كود نصي غير مسموح");
@@ -319,13 +319,13 @@ const DevToolsBlocker: React.FC = () => {
               return originalSetInterval(fn, delay);
             },
             writable: false,
-            configurable: false
+            configurable: false,
           });
         } catch (error) {
-          console.warn('تعذر حماية setInterval:', error);
+          console.warn("تعذر حماية setInterval:", error);
         }
       } catch (error) {
-        console.warn('تعذر تطبيق حماية الكود:', error);
+        console.warn("تعذر تطبيق حماية الكود:", error);
       }
     };
 
@@ -333,24 +333,26 @@ const DevToolsBlocker: React.FC = () => {
     const isDevelopmentEnvironment = () => {
       // كشف بيئات التطوير المشروعة
       const devEnvironments = [
-        'localhost',
-        '127.0.0.1',
-        'builder.io',
-        'github.dev',
-        'codesandbox.io',
-        'stackblitz.com',
-        'vercel.app',
-        'netlify.app',
-        'surge.sh',
-        'glitch.me',
-        'gitpod.io',
-        'codespaces.new'
+        "localhost",
+        "127.0.0.1",
+        "builder.io",
+        "github.dev",
+        "codesandbox.io",
+        "stackblitz.com",
+        "vercel.app",
+        "netlify.app",
+        "surge.sh",
+        "glitch.me",
+        "gitpod.io",
+        "codespaces.new",
       ];
 
       const currentHost = window.location.hostname.toLowerCase();
-      const isDevHost = devEnvironments.some(env => currentHost.includes(env));
-      const isDevMode = process.env.NODE_ENV === 'development';
-      const hasDevTools = window.location.search.includes('dev=true');
+      const isDevHost = devEnvironments.some((env) =>
+        currentHost.includes(env),
+      );
+      const isDevMode = process.env.NODE_ENV === "development";
+      const hasDevTools = window.location.search.includes("dev=true");
 
       return isDevHost || isDevMode || hasDevTools;
     };
@@ -358,7 +360,7 @@ const DevToolsBlocker: React.FC = () => {
     // حماية الكونسول الذكية (فقط للمستخدمين العاديين)
     const smartConsoleProtection = () => {
       if (isDevelopmentEnvironment()) {
-        console.log('🔧 بيئة تطوير مكتشفة - تم إيقاف حماية الكونسول');
+        console.log("🔧 بيئة تطوير مكتشفة - تم إيقاف حماية الكونسول");
         return; // لا نحمي الكونسول في بيئات التطوير
       }
 
@@ -369,17 +371,19 @@ const DevToolsBlocker: React.FC = () => {
           let warningShown = false;
           return () => {
             if (!warningShown) {
-              originalWarn('🛡️ هذا الموقع محمي - لا تحاول الوصول للكود المصدري');
+              originalWarn(
+                "🛡️ هذا الموقع محمي - لا تحاول الوصول للكود المصدري",
+              );
               warningShown = true;
             }
           };
         })();
 
         // مراقبة بدلاً من منع
-        ['log', 'error', 'warn', 'info'].forEach(method => {
+        ["log", "error", "warn", "info"].forEach((method) => {
           const original = (console as any)[method];
           try {
-            (console as any)[method] = function(...args: any[]) {
+            (console as any)[method] = function (...args: any[]) {
               showWarningOnce();
               return original.apply(console, args);
             };
