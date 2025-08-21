@@ -93,6 +93,7 @@ console.log(window.__SECURITY_BYPASS__)
 - `TypeError: Cannot assign to read only property`
 - `ReferenceError: disableDevMessages is not defined`
 - `TypeError: Cannot add property write`
+- `Error: Function constructor blocked for security`
 - جميع أخطاء الحماية الأخرى
 
 ### ✅ التحسينات:
