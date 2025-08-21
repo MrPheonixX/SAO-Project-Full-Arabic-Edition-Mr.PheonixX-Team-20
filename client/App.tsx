@@ -29,7 +29,7 @@ import PerformanceOptimizer from "./components/PerformanceOptimizer";
 import UIEnhancements from "./components/UIEnhancements";
 import MobileOptimization from "./components/MobileOptimization";
 import AntiCopyProtection from "./components/AntiCopyProtection";
-import DevToolsBlocker from "./components/DevToolsBlocker";
+import SimpleDevToolsBlocker from "./components/SimpleDevToolsBlocker";
 import RandomAnimeEmojis from "./components/RandomAnimeEmojis";
 import PDFSecurityLayer from "./components/PDFSecurityLayer";
 import SecurityErrorHandler from "./components/SecurityErrorHandler";
