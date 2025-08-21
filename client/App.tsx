@@ -52,6 +52,7 @@ const App = () => (
       <SecurityProvider enableSecurity={true}>
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
+            <DeveloperExceptions />
             <SecurityErrorHandler />
             <AntiCopyProtection />
             <DevToolsBlocker />
