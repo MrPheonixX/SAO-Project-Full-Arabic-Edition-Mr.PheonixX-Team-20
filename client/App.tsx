@@ -56,7 +56,7 @@ const App = () => (
             <SecurityErrorHandler />
             <AntiCopyProtection />
             <SimpleDevToolsBlocker />
-            <PDFSecurityLayer />
+            <SimplePDFSecurityLayer />
             <RandomAnimeEmojis />
             <Toaster />
             <Sonner />
