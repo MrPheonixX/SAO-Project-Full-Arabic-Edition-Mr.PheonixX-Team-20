@@ -55,7 +55,7 @@ const App = () => (
             <DeveloperExceptions />
             <SecurityErrorHandler />
             <AntiCopyProtection />
-            <DevToolsBlocker />
+            <SimpleDevToolsBlocker />
             <PDFSecurityLayer />
             <RandomAnimeEmojis />
             <Toaster />
