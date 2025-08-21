@@ -33,6 +33,7 @@ import DevToolsBlocker from "./components/DevToolsBlocker";
 import RandomAnimeEmojis from "./components/RandomAnimeEmojis";
 import PDFSecurityLayer from "./components/PDFSecurityLayer";
 import SecurityErrorHandler from "./components/SecurityErrorHandler";
+import DeveloperExceptions from "./components/DeveloperExceptions";
 
 // TypeScript declarations for global variables
 declare global {
