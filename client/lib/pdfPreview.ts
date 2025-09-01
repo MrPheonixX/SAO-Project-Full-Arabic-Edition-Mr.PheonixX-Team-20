@@ -16,7 +16,8 @@ export async function renderFirstPageToDataUrl(pdfUrl: string, options: PdfCover
 
   GlobalWorkerOptions.workerSrc = workerUrl as unknown as string;
 
-  const loadingTask = getDocument({ url: pdfUrl, withCredentials: false });
+  const sourceUrl = pdfUrl.startsWith('/api/') ? pdfUrl : `/api/proxy-pdf?url=${encodeURIComponent(pdfUrl)}`;
+  const loadingTask = getDocument({ url: sourceUrl, withCredentials: false });
   const pdf = await loadingTask.promise;
   const page = await pdf.getPage(1);
 
