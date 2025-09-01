@@ -1,14 +1,15 @@
 import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { 
-  Search, 
-  BookOpen, 
-  Star, 
-  Clock, 
+import {
+  Search,
+  BookOpen,
+  Star,
+  Clock,
   Download,
   Filter,
   Grid3X3,
@@ -37,6 +38,17 @@ const PDFWorksLibrary: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
+
+  // Initialize filters from URL (?series=...&arc=...)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const s = params.get('series');
+    const a = params.get('arc');
+    const seriesList = getSeriesList();
+    const arcsList = getArcsList();
+    if (s && seriesList.includes(s)) setSelectedSeries(s);
+    if (a && arcsList.includes(a)) setSelectedArc(a);
+  }, []);
 
   const seriesList = getSeriesList();
   const arcsList = getArcsList();
@@ -209,7 +221,7 @@ const PDFWorksLibrary: React.FC = () => {
                 </Badge>
               )}
               <Badge variant="secondary" className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30 text-xs">
-                ⭐ {work.rating}
+                �� {work.rating}
               </Badge>
             </div>
           </div>
