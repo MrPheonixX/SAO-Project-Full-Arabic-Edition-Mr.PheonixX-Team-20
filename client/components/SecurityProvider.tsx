@@ -105,9 +105,9 @@ export const SecurityProvider: React.FC<SecurityProviderProps> = ({
     detectAdBlock();
   }, [isSecurityActive]);
 
-  // DevTools Detection
+  // DevTools Detection (optional)
   useEffect(() => {
-    if (!isSecurityActive) return;
+    if (!isSecurityActive || disableDevToolsProtection) return;
 
     let devtools = false;
     const threshold = 160;
@@ -137,7 +137,7 @@ export const SecurityProvider: React.FC<SecurityProviderProps> = ({
 
     const interval = setInterval(checkDevTools, 500);
     return () => clearInterval(interval);
-  }, [isSecurityActive]);
+  }, [isSecurityActive, disableDevToolsProtection]);
 
   // Disable Right Click and Copy
   useEffect(() => {
