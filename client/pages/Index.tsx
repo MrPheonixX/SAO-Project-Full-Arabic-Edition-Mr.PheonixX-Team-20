@@ -96,6 +96,17 @@ export default function Index() {
     };
   }, []);
 
+  // Compute dynamic covers from first page of PDFs
+  const saoFirst = getWorksBySeries("Sword Art Online")[0];
+  const progFirst = getWorksBySeries("Sword Art Online Progressive")[0];
+  const welcomeWork = getWorkById("welcome-to-nhk");
+  const humanWork = getWorkById("no-longer-human-dazai");
+
+  const { cover: saoCover } = usePdfCover(saoFirst?.pdfUrlRaw, saoFirst?.backgroundImage || undefined);
+  const { cover: progCover } = usePdfCover(progFirst?.pdfUrlRaw, progFirst?.backgroundImage || undefined);
+  const { cover: welcomeCover } = usePdfCover(welcomeWork?.pdfUrlRaw, welcomeWork?.backgroundImage || undefined);
+  const { cover: humanCover } = usePdfCover(humanWork?.pdfUrlRaw, humanWork?.backgroundImage || undefined);
+
   const changeTheme = (theme: string) => {
     setCurrentTheme(theme);
     localStorage.setItem("sao-theme", theme);
@@ -839,7 +850,7 @@ export default function Index() {
               <CardHeader>
                 <CardTitle className="text-2xl text-blue-400 text-center flex items-center justify-center gap-3">
                   <BookOpen className="w-6 h-6 animate-bounce" />
-                  ال��لاسل المتاحة
+                  السلاسل المتاحة
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
