@@ -26,11 +26,13 @@ export const useSecurityContext = () => {
 interface SecurityProviderProps {
   children: React.ReactNode;
   enableSecurity?: boolean;
+  disableDevToolsProtection?: boolean;
 }
 
 export const SecurityProvider: React.FC<SecurityProviderProps> = ({
   children,
   enableSecurity = true,
+  disableDevToolsProtection = false,
 }) => {
   // Check localStorage for admin security settings
   const getSecuritySetting = () => {
