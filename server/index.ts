@@ -1,4 +1,3 @@
-import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
@@ -18,6 +17,44 @@ export function createServer() {
   });
 
   app.get("/api/demo", handleDemo);
+
+  // Secure PDF proxy to bypass X-Frame-Options of third-party hosts
+  app.get("/api/proxy-pdf", async (req, res) => {
+    try {
+      const url = String(req.query.url || "");
+      if (!url || !/^https:\/\//i.test(url)) {
+        res.status(400).json({ error: "Invalid url" });
+        return;
+      }
+      // Restrict to trusted hosts
+      const { hostname } = new URL(url);
+      const allowedHosts = new Set([
+        "raw.githubusercontent.com",
+        "github.com",
+        "cdn.jsdelivr.net",
+      ]);
+      if (!allowedHosts.has(hostname)) {
+        res.status(403).json({ error: "Host not allowed" });
+        return;
+      }
+
+      const upstream = await fetch(url, { headers: { Accept: "application/pdf" } });
+      if (!upstream.ok || !upstream.body) {
+        res.status(502).json({ error: "Upstream fetch failed" });
+        return;
+      }
+
+      res.setHeader("Content-Type", upstream.headers.get("content-type") || "application/pdf");
+      res.setHeader("Cache-Control", "public, max-age=86400");
+      res.setHeader("Content-Disposition", "inline");
+      res.setHeader("X-Content-Type-Options", "nosniff");
+      res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+
+      upstream.body.pipe(res);
+    } catch (err) {
+      res.status(500).json({ error: "Proxy error" });
+    }
+  });
 
   return app;
 }
