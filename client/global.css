@@ -131,18 +131,24 @@
   img,
   video,
   canvas,
-  svg,
+  svg {
+    -webkit-user-drag: none !important;
+    -moz-user-drag: none !important;
+    user-drag: none !important;
+    pointer-events: auto !important;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    user-select: none !important;
+  }
+
   iframe,
   embed,
   object {
     -webkit-user-drag: none !important;
     -moz-user-drag: none !important;
     user-drag: none !important;
-    pointer-events: none !important;
-    -webkit-touch-callout: none !important;
-    -webkit-user-select: none !important;
-    -moz-user-select: none !important;
-    user-select: none !important;
+    pointer-events: auto !important;
   }
 
   /* Allow text selection for input fields only */
