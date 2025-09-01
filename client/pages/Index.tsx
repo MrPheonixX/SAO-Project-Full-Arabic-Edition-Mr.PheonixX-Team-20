@@ -34,6 +34,7 @@ import {
 import AdvancedFeaturesDashboard from "@/components/AdvancedFeaturesDashboard";
 import { getWorksBySeries, getWorkById } from "@/data/pdfWorks";
 import { usePdfCover } from "@/hooks/usePdfCover";
+import { useSeriesCover } from "@/hooks/useSeriesCover";
 
 export default function Index() {
   const navigate = useNavigate();
@@ -551,7 +552,7 @@ export default function Index() {
                 </Badge>
               </div>
               <CardDescription className="text-gray-300 text-lg">
-                28 مجلد - منظور كيريتو الأساسي
+                28 مجلد - منظور كي��يتو الأساسي
                 <br />
                 <span className="text-blue-400">
                   28 Volumes - Kirito's Perspective
