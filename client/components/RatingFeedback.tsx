@@ -115,14 +115,19 @@ export default function RatingFeedback({
     // Load user's previous rating
     const savedRating = localStorage.getItem(`rating-${volumeId}`);
     if (savedRating) {
-      const rating = JSON.parse(savedRating);
-      setRatingData((prev) => ({
-        ...prev,
-        userRating: rating.rating,
-        hasRated: true,
-      }));
-      setSelectedRating(rating.rating);
-      setFeedback(rating.feedback || "");
+      try {
+        const rating = JSON.parse(savedRating);
+        setRatingData((prev) => ({
+          ...prev,
+          userRating: rating.rating,
+          hasRated: true,
+        }));
+        setSelectedRating(rating.rating);
+        setFeedback(rating.feedback || "");
+      } catch {
+        // ignore corrupt value
+        localStorage.removeItem(`rating-${volumeId}`);
+      }
     }
   }, [volumeId]);
 
@@ -305,7 +310,7 @@ export default function RatingFeedback({
                       className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500"
                     >
                       <Send className="w-4 h-4 mr-2" />
-                      إرسال التقييم
+                      ��رسال التقييم
                     </Button>
 
                     <Button
