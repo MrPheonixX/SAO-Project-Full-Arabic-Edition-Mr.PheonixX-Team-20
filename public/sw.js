@@ -375,7 +375,16 @@ self.addEventListener("push", (event) => {
   let data = {};
 
   if (event.data) {
-    data = event.data.json();
+    try {
+      data = event.data.json();
+    } catch (e) {
+      try {
+        const txt = event.data.text ? event.data.text() : null;
+        data = txt ? JSON.parse(txt) : {};
+      } catch (_) {
+        data = {};
+      }
+    }
   }
 
   const options = {
