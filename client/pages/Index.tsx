@@ -484,23 +484,7 @@ export default function Index() {
                 📚 المكتبة المحمية
               </InteractiveButton>
 
-              <InteractiveButton
-                variant="quantum"
-                size="lg"
-                onClick={() => navigate("/all-works")}
-              >
-                <Zap className="w-5 h-5 mr-2" />
-                استكشاف الأعمال
-              </InteractiveButton>
 
-              <InteractiveButton
-                variant="crystal"
-                size="lg"
-                onClick={() => navigate("/progressive")}
-              >
-                <Download className="w-5 h-5 mr-2" />
-                دخول للمكتبة القديمة
-              </InteractiveButton>
             </div>
           </div>
         </section>
@@ -678,7 +662,7 @@ export default function Index() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-400 mb-4">
-                  رواية نفسية عميقة عن الانطوائي�� والمجتمع ��لياباني
+                  رواية نفسية عميقة عن الانطوا��ي�� والمجتمع ��لياباني
                 </p>
                 <Button
                   variant="outline"
@@ -744,7 +728,7 @@ export default function Index() {
               </div>
             </h3>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              تجربة فريدة في عالم ساو أونلاين مع أحدث التقنيات وأفضل الخدمات
+              تجربة فريدة في عال�� ساو أونلاين مع أحدث التقنيات وأفضل الخدمات
             </p>
           </div>
 
