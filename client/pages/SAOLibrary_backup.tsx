@@ -14,7 +14,7 @@ const saoVolumes = [
     titleArabic: "سيف آرت أونلاين المجلد 1: آينكراد",
     subtitle: "آينكراد",
     description: "البداية الحقيقية لمغامرة كيريتو في عالم ساو الافتراضي الخطير. عندما يصبح اللعب مسألة حياة أو موت.",
-    descriptionArabic: "البداية الحقيقية لمغامرة كيريتو في عالم ساو الافتراضي الخطير. عندما يصبح اللعب مسألة حياة أو موت.",
+    descriptionArabic: "البداية الحقيقية لمغامرة كيريتو في عالم ��او الافتراضي الخطير. عندما يصبح اللعب مسألة حياة أو موت.",
     coverImage: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=600",
     backgroundImage: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1920&h=1080",
     pages: 258,
@@ -34,7 +34,7 @@ const saoVolumes = [
     titleArabic: "سيف آرت أونلاين المجلد 2: آينكراد",
     subtitle: "آينكراد",
     description: "مواصلة مغامرة كيريتو في آينكراد مع قصص جانبية مؤثرة ولقاءات جديدة تشكل مستقبله.",
-    descriptionArabic: "مواصلة مغامرة كيريتو في آينكراد مع قصص جانبية مؤثرة ولقاءات جديدة تشكل مستقبله.",
+    descriptionArabic: "مواصلة مغامرة كيريتو ��ي آينكراد مع قصص جانبية مؤثرة ولقاءات جديدة تشكل مستقبله.",
     coverImage: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=600",
     backgroundImage: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1920&h=1080",
     pages: 242,
@@ -54,7 +54,7 @@ const saoVolumes = [
     titleArabic: "سيف آرت أونلاين المجلد 3: رقصة الجنيات",
     subtitle: "رقصة الجنيات",
     description: "كيريتو يدخل عالم ALfheim Online للبحث عن أسونا المختطفة. عالم جديد مليء بالجنيات والسحر.",
-    descriptionArabic: "كيريتو يدخل عالم ALfheim Online للبحث عن أسونا المختطفة. عالم جديد مليء بالجنيات والسحر.",
+    descriptionArabic: "كيريتو يدخل عالم ALfheim Online للبحث عن أسونا المختطفة. عالم جديد مل��ء بالجنيات والسحر.",
     coverImage: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=600",
     backgroundImage: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1920&h=1080",
     pages: 265,
@@ -74,7 +74,7 @@ const saoVolumes = [
     titleArabic: "سيف آرت أونلاين المجلد 4: رقصة الجنيات",
     subtitle: "رقصة الجنيات",
     description: "خاتمة مثيرة لقو�� رقصة الجنيات مع معركة نهائية من أجل حرية أسونا وكشف الحقيقة المظلمة.",
-    descriptionArabic: "خاتمة مثيرة لقوس رقصة الجنيات مع معركة نهائية من أجل حرية أسونا وكشف الحقيقة المظلمة.",
+    descriptionArabic: "خاتمة مثيرة لقوس رقصة الجنيات مع معركة نهائية من أجل حرية أسونا وكشف الحق��قة المظلمة.",
     coverImage: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=600",
     backgroundImage: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1920&h=1080",
     pages: 251,
@@ -247,7 +247,18 @@ export default function SAOLibrary() {
       try {
         const res = await fetch('/works-manifest.json', { cache: 'no-cache' });
         if (!res.ok) return;
-        const data = await res.json();
+        let data: any = [];
+        try {
+          const ct = res.headers.get('content-type') || '';
+          if (ct.includes('application/json')) {
+            data = await res.json();
+          } else {
+            const txt = await res.text();
+            data = JSON.parse(txt);
+          }
+        } catch {
+          data = [];
+        }
         if (!Array.isArray(data)) return;
         const nextPdf: Record<number, string> = { ...saoPdfUrls };
         const nextBg: Record<number, string> = {};
