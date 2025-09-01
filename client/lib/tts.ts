@@ -36,16 +36,21 @@ class ArabicTTSManager {
 
   private loadSettings(): TTSSettings {
     const saved = localStorage.getItem("tts-settings");
-    return saved
-      ? JSON.parse(saved)
-      : {
-          voice: "ar-SA",
-          rate: 1.0,
-          pitch: 1.0,
-          volume: 1.0,
-          autoPlay: false,
-          highlightText: true,
-        };
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch {
+        localStorage.removeItem("tts-settings");
+      }
+    }
+    return {
+      voice: "ar-SA",
+      rate: 1.0,
+      pitch: 1.0,
+      volume: 1.0,
+      autoPlay: false,
+      highlightText: true,
+    };
   }
 
   private saveSettings(): void {
