@@ -245,7 +245,7 @@ export default function SAOLibrary() {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch('/works-manifest.json', { cache: 'no-cache' });
+        const res = await fetch(`${import.meta.env.BASE_URL}works-manifest.json`, { cache: 'no-cache' });
         if (!res.ok) return;
         let data: any = [];
         try {
@@ -398,7 +398,7 @@ export default function SAOLibrary() {
                   onChange={(e) => setSortBy(e.target.value)}
                   className="bg-gray-900/50 border border-blue-500/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-400"
                 >
-                  <option value="number">رقم المجلد</option>
+                  <option value="number">رقم ��لمجلد</option>
                   <option value="rating">التقييم</option>
                   <option value="progress">التقدم</option>
                   <option value="release">تاريخ الإصدار</option>
