@@ -99,12 +99,11 @@ export default function Index() {
 
   // Compute dynamic covers from first page of PDFs
   const saoFirst = getWorksBySeries("Sword Art Online")[0];
-  const progFirst = getWorksBySeries("Sword Art Online Progressive")[0];
   const welcomeWork = getWorkById("welcome-to-nhk");
   const humanWork = getWorkById("no-longer-human-dazai");
 
-  const { cover: saoCover } = usePdfCover(saoFirst?.pdfUrlRaw, saoFirst?.backgroundImage || undefined);
-  const { cover: progCover } = usePdfCover(progFirst?.pdfUrlRaw, progFirst?.backgroundImage || undefined);
+  const { cover: saoCover } = useSeriesCover("Sword Art Online");
+  const { cover: progCover } = useSeriesCover("Sword Art Online Progressive");
   const { cover: welcomeCover } = usePdfCover(welcomeWork?.pdfUrlRaw, welcomeWork?.backgroundImage || undefined);
   const { cover: humanCover } = usePdfCover(humanWork?.pdfUrlRaw, humanWork?.backgroundImage || undefined);
 
@@ -552,7 +551,7 @@ export default function Index() {
                 </Badge>
               </div>
               <CardDescription className="text-gray-300 text-lg">
-                28 مجلد - منظور كي��يتو الأساسي
+                28 مجلد - منظور كيريتو الأساسي
                 <br />
                 <span className="text-blue-400">
                   28 Volumes - Kirito's Perspective
@@ -563,7 +562,7 @@ export default function Index() {
             <CardContent className="relative z-10">
               <p className="text-gray-300 mb-6 leading-relaxed">
                 القصة الأصلية لكيريتو وأسونا في عالم ساو الافتراضي. مغامرة
-                ملحمية تمتد عبر عوالم متعددة ��ع ترجمة دقيقة ومراجعة احترافية.
+                ملحمية تمتد عبر عوالم متعدد�� ��ع ترجمة دقيقة ومراجعة احترافية.
               </p>
 
               <div className="flex flex-wrap gap-3 mb-6">
@@ -712,7 +711,7 @@ export default function Index() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-400 mb-4">
-                  عمل أدبي كلاسيكي لدازاي أوسامو
+                  عمل أدب�� كلاسيكي لدازاي أوسامو
                 </p>
                 <Button
                   variant="outline"
