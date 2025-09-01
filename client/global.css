@@ -201,11 +201,7 @@
     text-align: center !important;
   }
 
-  /* Disable context menu completely */
-  * {
-    -webkit-context-menu: none !important;
-    context-menu: none !important;
-  }
+  /* Context menu enabled */
 
   /* Disable text highlighting and selection on mobile */
   * {
