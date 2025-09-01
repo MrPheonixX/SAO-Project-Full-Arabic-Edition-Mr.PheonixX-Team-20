@@ -18,14 +18,15 @@ import {
   Eye,
   Calendar
 } from 'lucide-react';
-import { 
-  pdfWorks, 
-  getSeriesList, 
-  getArcsList, 
+import {
+  pdfWorks,
+  getSeriesList,
+  getArcsList,
   searchWorks,
   getStatistics,
-  PDFWork 
+  PDFWork
 } from '@/data/pdfWorks';
+import PDFCover from '@/components/PDFCover';
 
 const PDFWorksLibrary: React.FC = () => {
   const navigate = useNavigate();
