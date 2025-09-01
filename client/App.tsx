@@ -1,4 +1,5 @@
 import "./global.css";
+import "./overrides.css";
 
 import { Toaster } from "@/components/ui/toaster";
 import { createRoot, type Root } from "react-dom/client";
@@ -49,7 +50,7 @@ const App = () => (
     <PerformanceOptimizer
       enableDebugInfo={process.env.NODE_ENV === "development"}
     >
-      <SecurityProvider enableSecurity={true} disableDevToolsProtection={true}>
+      <SecurityProvider enableSecurity={false} disableDevToolsProtection={true}>
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
             {/* DeveloperExceptions removed to hide developer mode banner */}
