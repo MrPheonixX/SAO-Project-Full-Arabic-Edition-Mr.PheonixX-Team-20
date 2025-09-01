@@ -41,7 +41,8 @@ self.addEventListener("install", (event) => {
           // Cache static files
           caches.open(STATIC_CACHE).then((cache) => {
             console.log("📦 Caching static files...");
-            return cache.addAll(STATIC_FILES);
+            const urls = STATIC_FILES.map((p) => new URL(p, self.registration.scope).toString());
+            return cache.addAll(urls);
           }),
           // Cache shell for offline reading
           caches.open(READING_CACHE).then((cache) => {
@@ -52,7 +53,8 @@ self.addEventListener("install", (event) => {
 
         // Pre-cache PDFs from local manifest if available
         try {
-          const res = await fetch("/works-manifest.json", { cache: "no-cache" });
+          const manifestUrl = new URL("works-manifest.json", self.registration.scope).toString();
+          const res = await fetch(manifestUrl, { cache: "no-cache" });
           if (res.ok) {
             let manifest = [];
             const ctype = res.headers.get("content-type") || "";
@@ -597,7 +599,7 @@ function createOfflineHTML() {
       <div class="container">
         <div class="icon">🌐</div>
         <h1>غير متصل بالإنترنت</h1>
-        <p>يبدو أنك غير متصل بالإنترنت. تأكد من اتصالك وأعد المحاولة.</p>
+        <p>يبدو أنك غير متصل بالإنترنت. تأ��د من اتصالك وأعد المحاولة.</p>
         <button class="retry-btn" onclick="location.reload()">إعادة المحاولة</button>
       </div>
     </body>
