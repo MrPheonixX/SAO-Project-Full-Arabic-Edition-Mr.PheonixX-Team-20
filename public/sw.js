@@ -51,19 +51,27 @@ self.addEventListener("install", (event) => {
 
         // Pre-cache PDFs from local manifest if available
         try {
-          const res = await fetch("/works-manifest.json", {
-            cache: "no-cache",
-          });
+          const res = await fetch("/works-manifest.json", { cache: "no-cache" });
           if (res.ok) {
-            const manifest = await res.json();
+            let manifest = [];
+            const ctype = res.headers.get("content-type") || "";
+            try {
+              if (ctype.includes("application/json")) {
+                manifest = await res.json();
+              } else {
+                const txt = await res.text();
+                manifest = JSON.parse(txt);
+              }
+            } catch (_) {
+              console.warn("⚠️ Manifest not valid JSON; skipping pre-cache");
+              manifest = [];
+            }
             const pdfUrls = (Array.isArray(manifest) ? manifest : [])
               .map((item) => item.pdfUrlRaw)
               .filter((u) => typeof u === "string" && u.startsWith("http"));
             if (pdfUrls.length) {
               const cache = await caches.open(READING_CACHE);
-              await Promise.allSettled(
-                pdfUrls.map((u) => cache.add(u).catch(() => undefined)),
-              );
+              await Promise.allSettled(pdfUrls.map((u) => cache.add(u).catch(() => undefined)));
               console.log(`📚 Pre-cached ${pdfUrls.length} PDFs from manifest`);
             }
           }
