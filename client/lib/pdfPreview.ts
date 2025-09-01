@@ -1,3 +1,5 @@
+import workerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
+
 export type PdfCoverOptions = {
   width?: number;
   quality?: number;
@@ -12,7 +14,7 @@ export async function renderFirstPageToDataUrl(pdfUrl: string, options: PdfCover
   const width = options.width ?? 600;
 
   const pdfjs = await import('pdfjs-dist/build/pdf.min.mjs');
-  (pdfjs as any).GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.9.155/pdf.worker.min.mjs';
+  (pdfjs as any).GlobalWorkerOptions.workerSrc = workerUrl;
 
   const loadingTask = (pdfjs as any).getDocument({ url: pdfUrl, withCredentials: false });
   const pdf = await loadingTask.promise;
