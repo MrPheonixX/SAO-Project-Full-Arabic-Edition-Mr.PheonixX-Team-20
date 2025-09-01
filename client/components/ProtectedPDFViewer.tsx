@@ -53,7 +53,8 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   const startTimeRef = useRef(Date.now());
 
   // منع التحميل والنسخ - تأمين إضافي
-  const securedPdfUrl = `${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&messages=0&scrollbar=0`;
+  const proxied = `/api/proxy-pdf?url=${encodeURIComponent(pdfUrl)}`;
+  const securedPdfUrl = `${proxied}#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&messages=0&scrollbar=0`;
 
   useEffect(() => {
     // محاكاة تحميل PDF
