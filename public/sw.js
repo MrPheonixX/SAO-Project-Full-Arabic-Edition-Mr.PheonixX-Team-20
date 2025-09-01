@@ -1,7 +1,7 @@
 // Service Worker for SAO Arabic Reader PWA
 // MrPheonixX Team - Advanced Offline Reading Support
 
-const CACHE_NAME = "sao-arabic-reader-v1.0.0";
+const CACHE_NAME = "sao-arabic-reader-v1.0.1";
 const STATIC_CACHE = "sao-static-v1";
 const DYNAMIC_CACHE = "sao-dynamic-v1";
 const READING_CACHE = "sao-reading-v1";
