@@ -116,67 +116,8 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
       {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Main gradient */}
+      <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/20 to-violet-900/20"></div>
-
-        {/* Animated orbs */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-violet-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
-
-        {/* Enhanced Quantum Particle Field */}
-        {Array.from({ length: 30 }, (_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full"
-            style={{
-              width: `${2 + Math.random() * 4}px`,
-              height: `${2 + Math.random() * 4}px`,
-              background: [
-                "#3b82f6",
-                "#8b5cf6",
-                "#06b6d4",
-                "#f59e0b",
-                "#10b981",
-              ][i % 5],
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              boxShadow: `0 0 ${10 + Math.random() * 20}px currentColor`,
-              animation: `
-                quantumFloat ${3 + Math.random() * 4}s ease-in-out infinite,
-                quantumGlow ${2 + Math.random() * 2}s ease-in-out infinite alternate
-              `,
-              animationDelay: `${Math.random() * 3}s`,
-            }}
-          ></div>
-        ))}
-
-        {/* Interconnected Quantum Lines */}
-        {Array.from({ length: 8 }, (_, i) => (
-          <div
-            key={`line-${i}`}
-            className="absolute bg-gradient-to-r from-transparent via-blue-400/20 to-transparent"
-            style={{
-              width: `${100 + Math.random() * 200}px`,
-              height: "1px",
-              top: `${20 + Math.random() * 60}%`,
-              left: `${Math.random() * 70}%`,
-              transform: `rotate(${Math.random() * 45}deg)`,
-              animation: `quantumPulse ${4 + Math.random() * 2}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 2}s`,
-            }}
-          ></div>
-        ))}
-
-        {/* Interactive mouse follow effect */}
-        <div
-          className="absolute w-96 h-96 bg-gradient-radial from-blue-500/5 to-transparent rounded-full pointer-events-none transition-all duration-300 ease-out"
-          style={{
-            left: mousePosition.x - 192,
-            top: mousePosition.y - 192,
-          }}
-        ></div>
       </div>
 
       {/* Welcome Loading Screen */}
@@ -368,23 +309,7 @@ export default function Index() {
                     ⚡
                   </div>
 
-                  {/* Floating Energy Orbs */}
-                  <div
-                    className="absolute top-1/4 -left-8 w-3 h-3 bg-blue-400 rounded-full opacity-70"
-                    style={{
-                      animation: "energyOrb 4s ease-in-out infinite",
-                      boxShadow: "0 0 20px #3b82f6",
-                    }}
-                  ></div>
-                  <div
-                    className="absolute bottom-1/4 -right-8 w-2 h-2 bg-purple-400 rounded-full opacity-60"
-                    style={{
-                      animation: "energyOrb 3s ease-in-out infinite reverse",
-                      animationDelay: "1s",
-                      boxShadow: "0 0 15px #8b5cf6",
-                    }}
-                  ></div>
-                </h1>
+                  </h1>
 
                 {/* Enhanced Animated underline with pulse effect */}
                 <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2">
@@ -398,21 +323,6 @@ export default function Index() {
                 </div>
 
                 {/* Data Stream Effect */}
-                <div className="absolute -top-8 -bottom-8 -left-12 -right-12 pointer-events-none">
-                  {Array.from({ length: 8 }, (_, i) => (
-                    <div
-                      key={i}
-                      className="absolute text-xs text-blue-400/40 font-mono"
-                      style={{
-                        left: `${i * 12 + 5}%`,
-                        animation: `dataStream ${3 + i * 0.5}s linear infinite`,
-                        animationDelay: `${i * 0.2}s`,
-                      }}
-                    >
-                      {["01", "10", "11", "01", "00", "10"][i % 6]}
-                    </div>
-                  ))}
-                </div>
               </div>
               <div className="text-6xl animate-bounce delay-300">⚔️</div>
             </div>
@@ -454,23 +364,6 @@ export default function Index() {
               <div className="absolute -left-4 top-1/2 w-2 h-0.5 bg-blue-400 opacity-60 animate-pulse"></div>
               <div className="absolute -right-4 top-1/2 w-2 h-0.5 bg-purple-400 opacity-60 animate-pulse delay-300"></div>
 
-              {/* Floating tech particles around subtitle */}
-              <div
-                className="absolute -top-2 left-1/4 w-1 h-1 bg-cyan-400 rounded-full opacity-70"
-                style={{
-                  animation: "energyOrb 5s ease-in-out infinite",
-                  animationDelay: "1s",
-                  boxShadow: "0 0 10px #06b6d4",
-                }}
-              ></div>
-              <div
-                className="absolute -bottom-2 right-1/4 w-1 h-1 bg-violet-400 rounded-full opacity-70"
-                style={{
-                  animation: "energyOrb 4s ease-in-out infinite reverse",
-                  animationDelay: "2s",
-                  boxShadow: "0 0 8px #8b5cf6",
-                }}
-              ></div>
             </h2>
 
             <p className="text-xl text-gray-300 max-w-4xl mx-auto mb-8 leading-relaxed animate-pulse">
