@@ -153,21 +153,22 @@ export const SecurityProvider: React.FC<SecurityProviderProps> = ({
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Disable common copy/save shortcuts
-      if (
-        (e.ctrlKey &&
-          (e.key === "c" || e.key === "a" || e.key === "s" || e.key === "p")) ||
-        (e.ctrlKey &&
-          e.shiftKey &&
-          (e.key === "I" || e.key === "J" || e.key === "C")) ||
-        e.key === "F12"
-      ) {
+      // Always block copy/save/print shortcuts
+      if (e.ctrlKey && (e.key === "c" || e.key === "a" || e.key === "s" || e.key === "p")) {
         e.preventDefault();
         setCopyAttempts((prev) => prev + 1);
-        triggerSecurityAlert(
-          "security",
-          "هذا الاختصار غير مسموح لحماية المحتوى.",
-        );
+        triggerSecurityAlert("security", "هذا الاختصار غير مسموح لحماية المحتوى.");
+        return;
+      }
+      // Optionally block devtools shortcuts (F12, Ctrl+Shift+I/J/C)
+      if (!disableDevToolsProtection) {
+        if (
+          (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C")) ||
+          e.key === "F12"
+        ) {
+          e.preventDefault();
+          triggerSecurityAlert("security", "هذا الاختصار غير مسموح لحماية المحتوى.");
+        }
       }
     };
 
