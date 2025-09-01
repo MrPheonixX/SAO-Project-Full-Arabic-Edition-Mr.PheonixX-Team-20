@@ -602,7 +602,14 @@ export default function Index() {
           </InteractiveCard>
 
           {/* SAO Progressive */}
-          <InteractiveCard className="bg-gradient-to-br from-purple-900/20 to-violet-600/20 border-purple-500/30 backdrop-blur-xl hover:border-purple-400/50 transition-all duration-500 group relative overflow-hidden">
+          <InteractiveCard
+            className="border-purple-500/30 backdrop-blur-xl hover:border-purple-400/50 transition-all duration-500 group relative overflow-hidden"
+            style={{
+              backgroundImage: progCover
+                ? `linear-gradient(rgba(2,0,36,0.65), rgba(2,0,36,0.65)), url(${progCover})`
+                : undefined,
+            }}
+          >
             <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
 
             <CardHeader className="relative z-10">
