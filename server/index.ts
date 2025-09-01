@@ -39,10 +39,13 @@ export function createServer() {
       }
 
       const upstream = await fetch(url, { headers: { Accept: "application/pdf" } });
-      if (!upstream.ok || !upstream.body) {
+      if (!upstream.ok) {
         res.status(502).json({ error: "Upstream fetch failed" });
         return;
       }
+
+      const arrayBuf = await upstream.arrayBuffer();
+      const buf = Buffer.from(arrayBuf);
 
       res.setHeader("Content-Type", upstream.headers.get("content-type") || "application/pdf");
       res.setHeader("Cache-Control", "public, max-age=86400");
@@ -50,7 +53,7 @@ export function createServer() {
       res.setHeader("X-Content-Type-Options", "nosniff");
       res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
 
-      upstream.body.pipe(res);
+      res.end(buf);
     } catch (err) {
       res.status(500).json({ error: "Proxy error" });
     }
