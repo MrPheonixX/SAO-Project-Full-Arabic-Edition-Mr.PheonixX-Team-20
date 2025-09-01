@@ -1,5 +1,5 @@
 import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist/legacy/build/pdf';
-import workerUrl from 'pdfjs-dist/legacy/build/pdf.worker.min.js?url';
+import workerUrl from 'pdfjs-dist/legacy/build/pdf.worker.min.mjs?url';
 
 export type PdfCoverOptions = {
   width?: number;
