@@ -32,6 +32,8 @@ import {
   InteractiveExperience,
 } from "@/components/InteractiveElements";
 import AdvancedFeaturesDashboard from "@/components/AdvancedFeaturesDashboard";
+import { getWorksBySeries, getWorkById } from "@/data/pdfWorks";
+import { usePdfCover } from "@/hooks/usePdfCover";
 
 export default function Index() {
   const navigate = useNavigate();
@@ -837,7 +839,7 @@ export default function Index() {
               <CardHeader>
                 <CardTitle className="text-2xl text-blue-400 text-center flex items-center justify-center gap-3">
                   <BookOpen className="w-6 h-6 animate-bounce" />
-                  السلاسل المتاحة
+                  ال��لاسل المتاحة
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
