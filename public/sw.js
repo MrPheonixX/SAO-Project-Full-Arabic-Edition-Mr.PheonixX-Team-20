@@ -11,13 +11,14 @@ const STATIC_FILES = [
   "/",
   "/manifest.json",
   "/offline.html",
-  // Add critical CSS and JS files
-  "/static/css/main.css",
-  "/static/js/main.js",
-  // Essential images
-  "/icons/icon-192x192.png",
-  "/icons/icon-512x512.png",
+  "/reader-offline.html",
+  "/favicon.png",
+  "/favicon.svg",
   "/placeholder.svg",
+  "/og-image.png",
+  "/twitter-image.png",
+  "/browserconfig.xml",
+  "/works-manifest.json",
 ];
 
 // Routes to cache dynamically
@@ -372,56 +373,48 @@ async function syncUserPreferences() {
 
 // Push notifications for new content
 self.addEventListener("push", (event) => {
-  let data = {};
+  event.waitUntil((async () => {
+    let data = {};
 
-  if (event.data) {
-    try {
-      data = event.data.json();
-    } catch (e) {
+    if (event.data) {
       try {
-        const txt = event.data.text ? event.data.text() : null;
-        data = txt ? JSON.parse(txt) : {};
-      } catch (_) {
-        data = {};
+        data = event.data.json();
+      } catch {
+        try {
+          const txt = await event.data.text();
+          data = JSON.parse(txt);
+        } catch {
+          data = {};
+        }
       }
     }
-  }
 
-  const options = {
-    body: data.body || "محتوى جديد متاح في مكتبة ساو العربية",
-    icon: "/icons/icon-192x192.png",
-    badge: "/icons/badge-72x72.png",
-    image: data.image,
-    data: {
-      url: data.url || "/",
-      id: data.id || Date.now(),
-    },
-    actions: [
-      {
-        action: "view",
-        title: "عرض",
-        icon: "/icons/view-action.png",
+    const options = {
+      body: data.body || "محتوى جديد متاح في مكتبة ساو العربية",
+      icon: "/favicon.png",
+      badge: "/favicon.png",
+      image: data.image,
+      data: {
+        url: data.url || "/",
+        id: data.id || Date.now(),
       },
-      {
-        action: "dismiss",
-        title: "إغلاق",
-        icon: "/icons/dismiss-action.png",
-      },
-    ],
-    tag: "sao-content-update",
-    requireInteraction: false,
-    silent: false,
-    vibrate: [200, 100, 200],
-    dir: "rtl",
-    lang: "ar",
-  };
+      actions: [
+        { action: "view", title: "عرض", icon: "/favicon.png" },
+        { action: "dismiss", title: "إغلاق", icon: "/favicon.png" },
+      ],
+      tag: "sao-content-update",
+      requireInteraction: false,
+      silent: false,
+      vibrate: [200, 100, 200],
+      dir: "rtl",
+      lang: "ar",
+    };
 
-  event.waitUntil(
-    self.registration.showNotification(
+    await self.registration.showNotification(
       data.title || "MrPheonixX Team",
       options,
-    ),
-  );
+    );
+  })());
 });
 
 // Handle notification clicks
