@@ -102,8 +102,12 @@ const PDFWorksLibrary: React.FC = () => {
   const WorkCard: React.FC<{ work: PDFWork }> = ({ work }) => (
     <Card className="group bg-black/40 backdrop-blur-xl border border-cyan-500/30 hover:border-cyan-400/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/20">
       <div className={`h-2 bg-gradient-to-r ${work.coverColor || getSeriesColor(work.series)} rounded-t-lg`} />
-      
-      <CardHeader className="pb-3">
+      <div className="px-4 pt-4">
+        {/* First page preview as background */}
+        {/* eslint-disable-next-line @typescript-eslint/no-var-requires */}
+        {React.createElement(require('@/components/PDFCover').default, { pdfUrl: work.pdfUrlRaw, fallbackGradient: work.coverColor || getSeriesColor(work.series), backgroundImage: work.backgroundImage })}
+      </div>
+      <CardHeader className="pb-3 pt-2">
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <CardTitle className="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors line-clamp-2">
@@ -115,7 +119,7 @@ const PDFWorksLibrary: React.FC = () => {
             ⭐ {work.rating}
           </Badge>
         </div>
-        
+
         <div className="flex flex-wrap gap-1 mt-2">
           <Badge variant="outline" className="text-xs border-cyan-500/30 text-cyan-400">
             {work.series}
@@ -132,14 +136,14 @@ const PDFWorksLibrary: React.FC = () => {
           )}
         </div>
       </CardHeader>
-      
+
       <CardContent className="pt-0">
         {work.description && (
           <p className="text-gray-300 text-sm line-clamp-3 mb-4">
             {work.description}
           </p>
         )}
-        
+
         <div className="grid grid-cols-2 gap-2 text-xs mb-4">
           <div className="flex items-center gap-1 text-gray-400">
             <Calendar className="w-3 h-3" />
@@ -160,15 +164,15 @@ const PDFWorksLibrary: React.FC = () => {
         </div>
 
         <div className="flex gap-2">
-          <Button 
+          <Button
             onClick={() => handleReadWork(work)}
             className="flex-1 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white text-sm"
           >
             <BookOpen className="w-3 h-3 ml-1" />
             قراءة
           </Button>
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             size="sm"
             onClick={handleDownloadAttempt}
             className="border-red-500/30 text-red-400 hover:bg-red-500/10"

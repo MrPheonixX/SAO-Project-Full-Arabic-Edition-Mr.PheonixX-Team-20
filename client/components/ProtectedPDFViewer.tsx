@@ -132,14 +132,13 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             // إخفاء أشرطة PDF الافتراضية
             const style = iframeDoc.createElement('style');
             style.textContent = `
-              * { 
-                -webkit-user-select: none !important; 
-                -moz-user-select: none !important; 
+              * {
+                -webkit-user-select: none !important;
+                -moz-user-select: none !important;
                 user-select: none !important;
                 -webkit-user-drag: none !important;
                 user-drag: none !important;
               }
-              embed, object { pointer-events: none !important; }
               .toolbar { display: none !important; }
               .download { display: none !important; }
               .print { display: none !important; }
