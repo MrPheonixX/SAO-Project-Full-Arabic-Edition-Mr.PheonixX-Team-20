@@ -52,8 +52,8 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const startTimeRef = useRef(Date.now());
 
-  // استخدام رابط PDF المباشر بدون قيود
-  const securedPdfUrl = pdfUrl;
+  // استخدم بروكسي محلي لتجاوز X-Frame-Options للمضيفين الخارجيين
+  const securedPdfUrl = `/api/proxy-pdf?url=${encodeURIComponent(pdfUrl)}`;
 
   useEffect(() => {
     // محاكاة تحميل PDF
@@ -180,7 +180,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             </h3>
             <Progress value={loadProgress} className="mb-4" />
             <p className="text-gray-300 text-sm">
-              جاري تحميل المحتوى المحمي... {Math.round(loadProgress)}%
+              جاري ت��ميل المحتوى المحمي... {Math.round(loadProgress)}%
             </p>
             <div className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-400">
               <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
