@@ -82,7 +82,7 @@ const PDFWorksLibrary: React.FC = () => {
   };
 
   const handleDownloadAttempt = () => {
-    alert('🚫 التحميل غير مسموح - المحتوى محمي بحقوق الطبع والنشر');
+    alert('🚫 التحميل غير مسمو�� - المحتوى محمي بحقوق الطبع والنشر');
   };
 
   const getSeriesColor = (series: string) => {
@@ -104,9 +104,11 @@ const PDFWorksLibrary: React.FC = () => {
     <Card className="group bg-black/40 backdrop-blur-xl border border-cyan-500/30 hover:border-cyan-400/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/20">
       <div className={`h-2 bg-gradient-to-r ${work.coverColor || getSeriesColor(work.series)} rounded-t-lg`} />
       <div className="px-4 pt-4">
-        {/* First page preview as background */}
-        {/* eslint-disable-next-line @typescript-eslint/no-var-requires */}
-        {React.createElement(require('@/components/PDFCover').default, { pdfUrl: work.pdfUrlRaw, fallbackGradient: work.coverColor || getSeriesColor(work.series), backgroundImage: work.backgroundImage })}
+        <PDFCover
+          pdfUrl={work.pdfUrlRaw}
+          fallbackGradient={work.coverColor || getSeriesColor(work.series)}
+          backgroundImage={work.backgroundImage}
+        />
       </div>
       <CardHeader className="pb-3 pt-2">
         <div className="flex items-start justify-between">
@@ -383,7 +385,7 @@ const PDFWorksLibrary: React.FC = () => {
             <CardContent className="p-12 text-center">
               <BookOpen className="w-16 h-16 mx-auto text-gray-400 mb-4" />
               <h3 className="text-xl font-bold text-white mb-2">لا توجد نتائج</h3>
-              <p className="text-gray-400">جرب تغيير معايير البحث أو المرشحات</p>
+              <p className="text-gray-400">جرب ��غيير معايير البحث أو المرشحات</p>
             </CardContent>
           </Card>
         ) : (
