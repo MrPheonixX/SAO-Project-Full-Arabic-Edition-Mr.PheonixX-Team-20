@@ -605,9 +605,7 @@ export default function Index() {
           <InteractiveCard
             className="border-purple-500/30 backdrop-blur-xl hover:border-purple-400/50 transition-all duration-500 group relative overflow-hidden"
             style={{
-              backgroundImage: progCover
-                ? `linear-gradient(rgba(2,0,36,0.65), rgba(2,0,36,0.65)), url(${progCover})`
-                : undefined,
+              backgroundImage: `linear-gradient(rgba(2,0,36,0.65), rgba(2,0,36,0.65)), url(${progCover || '/placeholder.svg'})`,
             }}
           >
             <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
@@ -616,7 +614,7 @@ export default function Index() {
               <div className="flex items-center justify-between mb-4">
                 <CardTitle className="text-3xl text-purple-400 flex items-center gap-3">
                   <Star className="w-8 h-8" />
-                  SAO Progressive
+                  Sword Art Online - Progressive
                 </CardTitle>
                 <Badge className="bg-purple-500/20 text-purple-300 border-purple-400/50">
                   <Heart className="w-3 h-3 mr-1" />
@@ -800,7 +798,7 @@ export default function Index() {
                   <Sparkles className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-blue-400 text-xl">
-                  ��راءة ثلاثية الأبعاد
+                  ����راءة ثلاثية الأبعاد
                 </CardTitle>
                 <CardDescription className="text-gray-300">
                   3D Flipbook، Slide، و Scroll
@@ -864,7 +862,7 @@ export default function Index() {
               <CardHeader>
                 <CardTitle className="text-2xl text-blue-400 text-center flex items-center justify-center gap-3">
                   <BookOpen className="w-6 h-6 animate-bounce" />
-                  السلاسل المتاحة
+                  ��لسلاسل المتاحة
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -873,7 +871,7 @@ export default function Index() {
                   <Badge className="bg-blue-500 text-white">26 مجلد</Badge>
                 </div>
                 <div className="flex items-center justify-between p-3 bg-purple-500/10 rounded-lg border border-purple-500/20">
-                  <span className="text-purple-300">SAO Progressive</span>
+                  <span className="text-purple-300">Sword Art Online - Progressive</span>
                   <Badge className="bg-purple-500 text-white">8 مجلدات</Badge>
                 </div>
                 <div className="flex items-center justify-between p-3 bg-gray-500/10 rounded-lg border border-gray-500/20">
