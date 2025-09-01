@@ -662,12 +662,12 @@ export default function Index() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-400 mb-4">
-                  رواية نفسية عميقة عن الانطوائي�� والمجتمع ��لياباني
+                  رواية نفسية عميقة عن الانطوائي�� والمجتمع ����لياباني
                 </p>
                 <Button
                   variant="outline"
                   className="w-full border-gray-500 text-gray-300 hover:bg-gray-500/10"
-                  onClick={() => navigate("/sideworks")}
+                  onClick={() => navigate('/pdf-reader/welcome-to-nhk')}
                 >
                   <BookOpen className="w-4 h-4 mr-2" />
                   استكشف
@@ -689,7 +689,7 @@ export default function Index() {
                 <Button
                   variant="outline"
                   className="w-full border-gray-500 text-gray-300 hover:bg-gray-500/10"
-                  onClick={() => navigate("/sideworks")}
+                  onClick={() => navigate('/pdf-reader/no-longer-human-dazai')}
                 >
                   <BookOpen className="w-4 h-4 mr-2" />
                   استكشف
@@ -821,7 +821,7 @@ export default function Index() {
                   <Globe className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-teal-400 text-xl">
-                  تطبيق كامل
+                  تطب��ق كامل
                 </CardTitle>
                 <CardDescription className="text-gray-300">
                   PWA + قراءة بدون إنترنت
