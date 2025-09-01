@@ -558,7 +558,7 @@ export default function Index() {
                   className="bg-purple-500/20 text-purple-300"
                 >
                   <Users className="w-3 h-3 mr-1" />
-                  كير��تو
+                  كيريتو
                 </Badge>
                 <Badge
                   variant="secondary"
@@ -572,7 +572,7 @@ export default function Index() {
               <InteractiveButton
                 variant="magic"
                 size="lg"
-                onClick={() => navigate("/sao")}
+                onClick={() => navigate(`/pdf-works?series=${encodeURIComponent('Sword Art Online')}`)}
                 className="w-full group-hover:scale-105 transition-all duration-300 text-lg py-6"
               >
                 <Play className="w-5 h-5 mr-2" />
