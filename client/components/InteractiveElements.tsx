@@ -110,6 +110,7 @@ export interface InteractiveCardProps {
   className?: string;
   onClick?: () => void;
   enableHover?: boolean;
+  style?: React.CSSProperties;
 }
 
 export const InteractiveCard: React.FC<InteractiveCardProps> = ({
@@ -117,6 +118,7 @@ export const InteractiveCard: React.FC<InteractiveCardProps> = ({
   className = "",
   onClick,
   enableHover = true,
+  style,
 }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
@@ -139,8 +141,9 @@ export const InteractiveCard: React.FC<InteractiveCardProps> = ({
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      style={style}
       className={`
-        relative overflow-hidden transition-all duration-300 cursor-pointer
+        relative overflow-hidden transition-all duration-300 cursor-pointer bg-cover bg-center bg-no-repeat
         ${isHovered && enableHover ? "scale-[1.02] shadow-2xl" : "scale-100"}
         ${className}
       `}
