@@ -1,5 +1,5 @@
 import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist';
-import workerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
+import PdfWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?worker';
 
 export type PdfCoverOptions = {
   width?: number;
@@ -8,13 +8,22 @@ export type PdfCoverOptions = {
 
 const cache = new Map<string, string>();
 
+// Initialize a dedicated worker instance to avoid path/HTML responses
+let pdfWorkerInstance: Worker | null = null;
+function ensurePdfWorker() {
+  if (!pdfWorkerInstance) {
+    pdfWorkerInstance = new PdfWorker();
+    (GlobalWorkerOptions as any).workerPort = pdfWorkerInstance;
+  }
+}
+
 export async function renderFirstPageToDataUrl(pdfUrl: string, options: PdfCoverOptions = {}): Promise<string> {
   const key = `${pdfUrl}|${options.width || 600}`;
   if (cache.has(key)) return cache.get(key)!;
 
   const width = options.width ?? 600;
 
-  GlobalWorkerOptions.workerSrc = workerUrl as unknown as string;
+  ensurePdfWorker();
 
   const loadingTask = getDocument({ url: pdfUrl, withCredentials: false });
   const pdf = await loadingTask.promise;
