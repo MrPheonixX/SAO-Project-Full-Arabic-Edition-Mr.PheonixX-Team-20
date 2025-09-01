@@ -52,9 +52,8 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const startTimeRef = useRef(Date.now());
 
-  // منع التحميل والنسخ - تأمين إضافي
-  const proxied = `/api/proxy-pdf?url=${encodeURIComponent(pdfUrl)}`;
-  const securedPdfUrl = `${proxied}#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&messages=0&scrollbar=0`;
+  // استخدام رابط PDF المباشر بدون قيود
+  const securedPdfUrl = pdfUrl;
 
   useEffect(() => {
     // محاكاة تحميل PDF
@@ -111,47 +110,8 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
     };
   }, [lastActivity]);
 
-  // حماية إضافية ضد التحميل
-  useEffect(() => {
-    const preventDownload = (e: Event) => {
-      e.preventDefault();
-      e.stopPropagation();
-      return false;
-    };
-
-    const iframe = iframeRef.current;
-    if (iframe) {
-      iframe.addEventListener('load', () => {
-        try {
-          const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
-          if (iframeDoc) {
-            // إضافة حماية للإطار
-            iframeDoc.addEventListener('contextmenu', preventDownload);
-            iframeDoc.addEventListener('selectstart', preventDownload);
-            iframeDoc.addEventListener('dragstart', preventDownload);
-            
-            // إخفاء أشرطة PDF الافتراضية
-            const style = iframeDoc.createElement('style');
-            style.textContent = `
-              * {
-                -webkit-user-select: none !important;
-                -moz-user-select: none !important;
-                user-select: none !important;
-                -webkit-user-drag: none !important;
-                user-drag: none !important;
-              }
-              .toolbar { display: none !important; }
-              .download { display: none !important; }
-              .print { display: none !important; }
-            `;
-            iframeDoc.head?.appendChild(style);
-          }
-        } catch (error) {
-          console.log('Cross-origin iframe security applied');
-        }
-      });
-    }
-  }, []);
+  // لا قيود إضافية على التحميل أو النسخ داخل العارض
+  useEffect(() => {}, []);
 
   const handleZoomIn = () => {
     setScale(prev => Math.min(prev + 0.25, 3.0));
@@ -236,11 +196,8 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
     <div 
       ref={containerRef}
       className={`min-h-screen bg-black relative ${isFullscreen ? 'fixed inset-0 z-50' : ''}`}
-      style={{ 
-        fontFamily: 'Noto Sans Arabic, system-ui, sans-serif',
-        userSelect: 'none',
-        WebkitUserSelect: 'none',
-        MozUserSelect: 'none'
+      style={{
+        fontFamily: 'Noto Sans Arabic, system-ui, sans-serif'
       }}
     >
       {/* شريط العلوي */}
@@ -290,7 +247,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             userSelect: 'none',
             pointerEvents: 'auto'
           }}
-          sandbox="allow-same-origin allow-scripts"
+
           // منع التحميل والطباعة
           onLoad={() => {
             const iframe = iframeRef.current;
@@ -311,7 +268,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
         />
       </div>
 
-      {/* أزرار التحكم السفلية */}
+      {/* أزرار التحكم الس��لية */}
       <div className={`absolute bottom-0 left-0 right-0 bg-black/80 backdrop-blur-sm border-t border-cyan-500/30 z-40 transition-transform duration-300 ${showControls ? 'translate-y-0' : 'translate-y-full'}`}>
         <div className="flex items-center justify-between p-4">
           {/* أزرار التنقل */}
@@ -409,30 +366,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
         </div>
       </div>
 
-      {/* علامة مائية أمنية */}
-      <div className="fixed inset-0 pointer-events-none z-30">
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rotate-45 text-8xl font-bold text-white/5 select-none">
-          MrPheonixX
-        </div>
-        <div className="absolute top-1/4 right-1/4 transform rotate-12 text-6xl font-bold text-cyan-400/5 select-none">
-          محمي
-        </div>
-        <div className="absolute bottom-1/4 left-1/4 transform -rotate-12 text-6xl font-bold text-purple-400/5 select-none">
-          © 2024
-        </div>
-      </div>
 
-      {/* رسالة تحذيرية للحماية */}
-      <div className="fixed bottom-4 right-4 z-50">
-        <Card className="bg-red-900/20 border-red-500/30 backdrop-blur-sm">
-          <CardContent className="p-3">
-            <p className="text-xs text-red-400 flex items-center gap-2">
-              <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
-              محتوى محمي - التحميل ممنوع
-            </p>
-          </CardContent>
-        </Card>
-      </div>
     </div>
   );
 };
