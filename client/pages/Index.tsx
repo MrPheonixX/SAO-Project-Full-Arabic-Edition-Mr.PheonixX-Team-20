@@ -702,7 +702,7 @@ export default function Index() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-gray-800/50 to-gray-700/50 border-gray-500/30 backdrop-blur-xl hover:border-gray-400/50 transition-all duration-300">
+            <Card className="border-gray-500/30 backdrop-blur-xl hover:border-gray-400/50 transition-all duration-300 bg-cover bg-center" style={{ backgroundImage: humanCover ? `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(${humanCover})` : undefined }}>
               <CardHeader>
                 <CardTitle className="text-2xl text-gray-300 flex items-center gap-3">
                   <Globe className="w-6 h-6" />
