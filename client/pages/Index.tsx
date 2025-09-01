@@ -542,7 +542,7 @@ export default function Index() {
             <CardContent className="relative z-10">
               <p className="text-gray-300 mb-6 leading-relaxed">
                 القصة الأصلية لكيريتو وأسونا في عالم ساو الافتراضي. مغامرة
-                ملحمية تمتد عبر عوالم متعددة مع ترجمة دقيقة ومراجعة احترافية.
+                ملحمية تمتد عبر عوالم متعددة ��ع ترجمة دقيقة ومراجعة احترافية.
               </p>
 
               <div className="flex flex-wrap gap-3 mb-6">
@@ -637,7 +637,7 @@ export default function Index() {
               <InteractiveButton
                 variant="ice"
                 size="lg"
-                onClick={() => navigate("/progressive")}
+                onClick={() => navigate(`/pdf-works?series=${encodeURIComponent('Sword Art Online Progressive')}`)}
                 className="w-full group-hover:scale-105 transition-all duration-300 text-lg py-6"
               >
                 <Play className="w-5 h-5 mr-2" />
