@@ -481,7 +481,7 @@ export default function Index() {
                 onClick={() => navigate("/pdf-works")}
               >
                 <BookOpen className="w-5 h-5 mr-2" />
-                📚 المكتبة المحمية
+                عرض جميع الاعمال
               </InteractiveButton>
 
 
@@ -558,7 +558,7 @@ export default function Index() {
                   className="bg-purple-500/20 text-purple-300"
                 >
                   <Users className="w-3 h-3 mr-1" />
-                  كيريتو
+                  كير��تو
                 </Badge>
                 <Badge
                   variant="secondary"
@@ -662,7 +662,7 @@ export default function Index() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-400 mb-4">
-                  رواية نفسية عميقة عن الانطوا��ي�� والمجتمع ��لياباني
+                  رواية نفسية عميقة عن الانطوائي�� والمجتمع ��لياباني
                 </p>
                 <Button
                   variant="outline"
@@ -728,7 +728,7 @@ export default function Index() {
               </div>
             </h3>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              تجربة فريدة في عال�� ساو أونلاين مع أحدث التقنيات وأفضل الخدمات
+              تجربة فريدة في عالم ساو أونلاين مع أحدث التقنيات وأفضل الخدمات
             </p>
           </div>
 
