@@ -49,14 +49,11 @@ const App = () => (
     <PerformanceOptimizer
       enableDebugInfo={process.env.NODE_ENV === "development"}
     >
-      <SecurityProvider enableSecurity={true}>
+      <SecurityProvider enableSecurity={false}>
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
             <DeveloperExceptions />
             <SecurityErrorHandler />
-            <AntiCopyProtection />
-            <SimpleDevToolsBlocker />
-            <SimplePDFSecurityLayer />
             <RandomAnimeEmojis />
             <Toaster />
             <Sonner />
