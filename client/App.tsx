@@ -33,7 +33,7 @@ import SimpleDevToolsBlocker from "./components/SimpleDevToolsBlocker";
 import RandomAnimeEmojis from "./components/RandomAnimeEmojis";
 import SimplePDFSecurityLayer from "./components/SimplePDFSecurityLayer";
 import SecurityErrorHandler from "./components/SecurityErrorHandler";
-import DeveloperExceptions from "./components/DeveloperExceptions";
+// import DeveloperExceptions from "./components/DeveloperExceptions";
 
 // TypeScript declarations for global variables
 declare global {
@@ -49,10 +49,10 @@ const App = () => (
     <PerformanceOptimizer
       enableDebugInfo={process.env.NODE_ENV === "development"}
     >
-      <SecurityProvider enableSecurity={false}>
+      <SecurityProvider enableSecurity={true} disableDevToolsProtection={true}>
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
-            <DeveloperExceptions />
+            {/* DeveloperExceptions removed to hide developer mode banner */}
             <SecurityErrorHandler />
             <RandomAnimeEmojis />
             <Toaster />
@@ -153,7 +153,7 @@ function initializeApp() {
         ">
           <div>
             <div style="font-size: 4rem; margin-bottom: 1rem;">⚠️</div>
-            <h1 style="font-size: 2rem; margin-bottom: 1rem;">خطأ في تحميل التطبيق</h1>
+            <h1 style="font-size: 2rem; margin-bottom: 1rem;">خطأ في تح��يل التطبيق</h1>
             <p style="margin-bottom: 1rem;">حدث خطأ أثناء تحميل منصة قراءة ساو العربية</p>
             <p style="color: #ef4444; font-family: monospace; font-size: 0.9rem;">${error.message}</p>
             <button
