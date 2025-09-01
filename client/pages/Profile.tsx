@@ -137,7 +137,13 @@ export default function Profile() {
     // Load user profile from localStorage
     const savedProfile = localStorage.getItem("user-profile");
     if (savedProfile) {
-      setUser(JSON.parse(savedProfile));
+      try {
+        setUser(JSON.parse(savedProfile));
+      } catch {
+        localStorage.removeItem("user-profile");
+        navigate("/login");
+        return;
+      }
     } else {
       navigate("/login");
     }
