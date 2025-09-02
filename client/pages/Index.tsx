@@ -199,7 +199,6 @@ export default function Index() {
         <section className="text-center mb-20">
           <div className="mb-12">
             <div className="flex items-center justify-center space-x-6 mb-8">
-              <div className="text-6xl animate-bounce">⚔️</div>
               <div className="relative">
                 {/* Holographic Energy Field Background */}
                 <div className="absolute inset-0 -m-8">
