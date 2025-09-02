@@ -3,11 +3,11 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { 
-  ZoomIn, 
-  ZoomOut, 
-  RotateCw, 
-  ChevronLeft, 
+import {
+  ZoomIn,
+  ZoomOut,
+  RotateCw,
+  ChevronLeft,
   ChevronRight,
   Maximize,
   Minimize,
@@ -17,6 +17,8 @@ import {
   BookOpen,
   ArrowLeft
 } from 'lucide-react';
+import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist/legacy/build/pdf';
+import workerUrl from 'pdfjs-dist/legacy/build/pdf.worker.min.mjs?url';
 
 interface ProtectedPDFViewerProps {
   pdfUrl: string;
