@@ -134,12 +134,7 @@ export function AnimatedNotifications({
               <CardContent className="p-4">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-3 flex-1">
-                    {notification.emoji && (
-                      <div className="text-3xl animate-bounce">
-                        {notification.emoji}
-                      </div>
-                    )}
-                    <div className="flex-1">
+                                        <div className="flex-1">
                       <h4 className="font-bold text-white mb-1">
                         {notification.title}
                       </h4>
@@ -183,19 +178,6 @@ export function AnimatedNotifications({
       </div>
 
       {/* الإيموجيات الطائرة */}
-      {floatingEmojis.map((emoji, index) => (
-        <div
-          key={index}
-          className="fixed pointer-events-none text-4xl z-[10000] animate-floatUp"
-          style={{
-            left: emoji.x,
-            top: emoji.y,
-            animation: `floatUp ${emoji.duration}ms ease-out forwards`,
-          }}
-        >
-          {emoji.emoji}
-        </div>
-      ))}
 
       {/* إضافة الأنماط المطلوبة */}
       <style>{`
@@ -310,7 +292,7 @@ export function useNotifications() {
         type: "adblock",
         title: "مانع الإعلانات مُفعل",
         message:
-          "الإعلانات تساعدنا في تقدي�� المحتوى مجاناً. يرجى تعطيل مانع الإعلانات للمتابعة.",
+          "الإعل��نات تساعدنا في تقدي�� المحتوى مجاناً. يرجى تعطيل مانع الإعلانات للمتابعة.",
         emoji: "😢",
         persistent: true,
         actions: [
