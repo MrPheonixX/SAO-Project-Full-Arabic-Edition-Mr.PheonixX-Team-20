@@ -449,7 +449,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
           <p className="text-gray-300 mb-4">{loadError}</p>
           <div className="flex gap-2 justify-center">
             <Button onClick={() => window.location.reload()} className="bg-blue-600 hover:bg-blue-700">إعادة المحاولة</Button>
-            <Button variant="outline" onClick={() => window.open(pdfUrl, '_blank')} className="border-gray-600 text-gray-300 hover:text-white">ف��ح مباشر (قد يُحظر)</Button>
+            <Button variant="outline" onClick={() => window.open(pdfUrl, '_blank')} className="border-gray-600 text-gray-300 hover:text-white">فتح مباشر (قد يُحظر)</Button>
           </div>
         </div>
       </div>
@@ -477,7 +477,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             </Button>
             <div>
               <h1 className="text-lg font-bold">{titleAr}</h1>
-              <p className="text-sm opacity-70">{series} {volumeNumber && `- الم��لد ${volumeNumber}`}</p>
+              <p className="text-sm opacity-70">{series} {volumeNumber && `- المجلد ${volumeNumber}`}</p>
             </div>
           </div>
 
@@ -549,6 +549,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             src={nativeSrc}
             className="w-full h-full border-0 bg-white"
             onLoad={() => { setIframeLoaded(true); setIsLoading(false); }}
+            onError={() => { setEngine('pdfjs'); }}
             sandbox="allow-same-origin allow-scripts allow-forms allow-pointer-lock allow-modals allow-popups"
             allow="fullscreen"
           />
