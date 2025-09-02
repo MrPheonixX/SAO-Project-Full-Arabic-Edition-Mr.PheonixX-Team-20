@@ -430,8 +430,8 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
         )}
         {/* Tap zones for navigation (RTL): left => next, right => prev */}
         <div className="absolute inset-0 flex" aria-hidden>
-          <button onClick={handlePrevPage} className="h-full w-1/2 cursor-pointer" style={{ background: 'transparent' }} />
           <button onClick={handleNextPage} className="h-full w-1/2 cursor-pointer" style={{ background: 'transparent' }} />
+          <button onClick={handlePrevPage} className="h-full w-1/2 cursor-pointer" style={{ background: 'transparent' }} />
         </div>
       </div>
 
