@@ -87,7 +87,7 @@ const PDFReader: React.FC = () => {
         titleAr={work.titleAr}
         series={work.series}
         volumeNumber={work.volumeNumber}
-        onBack={handleBackToInfo}
+        onBack={handleBackToLibrary}
       />
     );
   }
@@ -229,7 +229,7 @@ const PDFReader: React.FC = () => {
               <CardContent>
                 <div className="space-y-4">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">الصفحة الحالية</span>
+                    <span className="text-gray-400">الصفحة الحال��ة</span>
                     <span className="text-white font-semibold">1</span>
                   </div>
                   <div className="flex justify-between">
