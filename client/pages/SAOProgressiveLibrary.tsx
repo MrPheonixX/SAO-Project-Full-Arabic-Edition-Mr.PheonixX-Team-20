@@ -200,7 +200,7 @@ export default function SAOProgressiveLibrary() {
                           key={i}
                           className={`text-xs ${i < volume.rating ? "opacity-100" : "opacity-30"}`}
                         >
-                          ❤️
+
                         </span>
                       ))}
                     </div>
