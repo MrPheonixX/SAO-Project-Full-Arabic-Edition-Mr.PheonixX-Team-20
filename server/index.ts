@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import { Readable } from "node:stream";
 import { handleDemo } from "./routes/demo";
 
 export function createServer() {
@@ -26,7 +27,6 @@ export function createServer() {
         res.status(400).json({ error: "Invalid url" });
         return;
       }
-      // Restrict to trusted hosts
       const { hostname } = new URL(url);
       const allowedHosts = new Set([
         "raw.githubusercontent.com",
@@ -38,22 +38,42 @@ export function createServer() {
         return;
       }
 
-      const upstream = await fetch(url, { headers: { Accept: "application/pdf" } });
-      if (!upstream.ok) {
-        res.status(502).json({ error: "Upstream fetch failed" });
+      const headers: Record<string, string> = { Accept: "application/pdf" };
+      const rangeHeader = req.headers["range"] as string | undefined;
+      if (rangeHeader) headers["Range"] = rangeHeader;
+
+      const upstream = await fetch(url, { headers });
+      if (!upstream.ok && upstream.status !== 206) {
+        res.status(upstream.status || 502).json({ error: "Upstream fetch failed" });
         return;
       }
 
-      const arrayBuf = await upstream.arrayBuffer();
-      const buf = Buffer.from(arrayBuf);
+      const contentType = upstream.headers.get("content-type") || "application/pdf";
+      const acceptRanges = upstream.headers.get("accept-ranges") || "bytes";
+      const contentLength = upstream.headers.get("content-length") || undefined;
+      const contentRange = upstream.headers.get("content-range") || undefined;
 
-      res.setHeader("Content-Type", upstream.headers.get("content-type") || "application/pdf");
+      res.setHeader("Content-Type", contentType);
+      res.setHeader("Accept-Ranges", acceptRanges);
       res.setHeader("Cache-Control", "public, max-age=86400");
       res.setHeader("Content-Disposition", "inline");
       res.setHeader("X-Content-Type-Options", "nosniff");
       res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+      if (contentLength) res.setHeader("Content-Length", contentLength);
+      if (contentRange) res.setHeader("Content-Range", contentRange);
 
-      res.end(buf);
+      if (upstream.status === 206) {
+        res.status(206);
+      }
+
+      if (upstream.body) {
+        const nodeStream = Readable.fromWeb(upstream.body as unknown as ReadableStream);
+        nodeStream.on("error", () => res.end());
+        nodeStream.pipe(res);
+      } else {
+        const arrayBuf = await upstream.arrayBuffer();
+        res.end(Buffer.from(arrayBuf));
+      }
     } catch (err) {
       res.status(500).json({ error: "Proxy error" });
     }
