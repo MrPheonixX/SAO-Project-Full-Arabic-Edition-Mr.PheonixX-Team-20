@@ -194,23 +194,6 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
     }
   }
 
-  // حظر التحميل والطباعة والقائمة اليمنى في مساحة العارض
-  useEffect(() => {
-    const blocker = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && (e.key.toLowerCase() === 's' || e.key.toLowerCase() === 'p')) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    };
-    const preventContext = (e: MouseEvent) => { e.preventDefault(); };
-    window.addEventListener('keydown', blocker, { capture: true });
-    const el = containerRef.current;
-    el?.addEventListener('contextmenu', preventContext as any);
-    return () => {
-      window.removeEventListener('keydown', blocker, { capture: true } as any);
-      el?.removeEventListener('contextmenu', preventContext as any);
-    };
-  }, []);
 
   useEffect(() => {
     // حساب وقت القراءة وإخفاء الأزرار
