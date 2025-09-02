@@ -100,15 +100,54 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   }, [currentPage, scale, rotation, readingMode]);
 
   async function renderPage(pageNum: number, doc: any, scaleVal: number, rotationVal: number) {
-    const page = await doc.getPage(pageNum);
-    const viewport = page.getViewport({ scale: scaleVal, rotation: rotationVal });
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    canvas.width = Math.floor(viewport.width);
-    canvas.height = Math.floor(viewport.height);
-    await page.render({ canvasContext: ctx, viewport }).promise;
+    if (readingMode === 'book') {
+      const leftNum = pageNum % 2 === 0 ? pageNum - 1 : pageNum;
+      const rightNum = leftNum + 1 <= doc.numPages ? leftNum + 1 : null;
+
+      const leftPage = await doc.getPage(leftNum);
+      const leftViewport = leftPage.getViewport({ scale: scaleVal, rotation: rotationVal });
+      const leftCanvas = canvasRef.current;
+      const rightCanvas = rightCanvasRef.current;
+      if (!leftCanvas) return;
+      const lctx = leftCanvas.getContext('2d');
+      if (!lctx) return;
+      leftCanvas.width = Math.floor(leftViewport.width);
+      leftCanvas.height = Math.floor(leftViewport.height);
+      await leftPage.render({ canvasContext: lctx, viewport: leftViewport }).promise;
+
+      if (rightNum && rightCanvas) {
+        const rightPage = await doc.getPage(rightNum);
+        const rightViewport = rightPage.getViewport({ scale: scaleVal, rotation: rotationVal });
+        const rctx = rightCanvas.getContext('2d');
+        if (rctx) {
+          rightCanvas.width = Math.floor(rightViewport.width);
+          rightCanvas.height = Math.floor(rightViewport.height);
+          await rightPage.render({ canvasContext: rctx, viewport: rightViewport }).promise;
+        }
+      } else if (rightCanvas) {
+        const rctx = rightCanvas.getContext('2d');
+        if (rctx) rctx.clearRect(0, 0, rightCanvas.width, rightCanvas.height);
+      }
+    } else {
+      const page = await doc.getPage(pageNum);
+      const viewport = page.getViewport({ scale: scaleVal, rotation: rotationVal });
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      if (readingMode === 'slide') {
+        canvas.style.opacity = '0';
+      }
+      canvas.width = Math.floor(viewport.width);
+      canvas.height = Math.floor(viewport.height);
+      await page.render({ canvasContext: ctx, viewport }).promise;
+      if (readingMode === 'slide') {
+        requestAnimationFrame(() => {
+          canvas.style.transition = 'opacity 250ms';
+          canvas.style.opacity = '1';
+        });
+      }
+    }
   }
 
   // حظر التحميل والطباعة والقائمة اليمنى في مساحة العارض
