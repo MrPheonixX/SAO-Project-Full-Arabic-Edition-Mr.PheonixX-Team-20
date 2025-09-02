@@ -48,70 +48,95 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   const [showControls, setShowControls] = useState(true);
   const [lastActivity, setLastActivity] = useState(Date.now());
 
-  const iframeRef = useRef<HTMLIFrameElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const pdfDocRef = useRef<any>(null);
   const startTimeRef = useRef(Date.now());
 
-  // استخدم بروكسي محلي لتجاوز X-Frame-Options للمضيفين الخارجيين
-  const securedPdfUrl = `/api/proxy-pdf?url=${encodeURIComponent(pdfUrl)}`;
+  useEffect(() => {
+    let cancelled = false;
+    async function load() {
+      try {
+        setIsLoading(true);
+        setLoadProgress(10);
+        GlobalWorkerOptions.workerSrc = workerUrl as unknown as string;
+        const res = await fetch(`/api/proxy-pdf?url=${encodeURIComponent(pdfUrl)}`);
+        const buf = await res.arrayBuffer();
+        setLoadProgress(40);
+        const loadingTask = getDocument({ data: buf });
+        const doc = await loadingTask.promise;
+        if (cancelled) return;
+        pdfDocRef.current = doc;
+        setTotalPages(doc.numPages);
+        setLoadProgress(80);
+        await renderPage(currentPage || 1, doc, scale, rotation);
+        setLoadProgress(100);
+        setIsLoading(false);
+      } catch (e) {
+        setIsLoading(false);
+      }
+    }
+    load();
+    return () => {
+      cancelled = true;
+      try { pdfDocRef.current?.destroy?.(); } catch {}
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pdfUrl]);
 
   useEffect(() => {
-    // محاكاة تحميل PDF
-    const loadingInterval = setInterval(() => {
-      setLoadProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(loadingInterval);
-          setIsLoading(false);
-          return 100;
-        }
-        return prev + Math.random() * 15;
-      });
-    }, 200);
+    if (pdfDocRef.current) {
+      renderPage(currentPage || 1, pdfDocRef.current, scale, rotation);
+    }
+  }, [currentPage, scale, rotation]);
 
-    // حساب وقت القراءة
-    const timeInterval = setInterval(() => {
-      setReadingTime(prev => prev + 1);
-    }, 1000);
+  async function renderPage(pageNum: number, doc: any, scaleVal: number, rotationVal: number) {
+    const page = await doc.getPage(pageNum);
+    const viewport = page.getViewport({ scale: scaleVal, rotation: rotationVal });
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    canvas.width = Math.floor(viewport.width);
+    canvas.height = Math.floor(viewport.height);
+    await page.render({ canvasContext: ctx, viewport }).promise;
+  }
 
-    // إخفاء الأزرار تلقائياً
-    const hideControlsTimeout = setTimeout(() => {
-      setShowControls(false);
-    }, 5000);
-
+  // حظر التحميل والطباعة والقائمة اليمنى في مساحة العارض
+  useEffect(() => {
+    const blocker = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && (e.key.toLowerCase() === 's' || e.key.toLowerCase() === 'p')) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+    const preventContext = (e: MouseEvent) => { e.preventDefault(); };
+    window.addEventListener('keydown', blocker, { capture: true });
+    const el = containerRef.current;
+    el?.addEventListener('contextmenu', preventContext as any);
     return () => {
-      clearInterval(loadingInterval);
-      clearInterval(timeInterval);
-      clearTimeout(hideControlsTimeout);
+      window.removeEventListener('keydown', blocker, { capture: true } as any);
+      el?.removeEventListener('contextmenu', preventContext as any);
     };
   }, []);
 
   useEffect(() => {
-    // مراقبة النشاط للتحكم في إظهار الأزرار
+    // حساب وقت القراءة وإخفاء الأزرار
+    const timeInterval = setInterval(() => setReadingTime(prev => prev + 1), 1000);
+    const hideControlsTimeout = setTimeout(() => setShowControls(false), 5000);
+    return () => { clearInterval(timeInterval); clearTimeout(hideControlsTimeout); };
+  }, []);
+
+  useEffect(() => {
     const handleActivity = () => {
       setLastActivity(Date.now());
       setShowControls(true);
-      
-      setTimeout(() => {
-        if (Date.now() - lastActivity > 3000) {
-          setShowControls(false);
-        }
-      }, 3000);
+      setTimeout(() => { if (Date.now() - lastActivity > 3000) setShowControls(false); }, 3000);
     };
-
-    const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
-    events.forEach(event => {
-      document.addEventListener(event, handleActivity);
-    });
-
-    return () => {
-      events.forEach(event => {
-        document.removeEventListener(event, handleActivity);
-      });
-    };
+    const events = ['mousedown','mousemove','keypress','scroll','touchstart'];
+    events.forEach(ev => document.addEventListener(ev, handleActivity));
+    return () => { events.forEach(ev => document.removeEventListener(ev, handleActivity)); };
   }, [lastActivity]);
-
-  // لا قيود إضافية على التحميل أو النسخ داخل العارض
-  useEffect(() => {}, []);
 
   const handleZoomIn = () => {
     setScale(prev => Math.min(prev + 0.25, 3.0));
@@ -180,7 +205,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             </h3>
             <Progress value={loadProgress} className="mb-4" />
             <p className="text-gray-300 text-sm">
-              جاري ت��ميل المحتوى المحمي... {Math.round(loadProgress)}%
+              جاري تحميل المحتوى المحمي... {Math.round(loadProgress)}%
             </p>
             <div className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-400">
               <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
