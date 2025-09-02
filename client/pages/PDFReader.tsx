@@ -13,7 +13,7 @@ const PDFReader: React.FC = () => {
   const [work, setWork] = useState<PDFWork | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [showViewer, setShowViewer] = useState(false);
+  const [showViewer, setShowViewer] = useState(true);
 
   useEffect(() => {
     if (workId) {
@@ -103,7 +103,7 @@ const PDFReader: React.FC = () => {
             className="text-white hover:text-cyan-400 mb-4"
           >
             <ArrowLeft className="w-4 h-4 ml-2" />
-            العودة للمكتبة
+            العودة للم��تبة
           </Button>
         </div>
 
