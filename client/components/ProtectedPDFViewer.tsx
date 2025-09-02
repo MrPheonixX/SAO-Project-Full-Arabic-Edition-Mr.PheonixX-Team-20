@@ -61,6 +61,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   const SFD_URL = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${PDFJS_VER}/standard_fonts/`;
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rightCanvasRef = useRef<HTMLCanvasElement>(null);
   const pdfDocRef = useRef<any>(null);
@@ -147,7 +148,28 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
     }
   }, [currentPage, scale, rotation, readingMode]);
 
+  useEffect(() => {
+    const onResize = () => {
+      if (pdfDocRef.current) {
+        renderPage(currentPage || 1, pdfDocRef.current, scale, rotation);
+      }
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [currentPage, scale, rotation, readingMode]);
+
+  function getFitScale(viewW: number, viewH: number, contW: number, contH: number) {
+    const sx = contW / viewW;
+    const sy = contH / viewH;
+    return Math.min(sx, sy);
+  }
+
   async function renderPage(pageNum: number, doc: any, scaleVal: number, rotationVal: number) {
+    const container = stageRef.current;
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    const contW = container ? container.clientWidth : window.innerWidth;
+    const contH = container ? container.clientHeight : window.innerHeight - 112;
+
     if (readingMode === 'book') {
       // RTL spread: current page is on the RIGHT, next page is on the LEFT
       const rightNum = Math.min(pageNum, doc.numPages);
@@ -155,23 +177,37 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
 
       const leftCanvas = canvasRef.current; // left side canvas
       const rightCanvas = rightCanvasRef.current; // right side canvas
+      // Preload both pages to compute a common scale that fits
+      const rightPage = await doc.getPage(rightNum);
+      const rightViewportUnit = rightPage.getViewport({ scale: 1, rotation: rotationVal });
+      const leftPage = leftNum ? await doc.getPage(leftNum) : null;
+      const leftViewportUnit = leftPage ? leftPage.getViewport({ scale: 1, rotation: rotationVal }) : null;
+      const totalWUnit = (rightViewportUnit.width) + (leftViewportUnit?.width || 0) + 16; // gap
+      const maxHUnit = Math.max(rightViewportUnit.height, leftViewportUnit?.height || 0);
+      const fit = getFitScale(totalWUnit, maxHUnit, contW, contH);
+      const eff = fit * scaleVal;
+
       if (rightCanvas) {
-        const rightPage = await doc.getPage(rightNum);
-        const rightViewport = rightPage.getViewport({ scale: scaleVal, rotation: rotationVal });
+        const rightViewport = rightPage.getViewport({ scale: eff, rotation: rotationVal });
         const rctx = rightCanvas.getContext('2d');
         if (rctx) {
-          rightCanvas.width = Math.floor(rightViewport.width);
-          rightCanvas.height = Math.floor(rightViewport.height);
+          rightCanvas.style.width = `${Math.floor(rightViewport.width)}px`;
+          rightCanvas.style.height = `${Math.floor(rightViewport.height)}px`;
+          rightCanvas.width = Math.floor(rightViewport.width * dpr);
+          rightCanvas.height = Math.floor(rightViewport.height * dpr);
+          rctx.setTransform(dpr, 0, 0, dpr, 0, 0);
           await rightPage.render({ canvasContext: rctx, viewport: rightViewport }).promise;
         }
       }
-      if (leftNum && leftCanvas) {
-        const leftPage = await doc.getPage(leftNum);
-        const leftViewport = leftPage.getViewport({ scale: scaleVal, rotation: rotationVal });
+      if (leftCanvas && leftPage && leftViewportUnit) {
+        const leftViewport = leftPage.getViewport({ scale: eff, rotation: rotationVal });
         const lctx = leftCanvas.getContext('2d');
         if (lctx) {
-          leftCanvas.width = Math.floor(leftViewport.width);
-          leftCanvas.height = Math.floor(leftViewport.height);
+          leftCanvas.style.width = `${Math.floor(leftViewport.width)}px`;
+          leftCanvas.style.height = `${Math.floor(leftViewport.height)}px`;
+          leftCanvas.width = Math.floor(leftViewport.width * dpr);
+          leftCanvas.height = Math.floor(leftViewport.height * dpr);
+          lctx.setTransform(dpr, 0, 0, dpr, 0, 0);
           await leftPage.render({ canvasContext: lctx, viewport: leftViewport }).promise;
         }
       } else if (leftCanvas) {
@@ -180,7 +216,9 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
       }
     } else {
       const page = await doc.getPage(pageNum);
-      const viewport = page.getViewport({ scale: scaleVal, rotation: rotationVal });
+      const unit = page.getViewport({ scale: 1, rotation: rotationVal });
+      const fit = getFitScale(unit.width, unit.height, contW, contH);
+      const viewport = page.getViewport({ scale: fit * scaleVal, rotation: rotationVal });
       const canvas = canvasRef.current;
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
@@ -188,8 +226,11 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
       if (readingMode === 'slide') {
         canvas.style.opacity = '0';
       }
-      canvas.width = Math.floor(viewport.width);
-      canvas.height = Math.floor(viewport.height);
+      canvas.style.width = `${Math.floor(viewport.width)}px`;
+      canvas.style.height = `${Math.floor(viewport.height)}px`;
+      canvas.width = Math.floor(viewport.width * dpr);
+      canvas.height = Math.floor(viewport.height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       await page.render({ canvasContext: ctx, viewport }).promise;
       if (readingMode === 'slide') {
         requestAnimationFrame(() => {
@@ -419,14 +460,14 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
       </div>
 
       {/* منطقة عرض PDF */}
-      <div className="w-full h-screen pt-28 flex items-center justify-center select-none relative">
+      <div ref={stageRef} className="w-full h-screen pt-28 flex items-center justify-center select-none relative">
         {readingMode==='book' ? (
           <div className="flex gap-2 items-center justify-center w-full h-full flex-row-reverse">
-            <canvas ref={rightCanvasRef} className="max-w-[49%] max-h-full" />
-            <canvas ref={canvasRef} className="max-w-[49%] max-h-full" />
+            <canvas ref={rightCanvasRef} className="max-w-[49%] max-h-full bg-white" />
+            <canvas ref={canvasRef} className="max-w-[49%] max-h-full bg-white" />
           </div>
         ) : (
-          <canvas ref={canvasRef} className="max-w-full max-h-full" />
+          <canvas ref={canvasRef} className="max-w-full max-h-full bg-white" />
         )}
         {/* Tap zones for navigation (RTL): left => next, right => prev */}
         <div className="absolute inset-0 flex" aria-hidden>
