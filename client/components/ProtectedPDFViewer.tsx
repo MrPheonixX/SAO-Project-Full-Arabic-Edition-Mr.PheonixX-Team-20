@@ -97,7 +97,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
     if (pdfDocRef.current) {
       renderPage(currentPage || 1, pdfDocRef.current, scale, rotation);
     }
-  }, [currentPage, scale, rotation]);
+  }, [currentPage, scale, rotation, readingMode]);
 
   async function renderPage(pageNum: number, doc: any, scaleVal: number, rotationVal: number) {
     const page = await doc.getPage(pageNum);
