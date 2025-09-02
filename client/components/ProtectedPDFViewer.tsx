@@ -53,8 +53,12 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   const [showControls, setShowControls] = useState(true);
   const [lastActivity, setLastActivity] = useState(Date.now());
   const [theme, setTheme] = useState<'dark'|'light'|'sepia'>("dark");
-  const [readingMode, setReadingMode] = useState<'single'|'book'|'slide'>("single");
+  const [readingMode, setReadingMode] = useState<'single'|'book'|'slide'>("book");
   const [soundOn, setSoundOn] = useState(true);
+
+  const PDFJS_VER = '4.9.155';
+  const CMAP_URL = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${PDFJS_VER}/cmaps/`;
+  const SFD_URL = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${PDFJS_VER}/standard_fonts/`;
 
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -94,7 +98,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
 
       try {
         // 1) Try direct URL first (works without backend in dev and most hosts allow CORS)
-        const directTask = getDocument({ url: pdfUrl, withCredentials: false });
+        const directTask = getDocument({ url: pdfUrl, withCredentials: false, cMapUrl: CMAP_URL, cMapPacked: true, standardFontDataUrl: SFD_URL });
         const doc = await openWithTask(directTask);
         if (cancelled) return;
         pdfDocRef.current = doc;
@@ -112,7 +116,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
           if (!res.ok) throw new Error(`Proxy fetch failed: ${res.status}`);
           const buf = await res.arrayBuffer();
           setLoadProgress(40);
-          const proxyTask = getDocument({ data: buf });
+          const proxyTask = getDocument({ data: buf, cMapUrl: CMAP_URL, cMapPacked: true, standardFontDataUrl: SFD_URL });
           const doc = await openWithTask(proxyTask);
           if (cancelled) return;
           pdfDocRef.current = doc;
@@ -145,21 +149,13 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
 
   async function renderPage(pageNum: number, doc: any, scaleVal: number, rotationVal: number) {
     if (readingMode === 'book') {
-      const leftNum = pageNum % 2 === 0 ? pageNum - 1 : pageNum;
-      const rightNum = leftNum + 1 <= doc.numPages ? leftNum + 1 : null;
+      // RTL spread: current page is on the RIGHT, next page is on the LEFT
+      const rightNum = Math.min(pageNum, doc.numPages);
+      const leftNum = rightNum + 1 <= doc.numPages ? rightNum + 1 : null;
 
-      const leftPage = await doc.getPage(leftNum);
-      const leftViewport = leftPage.getViewport({ scale: scaleVal, rotation: rotationVal });
-      const leftCanvas = canvasRef.current;
-      const rightCanvas = rightCanvasRef.current;
-      if (!leftCanvas) return;
-      const lctx = leftCanvas.getContext('2d');
-      if (!lctx) return;
-      leftCanvas.width = Math.floor(leftViewport.width);
-      leftCanvas.height = Math.floor(leftViewport.height);
-      await leftPage.render({ canvasContext: lctx, viewport: leftViewport }).promise;
-
-      if (rightNum && rightCanvas) {
+      const leftCanvas = canvasRef.current; // left side canvas
+      const rightCanvas = rightCanvasRef.current; // right side canvas
+      if (rightCanvas) {
         const rightPage = await doc.getPage(rightNum);
         const rightViewport = rightPage.getViewport({ scale: scaleVal, rotation: rotationVal });
         const rctx = rightCanvas.getContext('2d');
@@ -168,9 +164,19 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
           rightCanvas.height = Math.floor(rightViewport.height);
           await rightPage.render({ canvasContext: rctx, viewport: rightViewport }).promise;
         }
-      } else if (rightCanvas) {
-        const rctx = rightCanvas.getContext('2d');
-        if (rctx) rctx.clearRect(0, 0, rightCanvas.width, rightCanvas.height);
+      }
+      if (leftNum && leftCanvas) {
+        const leftPage = await doc.getPage(leftNum);
+        const leftViewport = leftPage.getViewport({ scale: scaleVal, rotation: rotationVal });
+        const lctx = leftCanvas.getContext('2d');
+        if (lctx) {
+          leftCanvas.width = Math.floor(leftViewport.width);
+          leftCanvas.height = Math.floor(leftViewport.height);
+          await leftPage.render({ canvasContext: lctx, viewport: leftViewport }).promise;
+        }
+      } else if (leftCanvas) {
+        const lctx = leftCanvas.getContext('2d');
+        if (lctx) lctx.clearRect(0, 0, leftCanvas.width, leftCanvas.height);
       }
     } else {
       const page = await doc.getPage(pageNum);
@@ -226,14 +232,16 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   };
 
   const handleNextPage = () => {
-    const next = Math.min(currentPage + 1, totalPages || 999);
+    const step = readingMode === 'book' ? 2 : 1;
+    const next = Math.min(currentPage + step, totalPages || 999);
     setCurrentPage(next);
     updateReadProgress();
     if (soundOn) pageTurnAudioRef.current?.play().catch(() => {});
   };
 
   const handlePrevPage = () => {
-    const prev = Math.max(currentPage - 1, 1);
+    const step = readingMode === 'book' ? 2 : 1;
+    const prev = Math.max(currentPage - step, 1);
     setCurrentPage(prev);
     updateReadProgress();
     if (soundOn) pageTurnAudioRef.current?.play().catch(() => {});
@@ -259,6 +267,34 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
     setIsBookmarked(!isBookmarked);
     // يمكن إضافة منطق حفظ الإشارة المرجعية هنا
   };
+
+  useEffect(() => {
+    // Normalize page pairing when entering book mode (keep current page on right; make it odd)
+    if (readingMode === 'book' && currentPage % 2 === 0) {
+      setCurrentPage(Math.max(1, currentPage - 1));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [readingMode]);
+
+  useEffect(() => {
+    // Keyboard navigation with RTL mapping (ArrowLeft => next, ArrowRight => prev)
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.target as HTMLElement)?.tagName?.match(/INPUT|TEXTAREA|SELECT/i)) return;
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        handleNextPage();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        handlePrevPage();
+      } else if (e.key === '+') {
+        handleZoomIn();
+      } else if (e.key === '-') {
+        handleZoomOut();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [handleNextPage, handlePrevPage]);
 
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
@@ -314,13 +350,14 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   return (
     <div
       ref={containerRef}
+      dir="rtl"
       className={`min-h-screen relative ${isFullscreen ? 'fixed inset-0 z-50' : ''} ${theme==='dark'?'bg-black text-white':theme==='light'?'bg-white text-black':'bg-amber-50 text-black'}`}
       style={{ fontFamily: 'Noto Sans Arabic, system-ui, sans-serif' }}
     >
       {/* شريط العلوي */}
       <div className={`absolute top-0 left-0 right-0 ${theme==='light'?'bg-white/90':'bg-black/80'} backdrop-blur-sm border-b border-cyan-500/30 z-40 transition-transform duration-300 ${showControls ? 'translate-y-0' : '-translate-y-full'}`}>
-        <div className="flex items-center justify-between p-4">
-          <div className="flex items-center gap-4">
+        <div className="flex items-center justify-between p-4 flex-row-reverse">
+          <div className="flex items-center gap-4 flex-row-reverse">
             <Button
               variant="ghost"
               size="sm"
@@ -382,25 +419,44 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
       </div>
 
       {/* منطقة عرض PDF */}
-      <div className="w-full h-screen pt-28 flex items-center justify-center select-none">
+      <div className="w-full h-screen pt-28 flex items-center justify-center select-none relative">
         {readingMode==='book' ? (
-          <div className="flex gap-2 items-center justify-center w-full h-full">
-            <canvas ref={canvasRef} className="max-w-[49%] max-h-full" />
+          <div className="flex gap-2 items-center justify-center w-full h-full flex-row-reverse">
             <canvas ref={rightCanvasRef} className="max-w-[49%] max-h-full" />
+            <canvas ref={canvasRef} className="max-w-[49%] max-h-full" />
           </div>
         ) : (
           <canvas ref={canvasRef} className="max-w-full max-h-full" />
         )}
+        {/* Tap zones for navigation (RTL): left => next, right => prev */}
+        <div className="absolute inset-0 flex" aria-hidden>
+          <button onClick={handlePrevPage} className="h-full w-1/2 cursor-pointer" style={{ background: 'transparent' }} />
+          <button onClick={handleNextPage} className="h-full w-1/2 cursor-pointer" style={{ background: 'transparent' }} />
+        </div>
       </div>
 
       {/* أزرار التحكم الس��لية */}
       <div className={`absolute bottom-0 left-0 right-0 ${theme==='light'?'bg-white/90 text-black':'bg-black/80 text-white'} backdrop-blur-sm border-t border-cyan-500/30 z-40 transition-transform duration-300 ${showControls ? 'translate-y-0' : 'translate-y-full'}`}>
-        <div className="flex items-center justify-between p-4">
+        <div className="flex items-center justify-between p-4 flex-row-reverse">
           {/* أزرار التنقل */}
-          <div className="flex items-center gap-2">
-            <Button 
-              variant="ghost" 
-              size="sm" 
+          <div className="flex items-center gap-2 flex-row-reverse">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleNextPage}
+              className={`${theme==='light'?'text-gray-800':'text-white'} hover:text-cyan-400`}
+            >
+              التالي
+              <ChevronLeft className="w-4 h-4 mr-2" />
+            </Button>
+            
+            <Badge variant="outline" className="border-cyan-500/30 text-cyan-400">
+              الصفحة {currentPage}
+            </Badge>
+            
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={handlePrevPage}
               disabled={currentPage <= 1}
               className={`${theme==='light'?'text-gray-800':'text-white'} hover:text-cyan-400 disabled:opacity-50`}
@@ -408,27 +464,13 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
               <ChevronRight className="w-4 h-4" />
               السابق
             </Button>
-            
-            <Badge variant="outline" className="border-cyan-500/30 text-cyan-400">
-              الصفحة {currentPage}
-            </Badge>
-            
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={handleNextPage}
-              className={`${theme==='light'?'text-gray-800':'text-white'} hover:text-cyan-400`}
-            >
-              التالي
-              <ChevronLeft className="w-4 h-4 mr-2" />
-            </Button>
           </div>
 
           {/* أزرار التحكم في العرض */}
-          <div className="flex items-center gap-2">
-            <Button 
-              variant="ghost" 
-              size="sm" 
+          <div className="flex items-center gap-2 flex-row-reverse">
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={handleZoomOut}
               disabled={scale <= 0.5}
               className={`${theme==='light'?'text-gray-800':'text-white'} hover:text-cyan-400 disabled:opacity-50`}
