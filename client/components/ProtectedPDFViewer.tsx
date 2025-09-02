@@ -352,7 +352,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
       </div>
 
       {/* أزرار التحكم الس��لية */}
-      <div className={`absolute bottom-0 left-0 right-0 bg-black/80 backdrop-blur-sm border-t border-cyan-500/30 z-40 transition-transform duration-300 ${showControls ? 'translate-y-0' : 'translate-y-full'}`}>
+      <div className={`absolute bottom-0 left-0 right-0 ${theme==='light'?'bg-white/90 text-black':'bg-black/80 text-white'} backdrop-blur-sm border-t border-cyan-500/30 z-40 transition-transform duration-300 ${showControls ? 'translate-y-0' : 'translate-y-full'}`}>
         <div className="flex items-center justify-between p-4">
           {/* أزرار التنقل */}
           <div className="flex items-center gap-2">
