@@ -31,6 +31,8 @@ interface ProtectedPDFViewerProps {
   onBack?: () => void;
 }
 
+type Engine = 'native' | 'pdfjs';
+
 const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   pdfUrl,
   title,
@@ -39,7 +41,10 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   volumeNumber,
   onBack
 }) => {
+  const [engine, setEngine] = useState<Engine>('native');
+
   const [isLoading, setIsLoading] = useState(true);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
   const [loadProgress, setLoadProgress] = useState(0);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -68,20 +73,31 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   const startTimeRef = useRef(Date.now());
   const pageTurnAudioRef = useRef<HTMLAudioElement>(null);
 
+  // Cleanup PDF.js doc when switching away from it
   useEffect(() => {
+    if (engine !== 'pdfjs') {
+      try { pdfDocRef.current?.destroy?.(); } catch {}
+      pdfDocRef.current = null;
+      setLoadError(null);
+      setIsLoading(!iframeLoaded);
+    } else {
+      setIsLoading(true);
+    }
+  }, [engine, iframeLoaded]);
+
+  useEffect(() => {
+    if (engine !== 'pdfjs') return;
     let cancelled = false;
     async function load() {
       setIsLoading(true);
       setLoadProgress(5);
       setLoadError(null);
 
-      // Ensure pdf.js worker is set (local first, then CDN fallback)
       try { (GlobalWorkerOptions as any).workerSrc = workerUrl as unknown as string; } catch {}
       if (!(GlobalWorkerOptions as any).workerSrc) {
         (GlobalWorkerOptions as any).workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.9.155/build/pdf.worker.min.js";
       }
 
-      // Helper to open a document and wire progress updates
       const openWithTask = async (task: any) => {
         try {
           if (typeof task.onProgress === 'function') {
@@ -98,7 +114,6 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
       };
 
       try {
-        // 1) Try direct URL first (works without backend in dev and most hosts allow CORS)
         const directTask = getDocument({ url: pdfUrl, withCredentials: false, cMapUrl: CMAP_URL, cMapPacked: true, standardFontDataUrl: SFD_URL, disableFontFace: false, enableXfa: true, verbosity: 3 });
         const doc = await openWithTask(directTask);
         if (cancelled) return;
@@ -110,7 +125,6 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
         setIsLoading(false);
         return;
       } catch (directErr: any) {
-        // 2) Fallback to proxy endpoint (for hosts requiring special headers)
         try {
           setLoadProgress(15);
           const res = await fetch(`/api/proxy-pdf?url=${encodeURIComponent(pdfUrl)}`);
@@ -140,23 +154,25 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
       try { pdfDocRef.current?.destroy?.(); } catch {}
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pdfUrl]);
+  }, [pdfUrl, engine]);
 
   useEffect(() => {
+    if (engine !== 'pdfjs') return;
     if (pdfDocRef.current) {
       renderPage(currentPage || 1, pdfDocRef.current, scale, rotation);
     }
-  }, [currentPage, scale, rotation, readingMode]);
+  }, [currentPage, scale, rotation, readingMode, engine]);
 
   useEffect(() => {
     const onResize = () => {
+      if (engine !== 'pdfjs') return;
       if (pdfDocRef.current) {
         renderPage(currentPage || 1, pdfDocRef.current, scale, rotation);
       }
     };
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
-  }, [currentPage, scale, rotation, readingMode]);
+  }, [currentPage, scale, rotation, readingMode, engine]);
 
   function getFitScale(viewW: number, viewH: number, contW: number, contH: number) {
     const sx = contW / viewW;
@@ -171,18 +187,16 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
     const contH = container ? container.clientHeight : window.innerHeight - 112;
 
     if (readingMode === 'book') {
-      // RTL spread: current page is on the RIGHT, next page is on the LEFT
       const rightNum = Math.min(pageNum, doc.numPages);
       const leftNum = rightNum + 1 <= doc.numPages ? rightNum + 1 : null;
 
-      const leftCanvas = canvasRef.current; // left side canvas
-      const rightCanvas = rightCanvasRef.current; // right side canvas
-      // Preload both pages to compute a common scale that fits
+      const leftCanvas = canvasRef.current;
+      const rightCanvas = rightCanvasRef.current;
       const rightPage = await doc.getPage(rightNum);
       const rightViewportUnit = rightPage.getViewport({ scale: 1, rotation: rotationVal });
       const leftPage = leftNum ? await doc.getPage(leftNum) : null;
       const leftViewportUnit = leftPage ? leftPage.getViewport({ scale: 1, rotation: rotationVal }) : null;
-      const totalWUnit = (rightViewportUnit.width) + (leftViewportUnit?.width || 0) + 16; // gap
+      const totalWUnit = (rightViewportUnit.width) + (leftViewportUnit?.width || 0) + 16;
       const maxHUnit = Math.max(rightViewportUnit.height, leftViewportUnit?.height || 0);
       const fit = getFitScale(totalWUnit, maxHUnit, contW, contH);
       const eff = fit * scaleVal;
@@ -241,9 +255,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
     }
   }
 
-
   useEffect(() => {
-    // حساب وقت القراءة وإخفاء الأزرار
     const timeInterval = setInterval(() => setReadingTime(prev => prev + 1), 1000);
     const hideControlsTimeout = setTimeout(() => setShowControls(false), 5000);
     return () => { clearInterval(timeInterval); clearTimeout(hideControlsTimeout); };
@@ -306,49 +318,75 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
 
   const toggleBookmark = () => {
     setIsBookmarked(!isBookmarked);
-    // يمكن إضافة منطق حفظ الإشارة المرجعية هنا
   };
 
   useEffect(() => {
-    // Normalize page pairing when entering book mode (keep current page on right; make it odd)
+    if (engine !== 'pdfjs') return;
     if (readingMode === 'book' && currentPage % 2 === 0) {
       setCurrentPage(Math.max(1, currentPage - 1));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [readingMode]);
+  }, [readingMode, engine]);
 
   useEffect(() => {
-    // Keyboard navigation with RTL mapping (ArrowLeft => next, ArrowRight => prev)
     const onKey = (e: KeyboardEvent) => {
       if ((e.target as HTMLElement)?.tagName?.match(/INPUT|TEXTAREA|SELECT/i)) return;
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        handleNextPage();
-      } else if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        handlePrevPage();
-      } else if (e.key === '+') {
-        handleZoomIn();
-      } else if (e.key === '-') {
-        handleZoomOut();
+      if (engine === 'pdfjs') {
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          handleNextPage();
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          handlePrevPage();
+        } else if (e.key === '+') {
+          handleZoomIn();
+        } else if (e.key === '-') {
+          handleZoomOut();
+        }
       }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [handleNextPage, handlePrevPage]);
+  }, [handleNextPage, handlePrevPage, engine]);
 
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
-    
     if (hours > 0) {
       return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
     return `${minutes}:${secs.toString().padStart(2, '0')}`;
   };
 
-  if (isLoading) {
+  const nativeSrc = `${pdfUrl}#view=FitH&toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1`;
+
+  if (engine === 'native' && !iframeLoaded && isLoading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <Card className="w-96 bg-black/40 backdrop-blur-xl border border-cyan-500/30">
+          <CardContent className="p-8 text-center">
+            <div className="mb-6">
+              <BookOpen className="w-16 h-16 mx-auto text-cyan-400 animate-pulse" />
+            </div>
+            <h3 className="text-xl font-bold text-white mb-4">
+              {titleAr}
+            </h3>
+            <Progress value={loadProgress || 30} className="mb-4" />
+            <p className="text-gray-300 text-sm">
+              جاري فتح العارض المدمج بالنظام...
+            </p>
+            <div className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-400">
+              <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
+              <span>أفضل جودة للنص العربي</span>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  if (engine === 'pdfjs' && isLoading) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
         <Card className="w-96 bg-black/40 backdrop-blur-xl border border-cyan-500/30">
@@ -395,7 +433,6 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
       className={`min-h-screen relative ${isFullscreen ? 'fixed inset-0 z-50' : ''} ${theme==='dark'?'bg-black text-white':theme==='light'?'bg-white text-black':'bg-amber-50 text-black'}`}
       style={{ fontFamily: 'Noto Sans Arabic, system-ui, sans-serif' }}
     >
-      {/* شريط العلوي */}
       <div className={`absolute top-0 left-0 right-0 ${theme==='light'?'bg-white/90':'bg-black/80'} backdrop-blur-sm border-b border-cyan-500/30 z-40 transition-transform duration-300 ${showControls ? 'translate-y-0' : '-translate-y-full'}`}>
         <div className="flex items-center justify-between p-4 flex-row-reverse">
           <div className="flex items-center gap-4 flex-row-reverse">
@@ -418,21 +455,27 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             <Badge variant="secondary" className="bg-cyan-500/20 text-cyan-400 border-cyan-500/30">
               وقت القراءة: {formatTime(readingTime)}
             </Badge>
-            <Badge variant="secondary" className="bg-purple-500/20 text-purple-400 border-purple-500/30">
-              التقدم: {Math.round(readProgress)}%
-            </Badge>
+            {engine === 'pdfjs' && (
+              <Badge variant="secondary" className="bg-purple-500/20 text-purple-400 border-purple-500/30">
+                التقدم: {Math.round(readProgress)}%
+              </Badge>
+            )}
           </div>
         </div>
-        {/* شريط أدوات العرض */}
+
         <div className="px-4 pb-2 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="sm" onClick={handleZoomOut} className={`${theme==='light'?'text-gray-700':'text-white'}`}>
-              <ZoomOut className="w-4 h-4" />
-            </Button>
-            <span className="text-sm opacity-70">{Math.round(scale*100)}%</span>
-            <Button variant="ghost" size="sm" onClick={handleZoomIn} className={`${theme==='light'?'text-gray-700':'text-white'}`}>
-              <ZoomIn className="w-4 h-4" />
-            </Button>
+            {engine === 'pdfjs' && (
+              <>
+                <Button variant="ghost" size="sm" onClick={handleZoomOut} className={`${theme==='light'?'text-gray-700':'text-white'}`}>
+                  <ZoomOut className="w-4 h-4" />
+                </Button>
+                <span className="text-sm opacity-70">{Math.round(scale*100)}%</span>
+                <Button variant="ghost" size="sm" onClick={handleZoomIn} className={`${theme==='light'?'text-gray-700':'text-white'}`}>
+                  <ZoomIn className="w-4 h-4" />
+                </Button>
+              </>
+            )}
           </div>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" onClick={() => setTheme('light')} className={`${theme==='light'?'text-blue-400':'text-white'}`}>
@@ -446,113 +489,146 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             </Button>
             <div className="w-px h-6 bg-gray-600 mx-1" />
             <div className="flex items-center gap-1 bg-gray-800/60 rounded-lg p-1">
-              <Button variant={readingMode==='single'?'default':'ghost'} size="sm" onClick={() => setReadingMode('single')} className="px-3">تمرير</Button>
-              <Button variant={readingMode==='book'?'default':'ghost'} size="sm" onClick={() => setReadingMode('book')} className="px-3">كتاب</Button>
-              <Button variant={readingMode==='slide'?'default':'ghost'} size="sm" onClick={() => setReadingMode('slide')} className="px-3">شرائح</Button>
+              <Button variant={engine==='native'?'default':'ghost'} size="sm" onClick={() => setEngine('native')} className="px-3">عارض النظام</Button>
+              <Button variant={engine==='pdfjs'?'default':'ghost'} size="sm" onClick={() => setEngine('pdfjs')} className="px-3">عارض متقدم</Button>
+            </div>
+            {engine === 'pdfjs' && (
+              <>
+                <div className="w-px h-6 bg-gray-600 mx-1" />
+                <div className="flex items-center gap-1 bg-gray-800/60 rounded-lg p-1">
+                  <Button variant={readingMode==='single'?'default':'ghost'} size="sm" onClick={() => setReadingMode('single')} className="px-3">تمرير</Button>
+                  <Button variant={readingMode==='book'?'default':'ghost'} size="sm" onClick={() => setReadingMode('book')} className="px-3">كتاب</Button>
+                  <Button variant={readingMode==='slide'?'default':'ghost'} size="sm" onClick={() => setReadingMode('slide')} className="px-3">شرائح</Button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+
+        {engine === 'pdfjs' && (
+          <div className="px-4 pb-2">
+            <Progress value={readProgress} className="h-1" />
+          </div>
+        )}
+      </div>
+
+      <div ref={stageRef} className="w-full h-screen pt-28 flex items-center justify-center select-none relative">
+        {engine === 'native' ? (
+          <iframe
+            title={title}
+            src={nativeSrc}
+            className="w-full h-full border-0 bg-white"
+            onLoad={() => { setIframeLoaded(true); setIsLoading(false); }}
+            sandbox="allow-same-origin allow-scripts allow-forms allow-pointer-lock allow-modals allow-popups"
+            allow="fullscreen"
+          />
+        ) : (
+          <>
+            {readingMode==='book' ? (
+              <div className="flex gap-2 items-center justify-center w-full h-full flex-row-reverse">
+                <canvas ref={rightCanvasRef} className="max-w-[49%] max-h-full bg-white" />
+                <canvas ref={canvasRef} className="max-w-[49%] max-h-full bg-white" />
+              </div>
+            ) : (
+              <canvas ref={canvasRef} className="max-w-full max-h-full bg-white" />
+            )}
+            <div className="absolute inset-0 flex" aria-hidden>
+              <button onClick={handleNextPage} className="h-full w-1/2 cursor-pointer" style={{ background: 'transparent' }} />
+              <button onClick={handlePrevPage} className="h-full w-1/2 cursor-pointer" style={{ background: 'transparent' }} />
+            </div>
+          </>
+        )}
+      </div>
+
+      {engine === 'pdfjs' ? (
+        <div className={`absolute bottom-0 left-0 right-0 ${theme==='light'?'bg-white/90 text-black':'bg-black/80 text-white'} backdrop-blur-sm border-t border-cyan-500/30 z-40 transition-transform duration-300 ${showControls ? 'translate-y-0' : 'translate-y-full'}`}>
+          <div className="flex items-center justify-between p-4 flex-row-reverse">
+            <div className="flex items-center gap-2 flex-row-reverse">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleNextPage}
+                className={`${theme==='light'?'text-gray-800':'text-white'} hover:text-cyan-400`}
+              >
+                التالي
+                <ChevronLeft className="w-4 h-4 mr-2" />
+              </Button>
+              <Badge variant="outline" className="border-cyan-500/30 text-cyan-400">
+                الصفحة {currentPage}
+              </Badge>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handlePrevPage}
+                disabled={currentPage <= 1}
+                className={`${theme==='light'?'text-gray-800':'text-white'} hover:text-cyan-400 disabled:opacity-50`}
+              >
+                <ChevronRight className="w-4 h-4" />
+                السابق
+              </Button>
+            </div>
+
+            <div className="flex items-center gap-2 flex-row-reverse">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleZoomOut}
+                disabled={scale <= 0.5}
+                className={`${theme==='light'?'text-gray-800':'text-white'} hover:text-cyan-400 disabled:opacity-50`}
+              >
+                <ZoomOut className="w-4 h-4" />
+              </Button>
+              <Badge variant="outline" className="border-cyan-500/30 text-cyan-400">
+                {Math.round(scale * 100)}%
+              </Badge>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={handleZoomIn}
+                disabled={scale >= 3.0}
+                className={`${theme==='light'?'text-gray-800':'text-white'} hover:text-cyan-400 disabled:opacity-50`}
+              >
+                <ZoomIn className="w-4 h-4" />
+              </Button>
+              <div className="w-px h-6 bg-gray-600 mx-2" />
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={handleRotate}
+                className={`${theme==='light'?'text-gray-800':'text-white'} hover:text-cyan-400`}
+              >
+                <RotateCw className="w-4 h-4" />
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={toggleBookmark}
+                className={`${isBookmarked ? 'text-yellow-400' : 'text-white'} hover:text-yellow-400`}
+              >
+                <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-current' : ''}`} />
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={toggleFullscreen}
+                className={`${theme==='light'?'text-gray-800':'text-white'} hover:text-cyan-400`}
+              >
+                {isFullscreen ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => setShowControls(!showControls)}
+                className={`${theme==='light'?'text-gray-800':'text-white'} hover:text-cyan-400`}
+              >
+                {showControls ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </Button>
             </div>
           </div>
         </div>
-
-        {/* شريط التقدم */}
-        <div className="px-4 pb-2">
-          <Progress value={readProgress} className="h-1" />
-        </div>
-      </div>
-
-      {/* منطقة عرض PDF */}
-      <div ref={stageRef} className="w-full h-screen pt-28 flex items-center justify-center select-none relative">
-        {readingMode==='book' ? (
-          <div className="flex gap-2 items-center justify-center w-full h-full flex-row-reverse">
-            <canvas ref={rightCanvasRef} className="max-w-[49%] max-h-full bg-white" />
-            <canvas ref={canvasRef} className="max-w-[49%] max-h-full bg-white" />
-          </div>
-        ) : (
-          <canvas ref={canvasRef} className="max-w-full max-h-full bg-white" />
-        )}
-        {/* Tap zones for navigation (RTL): left => next, right => prev */}
-        <div className="absolute inset-0 flex" aria-hidden>
-          <button onClick={handleNextPage} className="h-full w-1/2 cursor-pointer" style={{ background: 'transparent' }} />
-          <button onClick={handlePrevPage} className="h-full w-1/2 cursor-pointer" style={{ background: 'transparent' }} />
-        </div>
-      </div>
-
-      {/* أزرار التحكم الس��لية */}
-      <div className={`absolute bottom-0 left-0 right-0 ${theme==='light'?'bg-white/90 text-black':'bg-black/80 text-white'} backdrop-blur-sm border-t border-cyan-500/30 z-40 transition-transform duration-300 ${showControls ? 'translate-y-0' : 'translate-y-full'}`}>
-        <div className="flex items-center justify-between p-4 flex-row-reverse">
-          {/* أزرار التنقل */}
-          <div className="flex items-center gap-2 flex-row-reverse">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleNextPage}
-              className={`${theme==='light'?'text-gray-800':'text-white'} hover:text-cyan-400`}
-            >
-              التالي
-              <ChevronLeft className="w-4 h-4 mr-2" />
-            </Button>
-            
-            <Badge variant="outline" className="border-cyan-500/30 text-cyan-400">
-              الصفحة {currentPage}
-            </Badge>
-            
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handlePrevPage}
-              disabled={currentPage <= 1}
-              className={`${theme==='light'?'text-gray-800':'text-white'} hover:text-cyan-400 disabled:opacity-50`}
-            >
-              <ChevronRight className="w-4 h-4" />
-              السابق
-            </Button>
-          </div>
-
-          {/* أزرار التحكم في العرض */}
-          <div className="flex items-center gap-2 flex-row-reverse">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleZoomOut}
-              disabled={scale <= 0.5}
-              className={`${theme==='light'?'text-gray-800':'text-white'} hover:text-cyan-400 disabled:opacity-50`}
-            >
-              <ZoomOut className="w-4 h-4" />
-            </Button>
-            
-            <Badge variant="outline" className="border-cyan-500/30 text-cyan-400">
-              {Math.round(scale * 100)}%
-            </Badge>
-            
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={handleZoomIn}
-              disabled={scale >= 3.0}
-              className={`${theme==='light'?'text-gray-800':'text-white'} hover:text-cyan-400 disabled:opacity-50`}
-            >
-              <ZoomIn className="w-4 h-4" />
-            </Button>
-            
-            <div className="w-px h-6 bg-gray-600 mx-2" />
-            
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={handleRotate}
-              className={`${theme==='light'?'text-gray-800':'text-white'} hover:text-cyan-400`}
-            >
-              <RotateCw className="w-4 h-4" />
-            </Button>
-            
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={toggleBookmark}
-              className={`${isBookmarked ? 'text-yellow-400' : 'text-white'} hover:text-yellow-400`}
-            >
-              <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-current' : ''}`} />
-            </Button>
-            
+      ) : (
+        <div className={`absolute bottom-0 left-0 right-0 ${theme==='light'?'bg-white/90 text-black':'bg-black/80 text-white'} backdrop-blur-sm border-t border-cyan-500/30 z-40 transition-transform duration-300 ${showControls ? 'translate-y-0' : 'translate-y-full'}`}>
+          <div className="flex items-center justify-end p-4 gap-2 flex-row-reverse">
             <Button 
               variant="ghost" 
               size="sm" 
@@ -561,7 +637,6 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             >
               {isFullscreen ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
             </Button>
-            
             <Button 
               variant="ghost" 
               size="sm" 
@@ -570,10 +645,17 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             >
               {showControls ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </Button>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => window.open(pdfUrl, '_blank')}
+              className="border-gray-600 text-gray-300 hover:text-white"
+            >
+              فتح في تبويب جديد
+            </Button>
           </div>
         </div>
-      </div>
-
+      )}
 
       <audio ref={pageTurnAudioRef} src="data:audio/mp3;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCA" preload="auto" />
     </div>
