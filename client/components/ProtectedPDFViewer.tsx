@@ -99,7 +99,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
 
       try {
         // 1) Try direct URL first (works without backend in dev and most hosts allow CORS)
-        const directTask = getDocument({ url: pdfUrl, withCredentials: false, cMapUrl: CMAP_URL, cMapPacked: true, standardFontDataUrl: SFD_URL });
+        const directTask = getDocument({ url: pdfUrl, withCredentials: false, cMapUrl: CMAP_URL, cMapPacked: true, standardFontDataUrl: SFD_URL, useSystemFonts: true, enableXfa: true, verbosity: 3 });
         const doc = await openWithTask(directTask);
         if (cancelled) return;
         pdfDocRef.current = doc;
@@ -117,7 +117,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
           if (!res.ok) throw new Error(`Proxy fetch failed: ${res.status}`);
           const buf = await res.arrayBuffer();
           setLoadProgress(40);
-          const proxyTask = getDocument({ data: buf, cMapUrl: CMAP_URL, cMapPacked: true, standardFontDataUrl: SFD_URL });
+          const proxyTask = getDocument({ data: buf, cMapUrl: CMAP_URL, cMapPacked: true, standardFontDataUrl: SFD_URL, useSystemFonts: true, enableXfa: true, verbosity: 3 });
           const doc = await openWithTask(proxyTask);
           if (cancelled) return;
           pdfDocRef.current = doc;
@@ -196,7 +196,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
           rightCanvas.width = Math.floor(rightViewport.width * dpr);
           rightCanvas.height = Math.floor(rightViewport.height * dpr);
           rctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-          await rightPage.render({ canvasContext: rctx, viewport: rightViewport }).promise;
+          await rightPage.render({ canvasContext: rctx, viewport: rightViewport, intent: 'display', renderInteractiveForms: false, enableWebGL: true }).promise;
         }
       }
       if (leftCanvas && leftPage && leftViewportUnit) {
@@ -208,7 +208,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
           leftCanvas.width = Math.floor(leftViewport.width * dpr);
           leftCanvas.height = Math.floor(leftViewport.height * dpr);
           lctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-          await leftPage.render({ canvasContext: lctx, viewport: leftViewport }).promise;
+          await leftPage.render({ canvasContext: lctx, viewport: leftViewport, intent: 'display', renderInteractiveForms: false, enableWebGL: true }).promise;
         }
       } else if (leftCanvas) {
         const lctx = leftCanvas.getContext('2d');
@@ -231,7 +231,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
       canvas.width = Math.floor(viewport.width * dpr);
       canvas.height = Math.floor(viewport.height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      await page.render({ canvasContext: ctx, viewport }).promise;
+      await page.render({ canvasContext: ctx, viewport, intent: 'display', renderInteractiveForms: false, enableWebGL: true }).promise;
       if (readingMode === 'slide') {
         requestAnimationFrame(() => {
           canvas.style.transition = 'opacity 250ms';
@@ -446,7 +446,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             </Button>
             <div className="w-px h-6 bg-gray-600 mx-1" />
             <div className="flex items-center gap-1 bg-gray-800/60 rounded-lg p-1">
-              <Button variant={readingMode==='single'?'default':'ghost'} size="sm" onClick={() => setReadingMode('single')} className="px-3">تمرير</Button>
+              <Button variant={readingMode==='single'?'default':'ghost'} size="sm" onClick={() => setReadingMode('single')} className="px-3">تمري��</Button>
               <Button variant={readingMode==='book'?'default':'ghost'} size="sm" onClick={() => setReadingMode('book')} className="px-3">كتاب</Button>
               <Button variant={readingMode==='slide'?'default':'ghost'} size="sm" onClick={() => setReadingMode('slide')} className="px-3">شرائح</Button>
             </div>
