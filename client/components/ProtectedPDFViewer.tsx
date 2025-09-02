@@ -13,6 +13,8 @@ import {
   Minimize,
   Eye,
   EyeOff,
+  Sun,
+  Moon,
   Bookmark,
   BookOpen,
   ArrowLeft
