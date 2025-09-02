@@ -450,6 +450,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
       </div>
 
 
+      <audio ref={pageTurnAudioRef} src="data:audio/mp3;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCA" preload="auto" />
     </div>
   );
 };
