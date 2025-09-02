@@ -134,7 +134,7 @@ const PDFReader: React.FC = () => {
                         </Badge>
                       )}
                       <Badge variant="secondary" className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
-                        ⭐ {work.rating}/10
+                        {work.rating}/10
                       </Badge>
                     </div>
                   </div>
@@ -276,7 +276,7 @@ const PDFReader: React.FC = () => {
                   <p className="text-gray-400">المترجم:</p>
                   <p className="text-white font-semibold">MrPheonixX Team</p>
                   <p className="text-gray-400">جودة الترجمة:</p>
-                  <p className="text-white font-semibold">عالية الجودة ⭐⭐⭐⭐⭐</p>
+                  <p className="text-white font-semibold">عالية الجودة</p>
                   <p className="text-gray-400">حالة الترجمة:</p>
                   <p className="text-green-400 font-semibold">مكتملة ✅</p>
                 </div>
