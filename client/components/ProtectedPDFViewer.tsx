@@ -205,7 +205,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             </h3>
             <Progress value={loadProgress} className="mb-4" />
             <p className="text-gray-300 text-sm">
-              جاري تحميل المحتوى المحمي... {Math.round(loadProgress)}%
+              جاري تحميل ا��محتوى المحمي... {Math.round(loadProgress)}%
             </p>
             <div className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-400">
               <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
@@ -261,36 +261,8 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
       </div>
 
       {/* منطقة عرض PDF */}
-      <div className="w-full h-screen pt-20">
-        <iframe
-          ref={iframeRef}
-          src={securedPdfUrl}
-          className="w-full h-full border-0"
-          style={{
-            transform: `scale(${scale}) rotate(${rotation}deg)`,
-            transformOrigin: 'center center',
-            userSelect: 'none',
-            pointerEvents: 'auto'
-          }}
-
-          // منع التحميل والطباعة
-          onLoad={() => {
-            const iframe = iframeRef.current;
-            if (iframe && iframe.contentWindow) {
-              // منع اختصارات لوحة المفاتيح
-              iframe.contentWindow.addEventListener('keydown', (e) => {
-                if (
-                  e.ctrlKey && (e.key === 's' || e.key === 'p' || e.key === 'S' || e.key === 'P') ||
-                  e.key === 'PrintScreen'
-                ) {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  return false;
-                }
-              });
-            }
-          }}
-        />
+      <div className="w-full h-screen pt-20 flex items-center justify-center select-none" ref={containerRef}>
+        <canvas ref={canvasRef} className="max-w-full max-h-full" />
       </div>
 
       {/* أزرار التحكم الس��لية */}
