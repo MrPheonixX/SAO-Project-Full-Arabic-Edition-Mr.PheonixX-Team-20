@@ -361,16 +361,9 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
 
   const nativeSrc = `/api/proxy-pdf?url=${encodeURIComponent(pdfUrl)}#view=FitH&toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1`;
 
-  // Auto-fallback: if native viewer doesn't load quickly, switch to pdf.js
   useEffect(() => {
     if (engine !== 'native') return;
-    setIsLoading(true);
-    const t = setTimeout(() => {
-      if (!iframeLoaded) {
-        setEngine('pdfjs');
-      }
-    }, 4000);
-    return () => clearTimeout(t);
+    setIsLoading(!iframeLoaded);
   }, [engine, iframeLoaded]);
 
   if (engine === 'native' && !iframeLoaded && isLoading) {
@@ -411,7 +404,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             </h3>
             <Progress value={loadProgress} className="mb-4" />
             <p className="text-gray-300 text-sm">
-              جاري تحميل المحتوى... {Math.round(loadProgress)}%
+              جاري تحمي�� المحتوى... {Math.round(loadProgress)}%
             </p>
             <div className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-400">
               <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
