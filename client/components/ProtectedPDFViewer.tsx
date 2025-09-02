@@ -66,32 +66,69 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   useEffect(() => {
     let cancelled = false;
     async function load() {
+      setIsLoading(true);
+      setLoadProgress(5);
+      setLoadError(null);
+
+      // Ensure pdf.js worker is set (local first, then CDN fallback)
+      try { (GlobalWorkerOptions as any).workerSrc = workerUrl as unknown as string; } catch {}
+      if (!(GlobalWorkerOptions as any).workerSrc) {
+        (GlobalWorkerOptions as any).workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.9.155/build/pdf.worker.min.js";
+      }
+
+      // Helper to open a document and wire progress updates
+      const openWithTask = async (task: any) => {
+        try {
+          if (typeof task.onProgress === 'function') {
+            task.onProgress = (p: any) => {
+              if (p && p.loaded) {
+                const pct = p.total ? (p.loaded / p.total) * 80 + 10 : Math.min(90, loadProgress + 5);
+                setLoadProgress(Math.max(10, Math.min(95, Math.round(pct))));
+              }
+            };
+          }
+        } catch {}
+        const doc = await task.promise;
+        return doc;
+      };
+
       try {
-        setIsLoading(true);
-        setLoadProgress(10);
-        setLoadError(null);
-        try { GlobalWorkerOptions.workerSrc = workerUrl as unknown as string; } catch {}
-        if (!(GlobalWorkerOptions as any).workerSrc) {
-          (GlobalWorkerOptions as any).workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.9.155/build/pdf.worker.min.js";
-        }
-        const res = await fetch(`/api/proxy-pdf?url=${encodeURIComponent(pdfUrl)}`);
-        if (!res.ok) throw new Error(`Proxy fetch failed: ${res.status}`);
-        const buf = await res.arrayBuffer();
-        setLoadProgress(40);
-        const loadingTask = getDocument({ data: buf });
-        const doc = await loadingTask.promise;
+        // 1) Try direct URL first (works without backend in dev and most hosts allow CORS)
+        const directTask = getDocument({ url: pdfUrl, withCredentials: false });
+        const doc = await openWithTask(directTask);
         if (cancelled) return;
         pdfDocRef.current = doc;
         setTotalPages(doc.numPages);
-        setLoadProgress(80);
-        await renderPage(currentPage || 1, doc, scale, rotation);
+        setLoadProgress(90);
+        await renderPage(1, doc, scale, rotation);
         setLoadProgress(100);
         setIsLoading(false);
-      } catch (e: any) {
-        setIsLoading(false);
-        setLoadError(e?.message || 'فشل تحميل ملف PDF');
+        return;
+      } catch (directErr: any) {
+        // 2) Fallback to proxy endpoint (for hosts requiring special headers)
+        try {
+          setLoadProgress(15);
+          const res = await fetch(`/api/proxy-pdf?url=${encodeURIComponent(pdfUrl)}`);
+          if (!res.ok) throw new Error(`Proxy fetch failed: ${res.status}`);
+          const buf = await res.arrayBuffer();
+          setLoadProgress(40);
+          const proxyTask = getDocument({ data: buf });
+          const doc = await openWithTask(proxyTask);
+          if (cancelled) return;
+          pdfDocRef.current = doc;
+          setTotalPages(doc.numPages);
+          setLoadProgress(90);
+          await renderPage(1, doc, scale, rotation);
+          setLoadProgress(100);
+          setIsLoading(false);
+          return;
+        } catch (proxyErr: any) {
+          setIsLoading(false);
+          setLoadError(proxyErr?.message || directErr?.message || 'فشل تحميل ملف PDF');
+        }
       }
     }
+
     load();
     return () => {
       cancelled = true;
