@@ -130,7 +130,7 @@ const PDFWorksLibrary: React.FC = () => {
             <p className="text-gray-400 text-sm mt-1 line-clamp-1">{work.titleEn}</p>
           </div>
           <Badge variant="secondary" className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30 text-xs">
-            ⭐ {work.rating}
+            {work.rating}
           </Badge>
         </div>
 
