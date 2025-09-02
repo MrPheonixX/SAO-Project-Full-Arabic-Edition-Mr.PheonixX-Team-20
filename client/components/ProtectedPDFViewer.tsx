@@ -199,13 +199,17 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   };
 
   const handleNextPage = () => {
-    setCurrentPage(prev => Math.min(prev + 1, totalPages || 999));
+    const next = Math.min(currentPage + 1, totalPages || 999);
+    setCurrentPage(next);
     updateReadProgress();
+    if (soundOn) pageTurnAudioRef.current?.play().catch(() => {});
   };
 
   const handlePrevPage = () => {
-    setCurrentPage(prev => Math.max(prev - 1, 1));
+    const prev = Math.max(currentPage - 1, 1);
+    setCurrentPage(prev);
     updateReadProgress();
+    if (soundOn) pageTurnAudioRef.current?.play().catch(() => {});
   };
 
   const updateReadProgress = () => {
