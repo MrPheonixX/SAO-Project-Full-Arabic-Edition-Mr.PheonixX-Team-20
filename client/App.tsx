@@ -31,7 +31,7 @@ import UIEnhancements from "./components/UIEnhancements";
 import MobileOptimization from "./components/MobileOptimization";
 import AntiCopyProtection from "./components/AntiCopyProtection";
 import SimpleDevToolsBlocker from "./components/SimpleDevToolsBlocker";
-import RandomAnimeEmojis from "./components/RandomAnimeEmojis";
+// import RandomAnimeEmojis from "./components/RandomAnimeEmojis";
 import SimplePDFSecurityLayer from "./components/SimplePDFSecurityLayer";
 import SecurityErrorHandler from "./components/SecurityErrorHandler";
 // import DeveloperExceptions from "./components/DeveloperExceptions";
@@ -55,7 +55,6 @@ const App = () => (
           <TooltipProvider>
             {/* DeveloperExceptions removed to hide developer mode banner */}
             <SecurityErrorHandler />
-            <RandomAnimeEmojis />
             <Toaster />
             <Sonner />
             <UIEnhancements />
