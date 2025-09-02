@@ -270,32 +270,30 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   }
 
   return (
-    <div 
+    <div
       ref={containerRef}
-      className={`min-h-screen bg-black relative ${isFullscreen ? 'fixed inset-0 z-50' : ''}`}
-      style={{
-        fontFamily: 'Noto Sans Arabic, system-ui, sans-serif'
-      }}
+      className={`min-h-screen relative ${isFullscreen ? 'fixed inset-0 z-50' : ''} ${theme==='dark'?'bg-black text-white':theme==='light'?'bg-white text-black':'bg-amber-50 text-black'}`}
+      style={{ fontFamily: 'Noto Sans Arabic, system-ui, sans-serif' }}
     >
       {/* شريط العلوي */}
-      <div className={`absolute top-0 left-0 right-0 bg-black/80 backdrop-blur-sm border-b border-cyan-500/30 z-40 transition-transform duration-300 ${showControls ? 'translate-y-0' : '-translate-y-full'}`}>
+      <div className={`absolute top-0 left-0 right-0 ${theme==='light'?'bg-white/90':'bg-black/80'} backdrop-blur-sm border-b border-cyan-500/30 z-40 transition-transform duration-300 ${showControls ? 'translate-y-0' : '-translate-y-full'}`}>
         <div className="flex items-center justify-between p-4">
           <div className="flex items-center gap-4">
-            <Button 
-              variant="ghost" 
-              size="sm" 
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={onBack}
-              className="text-white hover:text-cyan-400"
+              className={`${theme==='light'?'text-gray-800':'text-white'} hover:text-cyan-400`}
             >
               <ArrowLeft className="w-4 h-4 ml-2" />
               العودة
             </Button>
             <div>
-              <h1 className="text-lg font-bold text-white">{titleAr}</h1>
-              <p className="text-sm text-gray-400">{series} {volumeNumber && `- المجلد ${volumeNumber}`}</p>
+              <h1 className="text-lg font-bold">{titleAr}</h1>
+              <p className="text-sm opacity-70">{series} {volumeNumber && `- المجلد ${volumeNumber}`}</p>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-2">
             <Badge variant="secondary" className="bg-cyan-500/20 text-cyan-400 border-cyan-500/30">
               وقت القراءة: {formatTime(readingTime)}
@@ -305,7 +303,36 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             </Badge>
           </div>
         </div>
-        
+        {/* شريط أدوات العرض */}
+        <div className="px-4 pb-2 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" onClick={handleZoomOut} className={`${theme==='light'?'text-gray-700':'text-white'}`}>
+              <ZoomOut className="w-4 h-4" />
+            </Button>
+            <span className="text-sm opacity-70">{Math.round(scale*100)}%</span>
+            <Button variant="ghost" size="sm" onClick={handleZoomIn} className={`${theme==='light'?'text-gray-700':'text-white'}`}>
+              <ZoomIn className="w-4 h-4" />
+            </Button>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" onClick={() => setTheme('light')} className={`${theme==='light'?'text-blue-400':'text-white'}`}>
+              <Sun className="w-4 h-4" />
+            </Button>
+            <Button variant="ghost" size="sm" onClick={() => setTheme('dark')} className={`${theme==='dark'?'text-blue-400':'text-white'}`}>
+              <Moon className="w-4 h-4" />
+            </Button>
+            <Button variant="ghost" size="sm" onClick={() => setTheme('sepia')} className={`${theme==='sepia'?'text-blue-400':'text-white'}`}>
+              <Eye className="w-4 h-4 rotate-180" />
+            </Button>
+            <div className="w-px h-6 bg-gray-600 mx-1" />
+            <div className="flex items-center gap-1 bg-gray-800/60 rounded-lg p-1">
+              <Button variant={readingMode==='single'?'default':'ghost'} size="sm" onClick={() => setReadingMode('single')} className="px-3">تمرير</Button>
+              <Button variant={readingMode==='book'?'default':'ghost'} size="sm" onClick={() => setReadingMode('book')} className="px-3">كتاب</Button>
+              <Button variant={readingMode==='slide'?'default':'ghost'} size="sm" onClick={() => setReadingMode('slide')} className="px-3">شرائح</Button>
+            </div>
+          </div>
+        </div>
+
         {/* شريط التقدم */}
         <div className="px-4 pb-2">
           <Progress value={readProgress} className="h-1" />
@@ -313,8 +340,15 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
       </div>
 
       {/* منطقة عرض PDF */}
-      <div className="w-full h-screen pt-20 flex items-center justify-center select-none" ref={containerRef}>
-        <canvas ref={canvasRef} className="max-w-full max-h-full" />
+      <div className="w-full h-screen pt-28 flex items-center justify-center select-none">
+        {readingMode==='book' ? (
+          <div className="flex gap-2 items-center justify-center w-full h-full">
+            <canvas ref={canvasRef} className="max-w-[49%] max-h-full" />
+            <canvas ref={rightCanvasRef} className="max-w-[49%] max-h-full" />
+          </div>
+        ) : (
+          <canvas ref={canvasRef} className="max-w-full max-h-full" />
+        )}
       </div>
 
       {/* أزرار التحكم الس��لية */}
