@@ -361,6 +361,31 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
 
   const nativeSrc = `/api/proxy-pdf?url=${encodeURIComponent(pdfUrl)}#view=FitH&toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1`;
 
+  // Prevent hanging: prefetch a tiny byte range to confirm availability and hide loader
+  useEffect(() => {
+    let cancelled = false;
+    if (engine !== 'native') return;
+    setIsLoading(true);
+    const controller = new AbortController();
+    const timer = setTimeout(() => {
+      if (!cancelled) setIsLoading(false);
+    }, 5000);
+    (async () => {
+      try {
+        const res = await fetch(`/api/proxy-pdf?url=${encodeURIComponent(pdfUrl)}`, {
+          method: 'GET',
+          headers: { Range: 'bytes=0-0', Accept: 'application/pdf' },
+          signal: controller.signal
+        });
+        if (!cancelled && (res.ok || res.status === 206)) {
+          setIframeLoaded(true);
+          setIsLoading(false);
+        }
+      } catch {}
+    })();
+    return () => { cancelled = true; clearTimeout(timer); controller.abort(); };
+  }, [engine, pdfUrl]);
+
   useEffect(() => {
     if (engine !== 'native') return;
     setIsLoading(!iframeLoaded);
@@ -404,7 +429,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             </h3>
             <Progress value={loadProgress} className="mb-4" />
             <p className="text-gray-300 text-sm">
-              جاري تحمي�� المحتوى... {Math.round(loadProgress)}%
+              جاري تحميل المحتوى... {Math.round(loadProgress)}%
             </p>
             <div className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-400">
               <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
@@ -424,7 +449,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
           <p className="text-gray-300 mb-4">{loadError}</p>
           <div className="flex gap-2 justify-center">
             <Button onClick={() => window.location.reload()} className="bg-blue-600 hover:bg-blue-700">إعادة المحاولة</Button>
-            <Button variant="outline" onClick={() => window.open(pdfUrl, '_blank')} className="border-gray-600 text-gray-300 hover:text-white">فتح مباشر (قد يُحظر)</Button>
+            <Button variant="outline" onClick={() => window.open(pdfUrl, '_blank')} className="border-gray-600 text-gray-300 hover:text-white">ف��ح مباشر (قد يُحظر)</Button>
           </div>
         </div>
       </div>
@@ -452,7 +477,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             </Button>
             <div>
               <h1 className="text-lg font-bold">{titleAr}</h1>
-              <p className="text-sm opacity-70">{series} {volumeNumber && `- المجلد ${volumeNumber}`}</p>
+              <p className="text-sm opacity-70">{series} {volumeNumber && `- الم��لد ${volumeNumber}`}</p>
             </div>
           </div>
 
