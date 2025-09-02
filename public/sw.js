@@ -145,27 +145,27 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  // For scripts and workers, always go to network to avoid HTML fallbacks causing syntax errors
+  if (request.destination === "script" || request.destination === "worker") {
+    return; // let the browser handle normally (network)
+  }
+
   // Handle different types of requests
   if (url.pathname.startsWith("/api/")) {
-    // API requests - network first, cache fallback
     event.respondWith(handleApiRequest(request));
   } else if (url.pathname.startsWith("/reader/")) {
-    // Reading content - cache first for offline reading
     event.respondWith(handleReaderRequest(request));
   } else if (
     (request.destination === "document" && url.pathname.endsWith(".pdf")) ||
     request.url.endsWith(".pdf")
   ) {
-    // PDF files (external or local) - cache first in READING_CACHE
     event.respondWith(handlePdfRequest(request));
   } else if (
     STATIC_FILES.includes(url.pathname) ||
     url.pathname.includes("/static/")
   ) {
-    // Static files - cache first
     event.respondWith(handleStaticRequest(request));
   } else {
-    // Dynamic pages - stale while revalidate
     event.respondWith(handleDynamicRequest(request));
   }
 });
@@ -599,7 +599,7 @@ function createOfflineHTML() {
       <div class="container">
         <div class="icon">🌐</div>
         <h1>غير متصل بالإنترنت</h1>
-        <p>يبدو أنك غير متصل بالإنترنت. تأ��د من اتصالك وأعد المحاولة.</p>
+        <p>يبدو أنك غير متصل بالإن��رنت. تأكد من اتصالك وأعد المحاولة.</p>
         <button class="retry-btn" onclick="location.reload()">إعادة المحاولة</button>
       </div>
     </body>
