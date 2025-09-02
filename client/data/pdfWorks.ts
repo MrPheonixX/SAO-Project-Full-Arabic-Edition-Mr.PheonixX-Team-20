@@ -188,7 +188,7 @@ export const pdfWorks: PDFWork[] = [
     series: "Sword Art Online",
     titleEn: "Sword Art Online - Volume 07 - Mother's Rosario",
     titleAr: "فن السيف عبر الإنترنت - المجلد 07 - وردية الأم",
-    pdfUrlRaw: "https://raw.githubusercontent.com/MrPheonixX/My-Works-PDF-/main/Sword_Art_Online_Volume_07_Mothers_Rosario.pdf",
+    pdfUrlRaw: "https://raw.githubusercontent.com/MrPheonixX/My-Works-PDF-/main/Sword_Art_Online_Volume_07_Mother's_Rosario.pdf",
     backgroundImage: null,
     volumeNumber: 7,
     arc: "Mother's Rosario",
@@ -605,7 +605,7 @@ export const pdfWorks: PDFWork[] = [
     status: 'available',
     readProgress: 0,
     coverColor: "from-emerald-500 to-teal-500",
-    tags: ["تعقيدات", "تحديات", "تطور"]
+    tags: ["تعقيد��ت", "تحديات", "تطور"]
   },
 
   {
@@ -699,7 +699,7 @@ export const pdfWorks: PDFWork[] = [
     backgroundImage: null,
     volumeNumber: 4,
     arc: "Progressive",
-    description: "المزيد من التفاصيل المذهلة",
+    description: "المزيد من التفا��يل المذهلة",
     publishYear: 2015,
     pages: 310,
     rating: 9.1,
