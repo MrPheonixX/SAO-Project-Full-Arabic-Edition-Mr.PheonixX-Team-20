@@ -309,9 +309,7 @@ export default function BookReader() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() =>
-                    navigate(series === "sao" ? "/sao" : "/progressive")
-                  }
+                  onClick={() => navigate('/all-works')}
                   className="text-blue-400 hover:text-blue-300"
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
