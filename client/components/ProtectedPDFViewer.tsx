@@ -359,7 +359,19 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
     return `${minutes}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const nativeSrc = `${pdfUrl}#view=FitH&toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1`;
+  const nativeSrc = `/api/proxy-pdf?url=${encodeURIComponent(pdfUrl)}#view=FitH&toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1`;
+
+  // Auto-fallback: if native viewer doesn't load quickly, switch to pdf.js
+  useEffect(() => {
+    if (engine !== 'native') return;
+    setIsLoading(true);
+    const t = setTimeout(() => {
+      if (!iframeLoaded) {
+        setEngine('pdfjs');
+      }
+    }, 4000);
+    return () => clearTimeout(t);
+  }, [engine, iframeLoaded]);
 
   if (engine === 'native' && !iframeLoaded && isLoading) {
     return (
