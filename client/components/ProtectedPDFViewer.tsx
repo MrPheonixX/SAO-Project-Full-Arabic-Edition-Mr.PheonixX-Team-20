@@ -51,11 +51,16 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   const [readProgress, setReadProgress] = useState(0);
   const [showControls, setShowControls] = useState(true);
   const [lastActivity, setLastActivity] = useState(Date.now());
+  const [theme, setTheme] = useState<'dark'|'light'|'sepia'>("dark");
+  const [readingMode, setReadingMode] = useState<'single'|'book'|'slide'>("single");
+  const [soundOn, setSoundOn] = useState(true);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const rightCanvasRef = useRef<HTMLCanvasElement>(null);
   const pdfDocRef = useRef<any>(null);
   const startTimeRef = useRef(Date.now());
+  const pageTurnAudioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     let cancelled = false;
