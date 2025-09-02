@@ -390,7 +390,7 @@ export default function AdminDashboard() {
                     {stats.averageRating.toFixed(1)}
                   </h3>
                   <p className="text-gray-300">متوسط التقييم</p>
-                  <Badge className="mt-2 bg-yellow-500/20">⭐ ممتاز</Badge>
+                  <Badge className="mt-2 bg-yellow-500/20">ممتاز</Badge>
                 </CardContent>
               </Card>
             </div>
@@ -472,7 +472,7 @@ export default function AdminDashboard() {
                           <span>{volume.pages} صفحة</span>
                           <span>{volume.fileSize}</span>
                           <span>{volume.views} مشاهدة</span>
-                          <span>⭐ {volume.rating || "لا يوجد"}</span>
+                          <span>{volume.rating || "لا يوجد"}</span>
                         </div>
                       </div>
 
