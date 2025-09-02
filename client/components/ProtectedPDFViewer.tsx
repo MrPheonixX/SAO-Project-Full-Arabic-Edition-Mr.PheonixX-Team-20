@@ -41,6 +41,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [loadProgress, setLoadProgress] = useState(0);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [scale, setScale] = useState(1.0);
@@ -68,8 +69,13 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
       try {
         setIsLoading(true);
         setLoadProgress(10);
-        GlobalWorkerOptions.workerSrc = workerUrl as unknown as string;
+        setLoadError(null);
+        try { GlobalWorkerOptions.workerSrc = workerUrl as unknown as string; } catch {}
+        if (!(GlobalWorkerOptions as any).workerSrc) {
+          (GlobalWorkerOptions as any).workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.9.155/build/pdf.worker.min.js";
+        }
         const res = await fetch(`/api/proxy-pdf?url=${encodeURIComponent(pdfUrl)}`);
+        if (!res.ok) throw new Error(`Proxy fetch failed: ${res.status}`);
         const buf = await res.arrayBuffer();
         setLoadProgress(40);
         const loadingTask = getDocument({ data: buf });
@@ -81,8 +87,9 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
         await renderPage(currentPage || 1, doc, scale, rotation);
         setLoadProgress(100);
         setIsLoading(false);
-      } catch (e) {
+      } catch (e: any) {
         setIsLoading(false);
+        setLoadError(e?.message || 'فشل تحميل ملف PDF');
       }
     }
     load();
@@ -246,7 +253,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center justify-center">
+      <div className="min-h-screen bg-black flex items-center justify-center">
         <Card className="w-96 bg-black/40 backdrop-blur-xl border border-cyan-500/30">
           <CardContent className="p-8 text-center">
             <div className="mb-6">
@@ -257,7 +264,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             </h3>
             <Progress value={loadProgress} className="mb-4" />
             <p className="text-gray-300 text-sm">
-              جاري تحميل ا��محتوى المحمي... {Math.round(loadProgress)}%
+              جاري تحميل المحتوى... {Math.round(loadProgress)}%
             </p>
             <div className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-400">
               <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
@@ -265,6 +272,21 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             </div>
           </CardContent>
         </Card>
+      </div>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center p-6 text-center">
+        <div>
+          <h3 className="text-xl font-bold mb-2">تعذّر عرض الـ PDF داخل الموقع</h3>
+          <p className="text-gray-300 mb-4">{loadError}</p>
+          <div className="flex gap-2 justify-center">
+            <Button onClick={() => window.location.reload()} className="bg-blue-600 hover:bg-blue-700">إعادة المحاولة</Button>
+            <Button variant="outline" onClick={() => window.open(pdfUrl, '_blank')} className="border-gray-600 text-gray-300 hover:text-white">فتح مباشر (قد يُحظر)</Button>
+          </div>
+        </div>
       </div>
     );
   }
