@@ -380,7 +380,7 @@ export default function UIEnhancements() {
         }
       }
 
-      /* تحسينات الأداء */
+      /* تحسينات ��لأداء */
       .sao-gpu-accelerated {
         transform: translateZ(0);
         -webkit-transform: translateZ(0);
@@ -471,7 +471,9 @@ export default function UIEnhancements() {
                 element.classList.add('sao-gpu-accelerated');
               }
               
-              if (element.classList.contains('card') || element.className.includes('card')) {
+              const cls = element.classList;
+              const classAttr = (element as HTMLElement).getAttribute?.('class') || '';
+              if (cls.contains('card') || classAttr.includes('card')) {
                 element.classList.add('sao-gpu-accelerated', 'sao-interactive-hover');
               }
             }
