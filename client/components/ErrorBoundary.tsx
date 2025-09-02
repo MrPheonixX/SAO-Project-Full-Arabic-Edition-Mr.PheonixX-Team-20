@@ -45,7 +45,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
           }}
         >
           <div>
-            <div style={{ fontSize: "4rem", marginBottom: "1rem" }}>🛡️</div>
+            <div style={{ fontSize: "4rem", marginBottom: "1rem" }}></div>
             <h1 style={{ fontSize: "2rem", marginBottom: "1rem" }}>
               خطأ في واجهة التطبيق
             </h1>
@@ -93,7 +93,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
                   cursor: "pointer",
                 }}
               >
-                🔄 إعادة تحميل
+                إعادة تحميل
               </button>
               <button
                 onClick={() => {
@@ -108,7 +108,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
                   cursor: "pointer",
                 }}
               >
-                🏠 الصفحة الرئيسية
+                الصفحة الرئيسية
               </button>
             </div>
           </div>
