@@ -48,7 +48,7 @@ const queryClient = new QueryClient();
 const App = () => (
   <ErrorBoundary>
     <PerformanceOptimizer
-      enableDebugInfo={process.env.NODE_ENV === "development"}
+      enableDebugInfo={false}
     >
       <SecurityProvider enableSecurity={false} disableDevToolsProtection={true}>
         <QueryClientProvider client={queryClient}>
