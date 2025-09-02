@@ -291,20 +291,20 @@ export default function PerformanceOptimizer({ children, enableDebugInfo = false
       
       {/* معلومات التشخيص للتطوير */}
       {enableDebugInfo && performanceState.deviceInfo && (
-        <div className="fixed bottom-4 left-4 bg-black/80 text-white p-4 rounded-lg text-xs font-mono z-50 max-w-xs">
-          <h3 className="text-green-400 mb-2">🔧 Performance Debug</h3>
+        <div className="fixed bottom-1 left-1 bg-black/80 text-white p-1 rounded-md text-[10px] leading-tight font-mono z-50 max-w-[160px]">
+          <h3 className="text-green-400 mb-1">Performance Debug</h3>
           <div className="space-y-1">
             <div>FPS: <span className={performanceState.frameRate < 30 ? 'text-red-400' : 'text-green-400'}>{performanceState.frameRate}</span></div>
-            <div>Device: {performanceState.deviceInfo.isMobile ? '📱' : performanceState.deviceInfo.isTablet ? '📱' : '💻'}</div>
+            <div>Device: {performanceState.deviceInfo.isMobile ? 'mobile' : performanceState.deviceInfo.isTablet ? 'tablet' : 'desktop'}</div>
             <div>Performance: <span className={`${
               performanceState.deviceInfo.performanceLevel === 'high' ? 'text-green-400' :
               performanceState.deviceInfo.performanceLevel === 'medium' ? 'text-yellow-400' : 'text-red-400'
             }`}>{performanceState.deviceInfo.performanceLevel}</span></div>
             <div>RAM: {performanceState.deviceInfo.ram}GB</div>
             <div>Cores: {performanceState.deviceInfo.cores}</div>
-            <div>WebGL: {performanceState.deviceInfo.supportedFeatures.webGL ? '✅' : '❌'}</div>
+            <div>WebGL: {performanceState.deviceInfo.supportedFeatures.webGL ? 'yes' : 'no'}</div>
             <div>Connection: {performanceState.deviceInfo.connection.effectiveType}</div>
-            <div>Particles: {performanceState.settings?.enableParticles ? '✅' : '❌'}</div>
+            <div>Particles: {performanceState.settings?.enableParticles ? 'yes' : 'no'}</div>
             <div>Load Time: {performanceState.loadTime.toFixed(0)}ms</div>
           </div>
         </div>
