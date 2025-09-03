@@ -615,6 +615,21 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             sandbox="allow-same-origin allow-scripts allow-forms allow-pointer-lock allow-modals allow-popups"
             allow="fullscreen"
           />
+        ) : engine === 'svg' ? (
+          <>
+            {readingMode==='book' ? (
+              <div className="flex gap-2 items-center justify-center w-full h-full flex-row-reverse">
+                <div ref={svgRightRef} className="max-w-[49%] max-h-full bg-white" />
+                <div ref={svgLeftRef} className="max-w-[49%] max-h-full bg-white" />
+              </div>
+            ) : (
+              <div ref={svgRightRef} className="max-w-full max-h-full bg-white" />
+            )}
+            <div className="absolute inset-0 flex" aria-hidden>
+              <button onClick={handleNextPage} className="h-full w-1/2 cursor-pointer" style={{ background: 'transparent' }} />
+              <button onClick={handlePrevPage} className="h-full w-1/2 cursor-pointer" style={{ background: 'transparent' }} />
+            </div>
+          </>
         ) : (
           <>
             {readingMode==='book' ? (
