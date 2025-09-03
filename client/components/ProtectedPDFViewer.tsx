@@ -593,7 +593,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
               variant="ghost"
               size="sm"
               onClick={onBack}
-              className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:${A().text}`}
+              className={`${theme === "light" ? "text-gray-800" : "text-white"} ${A().hover}`}
             >
               <ArrowLeft className="w-4 h-4 ml-2" />
               العودة
@@ -799,7 +799,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
                 variant="ghost"
                 size="sm"
                 onClick={handleNextPage}
-                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:${A().text}`}
+                className={`${theme === "light" ? "text-gray-800" : "text-white"} ${A().hover}`}
               >
                 التالي
                 <ChevronLeft className="w-4 h-4 mr-2" />
@@ -815,7 +815,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
                 size="sm"
                 onClick={handlePrevPage}
                 disabled={currentPage <= 1}
-                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:${A().text} disabled:opacity-50`}
+                className={`${theme === "light" ? "text-gray-800" : "text-white"} ${A().hover} disabled:opacity-50`}
               >
                 <ChevronRight className="w-4 h-4" />
                 السابق
@@ -828,7 +828,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
                 size="sm"
                 onClick={handleZoomOut}
                 disabled={scale <= 0.5}
-                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:${A().text} disabled:opacity-50`}
+                className={`${theme === "light" ? "text-gray-800" : "text-white"} ${A().hover} disabled:opacity-50`}
               >
                 <ZoomOut className="w-4 h-4" />
               </Button>
@@ -843,7 +843,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
                 size="sm"
                 onClick={handleZoomIn}
                 disabled={scale >= 3.0}
-                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:${A().text} disabled:opacity-50`}
+                className={`${theme === "light" ? "text-gray-800" : "text-white"} ${A().hover} disabled:opacity-50`}
               >
                 <ZoomIn className="w-4 h-4" />
               </Button>
@@ -852,7 +852,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
                 variant="ghost"
                 size="sm"
                 onClick={handleRotate}
-                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:${A().text}`}
+                className={`${theme === "light" ? "text-gray-800" : "text-white"} ${A().hover}`}
               >
                 <RotateCw className="w-4 h-4" />
               </Button>
@@ -870,7 +870,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
                 variant="ghost"
                 size="sm"
                 onClick={toggleFullscreen}
-                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:${A().text}`}
+                className={`${theme === "light" ? "text-gray-800" : "text-white"} ${A().hover}`}
               >
                 {isFullscreen ? (
                   <Minimize className="w-4 h-4" />
@@ -882,7 +882,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
                 variant="ghost"
                 size="sm"
                 onClick={() => setShowControls(!showControls)}
-                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:${A().text}`}
+                className={`${theme === "light" ? "text-gray-800" : "text-white"} ${A().hover}`}
               >
                 {showControls ? (
                   <EyeOff className="w-4 h-4" />
@@ -902,7 +902,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
               variant="ghost"
               size="sm"
               onClick={toggleFullscreen}
-              className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:${A().text}`}
+              className={`${theme === "light" ? "text-gray-800" : "text-white"} ${A().hover}`}
             >
               {isFullscreen ? (
                 <Minimize className="w-4 h-4" />
@@ -914,7 +914,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
               variant="ghost"
               size="sm"
               onClick={() => setShowControls(!showControls)}
-              className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:${A().text}`}
+              className={`${theme === "light" ? "text-gray-800" : "text-white"} ${A().hover}`}
             >
               {showControls ? (
                 <EyeOff className="w-4 h-4" />
