@@ -64,7 +64,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   const [soundOn, setSoundOn] = useState(true);
   const [accent, setAccent] = useState<'cyan'|'violet'|'emerald'|'rose'|'amber'|'blue'>('cyan');
   const ACCENTS = {
-    cyan:   { border:'border-cyan-500/30', text:'${A().text}', bgBadge:'bg-cyan-500/20', hover:'hover:${A().text}', dot:'bg-cyan-400' },
+    cyan:   { border:'border-cyan-500/30', text:'${A().text}', bgBadge:'bg-cyan-500/20', hover:'hover:${A().text}', dot:'${A().dot}' },
     violet: { border:'border-violet-500/30', text:'text-violet-400', bgBadge:'bg-violet-500/20', hover:'hover:text-violet-400', dot:'bg-violet-400' },
     emerald:{ border:'border-emerald-500/30', text:'text-emerald-400', bgBadge:'bg-emerald-500/20', hover:'hover:text-emerald-400', dot:'bg-emerald-400' },
     rose:   { border:'border-rose-500/30', text:'text-rose-400', bgBadge:'bg-rose-500/20', hover:'hover:text-rose-400', dot:'bg-rose-400' },
@@ -514,10 +514,10 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             <h3 className="text-xl font-bold text-white mb-4">{titleAr}</h3>
             <Progress value={loadProgress || 30} className="mb-4" />
             <p className="text-gray-300 text-sm">
-              جاري فتح العارض المدمج بالنظام...
+              جاري فتح العا��ض المدمج بالنظام...
             </p>
             <div className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-400">
-              <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
+              <div className="w-2 h-2 ${A().dot} rounded-full animate-pulse" />
               <span>أفضل جودة للنص العربي</span>
             </div>
           </CardContent>
@@ -540,7 +540,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
               جاري تحميل المحتوى... {Math.round(loadProgress)}%
             </p>
             <div className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-400">
-              <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
+              <div className="w-2 h-2 ${A().dot} rounded-full animate-pulse" />
               <span>تأمين المحتوى...</span>
             </div>
           </CardContent>
