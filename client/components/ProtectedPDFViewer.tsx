@@ -582,8 +582,9 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             <div className="flex items-center gap-1 bg-gray-800/60 rounded-lg p-1">
               <Button variant={engine==='native'?'default':'ghost'} size="sm" onClick={() => setEngine('native')} className="px-3">عارض النظام</Button>
               <Button variant={engine==='pdfjs'?'default':'ghost'} size="sm" onClick={() => setEngine('pdfjs')} className="px-3">عارض متقدم</Button>
+              <Button variant={engine==='svg'?'default':'ghost'} size="sm" onClick={() => setEngine('svg')} className="px-3">وضع SVG</Button>
             </div>
-            {engine === 'pdfjs' && (
+            {engine !== 'native' && (
               <>
                 <div className="w-px h-6 bg-gray-600 mx-1" />
                 <div className="flex items-center gap-1 bg-gray-800/60 rounded-lg p-1">
