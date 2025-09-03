@@ -62,7 +62,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
     "book",
   );
   const [soundOn, setSoundOn] = useState(true);
-  const [accent, setAccent] = useState<'cyan'|'violet'|'emerald'|'rose'|'amber'|'blue'>('cyan');
+  const [accent, setAccent] = useState<'cyan'|'violet'|'emerald'|'rose'|'amber'|'blue'>('blue');
   const ACCENTS = {
     cyan:   { border:'border-cyan-500/30', text:'text-cyan-400', bgBadge:'bg-cyan-500/20', hover:'hover:text-cyan-400', dot:'bg-cyan-400' },
     violet: { border:'border-violet-500/30', text:'text-violet-400', bgBadge:'bg-violet-500/20', hover:'hover:text-violet-400', dot:'bg-violet-400' },
@@ -562,7 +562,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
               onClick={() => window.location.reload()}
               className="bg-blue-600 hover:bg-blue-700"
             >
-              إ��ادة المحاولة
+              إ��ادة ��لمحاولة
             </Button>
             <Button
               variant="outline"
@@ -609,7 +609,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
           <div className="flex items-center gap-2">
             <Badge
               variant="secondary"
-              className="bg-cyan-500/20 ${A().text} border-cyan-500/30"
+              className={`${A().bgBadge} ${A().text} ${A().border}`}
             >
               وقت القراءة: {formatTime(readingTime)}
             </Badge>
@@ -806,7 +806,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
               </Button>
               <Badge
                 variant="outline"
-                className="border-cyan-500/30 ${A().text}"
+                className={`${A().border} ${A().text}`}
               >
                 الصفحة {currentPage}
               </Badge>
@@ -834,7 +834,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
               </Button>
               <Badge
                 variant="outline"
-                className="border-cyan-500/30 ${A().text}"
+                className={`${A().border} ${A().text}`}
               >
                 {Math.round(scale * 100)}%
               </Badge>
