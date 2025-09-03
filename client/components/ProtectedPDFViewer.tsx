@@ -188,6 +188,65 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
     const contW = container ? container.clientWidth : window.innerWidth;
     const contH = container ? container.clientHeight : window.innerHeight - 112;
 
+    // High-fidelity SVG mode (embeds glyph outlines, independent from system fonts)
+    if (engine === 'svg') {
+      const cleanup = () => {
+        if (svgLeftRef.current) svgLeftRef.current.innerHTML = '';
+        if (svgRightRef.current) svgRightRef.current.innerHTML = '';
+      };
+      if (readingMode === 'book') {
+        const rightNum = Math.min(pageNum, doc.numPages);
+        const leftNum = rightNum + 1 <= doc.numPages ? rightNum + 1 : null;
+        const rightPage = await doc.getPage(rightNum);
+        const rightUnit = rightPage.getViewport({ scale: 1, rotation: rotationVal });
+        const leftPage = leftNum ? await doc.getPage(leftNum) : null;
+        const leftUnit = leftPage ? leftPage.getViewport({ scale: 1, rotation: rotationVal }) : null;
+        const totalWUnit = rightUnit.width + (leftUnit?.width || 0) + 16;
+        const maxHUnit = Math.max(rightUnit.height, leftUnit?.height || 0);
+        const fit = getFitScale(totalWUnit, maxHUnit, contW, contH);
+        const eff = fit * scaleVal;
+
+        const rvp = rightPage.getViewport({ scale: eff, rotation: rotationVal });
+        const rop = await rightPage.getOperatorList();
+        const rsvgGfx = new (SVGGraphics as any)(rightPage.commonObjs, rightPage.objs);
+        rsvgGfx.embedFonts = true;
+        const rsvg = await rsvgGfx.getSVG(rop, rvp);
+        cleanup();
+        if (svgRightRef.current) {
+          rsvg.setAttribute('style', `width:${Math.floor(rvp.width)}px;height:${Math.floor(rvp.height)}px;display:block;background:#fff`);
+          svgRightRef.current.appendChild(rsvg);
+        }
+
+        if (leftPage && leftUnit) {
+          const lvp = leftPage.getViewport({ scale: eff, rotation: rotationVal });
+          const lop = await leftPage.getOperatorList();
+          const lsvgGfx = new (SVGGraphics as any)(leftPage.commonObjs, leftPage.objs);
+          lsvgGfx.embedFonts = true;
+          const lsvg = await lsvgGfx.getSVG(lop, lvp);
+          if (svgLeftRef.current) {
+            lsvg.setAttribute('style', `width:${Math.floor(lvp.width)}px;height:${Math.floor(lvp.height)}px;display:block;background:#fff`);
+            svgLeftRef.current.appendChild(lsvg);
+          }
+        }
+        return;
+      } else {
+        const page = await doc.getPage(pageNum);
+        const unit = page.getViewport({ scale: 1, rotation: rotationVal });
+        const fit = getFitScale(unit.width, unit.height, contW, contH);
+        const vp = page.getViewport({ scale: fit * scaleVal, rotation: rotationVal });
+        const opList = await page.getOperatorList();
+        const svgGfx = new (SVGGraphics as any)(page.commonObjs, page.objs);
+        svgGfx.embedFonts = true;
+        const svgEl = await svgGfx.getSVG(opList, vp);
+        cleanup();
+        if (svgRightRef.current) {
+          svgEl.setAttribute('style', `width:${Math.floor(vp.width)}px;height:${Math.floor(vp.height)}px;display:block;background:#fff`);
+          svgRightRef.current.appendChild(svgEl);
+        }
+        return;
+      }
+    }
+
     if (readingMode === 'book') {
       const rightNum = Math.min(pageNum, doc.numPages);
       const leftNum = rightNum + 1 <= doc.numPages ? rightNum + 1 : null;
