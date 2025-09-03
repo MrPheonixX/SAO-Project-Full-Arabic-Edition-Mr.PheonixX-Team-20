@@ -19,7 +19,7 @@ import {
   BookOpen,
   ArrowLeft
 } from 'lucide-react';
-import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist/legacy/build/pdf';
+import { getDocument, GlobalWorkerOptions, SVGGraphics } from 'pdfjs-dist/legacy/build/pdf';
 import workerUrl from 'pdfjs-dist/legacy/build/pdf.worker.min.mjs?url';
 
 interface ProtectedPDFViewerProps {
