@@ -506,7 +506,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   if (engine === "native" && !iframeLoaded && isLoading) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
-        <Card className="w-96 bg-black/40 backdrop-blur-xl border border-cyan-500/30">
+        <Card className="w-96 bg-black/40 backdrop-blur-xl border ${A().border}">
           <CardContent className="p-8 text-center">
             <div className="mb-6">
               <BookOpen className="w-16 h-16 mx-auto text-cyan-400 animate-pulse" />
@@ -529,7 +529,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   if (engine === "pdfjs" && isLoading) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
-        <Card className="w-96 bg-black/40 backdrop-blur-xl border border-cyan-500/30">
+        <Card className="w-96 bg-black/40 backdrop-blur-xl border ${A().border}">
           <CardContent className="p-8 text-center">
             <div className="mb-6">
               <BookOpen className="w-16 h-16 mx-auto text-cyan-400 animate-pulse" />
