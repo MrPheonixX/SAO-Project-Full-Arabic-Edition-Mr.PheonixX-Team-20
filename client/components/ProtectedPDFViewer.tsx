@@ -31,7 +31,7 @@ interface ProtectedPDFViewerProps {
   onBack?: () => void;
 }
 
-type Engine = 'native' | 'pdfjs' | 'image';
+type Engine = 'native' | 'pdfjs' | 'svg' | 'image';
 
 const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   pdfUrl,
