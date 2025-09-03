@@ -64,7 +64,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   const [soundOn, setSoundOn] = useState(true);
   const [accent, setAccent] = useState<'cyan'|'violet'|'emerald'|'rose'|'amber'|'blue'>('cyan');
   const ACCENTS = {
-    cyan:   { border:'border-cyan-500/30', text:'text-cyan-400', bgBadge:'bg-cyan-500/20', hover:'hover:text-cyan-400', dot:'bg-cyan-400' },
+    cyan:   { border:'border-cyan-500/30', text:'${A().text}', bgBadge:'bg-cyan-500/20', hover:'hover:${A().text}', dot:'bg-cyan-400' },
     violet: { border:'border-violet-500/30', text:'text-violet-400', bgBadge:'bg-violet-500/20', hover:'hover:text-violet-400', dot:'bg-violet-400' },
     emerald:{ border:'border-emerald-500/30', text:'text-emerald-400', bgBadge:'bg-emerald-500/20', hover:'hover:text-emerald-400', dot:'bg-emerald-400' },
     rose:   { border:'border-rose-500/30', text:'text-rose-400', bgBadge:'bg-rose-500/20', hover:'hover:text-rose-400', dot:'bg-rose-400' },
@@ -509,7 +509,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
         <Card className="w-96 bg-black/40 backdrop-blur-xl border ${A().border}">
           <CardContent className="p-8 text-center">
             <div className="mb-6">
-              <BookOpen className="w-16 h-16 mx-auto text-cyan-400 animate-pulse" />
+              <BookOpen className="w-16 h-16 mx-auto ${A().text} animate-pulse" />
             </div>
             <h3 className="text-xl font-bold text-white mb-4">{titleAr}</h3>
             <Progress value={loadProgress || 30} className="mb-4" />
@@ -532,7 +532,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
         <Card className="w-96 bg-black/40 backdrop-blur-xl border ${A().border}">
           <CardContent className="p-8 text-center">
             <div className="mb-6">
-              <BookOpen className="w-16 h-16 mx-auto text-cyan-400 animate-pulse" />
+              <BookOpen className="w-16 h-16 mx-auto ${A().text} animate-pulse" />
             </div>
             <h3 className="text-xl font-bold text-white mb-4">{titleAr}</h3>
             <Progress value={loadProgress} className="mb-4" />
@@ -593,7 +593,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
               variant="ghost"
               size="sm"
               onClick={onBack}
-              className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:text-cyan-400`}
+              className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:${A().text}`}
             >
               <ArrowLeft className="w-4 h-4 ml-2" />
               العودة
@@ -609,7 +609,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
           <div className="flex items-center gap-2">
             <Badge
               variant="secondary"
-              className="bg-cyan-500/20 text-cyan-400 border-cyan-500/30"
+              className="bg-cyan-500/20 ${A().text} border-cyan-500/30"
             >
               وقت القراءة: {formatTime(readingTime)}
             </Badge>
@@ -799,14 +799,14 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
                 variant="ghost"
                 size="sm"
                 onClick={handleNextPage}
-                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:text-cyan-400`}
+                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:${A().text}`}
               >
                 التالي
                 <ChevronLeft className="w-4 h-4 mr-2" />
               </Button>
               <Badge
                 variant="outline"
-                className="border-cyan-500/30 text-cyan-400"
+                className="border-cyan-500/30 ${A().text}"
               >
                 الصفحة {currentPage}
               </Badge>
@@ -815,7 +815,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
                 size="sm"
                 onClick={handlePrevPage}
                 disabled={currentPage <= 1}
-                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:text-cyan-400 disabled:opacity-50`}
+                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:${A().text} disabled:opacity-50`}
               >
                 <ChevronRight className="w-4 h-4" />
                 السابق
@@ -828,13 +828,13 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
                 size="sm"
                 onClick={handleZoomOut}
                 disabled={scale <= 0.5}
-                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:text-cyan-400 disabled:opacity-50`}
+                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:${A().text} disabled:opacity-50`}
               >
                 <ZoomOut className="w-4 h-4" />
               </Button>
               <Badge
                 variant="outline"
-                className="border-cyan-500/30 text-cyan-400"
+                className="border-cyan-500/30 ${A().text}"
               >
                 {Math.round(scale * 100)}%
               </Badge>
@@ -843,7 +843,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
                 size="sm"
                 onClick={handleZoomIn}
                 disabled={scale >= 3.0}
-                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:text-cyan-400 disabled:opacity-50`}
+                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:${A().text} disabled:opacity-50`}
               >
                 <ZoomIn className="w-4 h-4" />
               </Button>
@@ -852,7 +852,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
                 variant="ghost"
                 size="sm"
                 onClick={handleRotate}
-                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:text-cyan-400`}
+                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:${A().text}`}
               >
                 <RotateCw className="w-4 h-4" />
               </Button>
@@ -870,7 +870,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
                 variant="ghost"
                 size="sm"
                 onClick={toggleFullscreen}
-                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:text-cyan-400`}
+                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:${A().text}`}
               >
                 {isFullscreen ? (
                   <Minimize className="w-4 h-4" />
@@ -882,7 +882,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
                 variant="ghost"
                 size="sm"
                 onClick={() => setShowControls(!showControls)}
-                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:text-cyan-400`}
+                className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:${A().text}`}
               >
                 {showControls ? (
                   <EyeOff className="w-4 h-4" />
@@ -902,7 +902,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
               variant="ghost"
               size="sm"
               onClick={toggleFullscreen}
-              className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:text-cyan-400`}
+              className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:${A().text}`}
             >
               {isFullscreen ? (
                 <Minimize className="w-4 h-4" />
@@ -914,7 +914,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
               variant="ghost"
               size="sm"
               onClick={() => setShowControls(!showControls)}
-              className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:text-cyan-400`}
+              className={`${theme === "light" ? "text-gray-800" : "text-white"} hover:${A().text}`}
             >
               {showControls ? (
                 <EyeOff className="w-4 h-4" />
