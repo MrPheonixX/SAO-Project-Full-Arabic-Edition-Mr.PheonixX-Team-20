@@ -64,7 +64,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   const [soundOn, setSoundOn] = useState(true);
   const [accent, setAccent] = useState<'cyan'|'violet'|'emerald'|'rose'|'amber'|'blue'>('cyan');
   const ACCENTS = {
-    cyan:   { border:'border-cyan-500/30', text:'${A().text}', bgBadge:'bg-cyan-500/20', hover:'hover:${A().text}', dot:'${A().dot}' },
+    cyan:   { border:'border-cyan-500/30', text:'text-cyan-400', bgBadge:'bg-cyan-500/20', hover:'hover:text-cyan-400', dot:'bg-cyan-400' },
     violet: { border:'border-violet-500/30', text:'text-violet-400', bgBadge:'bg-violet-500/20', hover:'hover:text-violet-400', dot:'bg-violet-400' },
     emerald:{ border:'border-emerald-500/30', text:'text-emerald-400', bgBadge:'bg-emerald-500/20', hover:'hover:text-emerald-400', dot:'bg-emerald-400' },
     rose:   { border:'border-rose-500/30', text:'text-rose-400', bgBadge:'bg-rose-500/20', hover:'hover:text-rose-400', dot:'bg-rose-400' },
