@@ -19,7 +19,7 @@ import {
   BookOpen,
   ArrowLeft
 } from 'lucide-react';
-import { getDocument, GlobalWorkerOptions, SVGGraphics } from 'pdfjs-dist/legacy/build/pdf';
+import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist/legacy/build/pdf';
 import workerUrl from 'pdfjs-dist/legacy/build/pdf.worker.min.mjs?url';
 
 interface ProtectedPDFViewerProps {
@@ -31,7 +31,7 @@ interface ProtectedPDFViewerProps {
   onBack?: () => void;
 }
 
-type Engine = 'native' | 'pdfjs' | 'svg' | 'image';
+type Engine = 'native' | 'pdfjs';
 
 const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   pdfUrl,
@@ -69,8 +69,6 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   const stageRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rightCanvasRef = useRef<HTMLCanvasElement>(null);
-  const svgLeftRef = useRef<HTMLDivElement>(null);
-  const svgRightRef = useRef<HTMLDivElement>(null);
   const pdfDocRef = useRef<any>(null);
   const startTimeRef = useRef(Date.now());
   const pageTurnAudioRef = useRef<HTMLAudioElement>(null);
@@ -188,64 +186,6 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
     const contW = container ? container.clientWidth : window.innerWidth;
     const contH = container ? container.clientHeight : window.innerHeight - 112;
 
-    // High-fidelity SVG mode (embeds glyph outlines, independent from system fonts)
-    if (engine === 'svg') {
-      const cleanup = () => {
-        if (svgLeftRef.current) svgLeftRef.current.innerHTML = '';
-        if (svgRightRef.current) svgRightRef.current.innerHTML = '';
-      };
-      if (readingMode === 'book') {
-        const rightNum = Math.min(pageNum, doc.numPages);
-        const leftNum = rightNum + 1 <= doc.numPages ? rightNum + 1 : null;
-        const rightPage = await doc.getPage(rightNum);
-        const rightUnit = rightPage.getViewport({ scale: 1, rotation: rotationVal });
-        const leftPage = leftNum ? await doc.getPage(leftNum) : null;
-        const leftUnit = leftPage ? leftPage.getViewport({ scale: 1, rotation: rotationVal }) : null;
-        const totalWUnit = rightUnit.width + (leftUnit?.width || 0) + 16;
-        const maxHUnit = Math.max(rightUnit.height, leftUnit?.height || 0);
-        const fit = getFitScale(totalWUnit, maxHUnit, contW, contH);
-        const eff = fit * scaleVal;
-
-        const rvp = rightPage.getViewport({ scale: eff, rotation: rotationVal });
-        const rop = await rightPage.getOperatorList();
-        const rsvgGfx = new (SVGGraphics as any)(rightPage.commonObjs, rightPage.objs);
-        rsvgGfx.embedFonts = true;
-        const rsvg = await rsvgGfx.getSVG(rop, rvp);
-        cleanup();
-        if (svgRightRef.current) {
-          rsvg.setAttribute('style', `width:${Math.floor(rvp.width)}px;height:${Math.floor(rvp.height)}px;display:block;background:#fff`);
-          svgRightRef.current.appendChild(rsvg);
-        }
-
-        if (leftPage && leftUnit) {
-          const lvp = leftPage.getViewport({ scale: eff, rotation: rotationVal });
-          const lop = await leftPage.getOperatorList();
-          const lsvgGfx = new (SVGGraphics as any)(leftPage.commonObjs, leftPage.objs);
-          lsvgGfx.embedFonts = true;
-          const lsvg = await lsvgGfx.getSVG(lop, lvp);
-          if (svgLeftRef.current) {
-            lsvg.setAttribute('style', `width:${Math.floor(lvp.width)}px;height:${Math.floor(lvp.height)}px;display:block;background:#fff`);
-            svgLeftRef.current.appendChild(lsvg);
-          }
-        }
-        return;
-      } else {
-        const page = await doc.getPage(pageNum);
-        const unit = page.getViewport({ scale: 1, rotation: rotationVal });
-        const fit = getFitScale(unit.width, unit.height, contW, contH);
-        const vp = page.getViewport({ scale: fit * scaleVal, rotation: rotationVal });
-        const opList = await page.getOperatorList();
-        const svgGfx = new (SVGGraphics as any)(page.commonObjs, page.objs);
-        svgGfx.embedFonts = true;
-        const svgEl = await svgGfx.getSVG(opList, vp);
-        cleanup();
-        if (svgRightRef.current) {
-          svgEl.setAttribute('style', `width:${Math.floor(vp.width)}px;height:${Math.floor(vp.height)}px;display:block;background:#fff`);
-          svgRightRef.current.appendChild(svgEl);
-        }
-        return;
-      }
-    }
 
     if (readingMode === 'book') {
       const rightNum = Math.min(pageNum, doc.numPages);
@@ -582,14 +522,13 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             <div className="flex items-center gap-1 bg-gray-800/60 rounded-lg p-1">
               <Button variant={engine==='native'?'default':'ghost'} size="sm" onClick={() => setEngine('native')} className="px-3">عارض النظام</Button>
               <Button variant={engine==='pdfjs'?'default':'ghost'} size="sm" onClick={() => setEngine('pdfjs')} className="px-3">عارض متقدم</Button>
-              <Button variant={engine==='svg'?'default':'ghost'} size="sm" onClick={() => setEngine('svg')} className="px-3">وضع SVG</Button>
             </div>
-            {engine !== 'native' && (
+            {engine === 'pdfjs' && (
               <>
                 <div className="w-px h-6 bg-gray-600 mx-1" />
                 <div className="flex items-center gap-1 bg-gray-800/60 rounded-lg p-1">
                   <Button variant={readingMode==='single'?'default':'ghost'} size="sm" onClick={() => setReadingMode('single')} className="px-3">تمرير</Button>
-                  <Button variant={readingMode==='book'?'default':'ghost'} size="sm" onClick={() => setReadingMode('book')} className="px-3">كتاب</Button>
+                  <Button variant={readingMode==='book'?'default':'ghost'} size="sm" onClick={() => setReadingMode('book')} className="px-3">��تاب</Button>
                   <Button variant={readingMode==='slide'?'default':'ghost'} size="sm" onClick={() => setReadingMode('slide')} className="px-3">شرائح</Button>
                 </div>
               </>
@@ -615,21 +554,6 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             sandbox="allow-same-origin allow-scripts allow-forms allow-pointer-lock allow-modals allow-popups"
             allow="fullscreen"
           />
-        ) : engine === 'svg' ? (
-          <>
-            {readingMode==='book' ? (
-              <div className="flex gap-2 items-center justify-center w-full h-full flex-row-reverse">
-                <div ref={svgRightRef} className="max-w-[49%] max-h-full bg-white" />
-                <div ref={svgLeftRef} className="max-w-[49%] max-h-full bg-white" />
-              </div>
-            ) : (
-              <div ref={svgRightRef} className="max-w-full max-h-full bg-white" />
-            )}
-            <div className="absolute inset-0 flex" aria-hidden>
-              <button onClick={handleNextPage} className="h-full w-1/2 cursor-pointer" style={{ background: 'transparent' }} />
-              <button onClick={handlePrevPage} className="h-full w-1/2 cursor-pointer" style={{ background: 'transparent' }} />
-            </div>
-          </>
         ) : (
           <>
             {readingMode==='book' ? (
