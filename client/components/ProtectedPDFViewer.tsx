@@ -514,7 +514,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             <h3 className="text-xl font-bold text-white mb-4">{titleAr}</h3>
             <Progress value={loadProgress || 30} className="mb-4" />
             <p className="text-gray-300 text-sm">
-              جاري فتح العا��ض المدمج بالنظام...
+              جاري فتح العارض المدمج بالنظام...
             </p>
             <div className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-400">
               <div className="w-2 h-2 ${A().dot} rounded-full animate-pulse" />
@@ -585,7 +585,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
       style={{ fontFamily: "Noto Sans Arabic, system-ui, sans-serif" }}
     >
       <div
-        className={`absolute top-0 left-0 right-0 ${theme === "light" ? "bg-white/90" : "bg-black/80"} backdrop-blur-sm border-b border-cyan-500/30 z-40 transition-transform duration-300 ${showControls ? "translate-y-0" : "-translate-y-full"}`}
+        className={`absolute top-0 left-0 right-0 ${theme === "light" ? "bg-white/90" : "bg-black/80"} backdrop-blur-sm border-b ${A().border} z-40 transition-transform duration-300 ${showControls ? "translate-y-0" : "-translate-y-full"}`}
       >
         <div className="flex items-center justify-between p-4 flex-row-reverse">
           <div className="flex items-center gap-4 flex-row-reverse">
