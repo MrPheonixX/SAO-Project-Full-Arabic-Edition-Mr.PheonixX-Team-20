@@ -791,7 +791,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
 
       {engine === "pdfjs" ? (
         <div
-          className={`absolute bottom-0 left-0 right-0 ${theme === "light" ? "bg-white/90 text-black" : "bg-black/80 text-white"} backdrop-blur-sm border-t border-cyan-500/30 z-40 transition-transform duration-300 ${showControls ? "translate-y-0" : "translate-y-full"}`}
+          className={`absolute bottom-0 left-0 right-0 ${theme === "light" ? "bg-white/90 text-black" : "bg-black/80 text-white"} backdrop-blur-sm border-t ${A().border} z-40 transition-transform duration-300 ${showControls ? "translate-y-0" : "translate-y-full"}`}
         >
           <div className="flex items-center justify-between p-4 flex-row-reverse">
             <div className="flex items-center gap-2 flex-row-reverse">
@@ -895,7 +895,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
         </div>
       ) : (
         <div
-          className={`absolute bottom-0 left-0 right-0 ${theme === "light" ? "bg-white/90 text-black" : "bg-black/80 text-white"} backdrop-blur-sm border-t border-cyan-500/30 z-40 transition-transform duration-300 ${showControls ? "translate-y-0" : "translate-y-full"}`}
+          className={`absolute bottom-0 left-0 right-0 ${theme === "light" ? "bg-white/90 text-black" : "bg-black/80 text-white"} backdrop-blur-sm border-t ${A().border} z-40 transition-transform duration-300 ${showControls ? "translate-y-0" : "translate-y-full"}`}
         >
           <div className="flex items-center justify-end p-4 gap-2 flex-row-reverse">
             <Button
