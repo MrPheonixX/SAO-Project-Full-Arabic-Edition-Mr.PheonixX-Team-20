@@ -490,20 +490,24 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if ((e.target as HTMLElement)?.tagName?.match(/INPUT|TEXTAREA|SELECT/i))
-        return;
-      if (engine === "pdfjs") {
-        if (e.key === "ArrowLeft") {
-          e.preventDefault();
-          handleNextPage();
-        } else if (e.key === "ArrowRight") {
-          e.preventDefault();
-          handlePrevPage();
-        } else if (e.key === "+") {
-          handleZoomIn();
-        } else if (e.key === "-") {
-          handleZoomOut();
-        }
+      if ((e.target as HTMLElement)?.tagName?.match(/INPUT|TEXTAREA|SELECT/i)) return;
+      const k = e.key;
+      if (k === "ArrowLeft" || k === "PageDown" || (k === " " && !e.shiftKey)) {
+        e.preventDefault();
+        handleNextPage();
+      } else if (k === "ArrowRight" || k === "PageUp" || (k === " " && e.shiftKey)) {
+        e.preventDefault();
+        handlePrevPage();
+      } else if (k === "+") {
+        handleZoomIn();
+      } else if (k === "-") {
+        handleZoomOut();
+      } else if (k === "ArrowUp") {
+        e.preventDefault();
+        handlePrevPage();
+      } else if (k === "ArrowDown") {
+        e.preventDefault();
+        handleNextPage();
       }
     };
     window.addEventListener("keydown", onKey);
