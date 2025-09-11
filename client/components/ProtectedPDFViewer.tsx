@@ -1,4 +1,3 @@
-import React, { useState, useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -32,6 +31,7 @@ interface ProtectedPDFViewerProps {
 }
 
 type Engine = "native" | "pdfjs";
+type FitMode = "auto" | "page" | "width";
 
 const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   pdfUrl,
@@ -61,6 +61,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   const [readingMode, setReadingMode] = useState<"single" | "book" | "slide">(
     "book",
   );
+  const [fitMode, setFitMode] = useState<FitMode>("auto");
   const [soundOn, setSoundOn] = useState(true);
   const [accent, setAccent] = useState<'cyan'|'violet'|'emerald'|'rose'|'amber'|'blue'>('blue');
   const ACCENTS = {
@@ -85,6 +86,19 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   const startTimeRef = useRef(Date.now());
   const pageTurnAudioRef = useRef<HTMLAudioElement>(null);
 
+  // gesture refs
+  const lastTapRef = useRef<number>(0);
+  const pinchStartDistRef = useRef<number | null>(null);
+  const touchStartXRef = useRef<number | null>(null);
+  const touchMoveXRef = useRef<number | null>(null);
+
+  // Auto engine and reading-mode by device
+  useEffect(() => {
+    const w = window.innerWidth;
+    if (w < 768) setEngine("pdfjs");
+    if (w < 1024) setReadingMode("single");
+  }, []);
+
   // Cleanup PDF.js doc when switching away from it
   useEffect(() => {
     if (engine !== "pdfjs") {
@@ -98,6 +112,20 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
       setIsLoading(true);
     }
   }, [engine, iframeLoaded]);
+
+  // Persist current page per URL
+  useEffect(() => {
+    const key = `pdf:page:${pdfUrl}`;
+    const saved = localStorage.getItem(key);
+    if (saved) {
+      const num = parseInt(saved, 10);
+      if (!Number.isNaN(num) && num > 0) setCurrentPage(num);
+    }
+  }, [pdfUrl]);
+  useEffect(() => {
+    const key = `pdf:page:${pdfUrl}`;
+    localStorage.setItem(key, String(currentPage));
+  }, [pdfUrl, currentPage]);
 
   useEffect(() => {
     if (engine !== "pdfjs") return;
@@ -148,7 +176,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
         pdfDocRef.current = doc;
         setTotalPages(doc.numPages);
         setLoadProgress(90);
-        await renderPage(1, doc, scale, rotation);
+        await renderPage(currentPage || 1, doc, scale, rotation);
         setLoadProgress(100);
         setIsLoading(false);
         return;
@@ -175,7 +203,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
           pdfDocRef.current = doc;
           setTotalPages(doc.numPages);
           setLoadProgress(90);
-          await renderPage(1, doc, scale, rotation);
+          await renderPage(currentPage || 1, doc, scale, rotation);
           setLoadProgress(100);
           setIsLoading(false);
           return;
@@ -203,20 +231,27 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
     if (pdfDocRef.current) {
       renderPage(currentPage || 1, pdfDocRef.current, scale, rotation);
     }
-  }, [currentPage, scale, rotation, readingMode, engine]);
+  }, [currentPage, scale, rotation, readingMode, fitMode, engine]);
 
   useEffect(() => {
     const onResize = () => {
       if (engine !== "pdfjs") return;
+      if (window.innerWidth < 1024) {
+        setReadingMode("single");
+      }
       if (pdfDocRef.current) {
         renderPage(currentPage || 1, pdfDocRef.current, scale, rotation);
       }
     };
     window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    window.addEventListener("orientationchange", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("orientationchange", onResize);
+    };
   }, [currentPage, scale, rotation, readingMode, engine]);
 
-  function getFitScale(
+  function baseFitScale(
     viewW: number,
     viewH: number,
     contW: number,
@@ -224,7 +259,10 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   ) {
     const sx = contW / viewW;
     const sy = contH / viewH;
-    return Math.min(sx, sy);
+    if (fitMode === "width") return sx;
+    if (fitMode === "page") return Math.min(sx, sy);
+    // auto
+    return contW < 1024 ? sx : Math.min(sx, sy);
   }
 
   async function renderPage(
@@ -259,7 +297,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
         rightViewportUnit.height,
         leftViewportUnit?.height || 0,
       );
-      const fit = getFitScale(totalWUnit, maxHUnit, contW, contH);
+      const fit = baseFitScale(totalWUnit, maxHUnit, contW, contH);
       const eff = fit * scaleVal;
 
       if (rightCanvas) {
@@ -310,7 +348,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
     } else {
       const page = await doc.getPage(pageNum);
       const unit = page.getViewport({ scale: 1, rotation: rotationVal });
-      const fit = getFitScale(unit.width, unit.height, contW, contH);
+      const fit = baseFitScale(unit.width, unit.height, contW, contH);
       const viewport = page.getViewport({
         scale: fit * scaleVal,
         rotation: rotationVal,
@@ -341,6 +379,14 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
         });
       }
     }
+
+    // Prefetch next page lightly
+    try {
+      const next = Math.min(pageNum + (readingMode === "book" ? 2 : 1), totalPages);
+      if (next !== pageNum && doc?.getPage) {
+        void doc.getPage(next);
+      }
+    } catch {}
   }
 
   useEffect(() => {
@@ -454,12 +500,80 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
     return () => window.removeEventListener("keydown", onKey);
   }, [handleNextPage, handlePrevPage, engine]);
 
+  // Touch gestures: swipe, pinch, double-tap
+  useEffect(() => {
+    const el = stageRef.current;
+    if (!el) return;
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        touchStartXRef.current = e.touches[0].clientX;
+        touchMoveXRef.current = e.touches[0].clientX;
+        // double-tap detection
+        const now = Date.now();
+        if (now - lastTapRef.current < 300) {
+          // toggle zoom
+          setScale((prev) => (prev < 1.6 ? Math.min(prev + 0.6, 3) : 1));
+        }
+        lastTapRef.current = now;
+      } else if (e.touches.length === 2) {
+        const [a, b] = [e.touches[0], e.touches[1]];
+        const dx = a.clientX - b.clientX;
+        const dy = a.clientY - b.clientY;
+        pinchStartDistRef.current = Math.hypot(dx, dy);
+      }
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (e.touches.length === 1 && touchStartXRef.current != null) {
+        touchMoveXRef.current = e.touches[0].clientX;
+      } else if (e.touches.length === 2 && pinchStartDistRef.current) {
+        const [a, b] = [e.touches[0], e.touches[1]];
+        const dx = a.clientX - b.clientX;
+        const dy = a.clientY - b.clientY;
+        const dist = Math.hypot(dx, dy);
+        const factor = dist / pinchStartDistRef.current;
+        setScale((prev) => {
+          const next = Math.max(0.5, Math.min(prev * factor, 3));
+          return next;
+        });
+        // keep single page while pinch-zooming on small screens
+        if (window.innerWidth < 1024 && readingMode !== "single") setReadingMode("single");
+      }
+    };
+
+    const onTouchEnd = () => {
+      if (touchStartXRef.current != null && touchMoveXRef.current != null) {
+        const dx = touchMoveXRef.current - touchStartXRef.current;
+        if (Math.abs(dx) > 40) {
+          if (dx < 0) handleNextPage();
+          else handlePrevPage();
+        }
+      }
+      touchStartXRef.current = null;
+      touchMoveXRef.current = null;
+      pinchStartDistRef.current = null;
+    };
+
+    el.addEventListener("touchstart", onTouchStart as any, { passive: true } as any);
+    el.addEventListener("touchmove", onTouchMove as any, { passive: true } as any);
+    el.addEventListener("touchend", onTouchEnd as any, { passive: true } as any);
+
+    return () => {
+      el.removeEventListener("touchstart", onTouchStart as any);
+      el.removeEventListener("touchmove", onTouchMove as any);
+      el.removeEventListener("touchend", onTouchEnd as any);
+    };
+  }, [readingMode]);
+
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
     if (hours > 0) {
-      return `${hours}:${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+      return `${hours}:${minutes.toString().padStart(2, "0")}:${secs
+        .toString()
+        .padStart(2, "0")}`;
     }
     return `${minutes}:${secs.toString().padStart(2, "0")}`;
   };
@@ -509,7 +623,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
         <Card className={`w-96 bg-black/40 backdrop-blur-xl border ${A().border}`}>
           <CardContent className="p-8 text-center">
             <div className="mb-6">
-              <BookOpen className="w-16 h-16 mx-auto ${A().text} animate-pulse" />
+              <BookOpen className={`w-16 h-16 mx-auto ${A().text} animate-pulse`} />
             </div>
             <h3 className="text-xl font-bold text-white mb-4">{titleAr}</h3>
             <Progress value={loadProgress || 30} className="mb-4" />
@@ -517,7 +631,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
               جاري فتح العارض المدمج بالنظام...
             </p>
             <div className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-400">
-              <div className="w-2 h-2 ${A().dot} rounded-full animate-pulse" />
+              <div className={`w-2 h-2 ${A().dot} rounded-full animate-pulse`} />
               <span>أفضل جودة للنص العربي</span>
             </div>
           </CardContent>
@@ -532,7 +646,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
         <Card className={`w-96 bg-black/40 backdrop-blur-xl border ${A().border}`}>
           <CardContent className="p-8 text-center">
             <div className="mb-6">
-              <BookOpen className="w-16 h-16 mx-auto ${A().text} animate-pulse" />
+              <BookOpen className={`w-16 h-16 mx-auto ${A().text} animate-pulse`} />
             </div>
             <h3 className="text-xl font-bold text-white mb-4">{titleAr}</h3>
             <Progress value={loadProgress} className="mb-4" />
@@ -540,7 +654,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
               جاري تحميل المحتوى... {Math.round(loadProgress)}%
             </p>
             <div className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-400">
-              <div className="w-2 h-2 ${A().dot} rounded-full animate-pulse" />
+              <div className={`w-2 h-2 ${A().dot} rounded-full animate-pulse`} />
               <span>تأمين المحتوى...</span>
             </div>
           </CardContent>
@@ -562,7 +676,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
               onClick={() => window.location.reload()}
               className="bg-blue-600 hover:bg-blue-700"
             >
-              إ��ادة ��لمحاولة
+              إعادة المحاولة
             </Button>
             <Button
               variant="outline"
@@ -647,6 +761,33 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
                 >
                   <ZoomIn className="w-4 h-4" />
                 </Button>
+                <div className="w-px h-6 bg-gray-600 mx-1" />
+                <div className="flex items-center gap-1 bg-gray-800/60 rounded-lg p-1">
+                  <Button
+                    variant={fitMode === "auto" ? "default" : "ghost"}
+                    size="sm"
+                    onClick={() => setFitMode("auto")}
+                    className="px-3"
+                  >
+                    تلقائي
+                  </Button>
+                  <Button
+                    variant={fitMode === "page" ? "default" : "ghost"}
+                    size="sm"
+                    onClick={() => setFitMode("page")}
+                    className="px-3"
+                  >
+                    ملاءمة الصفحة
+                  </Button>
+                  <Button
+                    variant={fitMode === "width" ? "default" : "ghost"}
+                    size="sm"
+                    onClick={() => setFitMode("width")}
+                    className="px-3"
+                  >
+                    ملاءمة العرض
+                  </Button>
+                </div>
               </>
             )}
           </div>
@@ -712,7 +853,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
                     onClick={() => setReadingMode("book")}
                     className="px-3"
                   >
-                    ��تاب
+                    كتاب
                   </Button>
                   <Button
                     variant={readingMode === "slide" ? "default" : "ghost"}
@@ -928,7 +1069,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
               onClick={() => window.open(pdfUrl, "_blank")}
               className="border-gray-600 text-gray-300 hover:text-white"
             >
-              فتح في تبويب جديد
+              فتح في تبويب جدي��
             </Button>
           </div>
         </div>
