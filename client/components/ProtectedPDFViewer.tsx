@@ -893,7 +893,6 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
             onError={() => {
               setEngine("pdfjs");
             }}
-            sandbox="allow-same-origin allow-scripts allow-forms allow-pointer-lock allow-modals allow-popups"
             allow="fullscreen"
           />
         ) : (
