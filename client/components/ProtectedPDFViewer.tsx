@@ -86,6 +86,15 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
   const pdfDocRef = useRef<any>(null);
   const startTimeRef = useRef(Date.now());
   const pageTurnAudioRef = useRef<HTMLAudioElement>(null);
+  const lastWheelTimeRef = useRef(0);
+  const onWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const now = Date.now();
+    if (now - lastWheelTimeRef.current < 200) return;
+    lastWheelTimeRef.current = now;
+    if (e.deltaY > 0) handleNextPage();
+    else if (e.deltaY < 0) handlePrevPage();
+  };
 
   // gesture refs
   const lastTapRef = useRef<number>(0);
@@ -677,7 +686,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
               onClick={() => window.location.reload()}
               className="bg-blue-600 hover:bg-blue-700"
             >
-              إعادة المحاولة
+              إعاد�� المحاولة
             </Button>
             <Button
               variant="outline"
