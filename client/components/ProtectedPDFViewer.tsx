@@ -790,7 +790,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
                     onClick={() => setFitMode("page")}
                     className="px-3"
                   >
-                    ملاءمة الصفح��
+                    ملاءمة الصفحة
                   </Button>
                   <Button
                     variant={fitMode === "width" ? "default" : "ghost"}
@@ -940,7 +940,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
                 className="max-w-full max-h-full bg-white"
               />
             )}
-            <div className="absolute inset-0 flex" aria-hidden>
+            <div className="absolute inset-0 flex" aria-hidden onWheel={onWheel}>
               <button
                 onClick={handleNextPage}
                 className="h-full w-1/2 cursor-pointer"
