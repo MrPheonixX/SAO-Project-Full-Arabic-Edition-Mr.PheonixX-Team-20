@@ -48,12 +48,11 @@ export function createServer() {
         return;
       }
 
-      const contentType = upstream.headers.get("content-type") || "application/pdf";
       const acceptRanges = upstream.headers.get("accept-ranges") || "bytes";
       const contentLength = upstream.headers.get("content-length") || undefined;
       const contentRange = upstream.headers.get("content-range") || undefined;
 
-      res.setHeader("Content-Type", contentType);
+      res.setHeader("Content-Type", "application/pdf");
       res.setHeader("Accept-Ranges", acceptRanges);
       res.setHeader("Cache-Control", "public, max-age=86400");
       res.setHeader("Content-Disposition", "inline");
