@@ -790,7 +790,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
                     onClick={() => setFitMode("page")}
                     className="px-3"
                   >
-                    ملاءمة الصفحة
+                    ملاءمة الصفح��
                   </Button>
                   <Button
                     variant={fitMode === "width" ? "default" : "ghost"}
@@ -894,19 +894,33 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
         className="w-full h-screen pt-28 flex items-center justify-center select-none relative"
       >
         {engine === "native" ? (
-          <iframe
-            title={title}
-            src={nativeSrc}
-            className="w-full h-full border-0 bg-white"
-            onLoad={() => {
-              setIframeLoaded(true);
-              setIsLoading(false);
-            }}
-            onError={() => {
-              setEngine("pdfjs");
-            }}
-            allow="fullscreen"
-          />
+          <>
+            <iframe
+              title={title}
+              src={getNativeSrc(currentPage)}
+              className="w-full h-full border-0 bg-white"
+              onLoad={() => {
+                setIframeLoaded(true);
+                setIsLoading(false);
+              }}
+              onError={() => {
+                setEngine("pdfjs");
+              }}
+              allow="fullscreen"
+            />
+            <div className="absolute inset-0 flex" aria-hidden onWheel={onWheel}>
+              <button
+                onClick={handleNextPage}
+                className="h-full w-1/2 cursor-pointer"
+                style={{ background: "transparent" }}
+              />
+              <button
+                onClick={handlePrevPage}
+                className="h-full w-1/2 cursor-pointer"
+                style={{ background: "transparent" }}
+              />
+            </div>
+          </>
         ) : (
           <>
             {readingMode === "book" ? (
