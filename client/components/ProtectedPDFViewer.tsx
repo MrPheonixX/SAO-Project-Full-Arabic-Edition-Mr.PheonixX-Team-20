@@ -588,7 +588,10 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
     return `${minutes}:${secs.toString().padStart(2, "0")}`;
   };
 
-  const nativeSrc = `/api/proxy-pdf?url=${encodeURIComponent(pdfUrl)}#view=FitH&toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1`;
+  const getNativeSrc = (page?: number) => {
+    const p = page && page > 0 ? page : 1;
+    return `/api/proxy-pdf?url=${encodeURIComponent(pdfUrl)}#page=${p}&view=FitH&toolbar=0&navpanes=0&statusbar=0&messages=0&scrollbar=1`;
+  };
 
   // Prevent hanging: prefetch a tiny byte range to confirm availability and hide loader
   useEffect(() => {
@@ -686,7 +689,7 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
               onClick={() => window.location.reload()}
               className="bg-blue-600 hover:bg-blue-700"
             >
-              إعاد�� المحاولة
+              إعادة المحاولة
             </Button>
             <Button
               variant="outline"
