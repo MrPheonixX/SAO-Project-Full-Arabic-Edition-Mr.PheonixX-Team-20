@@ -501,7 +501,7 @@ export default function Index() {
                 </Badge>
               </div>
               <CardDescription className="text-gray-300 text-lg">
-                9 مجلدات - منظور أسونا المفصل
+                8 مجلدات - منظور أسونا المفصل
                 <br />
                 <span className="text-purple-400">
                   9 Volumes - Asuna's Detailed Perspective
@@ -511,7 +511,7 @@ export default function Index() {
 
             <CardContent className="relative z-10">
               <p className="text-gray-300 mb-6 leading-relaxed">
-                نفس أحداث ساو ولكن من منظور أسونا مع تفاصيل أعمق وقصص إضافية ��م
+                نفس أحداث سا�� ولكن من منظور أسونا مع تفاصيل أعمق وقصص إضافية ��م
                 تُروى من قبل. كل طابق يُحكى بتفاصيل مذهلة.
               </p>
 
@@ -520,7 +520,7 @@ export default function Index() {
                   variant="secondary"
                   className="bg-purple-500/20 text-purple-300"
                 >
-                  <BookOpen className="w-3 h-3 mr-1" />9 مجلدات
+                  <BookOpen className="w-3 h-3 mr-1" />8 مجلدات
                 </Badge>
                 <Badge
                   variant="secondary"
@@ -738,7 +738,7 @@ export default function Index() {
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between p-3 bg-blue-500/10 rounded-lg border border-blue-500/20">
                   <span className="text-blue-300">Sword Art Online</span>
-                  <Badge className="bg-blue-500 text-white">26 مجلد</Badge>
+                  <Badge className="bg-blue-500 text-white">28 مجلد</Badge>
                 </div>
                 <div className="flex items-center justify-between p-3 bg-purple-500/10 rounded-lg border border-purple-500/20">
                   <span className="text-purple-300">Sword Art Online - Progressive</span>
