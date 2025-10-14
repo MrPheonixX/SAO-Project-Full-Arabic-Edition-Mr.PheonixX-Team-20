@@ -441,7 +441,7 @@ export default function Index() {
             <CardContent className="relative z-10">
               <p className="text-gray-300 mb-6 leading-relaxed">
                 القصة الأصلية لكيريتو وأسونا في عالم ساو الافتراضي. مغامرة
-                ملحمي�� تمتد عبر عوالم متعدد�� ��ع ترجمة دقيقة ومراجعة احترافية.
+                ملحمية تمتد عبر عوالم متعدد�� ��ع ترجمة دقيقة ومراجعة احترافية.
               </p>
 
               <div className="flex flex-wrap gap-3 mb-6">
@@ -639,7 +639,7 @@ export default function Index() {
                   تحليل لغوي فوري
                 </CardTitle>
                 <CardDescription className="text-gray-300">
-                  أسرع الخوارزميات للترجمة الفورية
+                  أسرع الخوارزميات ل��ترجمة الفورية
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -684,7 +684,7 @@ export default function Index() {
                   <Play className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-orange-400 text-xl">
-                  مجموع نطقي
+                  نطق عربي
                 </CardTitle>
                 <CardDescription className="text-gray-300">
                   قراءة الأصوات العربية بتقنيات متطورة
@@ -770,7 +770,7 @@ export default function Index() {
                   <div className="text-4xl font-bold text-blue-400 mb-2 animate-pulse">
                     100,000+
                   </div>
-                  <p className="text-gray-300">صفحة مترجمة</p>
+                  <p className="text-gray-300">صفحة مت��جمة</p>
                 </div>
                 <div className="text-center">
                   <div className="text-4xl font-bold text-green-400 mb-2 animate-pulse">
