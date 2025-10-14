@@ -599,7 +599,7 @@ function createOfflineHTML() {
       <div class="container">
         <div class="icon">🌐</div>
         <h1>غير متصل بالإنترنت</h1>
-        <p>يبدو أنك غير متصل بالإن��رنت. تأكد من اتصالك وأعد المحاولة.</p>
+        <p>يبدو أنك غير متصل بالإنترنت. تأكد من اتصالك وأعد المحاولة.</p>
         <button class="retry-btn" onclick="location.reload()">إعادة المحاولة</button>
       </div>
     </body>
