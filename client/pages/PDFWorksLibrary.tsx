@@ -220,7 +220,7 @@ const PDFWorksLibrary: React.FC = () => {
                 </Badge>
               )}
               <Badge variant="secondary" className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30 text-xs">
-                �� {work.rating}
+                ⭐ {work.rating}
               </Badge>
             </div>
           </div>
