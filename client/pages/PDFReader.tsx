@@ -103,7 +103,7 @@ const PDFReader: React.FC = () => {
             className="text-white hover:text-cyan-400 mb-4"
           >
             <ArrowLeft className="w-4 h-4 ml-2" />
-            العودة للم��تبة
+            العودة للمكتبة
           </Button>
         </div>
 
