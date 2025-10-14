@@ -76,7 +76,7 @@ const DevToolsBlocker: React.FC = () => {
       };
 
       console.info = function () {
-        alert("🚫 استخدام ا��كونسول غير مسموح");
+        alert("🚫 استخدام الكونسول غير مسموح");
         window.location.href = "about:blank";
       };
     };
@@ -210,17 +210,17 @@ const DevToolsBlocker: React.FC = () => {
       });
     };
 
-    // منع فتح المصدر في نافذة جديدة
+    // م��ع فتح المصدر في نافذة جديدة
     const blockViewSource = () => {
       // منع window.open
       const originalOpen = window.open;
       window.open = function () {
-        alert("🚫 فتح نوافذ جديدة غير مس��وح");
+        alert("🚫 فتح نوافذ جديدة غير مسموح");
         return null;
       };
     };
 
-    // كشف أدوات ��لتطوير عبر العرض
+    // كشف أدوات التطوير عبر العرض
     const detectByRendering = () => {
       let devtools = { open: false };
 
@@ -242,7 +242,7 @@ const DevToolsBlocker: React.FC = () => {
       }, 1000);
     };
 
-    // تجميد الك��ئنات المهمة
+    // تجميد الكائنات المهمة
     const freezeImportantObjects = () => {
       try {
         // تجميد console بطريقة آمنة
