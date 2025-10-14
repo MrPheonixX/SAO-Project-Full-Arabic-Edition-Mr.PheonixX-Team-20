@@ -293,7 +293,7 @@ export default function Index() {
 
                   {/* Enhanced Sparkle effects with more variety */}
                   <div className="absolute top-1/2 -right-6 text-purple-400 animate-bounce delay-1000 text-lg">
-                    ���
+                    ✨
                   </div>
 
                   </h1>
@@ -441,7 +441,7 @@ export default function Index() {
             <CardContent className="relative z-10">
               <p className="text-gray-300 mb-6 leading-relaxed">
                 القصة الأصلية لكيريتو وأسونا في عالم ساو الافتراضي. مغامرة
-                ملحمية تمتد عبر عوالم متعدد�� ��ع ترجمة دقيقة ومراجعة احترافية.
+                ملحمي�� تمتد عبر عوالم متعدد�� ��ع ترجمة دقيقة ومراجعة احترافية.
               </p>
 
               <div className="flex flex-wrap gap-3 mb-6">
@@ -566,7 +566,7 @@ export default function Index() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-400 mb-4">
-                  رواية نفسية عميقة عن الانطوائي�� والمجتمع ����لياباني
+                  رواية نفسية عميقة عن الانطوائية والمجتمع الياباني
                 </p>
                 <Button
                   variant="outline"
@@ -588,7 +588,7 @@ export default function Index() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-400 mb-4">
-                  عمل أدب�� كلاسيكي لدازاي أوسامو
+                  عمل أدبي كلاسيكي لدازاي أوسامو
                 </p>
                 <Button
                   variant="outline"
@@ -636,10 +636,10 @@ export default function Index() {
                   <BookOpen className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-green-400 text-xl">
-                  تح��يل لغة فوري
+                  تحليل لغوي فوري
                 </CardTitle>
                 <CardDescription className="text-gray-300">
-                  أس��ع الخوارزميات للترجمة الفورية
+                  أسرع الخوارزميات للترجمة الفورية
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -655,7 +655,7 @@ export default function Index() {
                   حماية مطلقة
                 </CardTitle>
                 <CardDescription className="text-gray-300">
-                  منع ال��سخ و القراءة الآمنة 100%
+                  منع النسخ وقراءة آمنة 100%
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -668,7 +668,7 @@ export default function Index() {
                   <Sparkles className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-blue-400 text-xl">
-                  ����راءة ثلاثية الأبعاد
+                  قراءة ثلاثية الأبعاد
                 </CardTitle>
                 <CardDescription className="text-gray-300">
                   3D Flipbook، Slide، و Scroll
@@ -687,7 +687,7 @@ export default function Index() {
                   مجموع نطقي
                 </CardTitle>
                 <CardDescription className="text-gray-300">
-                  قراءة الأصوات العربية بتق��يات متطورة
+                  قراءة الأصوات العربية بتقنيات متطورة
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -716,7 +716,7 @@ export default function Index() {
                   <Globe className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-teal-400 text-xl">
-                  تطب��ق كامل
+                  تطبيق كامل
                 </CardTitle>
                 <CardDescription className="text-gray-300">
                   PWA + قراءة بدون إنترنت
@@ -732,7 +732,7 @@ export default function Index() {
               <CardHeader>
                 <CardTitle className="text-2xl text-blue-400 text-center flex items-center justify-center gap-3">
                   <BookOpen className="w-6 h-6 animate-bounce" />
-                  ��لسلاسل المتاحة
+                  السلاسل المتاحة
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -764,7 +764,7 @@ export default function Index() {
                   <div className="text-4xl font-bold text-purple-400 mb-2 animate-pulse">
                     {stats.readers.toLocaleString()}+
                   </div>
-                  <p className="text-gray-300">ق��رئ نشط</p>
+                  <p className="text-gray-300">قارئ نشط</p>
                 </div>
                 <div className="text-center">
                   <div className="text-4xl font-bold text-blue-400 mb-2 animate-pulse">
