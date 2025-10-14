@@ -41,7 +41,9 @@ self.addEventListener("install", (event) => {
           // Cache static files
           caches.open(STATIC_CACHE).then((cache) => {
             console.log("📦 Caching static files...");
-            const urls = STATIC_FILES.map((p) => new URL(p, self.registration.scope).toString());
+            const urls = STATIC_FILES.map((p) =>
+              new URL(p, self.registration.scope).toString(),
+            );
             return cache.addAll(urls);
           }),
           // Cache shell for offline reading
@@ -53,7 +55,10 @@ self.addEventListener("install", (event) => {
 
         // Pre-cache PDFs from local manifest if available
         try {
-          const manifestUrl = new URL("works-manifest.json", self.registration.scope).toString();
+          const manifestUrl = new URL(
+            "works-manifest.json",
+            self.registration.scope,
+          ).toString();
           const res = await fetch(manifestUrl, { cache: "no-cache" });
           if (res.ok) {
             let manifest = [];
@@ -74,7 +79,9 @@ self.addEventListener("install", (event) => {
               .filter((u) => typeof u === "string" && u.startsWith("http"));
             if (pdfUrls.length) {
               const cache = await caches.open(READING_CACHE);
-              await Promise.allSettled(pdfUrls.map((u) => cache.add(u).catch(() => undefined)));
+              await Promise.allSettled(
+                pdfUrls.map((u) => cache.add(u).catch(() => undefined)),
+              );
               console.log(`📚 Pre-cached ${pdfUrls.length} PDFs from manifest`);
             }
           }
@@ -375,48 +382,50 @@ async function syncUserPreferences() {
 
 // Push notifications for new content
 self.addEventListener("push", (event) => {
-  event.waitUntil((async () => {
-    let data = {};
+  event.waitUntil(
+    (async () => {
+      let data = {};
 
-    if (event.data) {
-      try {
-        data = event.data.json();
-      } catch {
+      if (event.data) {
         try {
-          const txt = await event.data.text();
-          data = JSON.parse(txt);
+          data = event.data.json();
         } catch {
-          data = {};
+          try {
+            const txt = await event.data.text();
+            data = JSON.parse(txt);
+          } catch {
+            data = {};
+          }
         }
       }
-    }
 
-    const options = {
-      body: data.body || "محتوى جديد متاح في مكتبة ساو العربية",
-      icon: "/favicon.png",
-      badge: "/favicon.png",
-      image: data.image,
-      data: {
-        url: data.url || "/",
-        id: data.id || Date.now(),
-      },
-      actions: [
-        { action: "view", title: "عرض", icon: "/favicon.png" },
-        { action: "dismiss", title: "إغلاق", icon: "/favicon.png" },
-      ],
-      tag: "sao-content-update",
-      requireInteraction: false,
-      silent: false,
-      vibrate: [200, 100, 200],
-      dir: "rtl",
-      lang: "ar",
-    };
+      const options = {
+        body: data.body || "محتوى جديد متاح في مكتبة ساو العربية",
+        icon: "/favicon.png",
+        badge: "/favicon.png",
+        image: data.image,
+        data: {
+          url: data.url || "/",
+          id: data.id || Date.now(),
+        },
+        actions: [
+          { action: "view", title: "عرض", icon: "/favicon.png" },
+          { action: "dismiss", title: "إغلاق", icon: "/favicon.png" },
+        ],
+        tag: "sao-content-update",
+        requireInteraction: false,
+        silent: false,
+        vibrate: [200, 100, 200],
+        dir: "rtl",
+        lang: "ar",
+      };
 
-    await self.registration.showNotification(
-      data.title || "MrPheonixX Team",
-      options,
-    );
-  })());
+      await self.registration.showNotification(
+        data.title || "MrPheonixX Team",
+        options,
+      );
+    })(),
+  );
 });
 
 // Handle notification clicks

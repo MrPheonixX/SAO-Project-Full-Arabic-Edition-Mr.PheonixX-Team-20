@@ -104,8 +104,14 @@ export default function Index() {
 
   const { cover: saoCover } = useSeriesCover("Sword Art Online");
   const { cover: progCover } = useSeriesCover("Sword Art Online Progressive");
-  const { cover: welcomeCover } = usePdfCover(welcomeWork?.pdfUrlRaw, welcomeWork?.backgroundImage || undefined);
-  const { cover: humanCover } = usePdfCover(humanWork?.pdfUrlRaw, humanWork?.backgroundImage || undefined);
+  const { cover: welcomeCover } = usePdfCover(
+    welcomeWork?.pdfUrlRaw,
+    welcomeWork?.backgroundImage || undefined,
+  );
+  const { cover: humanCover } = usePdfCover(
+    humanWork?.pdfUrlRaw,
+    humanWork?.backgroundImage || undefined,
+  );
 
   const changeTheme = (theme: string) => {
     setCurrentTheme(theme);
@@ -295,8 +301,7 @@ export default function Index() {
                   <div className="absolute top-1/2 -right-6 text-purple-400 animate-bounce delay-1000 text-lg">
                     ✨
                   </div>
-
-                  </h1>
+                </h1>
 
                 {/* Enhanced Animated underline with pulse effect */}
                 <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2">
@@ -349,7 +354,6 @@ export default function Index() {
               {/* Tech accent lines */}
               <div className="absolute -left-4 top-1/2 w-2 h-0.5 bg-blue-400 opacity-60 animate-pulse"></div>
               <div className="absolute -right-4 top-1/2 w-2 h-0.5 bg-purple-400 opacity-60 animate-pulse delay-300"></div>
-
             </h2>
 
             <p className="text-xl text-gray-300 max-w-4xl mx-auto mb-8 leading-relaxed animate-pulse">
@@ -375,8 +379,6 @@ export default function Index() {
                 <BookOpen className="w-5 h-5 mr-2" />
                 عرض جميع الاعمال
               </InteractiveButton>
-
-
             </div>
           </div>
         </section>
@@ -471,7 +473,11 @@ export default function Index() {
               <InteractiveButton
                 variant="magic"
                 size="lg"
-                onClick={() => navigate(`/pdf-works?series=${encodeURIComponent('Sword Art Online')}`)}
+                onClick={() =>
+                  navigate(
+                    `/pdf-works?series=${encodeURIComponent("Sword Art Online")}`,
+                  )
+                }
                 className="w-full group-hover:scale-105 transition-all duration-300 text-lg py-6"
               >
                 <Play className="w-5 h-5 mr-2" />
@@ -484,7 +490,7 @@ export default function Index() {
           <InteractiveCard
             className="border-purple-500/30 backdrop-blur-xl hover:border-purple-400/50 transition-all duration-500 group relative overflow-hidden"
             style={{
-              backgroundImage: `linear-gradient(rgba(2,0,36,0.65), rgba(2,0,36,0.65)), url(${progCover || '/placeholder.svg'})`,
+              backgroundImage: `linear-gradient(rgba(2,0,36,0.65), rgba(2,0,36,0.65)), url(${progCover || "/placeholder.svg"})`,
             }}
           >
             <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
@@ -511,8 +517,8 @@ export default function Index() {
 
             <CardContent className="relative z-10">
               <p className="text-gray-300 mb-6 leading-relaxed">
-                نفس أحداث سا�� ولكن من منظور أسونا مع تفاصيل أعمق وقصص إضافية ��م
-                تُروى من قبل. كل طابق يُحكى بتفاصيل مذهلة.
+                نفس أحداث سا�� ولكن من منظور أسونا مع تفاصيل أعمق وقصص إضافية
+                ��م تُروى من قبل. كل طابق يُحكى بتفاصيل مذهلة.
               </p>
 
               <div className="flex flex-wrap gap-3 mb-6">
@@ -541,7 +547,11 @@ export default function Index() {
               <InteractiveButton
                 variant="ice"
                 size="lg"
-                onClick={() => navigate(`/pdf-works?series=${encodeURIComponent('Sword Art Online Progressive')}`)}
+                onClick={() =>
+                  navigate(
+                    `/pdf-works?series=${encodeURIComponent("Sword Art Online Progressive")}`,
+                  )
+                }
                 className="w-full group-hover:scale-105 transition-all duration-300 text-lg py-6"
               >
                 <Play className="w-5 h-5 mr-2" />
@@ -557,7 +567,14 @@ export default function Index() {
             أعمال إضافي�� ممي��ة
           </h3>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <Card className="border-gray-500/30 backdrop-blur-xl hover:border-gray-400/50 transition-all duration-300 bg-cover bg-center" style={{ backgroundImage: welcomeCover ? `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(${welcomeCover})` : undefined }}>
+            <Card
+              className="border-gray-500/30 backdrop-blur-xl hover:border-gray-400/50 transition-all duration-300 bg-cover bg-center"
+              style={{
+                backgroundImage: welcomeCover
+                  ? `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(${welcomeCover})`
+                  : undefined,
+              }}
+            >
               <CardHeader>
                 <CardTitle className="text-2xl text-gray-300 flex items-center gap-3">
                   <Globe className="w-6 h-6" />
@@ -571,7 +588,7 @@ export default function Index() {
                 <Button
                   variant="outline"
                   className="w-full border-gray-500 text-gray-300 hover:bg-gray-500/10"
-                  onClick={() => navigate('/pdf-reader/welcome-to-nhk')}
+                  onClick={() => navigate("/pdf-reader/welcome-to-nhk")}
                 >
                   <BookOpen className="w-4 h-4 mr-2" />
                   استكشف
@@ -579,7 +596,14 @@ export default function Index() {
               </CardContent>
             </Card>
 
-            <Card className="border-gray-500/30 backdrop-blur-xl hover:border-gray-400/50 transition-all duration-300 bg-cover bg-center" style={{ backgroundImage: humanCover ? `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(${humanCover})` : undefined }}>
+            <Card
+              className="border-gray-500/30 backdrop-blur-xl hover:border-gray-400/50 transition-all duration-300 bg-cover bg-center"
+              style={{
+                backgroundImage: humanCover
+                  ? `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(${humanCover})`
+                  : undefined,
+              }}
+            >
               <CardHeader>
                 <CardTitle className="text-2xl text-gray-300 flex items-center gap-3">
                   <Globe className="w-6 h-6" />
@@ -593,7 +617,7 @@ export default function Index() {
                 <Button
                   variant="outline"
                   className="w-full border-gray-500 text-gray-300 hover:bg-gray-500/10"
-                  onClick={() => navigate('/pdf-reader/no-longer-human-dazai')}
+                  onClick={() => navigate("/pdf-reader/no-longer-human-dazai")}
                 >
                   <BookOpen className="w-4 h-4 mr-2" />
                   استكشف
@@ -619,7 +643,7 @@ export default function Index() {
                   animation: "gradientShift 4s ease-in-out infinite",
                 }}
               >
-خصائص المنصة المتقدمة
+                خصائص المنصة المتقدمة
               </span>
             </h3>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -741,7 +765,9 @@ export default function Index() {
                   <Badge className="bg-blue-500 text-white">28 مجلد</Badge>
                 </div>
                 <div className="flex items-center justify-between p-3 bg-purple-500/10 rounded-lg border border-purple-500/20">
-                  <span className="text-purple-300">Sword Art Online - Progressive</span>
+                  <span className="text-purple-300">
+                    Sword Art Online - Progressive
+                  </span>
                   <Badge className="bg-purple-500 text-white">8 مجلدات</Badge>
                 </div>
                 <div className="flex items-center justify-between p-3 bg-gray-500/10 rounded-lg border border-gray-500/20">

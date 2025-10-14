@@ -3,7 +3,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { BookOpen, ArrowLeft, Maximize, Minimize, ExternalLink } from "lucide-react";
+import {
+  BookOpen,
+  ArrowLeft,
+  Maximize,
+  Minimize,
+  ExternalLink,
+} from "lucide-react";
 
 interface ProtectedPDFViewerProps {
   pdfUrl: string;
@@ -43,11 +49,14 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
 
     (async () => {
       try {
-        const res = await fetch(`/api/proxy-pdf?url=${encodeURIComponent(pdfUrl)}`, {
-          method: "GET",
-          headers: { Range: "bytes=0-0", Accept: "application/pdf" },
-          signal: controller.signal,
-        });
+        const res = await fetch(
+          `/api/proxy-pdf?url=${encodeURIComponent(pdfUrl)}`,
+          {
+            method: "GET",
+            headers: { Range: "bytes=0-0", Accept: "application/pdf" },
+            signal: controller.signal,
+          },
+        );
         if (!cancelled && (res.ok || res.status === 206)) {
           setLoadProgress(70);
           setIframeLoaded(true); // allow rendering immediately
@@ -99,11 +108,24 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center p-6 text-center">
         <div>
-          <h3 className="text-xl font-bold mb-2">تعذّر عرض الـ PDF داخل الموقع</h3>
+          <h3 className="text-xl font-bold mb-2">
+            تعذّر عرض الـ PDF داخل الموقع
+          </h3>
           <p className="text-gray-300 mb-4">{loadError}</p>
           <div className="flex gap-2 justify-center">
-            <Button onClick={() => window.location.reload()} className="bg-blue-600 hover:bg-blue-700">إعادة المحاولة</Button>
-            <Button variant="outline" onClick={() => window.open(pdfUrl, "_blank")} className="border-gray-600 text-gray-300 hover:text-white">فتح مباشر</Button>
+            <Button
+              onClick={() => window.location.reload()}
+              className="bg-blue-600 hover:bg-blue-700"
+            >
+              إعادة المحاولة
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => window.open(pdfUrl, "_blank")}
+              className="border-gray-600 text-gray-300 hover:text-white"
+            >
+              فتح مباشر
+            </Button>
           </div>
         </div>
       </div>
@@ -121,7 +143,12 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
       <div className="absolute top-0 left-0 right-0 bg-black/80 backdrop-blur-sm border-b border-blue-500/30 z-40">
         <div className="flex items-center justify-between p-4 flex-row-reverse">
           <div className="flex items-center gap-4 flex-row-reverse">
-            <Button variant="ghost" size="sm" onClick={onBack} className="text-white hover:text-blue-400">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onBack}
+              className="text-white hover:text-blue-400"
+            >
               <ArrowLeft className="w-4 h-4 ml-2" />
               العودة
             </Button>
@@ -134,7 +161,10 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
           </div>
 
           <div className="flex items-center gap-2">
-            <Badge variant="secondary" className="bg-blue-500/20 text-blue-400 border-blue-500/30">
+            <Badge
+              variant="secondary"
+              className="bg-blue-500/20 text-blue-400 border-blue-500/30"
+            >
               عارض النظام
             </Badge>
           </div>
@@ -163,12 +193,26 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
       {/* Bottom bar */}
       <div className="absolute bottom-0 left-0 right-0 bg-black/80 text-white backdrop-blur-sm border-t border-blue-500/30 z-40">
         <div className="flex items-center justify-end p-4 gap-2 flex-row-reverse">
-          <Button variant="ghost" size="sm" onClick={() => window.open(pdfUrl, "_blank")} className="text-white hover:text-blue-400">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => window.open(pdfUrl, "_blank")}
+            className="text-white hover:text-blue-400"
+          >
             <ExternalLink className="w-4 h-4 ml-2" />
             فتح في تبويب جديد
           </Button>
-          <Button variant="ghost" size="sm" onClick={toggleFullscreen} className="text-white hover:text-blue-400">
-            {isFullscreen ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={toggleFullscreen}
+            className="text-white hover:text-blue-400"
+          >
+            {isFullscreen ? (
+              <Minimize className="w-4 h-4" />
+            ) : (
+              <Maximize className="w-4 h-4" />
+            )}
           </Button>
         </div>
       </div>

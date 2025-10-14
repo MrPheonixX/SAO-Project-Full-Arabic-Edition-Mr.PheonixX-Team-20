@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { pdfWorks } from '@/data/pdfWorks';
+import { useEffect, useState } from "react";
+import { pdfWorks } from "@/data/pdfWorks";
 
 export function useSeriesCover(seriesName: string) {
   const [cover, setCover] = useState<string | undefined>(undefined);
@@ -19,10 +19,14 @@ export function useSeriesCover(seriesName: string) {
 
         const works = pdfWorks.filter((w) => w.series === seriesName);
         // Prefer any predefined backgroundImage in data
-        const bg = works.find((w) => !!w.backgroundImage)?.backgroundImage as string | undefined;
+        const bg = works.find((w) => !!w.backgroundImage)?.backgroundImage as
+          | string
+          | undefined;
         if (!cancelled && bg) {
           setCover(bg);
-          try { localStorage.setItem(key, bg); } catch {}
+          try {
+            localStorage.setItem(key, bg);
+          } catch {}
           return;
         }
       } finally {
@@ -30,7 +34,9 @@ export function useSeriesCover(seriesName: string) {
       }
     }
     run();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [seriesName]);
 
   return { cover, loading };

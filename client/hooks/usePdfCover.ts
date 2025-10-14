@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export function usePdfCover(pdfUrl: string | undefined, initial?: string) {
   const [cover, setCover] = useState<string | undefined>(initial);

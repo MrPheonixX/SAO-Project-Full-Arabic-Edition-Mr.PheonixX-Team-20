@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { AlertCircle, BookOpen, Download, Share2, ArrowLeft } from 'lucide-react';
-import ProtectedPDFViewer from '@/components/ProtectedPDFViewer';
-import { getWorkById, PDFWork } from '@/data/pdfWorks';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  AlertCircle,
+  BookOpen,
+  Download,
+  Share2,
+  ArrowLeft,
+} from "lucide-react";
+import ProtectedPDFViewer from "@/components/ProtectedPDFViewer";
+import { getWorkById, PDFWork } from "@/data/pdfWorks";
 
 const PDFReader: React.FC = () => {
   const { workId } = useParams<{ workId: string }>();
@@ -22,11 +28,11 @@ const PDFReader: React.FC = () => {
         setWork(foundWork);
         setIsLoading(false);
       } else {
-        setError('العمل المطلوب غير موجود');
+        setError("العمل المطلوب غير موجود");
         setIsLoading(false);
       }
     } else {
-      setError('معرف العمل مطلوب');
+      setError("معرف العمل مطلوب");
       setIsLoading(false);
     }
   }, [workId]);
@@ -40,12 +46,12 @@ const PDFReader: React.FC = () => {
   };
 
   const handleBackToLibrary = () => {
-    navigate('/all-works');
+    navigate("/all-works");
   };
 
   // منع محاولات التحميل
   const handleDownloadAttempt = () => {
-    alert('🚫 التحميل غير مسموح - المحتوى محمي بحقوق الطبع والنشر');
+    alert("🚫 التحميل غير مسموح - المحتوى محمي بحقوق الطبع والنشر");
   };
 
   if (isLoading) {
@@ -67,9 +73,14 @@ const PDFReader: React.FC = () => {
         <Card className="w-96 bg-black/40 backdrop-blur-xl border border-red-500/30">
           <CardContent className="p-8 text-center">
             <AlertCircle className="w-16 h-16 mx-auto text-red-400 mb-4" />
-            <h3 className="text-xl font-bold text-white mb-4">خطأ في التحميل</h3>
+            <h3 className="text-xl font-bold text-white mb-4">
+              خطأ في التحميل
+            </h3>
             <p className="text-red-400 mb-6">{error}</p>
-            <Button onClick={handleBackToLibrary} className="bg-cyan-600 hover:bg-cyan-700">
+            <Button
+              onClick={handleBackToLibrary}
+              className="bg-cyan-600 hover:bg-cyan-700"
+            >
               <ArrowLeft className="w-4 h-4 ml-2" />
               العودة للمكتبة
             </Button>
@@ -97,8 +108,8 @@ const PDFReader: React.FC = () => {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             onClick={handleBackToLibrary}
             className="text-white hover:text-cyan-400 mb-4"
           >
@@ -118,67 +129,94 @@ const PDFReader: React.FC = () => {
                       {work.titleAr}
                     </CardTitle>
                     <p className="text-gray-400 text-lg mb-4">{work.titleEn}</p>
-                    
+
                     <div className="flex flex-wrap gap-2 mb-4">
-                      <Badge variant="secondary" className="bg-cyan-500/20 text-cyan-400 border-cyan-500/30">
+                      <Badge
+                        variant="secondary"
+                        className="bg-cyan-500/20 text-cyan-400 border-cyan-500/30"
+                      >
                         {work.series}
                       </Badge>
                       {work.volumeNumber && (
-                        <Badge variant="secondary" className="bg-purple-500/20 text-purple-400 border-purple-500/30">
+                        <Badge
+                          variant="secondary"
+                          className="bg-purple-500/20 text-purple-400 border-purple-500/30"
+                        >
                           المجلد {work.volumeNumber}
                         </Badge>
                       )}
                       {work.arc && (
-                        <Badge variant="secondary" className="bg-green-500/20 text-green-400 border-green-500/30">
+                        <Badge
+                          variant="secondary"
+                          className="bg-green-500/20 text-green-400 border-green-500/30"
+                        >
                           {work.arc}
                         </Badge>
                       )}
-                      <Badge variant="secondary" className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
+                      <Badge
+                        variant="secondary"
+                        className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30"
+                      >
                         {work.rating}/10
                       </Badge>
                     </div>
                   </div>
                 </div>
               </CardHeader>
-              
+
               <CardContent>
                 {work.description && (
                   <div className="mb-6">
-                    <h3 className="text-lg font-semibold text-white mb-3">وصف العمل</h3>
-                    <p className="text-gray-300 leading-relaxed">{work.description}</p>
+                    <h3 className="text-lg font-semibold text-white mb-3">
+                      وصف العمل
+                    </h3>
+                    <p className="text-gray-300 leading-relaxed">
+                      {work.description}
+                    </p>
                   </div>
                 )}
 
                 <div className="grid grid-cols-2 gap-4 mb-6">
                   <div>
                     <p className="text-gray-400 text-sm">سنة النشر</p>
-                    <p className="text-white font-semibold">{work.publishYear || 'غير محدد'}</p>
+                    <p className="text-white font-semibold">
+                      {work.publishYear || "غير محدد"}
+                    </p>
                   </div>
                   <div>
                     <p className="text-gray-400 text-sm">عدد الصفحات</p>
-                    <p className="text-white font-semibold">{work.pages || 'غير محدد'} صفحة</p>
+                    <p className="text-white font-semibold">
+                      {work.pages || "غير محدد"} صفحة
+                    </p>
                   </div>
                   <div>
                     <p className="text-gray-400 text-sm">الحالة</p>
                     <p className="text-white font-semibold">
-                      {work.status === 'available' ? 'متاح للقراءة' : 
-                       work.status === 'reading' ? 'قيد القراءة' : 'قريباً'}
+                      {work.status === "available"
+                        ? "متاح للقراءة"
+                        : work.status === "reading"
+                          ? "قيد القراءة"
+                          : "قريباً"}
                     </p>
                   </div>
                   <div>
                     <p className="text-gray-400 text-sm">التقدم</p>
-                    <p className="text-white font-semibold">{work.readProgress || 0}%</p>
+                    <p className="text-white font-semibold">
+                      {work.readProgress || 0}%
+                    </p>
                   </div>
                 </div>
 
                 {work.tags && work.tags.length > 0 && (
                   <div className="mb-6">
-                    <h3 className="text-lg font-semibold text-white mb-3">التصنيفات</h3>
+                    <h3 className="text-lg font-semibold text-white mb-3">
+                      التصنيفات
+                    </h3>
                     <div className="flex flex-wrap gap-2">
                       {work.tags.map((tag, index) => (
-                        <Badge 
-                          key={index} 
-                          variant="outline" 
+                        <Badge
+                          key={index}
+                          variant="outline"
                           className="border-gray-500/30 text-gray-300 hover:border-cyan-500/50 hover:text-cyan-400"
                         >
                           {tag}
@@ -190,25 +228,25 @@ const PDFReader: React.FC = () => {
 
                 {/* أزرار التحكم */}
                 <div className="flex flex-wrap gap-3">
-                  <Button 
+                  <Button
                     onClick={handleStartReading}
                     className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white"
                   >
                     <BookOpen className="w-4 h-4 ml-2" />
                     بدء القراءة
                   </Button>
-                  
-                  <Button 
-                    variant="outline" 
+
+                  <Button
+                    variant="outline"
                     onClick={handleDownloadAttempt}
                     className="border-red-500/30 text-red-400 hover:bg-red-500/10"
                   >
                     <Download className="w-4 h-4 ml-2" />
                     تحميل (محظور)
                   </Button>
-                  
-                  <Button 
-                    variant="outline" 
+
+                  <Button
+                    variant="outline"
                     className="border-gray-500/30 text-gray-400 hover:bg-gray-500/10"
                   >
                     <Share2 className="w-4 h-4 ml-2" />
@@ -224,7 +262,9 @@ const PDFReader: React.FC = () => {
             {/* إحصائيات القراءة */}
             <Card className="bg-black/40 backdrop-blur-xl border border-cyan-500/30">
               <CardHeader>
-                <CardTitle className="text-lg text-white">إحصائيات القراءة</CardTitle>
+                <CardTitle className="text-lg text-white">
+                  إحصائيات القراءة
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -241,7 +281,7 @@ const PDFReader: React.FC = () => {
                   <div className="flex justify-between">
                     <span className="text-gray-400">آخر قراءة</span>
                     <span className="text-white font-semibold">
-                      {work.lastRead || 'لم تبدأ بعد'}
+                      {work.lastRead || "لم تبدأ بعد"}
                     </span>
                   </div>
                 </div>
@@ -269,7 +309,9 @@ const PDFReader: React.FC = () => {
             {/* معلومات المترجم */}
             <Card className="bg-black/40 backdrop-blur-xl border border-purple-500/30">
               <CardHeader>
-                <CardTitle className="text-lg text-purple-400">معلومات الترجمة</CardTitle>
+                <CardTitle className="text-lg text-purple-400">
+                  معلومات الترجمة
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2 text-sm">
