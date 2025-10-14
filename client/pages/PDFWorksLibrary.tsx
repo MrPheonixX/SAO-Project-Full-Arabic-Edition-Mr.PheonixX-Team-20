@@ -304,7 +304,7 @@ const PDFWorksLibrary: React.FC = () => {
           </div>
         </header>
 
-        {/* أدوات البحث وال��صفية */}
+        {/* أدوات البحث والتصفية */}
         <div className="mb-8">
           <Card className="bg-black/40 backdrop-blur-xl border border-cyan-500/30">
             <CardContent className="p-6">
