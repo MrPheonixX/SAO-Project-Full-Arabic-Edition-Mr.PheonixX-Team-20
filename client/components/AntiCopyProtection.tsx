@@ -165,7 +165,7 @@ const AntiCopyProtection: React.FC = () => {
           user-drag: none !important;
         }
         
-        /* منع طباعة الصفحة */
+        /* منع طبا��ة الصفحة */
         @media print {
           * { display: none !important; }
         }
@@ -242,7 +242,7 @@ const AntiCopyProtection: React.FC = () => {
     detectScreenshot();
     detectNetworkTools();
 
-    // ��ضافة المستمعين
+    // إضافة المستمعين
     document.addEventListener("contextmenu", preventRightClick);
     document.addEventListener("keydown", preventDevTools);
     document.addEventListener("selectstart", preventSelection);
