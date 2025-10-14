@@ -625,7 +625,11 @@ const ProtectedPDFViewer: React.FC<ProtectedPDFViewerProps> = ({
     return () => {
       cancelled = true;
       clearTimeout(timer);
-      controller.abort();
+      try {
+        controller.abort();
+      } catch (e) {
+        // ignore abort errors
+      }
     };
   }, [engine, pdfUrl]);
 
