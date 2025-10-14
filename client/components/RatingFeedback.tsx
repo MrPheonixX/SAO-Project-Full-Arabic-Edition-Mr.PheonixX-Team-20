@@ -310,7 +310,7 @@ export default function RatingFeedback({
                       className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500"
                     >
                       <Send className="w-4 h-4 mr-2" />
-                      ��رسال التقييم
+                      إرسال التقييم
                     </Button>
 
                     <Button
